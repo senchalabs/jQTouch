@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>jQTodo &beta;</title>
+        <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+        <style type="text/css" media="screen">@import "../../themes/apple/theme.css";</style>
+        <style type="text/css" media="screen">
+            div#jqt ul li {
+                background-color: #ffeab1;
+                font-family: "Marker Felt";
+                color: #000;
+                border-top: 1px solid #a2a14d;
+            }
+            div#jqt ul li input[type="checkbox"] {
+                background-color: #e8a322;
+                border: 2px solid #e8a322;
+            }
+            div#jqt ul li input[type="text"], div#jqt ul li textarea {
+                background-color: #ffeab1;
+            }
+            div#jqt textarea {
+                background-color: #e8a322;
+            }
+            div#jqt .complete span {
+                text-decoration: line-through;
+            }
+            div#jqt li small {
+                opacity: 0;
+                overflow: hidden;
+                width: 0 !important;
+                -webkit-transition: 250ms all ease-in-out;
+            }
+            div#jqt li.editingmode small {
+                opacity: 1;
+                width: 50% !important;
+            }
+            div#jqt .toolbar {
+                background: url(data:image/gif;base64,R0lGODlhHQAsAMQAAFU9NUk0LYxkV2NGPX1ZTXJSRphtXoNeUWVIPk04MFxCOVE6MmpMQlpAOHVUSJ1wYmhLQG1ORFlAN1c/NnhXS2xOQkczLF5EO29QRWBEPE44MEo1LlI7M1A6Mkw3L2FFPCH5BAAAAAAALAAAAAAdACwAAAX/oPGMhkiaZXqiqSCU7vEabm3X8n3s/C70QBnwxyNQCAeCcqlMNp9GJPLoqC6thGrScaQ4pthuofCljKtVMuFsPFO8jnEBw3Vg7tw53nsn28d8GBERGGOCg4WDBYp6VYhch4h3GAwMhJQVBZURcYOMDJmglRWVlZSllRCFDBCmGBCtgqytqbC2graWsxG7r7awCBAREMGws7+wERXEwMXNwgjRzLbRCMvEwQzRAwMIrNze1d3a4K0I3aTd59Ln4+3B1e+s8dwDlfXg7fj69fz4HwAHEAP4IVrADwIHEESIAOGHCxcUOrzwAcLDiRgX1ssAMQNHbh25efzIMUO0DAoi/15QoMAjSwUNWX5g6XGlyZkZANZs0CDiAJ4KBlxoEHSAgp5Hgw5NuZLlUKIceRKFeJRoVYpJjzYl2kCCBAUzvTLtahVoVZZSvaolqlZCz7Ruj8YN63UCgLpuJQCYMKGr3a8K/kqY4NbvXr58AewdfBixXcR+EQ9OnPhwA7uKETe2jFlzZsx7FV9WDGA06dOiSTdQzIEogA6qVa+WDYADB9a3bXOQoHtBbt13e7fW3cG2htsdinNYkLx2cee6o79Obls5dQ7HOSjXrjt7dw0aaoPXDn78AvC+y2tYoPi4+vILzpdP4D4B/eXqbd/vYN+DhuQaeNCffxok4B92Av6XnIsHDHrQwXkMFhdghB00+J+BDNInYIUZNthgfxgOaCGEDW5g4gYPenCigxqY6J+LGG7g4AYBrnhiByfm+KKOJwaQo4wb+Ljjj/8FGcCQFrxowZE4LpljAD7+aAGNCQSw5JIqPonlBhZMGaSNWHoQpZVdmtilil1u2eWRKlopJJZpypgmg3GiWaaJY4YAADs=) top left repeat-x;
+                border: 0;
+                border-bottom: 1px solid #000;
+            }
+            #jqt  > .edgetoedge, #jqt > * {
+                background: #ffeab1 none;
+            }
+            div#jqt .toolbar .btn2 {
+                -webkit-border-radius: 5px;
+                -webkit-border-image: none;
+                display: block;
+                background: rgba(40, 29, 25, .4) none !important;
+                padding: 6px;
+                border: 1px solid #372823;
+                float: left;
+                color: #fff;
+                -webkit-box-shadow: rgba(255,255,255, .4) 0 1px 0;
+                text-decoration: none;
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                font-size: 13px;
+                text-shadow: #000 0 -1px 0;
+                display: inline;
+            }
+            div#jqt .btn2.active {
+                background-color: rgba(0,0,0,.5);
+            }
+            div#jqt .edgetoedge h4 {
+                border: 0;
+                background: url(data:image/gif;base64,R0lGODlhHQAsAMQAAFU9NUk0LYxkV2NGPX1ZTXJSRphtXoNeUWVIPk04MFxCOVE6MmpMQlpAOHVUSJ1wYmhLQG1ORFlAN1c/NnhXS2xOQkczLF5EO29QRWBEPE44MEo1LlI7M1A6Mkw3L2FFPCH5BAAAAAAALAAAAAAdACwAAAX/oPGMhkiaZXqiqSCU7vEabm3X8n3s/C70QBnwxyNQCAeCcqlMNp9GJPLoqC6thGrScaQ4pthuofCljKtVMuFsPFO8jnEBw3Vg7tw53nsn28d8GBERGGOCg4WDBYp6VYhch4h3GAwMhJQVBZURcYOMDJmglRWVlZSllRCFDBCmGBCtgqytqbC2graWsxG7r7awCBAREMGws7+wERXEwMXNwgjRzLbRCMvEwQzRAwMIrNze1d3a4K0I3aTd59Ln4+3B1e+s8dwDlfXg7fj69fz4HwAHEAP4IVrADwIHEESIAOGHCxcUOrzwAcLDiRgX1ssAMQNHbh25efzIMUO0DAoi/15QoMAjSwUNWX5g6XGlyZkZANZs0CDiAJ4KBlxoEHSAgp5Hgw5NuZLlUKIceRKFeJRoVYpJjzYl2kCCBAUzvTLtahVoVZZSvaolqlZCz7Ruj8YN63UCgLpuJQCYMKGr3a8K/kqY4NbvXr58AewdfBixXcR+EQ9OnPhwA7uKETe2jFlzZsx7FV9WDGA06dOiSTdQzIEogA6qVa+WDYADB9a3bXOQoHtBbt13e7fW3cG2htsdinNYkLx2cee6o79Obls5dQ7HOSjXrjt7dw0aaoPXDn78AvC+y2tYoPi4+vILzpdP4D4B/eXqbd/vYN+DhuQaeNCffxok4B92Av6XnIsHDHrQwXkMFhdghB00+J+BDNInYIUZNthgfxgOaCGEDW5g4gYPenCigxqY6J+LGG7g4AYBrnhiByfm+KKOJwaQo4wb+Ljjj/8FGcCQFrxowZE4LpljAD7+aAGNCQSw5JIqPonlBhZMGaSNWHoQpZVdmtilil1u2eWRKlopJJZpypgmg3GiWaaJY4YAADs=) top left repeat-x;
+                color: #ffeab1;
+                border-bottom: 1px solid #9d7062;
+                border-top: 1px solid #9d7062;
+            }
+        </style>
+        <script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            var jQT = $.jQTouch({
+                icon: 'icon.png',
+                startupScreen: 'startup.png'
+            });
+            // Some sample Javascript functions:
+            $(function(){
+                function submitForm(){
+                    $el = $('#add form');
+                    if ($('#todo', $el).val().length > 1) {
+                        var itemid = $('#home ul li').length + 1;
+                        $('#home .incomplete').append($('<li><input type="checkbox" /> <span>' + $('#todo', $el).val() + '</span></li>'));
+                    }
+                    jQT.goBack();
+                    $el.get(0).reset();
+                    return false;
+                }
+                $('#add form').submit(submitForm);
+                $('#add .whiteButton').click(submitForm);
+                $('.complete li, .incomplete li').bind('swipe', function(){
+                   $(this).toggleClass('editingmode');
+                });
+                $('input[type="checkbox"]').live('change', function(){
+                    var $el = $(this);
+                    if ($el.attr('checked')) {
+                        $el.parent().prependTo('.complete');
+                    } else {
+                        $el.parent().appendTo('.incomplete');
+                    }
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="jqt">
+            <div id="home" selected="true" class="edgetoedge form">
+                <div class="toolbar">
+                    <h1>Todos</h1>
+                    <a href="#add" class="btn2 slideup">Add</a>
+                </div>
+                <form>
+                <ul class="incomplete">
+                    <li><input type="checkbox" /> <span>Do something</span> <small><a href="#">Blah</a></small></li>
+                    <li><input type="checkbox" /> <span>Do something else</span></li>
+                    <li><input type="checkbox" /> <span>Finish these damn demos</span></li>
+                </ul>
+                <h4>Completed</h4>
+                <ul class="complete">
+                    <li><input type="checkbox" checked /> <span>Do something</span></li>
+                    <li><input type="checkbox" checked /> <span>Write eblast</span></li>
+                </ul>
+                </form>
+            </div>
+            <div id="add" class="edit">
+                <form>
+                    <div class="toolbar">
+                        <h1>New Todo</h1>
+                        <a href="#" class="btn2 goback">Cancel</a>
+                    </div>
+                    <ul class="rounded">
+                        <li><input type="text" id="todo" placeholder="Enter your todo..." /></li>
+                        <!-- <li><textarea id="description" placeholder="Descripton"></textarea></li> -->
+                    </ul>
+                    <a href="#" class="whiteButton" style="margin: 10px">Add</a>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

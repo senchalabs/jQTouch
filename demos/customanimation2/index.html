@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>jQTouch &beta;</title>
+        <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+        <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
+        <script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black',
+                preloadImages: [
+                    '../../themes/jqt/img/back_button.png',
+                    '../../themes/jqt/img/back_button_clicked.png',
+                    '../../themes/jqt/img/button_clicked.png',
+                    '../../themes/jqt/img/grayButton.png',
+                    '../../themes/jqt/img/whiteButton.png',
+                    '../../themes/jqt/img/loading.gif'
+                    ]
+            });
+
+            $(function(){
+                // This prevents scrolling
+                $('#jqt').bind('touchmove',function(){
+                    event.preventDefault();
+                });
+                jQT.addAnimation({
+                    name: 'pageflip',
+                    selector: '.pageflip'
+                });
+                $('#page1').swipe(function(e, info){
+                    if (info.direction === 'left') {
+                        jQT.goTo($('#page2'), 'pageflip');
+                    }
+                });
+                $('#page2').swipe(function(e, info){
+                    if (info.direction === 'right') {
+                        jQT.goBack('#page1');
+                    }
+                })
+            });
+        </script>
+        <style type="text/css" media="screen">
+            div#jqt {
+                -webkit-transform-origin: 0 50%;
+                -webkit-perspective: 800;
+            }
+            div#jqt .pageflip {
+                -webkit-transform-origin: 0 50%;
+                -webkit-animation-duration: .5s;
+            }
+            div#jqt .pageflip.in {
+            	-webkit-animation-name: dontmove;
+            	z-index: 0;
+            }
+            div#jqt .pageflip.out {
+            	-webkit-animation-name: pageflipout; /* Chill out, page */
+            	z-index: 10;
+            }
+            div#jqt .pageflip.out.reverse {
+            	z-index: 0;
+            	-webkit-animation-name: dontmove;
+            }
+            div#jqt .pageflip.in.reverse {
+            	z-index: 10;
+            	-webkit-animation-name: pageflipin;
+            }
+            @-webkit-keyframes pageflipin {
+                from { -webkit-transform: rotateY(-90deg); }
+                to { -webkit-transform: rotateY(0); }
+            }
+            @-webkit-keyframes pageflipout {
+                from { -webkit-transform: rotateY(0); }
+                to { -webkit-transform: rotateY(-90deg); }
+            }
+            
+            
+            /* Just for looks */
+            div#jqt > div > div {
+                font-size: 1.5em; text-align: center; margin: 160px 0 0; font-family: Marker felt;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="jqt">
+            <div id="page1" class="touch">
+                <div>
+                    Swipe left to go to the next page.
+                </div>
+            </div>
+            <div id="page2" class="touch">
+                <div>
+                    Swipe right to go back.                
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

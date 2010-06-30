@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family: "Helvetica Neue",Arial,Helvetica,Geneva,sans-serif;
+}
+.clock {
+    background: url(img/face.png);
+    position: relative;
+    width: 78px;
+    height: 78px;
+    margin: 5px auto;
+    overflow: hidden;
+}
+.hour,.min,.sec {
+    width: 9px;
+    height: 78px;
+    position: absolute;
+    top: 0;
+    left: 35px;
+}
+.hour {
+    background: url(img/hour.png);
+}
+.min {
+    background: url(img/minute.png);
+}
+.sec {
+    background: url(img/second.png);
+}
+#clocks > div {
+    background: -webkit-gradient(linear,0% 0%,0% 100%,from(#dadadc),to(#b4b3b8));
+    border-bottom: 1px solid #9a9fa5;
+    border-top: 1px solid #dbdbdd;
+    text-shadow: rgba(255,255,255,.5) 0 1px 0;
+    position: relative;
+}
+.city {
+    display: block;
+    position: absolute;
+    top: 35px;
+    font-weight: bold;
+    color: #333;
+    left: 10px;
+}
+.time {
+    display: block;
+    position: absolute;
+    right: 10px;
+    top: 30px;
+}
+.time span {
+}

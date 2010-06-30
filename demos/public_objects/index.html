@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        
+        <title>jQTouch &beta;</title>
+        <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+        <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
+        <script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black'
+            });
+
+            $(function(){
+                $('#go_link').tap(function(){
+                    jQT.goTo('#page2', 'flip');
+                });
+                $('#ajax_link').tap(function(){
+                    jQT.goTo('../main/ajax.html', 'pop');
+                })
+            });
+        </script>
+        <style type="text/css" media="screen">
+            /* Custom Style */
+        </style>
+    </head>
+    <body>
+        <div id="jqt">
+            <div id="home">
+                <div class="toolbar">
+                    <h1>Public Functions</h1>
+                </div>
+                <div class="info">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed aliquet euismod venenatis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Suspendisse laoreet, dui et elementum elementum, nibh neque laoreet dolor, vel malesuada nunc lorem in turpis. <a href="#" id="go_link">Go to Page 2 &raquo;</a> Quisque malesuada, lacus at viverra euismod, enim tellus gravida mauris, et placerat turpis massa in arcu. <a href="#" id="ajax_link">Go to Ajax page &raquo;</a>
+                    
+                </div>
+            </div>
+            <div id="page2">
+                <h1 style="margin: 100px 0; text-align: center;">Success!</h1>
+                <a href="#" class="back">Back</a>
+            </div>
+        </div>
+    </body>
+</html>

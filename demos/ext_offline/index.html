@@ -1,0 +1,35 @@
+<!doctype html>
+<html manifest="cache.manifest">
+    <head>
+        <meta charset="UTF-8" />
+        <title>jQT.Offline</title>
+        <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+        <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
+        <script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.offline.js" type="application/x-javascript" charset="utf-8"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                addGlossToIcon: false,
+                fullScreen: false
+            });
+
+            $(function(){
+                console.log('Document.ready test');
+            });
+        </script>
+
+    </head>
+    <body>
+        <div id="jqt">
+            <div>
+                <div class="toolbar">
+                    <h1>Offline</h1>
+                </div>
+                <div class="info">This page saves all of its resources locally on your device, and can run even when offline.</div>
+            </div>
+        </div>
+    </body>
+</html>

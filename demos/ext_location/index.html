@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>jQT.Location</title>
+        <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+        <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
+        <script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.location.js" type="application/x-javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black'
+            });
+
+            $(function(){
+                function setDisplay(text) {
+                    $('div#jqt .info').empty().append(text)
+                }
+                
+                // We pass "updateLocation" a callback function,
+                // to run once we have the coordinates.
+                // We also set it to a variable, so we can know
+                // right away if it's working or not
+                var lookup = jQT.updateLocation(function(coords){
+                    if (coords) {
+                        setDisplay('Latitude: ' + coords.latitude + '<br />Longitude: ' + coords.longitude);
+                        
+                        
+                        var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
+                        var myOptions = {
+                          zoom: 8,
+                          center: latlng,
+                          mapTypeId: google.maps.MapTypeId.ROADMAP
+                        };
+                        var map = new google.maps.Map($("#map_canvas").get(0), myOptions);
+                    } else {
+                        setDisplay('Device not capable of geo-location.');
+                    }
+                });
+
+                if (lookup) {
+                    setDisplay('Looking up location&hellip;');
+                    
+                }
+            });
+        </script>
+        <style type="text/css" media="screen">
+            #map_canvas {
+                height: 200px;
+                background-color: rgba(255,255,255,.3);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="jqt">
+            <div id="getlocation">
+                <div class="toolbar">
+                    <h1>Geo Location</h1>
+                </div>
+                <ul>
+                    <li><a href="#map">View map</a></li>
+                </ul>
+                <div class="info"></div>
+            </div>
+            <div id="map" class="notransform">
+                <div class="toolbar">
+                    <h1>Map</h1>
+                    <a href="#" class="back">Back</a>
+                </div>
+                <div id="map_canvas" class="notransform">
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
