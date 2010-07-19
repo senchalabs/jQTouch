@@ -78,7 +78,7 @@
                 submitSelector: '.submit',
                 swapSelector: '.swap',
                 useAnimations: true,
-                useFastTouch: true // Experimental.
+                useFastTouch: false // Experimental.
             };
             jQTSettings = $.extend({}, defaults, options);
 
