@@ -26,7 +26,7 @@ Documentation on [Google Code](http://code.google.com/p/jqtouch/) (moving to git
 External Guides
 ---------------
 
-Jonathan Stark has created an excellent introduction to jQTouch as part of his book, [Building iPhone Apps with HTML, CSS, and Javascript](http://oreilly.com/catalog/9780596805791/).
+Jonathan Stark has created an excellent introduction to jQTouch as part of his book, [Building iPhone Apps with HTML, CSS, and Javascript](http://building-iphone-apps.labs.oreilly.com/ch04.html).
 
 [PeepCode did a screencast](http://peepcode.com/products/jqtouch) ($9), as well as a [cheat sheet](http://blog.peepcode.com/tutorials/2009/jqtouch-cheat-sheet), which have been helpful to many people.
 
