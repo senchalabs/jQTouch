@@ -31,7 +31,7 @@
                     if (data.direction === 'in'){
                         var $title = $(titleSelector, $(e.target));
                         var $ref = $(e.target).data('referrer');
-                        if ($title.length && $ref){
+                        if ($title.length && $ref && $title.html() === ''){
                             $title.html($ref.text());
                         }
                     }
