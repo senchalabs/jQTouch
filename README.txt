@@ -17,3 +17,6 @@ See LICENSE.txt for license.
 
 If you use jQTouch, please consider supporting its development:
 http://bit.ly/support-jqt
+
+-=DataZombies=-
+Modified autotitles.js to preserve hardcoded titles.
