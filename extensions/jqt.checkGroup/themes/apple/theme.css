@@ -1,0 +1,17 @@
+/* @group Apple checkGroup */
+#jqt ul.checkGroup li {
+  color:#000;
+}
+
+ul.checkGroup li input[type=radio] {
+  color:#324f85;
+}
+
+ul.checkGroup li input[type=radio]:checked {
+/*   background: url(img/check_apple.png) right center; */
+/* OR */
+  background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAACGmlDQ1BJQ0NQcm9maWxlAAB4nK3Tz2vTYBgH8G9a9gMVJ0MZ3gLK8FClrMI2BuLWbVK71Zi2zAk60iRL45o0JGmn4sE/QFE8eZAx8OJFEL0IQ/QoiMgQRMG7HmXKLkPj8+bdmx6keNkDL+8nL+/7vG+eNwHSXzXPa6QAOG7oq+em5EuLl+W+L+jDUQxgH4Y0PfAmFWUOXWP7EyTWfzzJcqkv7mytTNyeezfxbOCYtV7tvi6Ogz5tCEgZ8mGL+yxzjbvCvBp6IbnOrNc1g3yLnPErap78hOWxuF8y17jfMrd1i639TM66hu0CqX7ymGEGOpnttWQEukNeJ/9wnCblT98nn9A9n9amWc7jrC78yO1vwJk1mn+vM7ZYA56OA0dGO2PDd+m4o8CG1hn79SCulTS0FiznRuIhaf8S0HMlin6OAb0fgD+no2jneRT9fkh7bwOvN/WW396tlyS9B/73zN+ZPwOboVA387rEkQUevwEWiEXqH1EbXgUGNwCFakXXkcrlROM1jKPHnteE9yycRkvkHKR2wK2VLlDP7u+7FyoV4aBdnhFetmcLwoY2XRS+Wc+Xkjn+rCp8TTuvCJtutZzkb8Tf/O5eU8l8M5gpd3JWFoT9lloVXmkWk/mGOZ2czW2Ukpx2WEjODxvz0KDzb49F7yGq/UWmV1tX/6lLaF6P7y7f9G74tlUP5Un688yMXHD1Uxl5JJsdx1/vqatToc1CYwAAAAlwSFlzAAALEwAACxMBAJqcGAAAACN0RVh0U29mdHdhcmUAR3JhcGhpY0NvbnZlcnRlciAoUG93ZXJQQym2pnOhAAAA4UlEQVR4nGL4//8/AyH89dvP/37p0/4b+beC8et3nwlrAuFJC/fBNVX1bvgPEiOo6dGzt//NgtvBmqzDu/6/fPOJOI15TSvgts1bc/Q/TByvpkOnb8M1gfz469cfwhpBipADBGQIsjxDdsNysIRDdC/c/SAMchZME8i56AYzTFm8H66goGUVWAHIAFBAgMQsQzv/gwIIQyPIScHZM+Gat+y7BA5ybAGCohFEXLv9DCXIcQUIhkYQnr70IFwDrgDBqhFkcnTRXLwBglUjCN999Aocuk6x/VgDBBkDAAAA//8DAMS4AkjvndBxAAAAAElFTkSuQmCC)
+    right center;
+  background-repeat:no-repeat;
+}
+/* @end */

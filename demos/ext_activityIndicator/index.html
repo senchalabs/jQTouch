@@ -1,0 +1,260 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>jQT.activityIndicator</title>
+<style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+<style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
+<script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+<script src="../../extensions/jqt.activityIndicator.js" type="application/x-javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+  var jQT = new $.jQTouch({
+    icon: 'jqtouch.png',
+    addGlossToIcon: false,
+    startupScreen: 'jqt_startup.png',
+    statusBar: 'black'
+  });
+  $(document).ready(function () {
+  //Bind the activityIndicator methods .start and .stop to the page start and end animations.
+  //Black
+    $('#pgBlackGear').bind('pageAnimationStart', function (e, data) {if (data.direction === 'in'){aiBlackGear.start();}});
+    $('#pgBlackGear').bind('pageAnimationEnd', function (e, data) {if (data.direction === 'out'){aiBlackGear.stop();}});
+    $('#pgBlackWheel').bind('pageAnimationStart', function (e, data) {if (data.direction === 'in'){aiBlackWheel.start();}});
+    $('#pgBlackWheel').bind('pageAnimationEnd', function (e, data) {if (data.direction === 'out'){aiBlackWheel.stop();}});
+  
+  //Gray
+    $('#pgGrayGear').bind('pageAnimationStart', function (e, data) {if (data.direction === 'in'){aiGrayGear.start();}});
+    $('#pgGrayGear').bind('pageAnimationEnd', function (e, data) {if (data.direction === 'out'){aiGrayGear.stop();}});
+    $('#pgGrayWheel').bind('pageAnimationStart', function (e, data) {if (data.direction === 'in'){aiGrayWheel.start();}});
+    $('#pgGrayWheel').bind('pageAnimationEnd', function (e, data) {if (data.direction === 'out'){aiGrayWheel.stop();}});
+  
+  //Green
+    $('#pgGreenGear').bind('pageAnimationStart', function (e, data) {if (data.direction === 'in'){aiGreenGear.start();}});
+    $('#pgGreenGear').bind('pageAnimationEnd', function (e, data) {if (data.direction === 'out'){aiGreenGear.stop();}});
+    $('#pgGreenWheel').bind('pageAnimationStart', function (e, data) {if (data.direction === 'in'){aiGreenWheel.start();}});
+    $('#pgGreenWheel').bind('pageAnimationEnd', function (e, data) {if (data.direction === 'out'){aiGreenWheel.stop();}});
+  
+  //White
+    $('#pgWhiteGear').bind('pageAnimationStart', function (e, data) {if (data.direction === 'in'){aiWhiteGear.start();}});
+    $('#pgWhiteGear').bind('pageAnimationEnd', function (e, data) {if (data.direction === 'out'){aiWhiteGear.stop();}});
+    $('#pgWhiteWheel').bind('pageAnimationStart', function (e, data) {if (data.direction === 'in'){aiWhiteWheel.start();}});
+    $('#pgWhiteWheel').bind('pageAnimationEnd', function (e, data) {if (data.direction === 'out'){aiWhiteWheel.stop();}});
+  
+  //Multiple Gears
+    $('#pgMultiGear').bind('pageAnimationStart', function (e, data) {
+      if (data.direction === 'in'){
+        aiBlackGearM.start();
+        aiGrayGearM.start();
+        aiGreenGearM.start();
+        aiWhiteGearM.start();
+      }
+    });
+    
+    $('#pgMultiGear').bind('pageAnimationEnd', function (e, data) {
+      if (data.direction === 'out'){
+        aiBlackGearM.stop();
+        aiGrayGearM.stop();
+        aiGreenGearM.stop();
+        aiWhiteGearM.stop();
+      }
+    });
+  
+  //Multiple Wheels
+    $('#pgMultiWheel').bind('pageAnimationStart', function (e, data) {
+      if (data.direction === 'in'){
+        aiBlackWheelM.start();
+        aiGrayWheelM.start();
+        aiGreenWheelM.start();
+        aiWhiteWheelM.start();
+      }
+    });
+    
+    $('#pgMultiWheel').bind('pageAnimationEnd', function (e, data) {
+      if (data.direction === 'out'){
+        aiBlackWheelM.stop();
+        aiGrayWheelM.stop();
+        aiGreenWheelM.stop();
+        aiWhiteWheelM.stop();
+      }
+    });
+  
+  //Instantiate the activityIndicator objects
+  //Black
+    var aiBlackGear = new activityIndicator($('#BlackGear'));
+    var aiBlackGearM = new activityIndicator($('#BlackGearM'));
+    var aiBlackWheel = new activityIndicator($('#BlackWheel'));
+    var aiBlackWheelM = new activityIndicator($('#BlackWheelM'));
+  
+  //Gray
+    var aiGrayGear = new activityIndicator($('#GrayGear'));
+    var aiGrayGearM = new activityIndicator($('#GrayGearM'));
+    var aiGrayWheel = new activityIndicator($('#GrayWheel'));
+    var aiGrayWheelM = new activityIndicator($('#GrayWheelM'));
+  
+  //Green
+    var aiGreenGear = new activityIndicator($('#GreenGear'));
+    var aiGreenGearM = new activityIndicator($('#GreenGearM'));
+    var aiGreenWheel = new activityIndicator($('#GreenWheel'));
+    var aiGreenWheelM = new activityIndicator($('#GreenWheelM'));
+  
+  //White
+    var aiWhiteGear = new activityIndicator($('#WhiteGear'));
+    var aiWhiteGearM = new activityIndicator($('#WhiteGearM'));
+    var aiWhiteWheel = new activityIndicator($('#WhiteWheel'));
+    var aiWhiteWheelM = new activityIndicator($('#WhiteWheelM'));
+  });
+</script>
+<style type="text/css" media="screen">
+#jqt .area {
+  -webkit-border-radius:8px;
+  border:1px solid #B4B4B4;
+  height:300px;
+  margin:15px 10px 17px;
+  padding:0;
+  width:300px;
+}
+</style>
+</head>
+<body>
+<div id="jqt">
+  <div id="pgHome">
+    <div class="toolbar">
+      <h1>activityIndicator</h1>
+    </div>
+    <ul class="rounded">
+      <li class="arrow"><a href="#pgBlackGear">Black Gear</a></li>
+      <li class="arrow"><a href="#pgBlackWheel">Black Wheel</a></li>
+      <li class="arrow"><a href="#pgGrayGear">Gray Gear</a></li>
+      <li class="arrow"><a href="#pgGrayWheel">Gray Wheel</a></li>
+      <li class="arrow"><a href="#pgGreenGear">Green Gear</a></li>
+      <li class="arrow"><a href="#pgGreenWheel">Green Wheel</a></li>
+      <li class="arrow"><a href="#pgWhiteGear">White Gear</a></li>
+      <li class="arrow"><a href="#pgWhiteWheel">White Wheel</a></li>
+      <li class="arrow"><a href="#pgMultiGear">Multiple Gears</a></li>
+      <li class="arrow"><a href="#pgMultiWheel">Multiple Wheels</a></li>
+    </ul>
+  </div>
+  <!-- Black Gear -->
+  <div id="pgBlackGear">
+    <div class="toolbar">
+      <a class="button back" href="#">Back</a>
+      <h1>Black Gear</h1>
+    </div>
+    <div class="area" style="background-color:white;">
+      <canvas id="BlackGear" height="300" width="300" style="color:rgb(0,0,0);"></canvas>
+    </div>
+  </div>
+  <!-- Black Wheel -->
+  <div id="pgBlackWheel">
+    <div class="toolbar">
+      <a class="button back" href="#">Back</a>
+      <h1>Black Wheel</h1>
+    </div>
+    <div class="area" style="background-color:white;">
+      <canvas id="BlackWheel" height="300" width="300" style="color:rgb(0,0,0);" numberOfBars="28"></canvas>
+    </div>
+  </div>
+  <!-- Gray Gear -->
+  <div id="pgGrayGear">
+    <div class="toolbar">
+      <a class="button back" href="#">Back</a>
+      <h1>Gray Gear</h1>
+    </div>
+    <div class="area">
+      <canvas id="GrayGear" height="300" width="300" style="color:rgb(127,127,127);"></canvas>
+    </div>
+  </div>
+  <!-- Gray Wheel -->
+  <div id="pgGrayWheel">
+    <div class="toolbar">
+      <a class="button back" href="#">Back</a>
+      <h1>Gray Wheel</h1>
+    </div>
+    <div class="area">
+      <canvas id="GrayWheel" height="300" width="300" style="color:rgb(127,127,127);" numberOfBars="28"></canvas>
+    </div>
+  </div>
+  <!-- Green Gear -->
+  <div id="pgGreenGear">
+    <div class="toolbar">
+      <a class="button back" href="#">Back</a>
+      <h1>Green Gear</h1>
+    </div>
+    <div class="area" style="background-color:black;">
+      <canvas id="GreenGear" height="300" width="300" style="color:rgb(0,255,0);"></canvas>
+    </div>
+  </div>
+  <!-- Green Wheel -->
+  <div id="pgGreenWheel">
+    <div class="toolbar">
+      <a class="button back" href="#">Back</a>
+      <h1>Green Wheel</h1>
+    </div>
+    <div class="area" style="background-color:black;">
+      <canvas id="GreenWheel" height="300" width="300" style="color:rgb(0,255,0);" numberOfBars="28"></canvas>
+    </div>
+  </div>
+  <!-- White Gear -->
+  <div id="pgWhiteGear">
+    <div class="toolbar">
+      <a class="button back" href="#">Back</a>
+      <h1>White Gear</h1>
+    </div>
+    <div class="area" style="background-color:black;">
+      <canvas id="WhiteGear" height="300" width="300" style="color:rgb(255,255,255);"></canvas>
+    </div>
+  </div>
+  <!-- White Wheel -->
+  <div id="pgWhiteWheel">
+    <div class="toolbar">
+      <a class="button back" href="#">Back</a>
+      <h1>White Wheel</h1>
+    </div>
+    <div class="area" style="background-color:black;">
+      <canvas id="WhiteWheel" height="300" width="300" style="color:rgb(255,255,255);" numberOfBars="28"></canvas>
+    </div>
+  </div>
+  <!-- Multiple Gears-->
+  <div id="pgMultiGear">
+    <div class="toolbar"> <a class="button back" href="#">Back</a>
+      <h1>Multiple Gears</h1>
+    </div>
+    <ul class="rounded">
+      <li class="arrow"><a href="#pgBlackGear">Black Gear<small>
+        <canvas id="BlackGearM" height="25" width="25" style="background-color:white; color:rgb(0,0,0);"></canvas>
+        </small></a></li>
+      <li class="arrow"><a href="#pgGrayGear">Gray Gear<small>
+        <canvas id="GrayGearM" height="25" width="25" style="color:rgb(127,127,127);"></canvas>
+        </small></a></li>
+      <li class="arrow"><a href="#pgGreenGear">Green Gear<small>
+        <canvas id="GreenGearM" height="25" width="25" style="color:rgb(0,255,0);"></canvas>
+        </small></a></li>
+      <li class="arrow"><a href="#pgWhiteGear">White Gear<small>
+        <canvas id="WhiteGearM" height="25" width="25" style="background-color:black; color:rgb(255,255,255);"></canvas>
+        </small></a></li>
+    </ul>
+  </div>
+  <!-- Multiple Wheels-->
+  <div id="pgMultiWheel">
+    <div class="toolbar"> <a class="button back" href="#">Back</a>
+      <h1>Multiple Wheels</h1>
+    </div>
+    <ul class="rounded">
+      <li class="arrow"><a href="#pgBlackWheel">Black Wheel<small>
+        <canvas id="BlackWheelM" height="25" width="25" style="background-color:white; color:rgb(0,0,0);" numberOfBars="28"></canvas>
+        </small></a></li>
+      <li class="arrow"><a href="#pgGrayWheel">Gray Wheel<small>
+        <canvas id="GrayWheelM" height="25" width="25" style="color:rgb(127,127,127);" numberOfBars="28"></canvas>
+        </small></a></li>
+      <li class="arrow"><a href="#pgGreenWheel">Green Wheel<small>
+        <canvas id="GreenWheelM" height="25" width="25" style="color:rgb(0,255,0);" numberOfBars="28"></canvas>
+        </small></a></li>
+      <li class="arrow"><a href="#pgWhiteWheel">White Wheel<small>
+        <canvas id="WhiteWheelM" height="25" width="25" style="background-color:black; color:rgb(255,255,255);" numberOfBars="28"></canvas>
+        </small></a></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

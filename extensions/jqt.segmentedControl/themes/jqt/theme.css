@@ -1,0 +1,16 @@
+/* @group jQT segmentedControl */
+#jqt ul.segmentedControl li {
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#595a5B), to(#1f2021));
+  background-color: #595a5B;
+  border: 1px solid rgba(51, 51, 51, 0.8);
+}
+
+#jqt ul.segmentedControl li label {
+  text-shadow: none;
+}
+  
+#jqt ul.segmentedControl li.scSelected {
+  background-color: #55ab01;/*53b401;*/
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8ed934), to(#55ab01));
+}
+/* @end */

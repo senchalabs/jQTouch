@@ -1,0 +1,16 @@
+/* @group Apple segmentedControl */
+#jqt ul.segmentedControl li {
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#fcfcfc), to(#c7c7c7));
+  background-color: #e1e1e1;
+  border: 1px solid rgba(180, 180, 180, 0.8);
+}
+
+#jqt ul.segmentedControl li label {
+  text-shadow: rgba(255,255,255,.8) 1px 1px 0px;
+}
+  
+#jqt ul.segmentedControl li.scSelected {
+  background-color: #528ce7;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#336ed2), to(#70aafc));
+}
+/* @end */
