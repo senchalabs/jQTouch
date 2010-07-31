@@ -84,7 +84,7 @@
 
             // Preload images
             if (jQTSettings.preloadImages) {
-                for (var i = jQTSettings.preloadImages.length; i > 0; i--) {
+                for (var i = jQTSettings.preloadImages.length - 1; i >= 0; i--) {
                     (new Image()).src = jQTSettings.preloadImages[i];
                 };
             }
