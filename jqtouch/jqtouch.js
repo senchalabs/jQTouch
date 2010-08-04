@@ -9,7 +9,7 @@
     _/
 
     Created by David Kaneda <http://www.davidkaneda.com>
-    Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
+    Documentation and issue tracking on GitHub <http://wiki.github.com/senchalabs/jQTouch/>
 
     Special thanks to Jonathan Stark <http://jonathanstark.com/>
     and pinch/zoom <http://www.pinchzoom.com/>
