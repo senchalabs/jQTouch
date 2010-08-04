@@ -6,18 +6,16 @@ Create powerful mobile apps with just HTML, CSS, and jQuery.
 
 jQTouch is a jQuery plugin with native animations, automatic navigation, and themes for mobile WebKit browsers like iPhone, Nexus One, and Palm Pre.
 
-- Easy to install. Get up and running in a few minutes.
-- Entirely customizable with selector options
-- Theme support, including default Apple and jQTouch custom themes
-- Callback functions throughout, including swipe and orientation change detection
+- [Easy to install](http://wiki.github.com/senchalabs/jQTouch/gettingstarted). Get up and running in a few minutes.
+- [Entirely customizable](http://wiki.github.com/senchalabs/jQTouch/initoptions) with selector options
+- [Theme support](http://wiki.github.com/senchalabs/jQTouch/themingstyling), including default Apple and jQTouch custom themes
+- [Callback functions](http://wiki.github.com/senchalabs/jQTouch/callbackevents) throughout, including swipe and orientation change detection
 - Page history management and CSS3 page transitions, including 3d flip
 - Easily allow apps to run in fullscreen mode with custom icons and startup screens
 - The power of jQuery to build AJAX applications
 - New demos: Clock and Todo
 
-Source code and issue tracking on [github](http://github.com/senchalabs/jQTouch).
-
-Documentation on [Google Code](http://code.google.com/p/jqtouch/) (moving to github soon).
+[Source code](http://github.com/senchalabs/jQTouch/archives/master), [issue tracking](http://github.com/senchalabs/jQTouch/issues), and [documentation](http://wiki.github.com/senchalabs/jQTouch/) are available on github.
 
 [Watch this video preview](http://www.jqtouch.com/) to see it in action.
 
