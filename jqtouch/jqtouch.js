@@ -9,7 +9,7 @@
     _/
 
     Created by David Kaneda <http://www.davidkaneda.com>
-    Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
+    Documentation and issue tracking on GitHub <http://wiki.github.com/senchalabs/jQTouch/>
 
     Special thanks to Jonathan Stark <http://jonathanstark.com/>
     and pinch/zoom <http://www.pinchzoom.com/>
@@ -84,7 +84,7 @@
 
             // Preload images
             if (jQTSettings.preloadImages) {
-                for (var i = jQTSettings.preloadImages.length; i > 0; i--) {
+                for (var i = jQTSettings.preloadImages.length - 1; i >= 0; i--) {
                     (new Image()).src = jQTSettings.preloadImages[i];
                 };
             }
