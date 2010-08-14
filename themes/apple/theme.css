@@ -723,3 +723,12 @@ div#jqt.landscape .toolbar > h1 {
     border-top: 1px solid rgba(76, 86, 108, .3);
     font-weight: bold;
 }
+input[type='submit'] {
+    -webkit-border-radius: 4px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+    border: 1px outset #aaa;
+    display: block;
+    font-size: inherit;
+    font-weight: inherit;
+    padding: 10px;
+}
