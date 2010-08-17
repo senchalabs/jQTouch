@@ -82,9 +82,8 @@ div#jqt.landscape .toolbar > h1 {
     border-width: 0 8px 0 14px;
     -webkit-border-image: url(img/back_button.png) 0 8 0 14;
 }
-#jqt .back.active {
+#jqt .back.active, #jqt .back:hover {
     -webkit-border-image: url(img/back_button_clicked.png) 0 8 0 14;
-    color: #aaa;
 }
 #jqt .leftButton, #jqt .cancel {
     left: 6px;
