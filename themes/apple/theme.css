@@ -195,7 +195,7 @@ div#jqt.landscape .toolbar > h1 {
 }
 
 #jqt #plastic ul li.arrow, #jqt #metal ul li.arrow {
-    background-image: url(./img/chevron.png);
+    background-image: url(img/chevron.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
@@ -215,8 +215,13 @@ div#jqt.landscape .toolbar > h1 {
 }
 
 #jqt ul li a.active {
-    background: #194fdb url(img/selection.png) 0 0 repeat-x;
+    background-color: #194fdb;
     color: #fff;
+}
+#jqt ul li.arrow a.active {
+    background-image: url(img/listArrowSel.png);
+    background-position: right center;
+    background-repeat: no-repeat;
 }
 
 #jqt ul li a.button {
@@ -326,7 +331,7 @@ div#jqt.landscape .toolbar > h1 {
 
 #jqt ul li select {
     text-indent: 0px;
-    background: transparent url(./img/chevron.png) no-repeat 103% 3px;
+    background: transparent url(img/chevron.png) no-repeat 103% 3px;
     -webkit-appearance: textfield;
     margin-left: -6px;
     width: 104%;
@@ -349,8 +354,8 @@ div#jqt.landscape .toolbar > h1 {
 /* @end */
 
 /* @group Edge to edge */
-#jqt ul.edgetoedge {
-    -webkit-border-radius: 0;
+#jqt ul.edgetoedge, #jqt ul.edgetoedge * {
+    -webkit-border-radius: 0 !important;
 }
 	
 #jqt ul.edgetoedge li.sep {
@@ -520,7 +525,7 @@ div#jqt.landscape .toolbar > h1 {
 }
 
 #jqt .metal ul li.arrow {
-    background:  url(./img/chevron.png) right center no-repeat;
+    background:  url(img/chevron.png) right center no-repeat;
 }
 
 #jqt .plastic {
