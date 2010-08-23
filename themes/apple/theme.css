@@ -79,7 +79,7 @@ div#jqt.landscape .toolbar > h1 {
 }
 
 #jqt .blueButton {
-    -webkit-border-image: url(img/actionButton.png) 0 5 0 5;
+    -webkit-border-image: url(img/activeButton.png) 0 5 0 5;
     border-width: 0 5px;
 }
 
