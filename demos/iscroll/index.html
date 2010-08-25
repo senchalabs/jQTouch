@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        
+        <title>jQTouch &beta;</title>
+        <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+        <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
+        <script src="../../jqtouch/jquery-1.4.2.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="iscroll.js" type="application/x-javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            /*
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black',
+                preloadImages: [
+                    '../../themes/jqt/img/back_button.png',
+                    '../../themes/jqt/img/back_button_clicked.png',
+                    '../../themes/jqt/img/button_clicked.png',
+                    '../../themes/jqt/img/grayButton.png',
+                    '../../themes/jqt/img/whiteButton.png',
+                    '../../themes/jqt/img/loading.gif'
+                    ]
+            }); */
+
+            var jQT = $.jQTouch({
+              slideSelector: 'ul > li > a, ol > li > a',
+              useFastTouch: true
+            });
+
+
+            var scrolls = [];
+            function setHeight() {
+              var $sp = $('.s-scrollpane');
+              for (var i=0; i<$sp.length; i++) {
+                var $header = $sp.parents('.s-pane').find('.toolbar');
+                var $footer = $sp.parents('.s-pane').find('.actionbar');
+                var headerH = $header.length > 0? $header.outerHeight() > 0? $header.outerHeight(): 45: 0;
+                var footerH = $footer.length > 0? $footer.outerHeight() > 0? $footer.outerHeight(): 44: 0; 
+                var wrapperH = window.innerHeight - headerH - footerH;
+                var $wrapper = $sp.parents('.s-scrollwrapper'); 
+                $wrapper.css({height: wrapperH + 'px'});
+
+                if (scrolls[i] instanceof iScroll) {
+                  scrolls[i].refresh();
+                }
+              }
+            }
+            function loaded() {
+              var $sp = $('.s-scrollpane');
+              for (var i=0; i<$sp.length; i++) {
+                setHeight();
+                scrolls.push(new iScroll($sp[i].id, {desktopCompatibility: true}));
+              }
+            }
+
+            document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
+            $(window).resize(function() {
+              setHeight();
+            });
+            $(document).ready(function(){
+              loaded();
+              setTimeout(function() {
+                $(window).resize();
+                setHeight();
+              }, 1500);
+            });
+        </script>
+        <style type="text/css" media="screen">
+            #jqt.fullscreen #home .info {
+                display: none;
+            }
+            div#jqt #about {
+                padding: 100px 10px 40px;
+                text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
+                font-size: 13px;
+                text-align: center;
+                background: #161618;
+            }
+            div#jqt #about p {
+                margin-bottom: 8px;
+            }
+            div#jqt #about a {
+                color: #fff;
+                font-weight: bold;
+                text-decoration: none;
+            }
+
+            .s-scrollwrapper {
+              height:200px;       /* Of course you need to specify the object height */
+              position:relative;  /* On older OS versions "position" and "z-index" must be defined, */
+              z-index:1;          /* it seems that recent webkit is less picky and works anyway. */
+              width:100%;
+              background:#FFFFF;
+              overflow:hidden;
+            /*  background:#aaa url(wrapper-bg.png);*/
+            }
+            
+            .s-scrollpane {      
+              float:left;
+              width:100%;
+              padding:0;
+              background-color: #AAAAAA;
+              min-height: 100%;
+            /*  -webkit-box-shadow:0 0 8px #555;    /* Don't use shadows in production, they slow down drastically CSS animations */
+            /*  -webkit-touch-callout:none;*/
+            /*  -webkit-tap-highlight-color:rgba(0,0,0,0);*/
+            }
+
+            .actionbar {
+              -webkit-box-sizing: border-box;
+              border-bottom: 1px solid #2d3642;
+              padding: 10px;
+              height: 45px;
+              background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(16, 16, 16, 1)), to(rgba(64, 64, 64, 1.0)));
+              position: relative;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="jqt">
+            <div id="about" class="selectable">
+                    <p><img src="jqtouch.png" /></p>
+                    <p><strong>jQTouch</strong><br />Version 1.0 beta<br />
+                        <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
+                    <p><em>Create powerful mobile apps with<br /> just HTML, CSS, and jQuery.</em></p>
+                    <p>
+                        <a href="http://twitter.com/jqtouch" target="_blank">@jQTouch on Twitter</a>
+                    </p>
+                    <p><br /><br /><a href="#" class="grayButton goback">Close</a></p>
+            </div>
+            <div id="iscroll" class="s-pane">
+                <div class="toolbar">
+                    <h1>jQTouch</h1>
+                    <a href="#" class="back">Back</a>
+                </div>
+                <div id="target-wrapper" class="s-scrollwrapper">
+                  <div id="target-pane" class="s-scrollpane"><!-- this element must have an id -->
+                    <ul>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                      <li>Item</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="actionbar"></div>
+            </div>
+            <div id="home" class="current">
+                <div class="toolbar">
+                    <h1>jQTouch</h1>
+                    <a class="button slideup" id="infoButton" href="#about">About</a>
+                </div>
+                <ul class="rounded">
+                    <li class="arrow"><a href="#iscroll">iScroll Integration</a><small class="counter">1</small></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>
