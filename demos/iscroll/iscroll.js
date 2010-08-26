@@ -214,7 +214,7 @@ iScroll.prototype = {
 			matrix;
 
 		e.preventDefault();
-		e.stopPropagation();
+		// e.stopPropagation();
 		
 		if (!that.enabled) {
 			return;
