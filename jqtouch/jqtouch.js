@@ -30,9 +30,6 @@
         $.support.WebKitCSSMatrix = (typeof WebKitCSSMatrix != "undefined");
         $.support.touch = (typeof TouchEvent != "undefined");
         $.support.WebKitAnimationEvent = (typeof WebKitTransitionEvent != "undefined");
-        var START_EVENT = $.support.touch? 'touchstart' : 'mousedown';
-        var MOVE_EVENT = $.support.touch? 'touchmove' : 'mousemove';
-        var END_EVENT = $.support.touch? 'touchend' : 'mouseup';
 
         // Initialize internal variables
         var $body,
@@ -60,7 +57,7 @@
 
             var defaults = {
                 addGlossToIcon: true,
-                backSelector: '.back, .cancel, .goback, .done',
+                backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
                 cubeSelector: '.cube',
                 dissolveSelector: '.dissolve',
@@ -151,7 +148,7 @@
 
                 // Create custom live events
                 $body
-                    .bind(START_EVENT, touchStart)
+                    .bind('touchstart', handleTouch)
                     .bind('orientationchange', updateOrientation)
                     .trigger('orientationchange')
                     .submit(submitForm);
@@ -170,8 +167,9 @@
                                 return true;
                             }
                         }
-
-                        //return false;   // issue 405: http://code.google.com/p/jqtouch/issues/detail?id=405
+                        
+                        return false;
+                        
                     });
 
                     // This additionally gets rid of form focusses
@@ -369,8 +367,9 @@
 
             // Define callback to run after animation completes
             var callback = function animationEnd(event) {
-                fromPage[0].removeEventListener('webkitTransitionEnd', callback, false);
-                fromPage[0].removeEventListener('webkitAnimationEnd', callback, false);
+
+                fromPage[0].removeEventListener('webkitTransitionEnd', callback);
+                fromPage[0].removeEventListener('webkitAnimationEnd', callback);
 
                 if (animation) {
                         toPage.removeClass('start in ' + animation.name);
@@ -412,14 +411,17 @@
                 }
 
                 // Support both transitions and animations
-                fromPage[0].addEventListener('webkitTransitionEnd', callback, false);
-                fromPage[0].addEventListener('webkitAnimationEnd', callback, false);
+                fromPage[0].addEventListener('webkitTransitionEnd', callback);
+                fromPage[0].addEventListener('webkitAnimationEnd', callback);
 
-                toPage.queue(function() { $(this).addClass(animation.name + ' in current'); $(this).dequeue(); });
-                fromPage.queue(function() { $(this).addClass(animation.name + ' out'); $(this).dequeue(); } );
-
-                toPage.delay(50).queue(function() { $(this).addClass('start');  $(this).dequeue(); });
-                fromPage.delay(50).queue(function() { $(this).addClass('start'); $(this).dequeue(); });
+                toPage.addClass(animation.name + ' in current');
+                fromPage.addClass(animation.name + ' out');
+                
+                setTimeout(function(){
+                    toPage.addClass('start');
+                    fromPage.addClass('start');
+                }, 0);
+                
 
             } else {
                 toPage.addClass('current');
@@ -432,7 +434,7 @@
             var curid = currentPage.attr('id');
             if (location.hash != '#' + curid) {
                 clearInterval(hashCheckInterval);
-                // goBack(location.hash);
+                goBack(location.hash);
             }
             else if (location.hash == '') {
                 location.hash = '#' + curid;
@@ -538,8 +540,7 @@
             orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
-
-        function touchStart(e) {
+        function handleTouch(e) {
             var $el = $(e.target);
             
             // Only handle touchSelectors
@@ -555,21 +556,22 @@
             
             if (e) {
                 var hoverTimeout = null,
-                    startX = $.support.touch? event.changedTouches[0].clientX: event.clientX,
-                    startY = $.support.touch? event.changedTouches[0].clientY: event.clientY,
+                    startX = event.changedTouches[0].clientX,
+                    startY = event.changedTouches[0].clientY,
                     startTime = (new Date).getTime(),
                     deltaX = 0,
                     deltaY = 0,
                     deltaT = 0;
 
                 // Let's bind these after the fact, so we can keep some internal values
-                $el.bind(MOVE_EVENT, touchmove).bind(END_EVENT, touchend);
+                $el.bind('touchmove', touchmove).bind('touchend', touchend);
 
                 hoverTimeout = setTimeout(function() {
                     $el.makeActive();
                 }, 100);
+
             }
-            
+
             // Private touch functions (TODO: insert dirty joke)
             function touchmove(e) {
 
@@ -579,10 +581,7 @@
 
                 // Check for swipe
                 if (absX > absY && (absX > 35) && deltaT < 1000) {
-                    $el.removeClass('active');
-                    $el.trigger('swipe', {direction: (deltaX < 0) ? 'left' : 'right', deltaX: deltaX, deltaY: deltaY })
-                        .unbind(MOVE_EVENT,touchmove)
-                        .unbind(END_EVENT,touchend);
+                    $el.trigger('swipe', {direction: (deltaX < 0) ? 'left' : 'right', deltaX: deltaX, deltaY: deltaY }).unbind('touchmove',touchmove).unbind('touchend',touchend);
                 } else if (absY > 1) {
                     $el.removeClass('active');
                 }
@@ -593,17 +592,18 @@
             function touchend() {
                 updateChanges();
 
-                $el.removeClass('active');
                 if (deltaY === 0 && deltaX === 0) {
-                    //$el.makeActive();
+                    $el.makeActive();
                     $el.trigger('tap');
+                } else {
+                    $el.removeClass('active');
                 }
-                $el.unbind(MOVE_EVENT,touchmove).unbind(MOVE_EVENT,touchend);
+                $el.unbind('touchmove',touchmove).unbind('touchend',touchend);
                 clearTimeout(hoverTimeout);
             }
 
             function updateChanges() {
-                var first = $.support.touch? event.changedTouches[0] || null: event;
+                var first = event.changedTouches[0] || null;
                 deltaX = first.pageX - startX;
                 deltaY = first.pageY - startY;
                 deltaT = (new Date).getTime() - startTime;
@@ -631,8 +631,7 @@
         }
         $.fn.tap = function(fn) {
             if ($.isFunction(fn)) {
-                //var tapEvent = (jQTSettings.useFastTouch && $.support.touch) ? 'tap' : 'click';
-                var tapEvent = 'tap';
+                var tapEvent = (jQTSettings.useFastTouch && $.support.touch) ? 'tap' : 'click';
                 return $(this).live(tapEvent, fn);
             } else {
                 return $(this).trigger('tap');
