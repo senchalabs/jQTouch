@@ -167,18 +167,15 @@ $(document).ready(function(){
       $(this).bind('pageAnimationEnd', function(e, data){
         if (data.direction === 'in'){
           setHeight();
-//        setHeight($('.current').find('.s-scrollpane'));
         }
       });
     
       $(this).bind('turn', function(e, data){
         setHeight();
-//        setHeight($('.current').find('.s-scrollpane'));
       });
   });
 
   setHeight();
-//  setHeight($('.current').find('.s-scrollpane'));
 
 // tabbar touches
   $('#tabbar').find('a').each(function() {
@@ -238,41 +235,32 @@ $(document).ready(function(){
      	<strong>More</strong>
       <small class="badge right">3</small>
      </a>
-<!--
-     <a href="#extensions" class="extensions six">
-     	<strong>Extensions</strong>
-      <small class="badge right">7</small>
-     </a>
-     <a href="#video" class="video six">
-     	<strong>Video</strong>
-     </a>
-     <a href="#demos" class="demos six">
-     	<strong>Demos</strong>
-      <small class="badge right">2</small>
-     </a>
--->
 </div>
 
 <div id="jqt">
 <!-- About -->
   <div id="about" class="selectable">
-    <p style="padding-top: 30px;"><img src="img/jqtouch.png" /></p>
-    <p><strong>jqtouch</strong><br />
-      Version 1.0 beta<br />
-      <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
-    <p><em>Create powerful mobile apps with<br />
-      just HTML, CSS, and jQuery.</em></p>
-    <p><a href="http://twitter.com/jqtouch" target="_blank">@jqtouch on Twitter</a></p>
-    <h2>External Links</h2>
-    <ul class="individual">
-      <li><a href="http://www.jqtouch.com/" target="_blank">Homepage</a></li>
-      <li><a href="http://www.twitter.com/jqtouch" target="_blank">Twitter</a></li>
-      <br />
-      <li><a href="http://code.google.com/p/jqtouch/w/list" target="_blank">Google Code</a></li>
-      <li><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#100;&#107;&#064;&#109;&#111;&#114;&#102;&#117;&#110;&#107;&#046;&#099;&#111;&#109;">Email</a></li>
-      <br />
-      <li style="width:100%;"><a href="http://tinyurl.com/support-jqt" target="_blank">Donate</a></li>
-    </ul>
+    <div id="about-wrapper" class="s-scrollwrapper">
+      <div id="about-pane" class="s-scrollpane">
+        <p style="padding-top: 30px;"><img src="img/jqtouch.png" /></p>
+        <p><strong>jqtouch</strong><br />
+          Version 1.0 beta<br />
+          <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
+        <p><em>Create powerful mobile apps with<br />
+          just HTML, CSS, and jQuery.</em></p>
+        <p><a href="http://twitter.com/jqtouch" target="_blank">@jqtouch on Twitter</a></p>
+        <h2>External Links</h2>
+        <ul class="individual">
+          <li><a href="http://www.jqtouch.com/" target="_blank">Homepage</a></li>
+          <li><a href="http://www.twitter.com/jqtouch" target="_blank">Twitter</a></li>
+          <br />
+          <li><a href="http://code.google.com/p/jqtouch/w/list" target="_blank">Google Code</a></li>
+          <li><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#100;&#107;&#064;&#109;&#111;&#114;&#102;&#117;&#110;&#107;&#046;&#099;&#111;&#109;">Email</a></li>
+          <br />
+          <li style="width:100%;"><a href="http://tinyurl.com/support-jqt" target="_blank">Donate</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
 
 <!-- UI -->
