@@ -28,8 +28,6 @@ Jonathan Stark has created an excellent introduction to jQTouch as part of his b
 
 [PeepCode did a screencast](http://peepcode.com/products/jqtouch) ($9), as well as a [cheat sheet](http://blog.peepcode.com/tutorials/2009/jqtouch-cheat-sheet), which have been helpful to many people.
 
-[Doctype also has a screencast](http://inspiringpixel.com/inspirati/vidcast/doctype-8-jqtouch-and-mobile-design/478/), as well as some simple tips for mobile design.
-
 Credits
 -------
 

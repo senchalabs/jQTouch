@@ -469,7 +469,7 @@ div#jqt.landscape .toolbar > h1 {
 /* @group Plastic */
 
 #jqt #plastic ul li.arrow, #jqt #metal ul li.arrow {
-    background-image: url(img/listArrow.png);
+    background-image: url(img/chevron.png);
     background-position: right center;
     background-repeat: no-repeat;
 }
