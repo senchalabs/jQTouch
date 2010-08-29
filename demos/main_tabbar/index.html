@@ -104,6 +104,7 @@ $(function () {
   $('#jqt').bind('turn', function (e, data) {
     $('#orient').html('Orientation: ' + data.orientation);
   });
+
   $('#play_movie').bind('tap', function () {
     $('#movie').get(0).play();
     $(this).removeClass('active');
@@ -118,84 +119,91 @@ $(function () {
   })
 });
 
-
 // iScroll integraton
-function setHeight($sp){
-  if(typeof $sp === 'undefined'){
-    $sp = $('.current').find('.s-scrollpane');
+var scrolls = [];
+
+function setHeight($current_page, scroll) {
+  if (typeof $current_page === 'undefined' || $current_page === '') {
+    $current_page = $('.current');
   }
-console.log($sp.attr('id'));
-  $sp.each(function(){
-    var $header = $(this).parents('.s-pane').find('.toolbar');
+  $current_page.each(function () {
+    var $header = $(this).find('.toolbar');
     var headerH = $header.length > 0 ? $header.outerHeight() > 0 ? $header.outerHeight() : 45 : 0;
 
-    var $footer = ($('#tabbar').css('display') !== 'none') ? $('#tabbar') : '';
-    var footerH = $footer.length > 0 ? $footer.outerHeight() > 0 && $footer.css('display') !== 'none' ? $footer.outerHeight() : 44 : 0; 
+    var $footer = $('#tabbar').css('display') !== 'none' ? $('#tabbar') : '';
+    var footerH = $footer.length > 0 ? $footer.outerHeight() > 0 ? $footer.outerHeight() : 44 : 0;
 
-    var $wrapper = $(this).parents('.s-scrollwrapper'); 
+    var $wrapper = $(this).find('.s-scrollwrapper');
     var wrapperH = window.innerHeight - headerH - footerH;
     $wrapper.css({height: wrapperH + 'px'});
 
-    var i = $('.s-scrollpane').index($(this))
-    if(scrolls[i] instanceof iScroll){
-      scrolls[i].refresh();
+    if (typeof scroll !== 'undefined' && scroll !== '') {
+      if (scroll instanceof iScroll) {
+        scroll.refresh();
+      }
+    } else {
+      var i = $('.s-scrollpane').index($(this).find('.s-scrollpane'));
+      if (scrolls[i] instanceof iScroll) {
+        scrolls[i].refresh();
+      }
     }
   });
 }
 
-var scrolls = [];
 function load_iScroll() {
   $sp = $('.s-scrollpane');
-  $sp.each(function() {
-    scrolls.push(new iScroll($sp[$sp.index($(this))].id,{
-      hScrollbar:false,
-      checkDOMChanges:false,
-      desktopCompatibility:true,
-      snap:false
+  $sp.each(function () {
+    scrolls.push(new iScroll($sp[$sp.index($(this))].id, {
+      hScrollbar: false,
+      checkDOMChanges: false,
+      desktopCompatibility: true,
+      snap: false
     }));
   });
 }
 
-document.addEventListener('touchmove',function(e){e.preventDefault();});
+document.addEventListener('touchmove', function (e) {
+  e.preventDefault();
+});
 
-$(document).ready(function(){
+$(document).ready(function () {
 // iScroll
   load_iScroll();
-  
-  $('#jqt').children('.s-pane').each(function(){
-// iScroll events
-      $(this).bind('pageAnimationEnd', function(e, data){
-        if (data.direction === 'in'){
-          setHeight();
-        }
-      });
-    
-      $(this).bind('turn', function(e, data){
-        setHeight();
-      });
-  });
-
   setHeight();
 
-// tabbar touches
-  $('#tabbar').find('a').each(function() {
-    $(this).click(function() {
-      var $me=$(this);
-      if(!$me.hasClass('enabled')) {
-        jQT.goTo($me.attr('href'));
-        $me.toggleClass('enabled',true);
-        $(this).siblings().each(function() {
-          $(this).toggleClass('enabled',false);
-        })
+// iScroll resize on animation event
+  $('#jqt').children('.s-pane').each(function () {
+    $(this).bind('pageAnimationEnd', function (e, data) {
+      if (data.direction === 'in') {
+        setHeight();
       }
     });
   });
 
-// hide tabbar when page has <input>
-  $('#jqt').children('div, form').each(function(){
-    if($(this).find('input').length >0) {
+// iScroll resize on rotation
+  $('#jqt').bind('turn', function (e, data) {
+    setHeight();
+  });
+
+// tabbar touches
+  $('#tabbar').find('a').each(function () {
+    $(this).click(function () {
+      var $me = $(this);
+      if (!$me.hasClass('enabled')) {
+        jQT.goTo($me.attr('href'));
+        $me.toggleClass('enabled', true);
+        $(this).siblings().each(function () {
+          $(this).toggleClass('enabled', false);
+        });
+      }
+    });
+  });
+
+// Hide tabbar when page has <input>
+  $('#jqt').children('div, form').each(function () {
+    if ($(this).find('input').length > 0) {
       $(this).bind('pageAnimationStart', function (e, data) {
-        if (data.direction === 'in'){
+        if (data.direction === 'in') {
           $('#tabbar').fadeOut();
         } else {
           $('#tabbar').fadeIn();
@@ -203,8 +211,7 @@ $(document).ready(function(){
         }
       });
     }
-  })
-  scrollTo(0,0);
+  });
 });
 </script>
 </head>
@@ -239,7 +246,7 @@ $(document).ready(function(){
 
 <div id="jqt">
 <!-- About -->
-  <div id="about" class="selectable">
+  <div id="about" class="s-pane selectable">
     <div id="about-wrapper" class="s-scrollwrapper">
       <div id="about-pane" class="s-scrollpane">
         <p style="padding-top: 30px;"><img src="img/jqtouch.png" /></p>
