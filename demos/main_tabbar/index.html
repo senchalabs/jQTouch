@@ -123,28 +123,44 @@ $(function () {
 var scrolls = [];
 
 function setHeight($current_page, scroll) {
+  var $footerG, $footerL, $header, $wrapper;
+  var footerGH = 0,
+    footerLH = 0,
+    headerH = 0,
+    wrapperH = 0;
+
   if (typeof $current_page === 'undefined' || $current_page === '') {
     $current_page = $('.current');
   }
   $current_page.each(function () {
-    var $header = $(this).find('.toolbar');
-    var headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
+// Header
+    $header = $(this).find('.toolbar');
+    headerH = $header.length > 0 ? $header.outerHeight() : 0;
 
-    var $footer = $('#tabbar').css('display') !== 'none' ? $('#tabbar') : '';
-    var footerH = $footer.length > 0 ? ($footer.outerHeight() > 0 ? $footer.outerHeight() : 0) : 0;
+// Global footer
+    if ($('#tabbar').length > 0) {
+      $footerG = $('#tabbar');
+      footerGH = $footerG.css('display') !== 'none' ? $footerG.outerHeight() : 0;
+    }
 
-    var $wrapper = $(this).find('.s-scrollwrapper');
-    var wrapperH = window.innerHeight - headerH - footerH;
+// Local footer
+    if ($(this).has('.tabbar').length > 0) {
+      $footerL = $(this).find('.tabbar');
+      footerLH = $footerL.css('display') !== 'none' ? $footerL.outerHeight() : 0;
+    }
+
+    $wrapper = $(this).find('.s-scrollwrapper');
+    wrapperH = window.innerHeight - headerH - footerGH - footerLH;
     $wrapper.css({height: wrapperH + 'px'});
 
-    if (typeof scroll !== 'undefined' && scroll !== '') {
-      if (scroll instanceof iScroll) {
-        scroll.refresh();
-      }
-    } else {
+    if (typeof scroll === 'undefined' || scroll === '') {
       var i = $('.s-scrollpane').index($(this).find('.s-scrollpane'));
       if (scrolls[i] instanceof iScroll) {
         scrolls[i].refresh();
+      }
+    } else {
+      if (scroll instanceof iScroll) {
+        scroll.refresh();
       }
     }
   });
