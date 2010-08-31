@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>jQTouch &beta; t</title>
+<title>jQTouch &beta;t</title>
 <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
 <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
 <style type="text/css" media="screen">@import "tabbar.css";</style>
@@ -128,10 +128,10 @@ function setHeight($current_page, scroll) {
   }
   $current_page.each(function () {
     var $header = $(this).find('.toolbar');
-    var headerH = $header.length > 0 ? $header.outerHeight() > 0 ? $header.outerHeight() : 45 : 0;
+    var headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
 
     var $footer = $('#tabbar').css('display') !== 'none' ? $('#tabbar') : '';
-    var footerH = $footer.length > 0 ? $footer.outerHeight() > 0 ? $footer.outerHeight() : 44 : 0;
+    var footerH = $footer.length > 0 ? ($footer.outerHeight() > 0 ? $footer.outerHeight() : 0) : 0;
 
     var $wrapper = $(this).find('.s-scrollwrapper');
     var wrapperH = window.innerHeight - headerH - footerH;
@@ -192,8 +192,8 @@ $(document).ready(function () {
       if (!$me.hasClass('enabled')) {
         jQT.goTo($me.attr('href'));
         $me.toggleClass('enabled', true);
-        $(this).siblings().each(function () {
-          $(this).toggleClass('enabled', false);
+        $('#tabbar').find('a').each(function () {
+          $(this).toggleClass('enabled', ($me.get(0) === $(this).get(0)));
         });
       }
     });
@@ -206,12 +206,13 @@ $(document).ready(function () {
         if (data.direction === 'in') {
           $('#tabbar').fadeOut();
         } else {
-          $('#tabbar').fadeIn();
           $('#tabbar').slideDown();
+          $('#tabbar').fadeIn();
         }
       });
     }
   });
+
 });
 </script>
 </head>
