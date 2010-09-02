@@ -32,12 +32,14 @@
             });
 
 
-            var scrolls = [];
-
             function setHeights() {
               $('#jqt > div').each(function () {
                 setHeight($(this));
               });
+            }
+
+            function setCurrentHeight() {
+              setHeight($('.current'));
             }
 
             function setHeight($item) {
@@ -64,12 +66,12 @@
                   wrapperH = window.innerHeight - headerH - footerH - tabbarH;
                   $wrapper.height(wrapperH);
                 }
-              }
-            }
 
-            function refreshScrolls() {
-              for (var i=0, len=scrolls.length; i<len; i++) {
-                scrolls[i].refresh();
+                // refresh scroll
+                var scroll = $item.data('iscroll_object');
+                if (scroll !== null) {
+                  scroll.refresh();
+                }
               }
             }
 
@@ -80,22 +82,21 @@
                 var $pane = $wrapper.find('.s-scrollpane'); 
                 if ($wrapper.length > 0) {
                   var scroll = new iScroll($pane[0].id, {desktopCompatibility: true});
-                  scrolls.push(scroll);
+                  $this.data('iscroll_object', scroll); 
 
                   // workaround limitation on outerHeight (ie, returns zero until animation ended)
                   // set a default for most common case to avoid resize being seen
                   wrapperH = window.innerHeight - 90;
                   $wrapper.height(wrapperH);
+
+                  scroll.refresh();
                 }
               });
-              setHeights();
-              refreshScrolls();
             }
 
             document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
             $(window).resize(function() {
-              setHeights();
-              refreshScrolls();
+              setCurrentHeight();
             });
             $(document).ready(function(){
               loaded();
