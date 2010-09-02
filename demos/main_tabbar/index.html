@@ -134,7 +134,7 @@ function setHeight($current_page, scroll) {
   }
   $current_page.each(function () {
 // Header
-    $header = $(this).find('.toolbar');
+    $header = $('.toolbar', this);
     headerH = $header.length > 0 ? $header.outerHeight() : 0;
 
 // Global footer
@@ -144,12 +144,12 @@ function setHeight($current_page, scroll) {
     }
 
 // Local footer
-    if ($(this).has('.tabbar').length > 0) {
-      $footerL = $(this).find('.tabbar');
+    if ($('.tabbar', this).length > 0) {
+      $footerL = $('.tabbar', this);
       footerLH = $footerL.css('display') !== 'none' ? $footerL.outerHeight() : 0;
     }
 
-    $wrapper = $(this).find('.s-scrollwrapper');
+    $wrapper = $('.s-scrollwrapper', this);
     wrapperH = window.innerHeight - headerH - footerGH - footerLH;
     $wrapper.css({height: wrapperH + 'px'});
 
