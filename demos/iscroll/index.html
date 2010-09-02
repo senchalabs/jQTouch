@@ -6,7 +6,7 @@
         <title>jQTouch &beta;</title>
         <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
         <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
-        <script src="../../jqtouch/jquery-1.4.2.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../jqtouch/jquery-1.4.2.min.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="iscroll.js" type="application/x-javascript" charset="utf-8"></script>
         <script type="text/javascript" charset="utf-8">
@@ -27,45 +27,80 @@
             }); */
 
             var jQT = $.jQTouch({
-              slideSelector: 'ul > li > a, ol > li > a',
+              slideSelector: '#jqt ul > li > a, #jqt ol > li > a',
               useFastTouch: true
             });
 
 
             var scrolls = [];
-            function setHeight() {
-              var $sp = $('.s-scrollpane');
-              for (var i=0; i<$sp.length; i++) {
-                var $header = $sp.parents('.s-pane').find('.toolbar');
-                var $footer = $sp.parents('.s-pane').find('.actionbar');
-                var headerH = $header.length > 0? $header.outerHeight() > 0? $header.outerHeight(): 45: 0;
-                var footerH = $footer.length > 0? $footer.outerHeight() > 0? $footer.outerHeight(): 44: 0; 
-                var wrapperH = window.innerHeight - headerH - footerH;
-                var $wrapper = $sp.parents('.s-scrollwrapper'); 
-                $wrapper.css({height: wrapperH + 'px'});
 
-                if (scrolls[i] instanceof iScroll) {
-                  scrolls[i].refresh();
+            function setHeights() {
+              $('#jqt > div').each(function () {
+                setHeight($(this));
+              });
+            }
+
+            function setHeight($item) {
+              var $wrapper = $item.find('.s-scrollwrapper');
+              if ($wrapper.length > 0) {
+                var headerH = 0;
+                var footerH = 45;
+                var tabbarH = 0;
+                var wrapperH = 320;
+  
+                var $header = $item.find('.toolbar');
+                headerH = $header.length > 0 ? ($header.outerHeight() > 0 ? $header.outerHeight() : 0) : 0;
+  
+                var $footer = $item.find('.tabbar'); // page footer
+                var $tabbar = $('#tabbar'); // global tabbar
+                  if ($footer.length > 0) {
+                  footerH = $footer.outerHeight();
+                } else if ($tabbar.length > 0) {
+                  tabbarH = $tabbar.outerHeight(); 
+                }
+
+                // workaround limitation on outerHeight (ie, returns zero until animation ended)
+                if (headerH > 0 || footerH > 0 || tabbarH > 0) {
+                  wrapperH = window.innerHeight - headerH - footerH - tabbarH;
+                  $wrapper.height(wrapperH);
                 }
               }
             }
-            function loaded() {
-              var $sp = $('.s-scrollpane');
-              for (var i=0; i<$sp.length; i++) {
-                setHeight();
-                scrolls.push(new iScroll($sp[i].id, {desktopCompatibility: true}));
+
+            function refreshScrolls() {
+              for (var i=0, len=scrolls.length; i<len; i++) {
+                scrolls[i].refresh();
               }
+            }
+
+            function loaded() {
+              $('#jqt').children().each(function () {
+                var $this = $(this);
+                var $wrapper = $this.find('.s-scrollwrapper');
+                var $pane = $wrapper.find('.s-scrollpane'); 
+                if ($wrapper.length > 0) {
+                  var scroll = new iScroll($pane[0].id, {desktopCompatibility: true});
+                  scrolls.push(scroll);
+
+                  // workaround limitation on outerHeight (ie, returns zero until animation ended)
+                  // set a default for most common case to avoid resize being seen
+                  wrapperH = window.innerHeight - 90;
+                  $wrapper.height(wrapperH);
+                }
+              });
+              setHeights();
+              refreshScrolls();
             }
 
             document.addEventListener('touchmove', function(e){ e.preventDefault(); }, true);
             $(window).resize(function() {
-              setHeight();
+              setHeights();
+              refreshScrolls();
             });
             $(document).ready(function(){
               loaded();
               setTimeout(function() {
                 $(window).resize();
-                setHeight();
               }, 1500);
             });
         </script>
@@ -110,7 +145,7 @@
             /*  -webkit-tap-highlight-color:rgba(0,0,0,0);*/
             }
 
-            .actionbar {
+            .tabbar {
               -webkit-box-sizing: border-box;
               border-bottom: 1px solid #2d3642;
               padding: 10px;
@@ -177,7 +212,8 @@
                     </ul>
                   </div>
                 </div>
-                <div class="actionbar"></div>
+                <div class="tabbar"><h1>Tab</h1>
+                </div>
             </div>
             <div id="home" class="current">
                 <div class="toolbar">
