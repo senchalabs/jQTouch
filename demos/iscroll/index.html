@@ -55,7 +55,7 @@
   
                 var $footer = $item.find('.tabbar'); // page footer
                 var $tabbar = $('#tabbar'); // global tabbar
-                  if ($footer.length > 0) {
+                if ($footer.length > 0) {
                   footerH = $footer.outerHeight();
                 } else if ($tabbar.length > 0) {
                   tabbarH = $tabbar.outerHeight(); 
@@ -76,7 +76,7 @@
             }
 
             function loaded() {
-              $('#jqt').children().each(function () {
+              $('#jqt > div').each(function () {
                 var $this = $(this);
                 var $wrapper = $this.find('.s-scrollwrapper');
                 var $pane = $wrapper.find('.s-scrollpane'); 
