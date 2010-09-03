@@ -31,10 +31,6 @@
               useFastTouch: true
             });
 
-            function setCurrentHeight() {
-              setHeight($('.current'));
-            }
-
             function setHeight($item) {
               var $wrapper = $item.find('.s-scrollwrapper');
               if ($wrapper.length > 0) {
@@ -68,6 +64,10 @@
               }
             }
 
+            function setCurrentHeight() {
+              setHeight($('.current'));
+            }
+
             function loaded() {
               $('#jqt > div').each(function () {
                 var $this = $(this);
@@ -79,7 +79,7 @@
 
                   // workaround limitation on outerHeight (ie, returns zero until animation ended)
                   // set a default for most common case to avoid resize being seen
-                  wrapperH = window.innerHeight - 90;
+                  var wrapperH = window.innerHeight - 89;
                   $wrapper.height(wrapperH);
 
                   scroll.refresh();
@@ -93,6 +93,8 @@
             });
             $(document).ready(function(){
               loaded();
+              $(window).resize();
+
               setTimeout(function() {
                 $(window).resize();
               }, 1500);
