@@ -1,3 +1,16 @@
+The DataZombies' fork
+=======
+Added 
+
+- Global tabbar with badges
+- iScroll 3.6 integration
+- jqt.activityIndicator
+- jqt.checkGroup
+- jqt.segmentedControl
+
+
+[Demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/)
+
 jQTouch
 =======
 
