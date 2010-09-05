@@ -1,6 +1,8 @@
 The DataZombies' fork
 =======
+
 Added 
+------------------------------------------------------------
 
 - iScroll 3.6 integration and Global tabbar with badges ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
 - jqt.activityIndicator ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_activityIndicator/))
