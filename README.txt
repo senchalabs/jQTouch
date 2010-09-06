@@ -19,4 +19,8 @@ If you use jQTouch, please consider supporting its development:
 http://bit.ly/support-jqt
 
 -=DataZombies=-
-Modified autotitles.js to preserve hardcoded titles.
+- Modified autotitles.js to preserve hardcoded titles.
+- iScroll 3.6 integration and Global tabbar with badges ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
+- jqt.activityIndicator ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_activityIndicator/))
+- jqt.checkGroup ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_checkGroup/))
+- jqt.segmentedControl ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_segmentedControl/))

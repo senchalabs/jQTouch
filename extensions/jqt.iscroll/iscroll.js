@@ -36,7 +36,7 @@ function iScroll (el, options) {
 		overflow: 'hidden',
 		snap: false
 	};
-
+	
 	// User defined options
 	if (typeof options == 'object') {
 		for (i in options) {
@@ -47,9 +47,9 @@ function iScroll (el, options) {
 	if (that.options.desktopCompatibility) {
 		that.options.overflow = 'hidden';
 	}
-
+	
 	that.wrapper.style.overflow = that.options.overflow;
-
+	
 	that.refresh();
 
 	window.addEventListener('onorientationchange' in window ? 'orientationchange' : 'resize', that, false);
@@ -59,7 +59,7 @@ function iScroll (el, options) {
 		that.element.addEventListener(MOVE_EVENT, that, false);
 		that.element.addEventListener(END_EVENT, that, false);
 	}
-
+	
 	if (that.options.checkDOMChanges) {
 		that.element.addEventListener('DOMSubtreeModified', that, false);
 	}
@@ -95,7 +95,7 @@ iScroll.prototype = {
 				break;
 		}
 	},
-
+	
 	onDOMModified: function (e) {
 		var that = this;
 
@@ -115,7 +115,7 @@ iScroll.prototype = {
 		var that = this,
 			resetX = this.x, resetY = this.y,
 			snap;
-
+		
 		that.scrollWidth = that.wrapper.clientWidth;
 		that.scrollHeight = that.wrapper.clientHeight;
 		that.scrollerWidth = that.element.offsetWidth;
@@ -153,7 +153,7 @@ iScroll.prototype = {
 			that.setTransitionTime('0');
 			that.setPosition(resetX, resetY, true);
 		}
-
+		
 		that.scrollX = that.scrollerWidth > that.scrollWidth;
 		that.scrollY = !that.scrollX || that.scrollerHeight > that.scrollHeight;
 
@@ -176,7 +176,7 @@ iScroll.prototype = {
 
 	setPosition: function (x, y, hideScrollBars) {
 		var that = this;
-
+		
 		that.x = x;
 		that.y = y;
 
@@ -192,13 +192,13 @@ iScroll.prototype = {
 			}
 		}
 	},
-
+	
 	setTransitionTime: function(time) {
 		var that = this;
-
+		
 		time = time || '0';
 		that.element.style.webkitTransitionDuration = time;
-
+		
 		if (that.scrollBarX) {
 			that.scrollBarX.bar.style.webkitTransitionDuration = time;
 			that.scrollBarX.wrapper.style.webkitTransitionDuration = has3d && that.options.fadeScrollbar ? '300ms' : '0';
@@ -208,14 +208,14 @@ iScroll.prototype = {
 			that.scrollBarY.wrapper.style.webkitTransitionDuration = has3d && that.options.fadeScrollbar ? '300ms' : '0';
 		}
 	},
-
+		
 	touchStart: function(e) {
 		var that = this,
 			matrix;
 
 		e.preventDefault();
 		// e.stopPropagation();
-
+		
 		if (!that.enabled) {
 			return;
 		}
@@ -248,7 +248,7 @@ iScroll.prototype = {
 		that.directionX = 0;
 		that.directionY = 0;
 	},
-
+	
 	touchMove: function(e) {
 		var that = this,
 			pageX = isTouch ? e.changedTouches[0].pageX : e.pageX,
@@ -285,7 +285,7 @@ iScroll.prototype = {
 			that.dist+= Math.abs(leftDelta) + Math.abs(topDelta);
 		}
 	},
-
+	
 	touchEnd: function(e) {
 		var that = this,
 			time = e.timeStamp - that.scrollStartTime,
@@ -382,7 +382,7 @@ iScroll.prototype = {
 		} else if (that.y < that.maxScrollY) {
 			resetY = that.maxScrollY;
 		}
-
+		
 		if (resetX != that.x || resetY != that.y) {
 			that.scrollTo(resetX, resetY);
 		} else {
@@ -400,7 +400,7 @@ iScroll.prototype = {
 			}
 		}
 	},
-
+	
 	snap: function (x, y) {
 		var that = this, time;
 
@@ -441,7 +441,7 @@ iScroll.prototype = {
 				Math.abs(that.x - x) / that.scrollWidth * 500,
 				Math.abs(that.y - y) / that.scrollHeight * 500
 			));
-
+			
 		return { x: x, y: y, time: time };
 	},
 
@@ -463,7 +463,7 @@ iScroll.prototype = {
 			document.addEventListener('webkitTransitionEnd', that, false);	// At the end of the transition check if we are still inside of the boundaries
 		}
 	},
-
+	
 	scrollToPage: function (pageX, pageY, runtime) {
 		var that = this, snap;
 
@@ -535,15 +535,15 @@ iScroll.prototype = {
 			speed = speed * maxDistLower / newDist / friction;
 			newDist = maxDistLower;
 		}
-
+		
 		newDist = newDist * (dist < 0 ? -1 : 1);
 		newTime = speed / deceleration;
 
 		return { dist: Math.round(newDist), time: Math.round(newTime) };
 	},
-
+	
 	onScrollEnd: function () {},
-
+	
 	destroy: function (full) {
 		var that = this;
 
@@ -564,18 +564,18 @@ iScroll.prototype = {
 		if (that.scrollBarY) {
 			that.scrollBarY = that.scrollBarY.remove();
 		}
-
+		
 		if (full) {
 			that.wrapper.parentNode.removeChild(that.wrapper);
 		}
-
+		
 		return null;
 	}
 };
 
 function scrollbar (dir, wrapper, fade, shrink) {
 	var that = this, style;
-
+	
 	that.dir = dir;
 	that.fade = fade;
 	that.shrink = shrink;
@@ -638,10 +638,10 @@ scrollbar.prototype = {
 		that.toWrapperProp = that.maxScroll / (scroll - size);
 		that.bar.style[that.dir == 'horizontal' ? 'width' : 'height'] = that.size + 'px';
 	},
-
+	
 	setPosition: function (pos) {
 		var that = this;
-
+		
 		if (that.wrapper.style.opacity != '1') {
 			that.show();
 		}
@@ -680,7 +680,7 @@ scrollbar.prototype = {
 		}
 		this.wrapper.style.opacity = '0';
 	},
-
+	
 	remove: function () {
 		this.wrapper.parentNode.removeChild(this.wrapper);
 		return null;

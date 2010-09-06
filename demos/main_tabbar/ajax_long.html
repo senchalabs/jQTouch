@@ -76,18 +76,12 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
-scrolls.push(new iScroll('ajax-long-pane', {
-    hScrollbar: false,
-    checkDOMChanges: false,
-    desktopCompatibility: true,
-    snap: false
-}));
-
-$('#long').bind('pageAnimationEnd', function (e, data) {
-  if (data.direction === 'in') {
-    setHeight();
-  }
+/*
+$('#long').find('p').each(function(){
+  $(this).css('-webkit-transform:translate3d(0,0,0)');
 });
+*/
+load_iScroll($('#long'));
 setHeight();
 </script>
 <div></div>

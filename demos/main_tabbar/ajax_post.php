@@ -8,12 +8,14 @@ if ($_POST["zip"]) {
     $title = $_POST['movie'];
 }
 ?>
-<div>
+<div id="post" class="s-pane">
   <div class="toolbar">
     <h1><?php echo $title ?></h1>
     <a href="#" class="button back">Back</a>
   </div>
-  <ul class="edgetoedge">
+  <div id="post-wrapper" class="s-scrollwrapper">
+    <div id="post-pane" class="s-scrollpane">
+      <ul class="edgetoedge">
 <?php
   if ($_POST['zip']) {
     foreach ($theaters as $theater) {
@@ -25,11 +27,18 @@ if ($_POST["zip"]) {
     }
   }
 ?>
-  </ul>
-  <form action="ajax_post.php" method="POST">
-    <ul class="rounded">
-      <li><input type="text" name="zip" value="" placeholder="Live post event test" /></li>
-    </ul>
-    <a style="margin:0 10px;color:rgba(0,0,0,.9)" href="#" class="submit whiteButton">Submit</a>
-  </form>
+      </ul>
+      <form action="ajax_post.php" method="POST">
+        <ul class="rounded">
+          <li><input type="text" name="zip" value="" placeholder="Live post event test" /></li>
+        </ul>
+        <a style="margin:0 10px;color:rgba(0,0,0,.9)" href="#" class="submit whiteButton">Submit</a>
+      </form>
+    </div>
+  </div>
 </div>
+<script type="text/javascript" charset="utf-8">
+load_iScroll($('#post'));
+setHeight();
+</script>
+<div></div>

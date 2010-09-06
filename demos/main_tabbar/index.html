@@ -8,7 +8,7 @@
 <style type="text/css" media="screen">@import "tabbar.css";</style>
 <script src="../../jqtouch/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
-<script src="iscroll.js" type="application/x-javascript" charset="utf-8"></script>
+<script src="../../extensions/jqt.iscroll/jqt.iscroll.js" type="application/x-javascript" charset="utf-8"></script>
 <style type="text/css" media="screen">
 #jqt.fullscreen #ui .info,
 #jqt.fullscreen #plastic .info {
@@ -36,7 +36,7 @@ color:#fff;
 var jQT = new $.jQTouch({
   icon:'img/jqtouch.png',
   addGlossToIcon:false,
-  slideSelector: 'ul > li > a, ol > li > a',
+  slideSelector: '#jqt ul > li > a, #jqt ol > li > a',
   startupScreen:'img/jqt_startup.png',
   statusBar:'black',
   preloadImages:[
@@ -59,21 +59,23 @@ var jQT = new $.jQTouch({
   useFastTouch: true
 });
 // Some sample Javascript functions:
-$(function () {
+$(function(){
 // Show a swipe event on swipe test
-  $('#swipeme').swipe(function (evt, data) {
+  $('#swipeme').swipe(function(evt, data){
     $(this).html('You swiped <strong>' + data.direction + '/' + data.deltaX + ':' + data.deltaY + '</strong>!');
     $(this).parent().after('<li>swiped!</li>')
 //iScroll integration
-    setHeight($(this).parents('.current').find('.s-scrollpane'));
+    setHeight();
+//    setHeight($(this).parents('.current'));
   });
-  $('#tapme').tap(function () {
+  $('#tapme').tap(function(){
     $(this).parent().after('<li>tapped!</li>');
 //iScroll integration
-    setHeight($(this).parents('.current').find('.s-scrollpane'));
+    setHeight();
+//    setHeight($(this).parents('.current'));
   })
-  $('a[target="_blank"]').click(function () {
-    if (confirm('This link opens in a new window.')) {
+  $('a[target="_blank"]').click(function(){
+    if(confirm('This link opens in a new window.')){
       return true;
     } else {
       return false;
@@ -81,19 +83,19 @@ $(function () {
   });
 // Page animation callback events
   $('#pageevents').
-  bind('pageAnimationStart', function (e, info) {
+  bind('pageAnimationStart', function(e, info){
     $(this).find('.info').append('Started animating ' + info.direction + '&hellip; ');
   }).
-  bind('pageAnimationEnd', function (e, info) {
+  bind('pageAnimationEnd', function(e, info){
     $(this).find('.info').append(' finished animating ' + info.direction + '.<br /><br />');
   });
 // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
-  $('#callback').bind('pageAnimationEnd', function (e, info) {
+  $('#callback').bind('pageAnimationEnd', function(e, info){
 // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
-    if (!$(this).data('loaded')) {
+    if(!$(this).data('loaded')){
 // Append a placeholder in case the remote HTML takes its sweet time making it back
 // Then, overwrite the "Loading" placeholder text with the remote HTML
-      $(this).append($('<div>Loading</div>').load('ajax.html .info', function () {
+      $(this).append($('<div>Loading</div>').load('ajax.html .info', function(){
 // Set the 'loaded' var to true so we know not to reload
 // the HTML next time the #callback div animation ends
         $(this).parent().data('loaded', true);
@@ -101,134 +103,64 @@ $(function () {
     }
   });
 // Orientation callback event
-  $('#jqt').bind('turn', function (e, data) {
+  $('#jqt').bind('turn', function(e, data){
     $('#orient').html('Orientation: ' + data.orientation);
   });
 
-  $('#play_movie').bind('tap', function () {
+  $('#play_movie').bind('tap', function(){
     $('#movie').get(0).play();
     $(this).removeClass('active');
   });
 
-  $('#video').bind('pageAnimationStart', function (e, info) {
+  $('#video').bind('pageAnimationStart', function(e, info){
     $('#movie').css('display', 'none');
-  }).bind('pageAnimationEnd', function (e, info) {
-    if (info.direction == 'in') {
+  }).bind('pageAnimationEnd', function(e, info){
+    if(info.direction == 'in'){
       $('#movie').css('display', 'block');
     }
   })
 });
 
-// iScroll integraton
-var scrolls = [];
-
-function setHeight($current_page, scroll) {
-  var $footerG, $footerL, $header, $wrapper;
-  var footerGH = 0,
-    footerLH = 0,
-    headerH = 0,
-    wrapperH = 0;
-
-  if (typeof $current_page === 'undefined' || $current_page === '') {
-    $current_page = $('.current');
-  }
-  $current_page.each(function () {
-// Header
-    $header = $('.toolbar', this);
-    headerH = $header.length > 0 ? $header.outerHeight() : 0;
-
-// Global footer
-    if ($('#tabbar').length > 0) {
-      $footerG = $('#tabbar');
-      footerGH = $footerG.css('display') !== 'none' ? $footerG.outerHeight() : 0;
-    }
-
-// Local footer
-    if ($('.tabbar', this).length > 0) {
-      $footerL = $('.tabbar', this);
-      footerLH = $footerL.css('display') !== 'none' ? $footerL.outerHeight() : 0;
-    }
-
-    $wrapper = $('.s-scrollwrapper', this);
-    wrapperH = window.innerHeight - headerH - footerGH - footerLH;
-    $wrapper.css({height: wrapperH + 'px'});
-
-    if (typeof scroll === 'undefined' || scroll === '') {
-      var i = $('.s-scrollpane').index($(this).find('.s-scrollpane'));
-      if (scrolls[i] instanceof iScroll) {
-        scrolls[i].refresh();
-      }
-    } else {
-      if (scroll instanceof iScroll) {
-        scroll.refresh();
-      }
-    }
-  });
-}
-
-function load_iScroll() {
-  $sp = $('.s-scrollpane');
-  $sp.each(function () {
-    scrolls.push(new iScroll($sp[$sp.index($(this))].id, {
-      hScrollbar: false,
-      checkDOMChanges: false,
-      desktopCompatibility: true,
-      snap: false
-    }));
-  });
-}
-
-document.addEventListener('touchmove', function (e) {
+document.addEventListener('touchmove', function(e){
   e.preventDefault();
 });
 
-$(document).ready(function () {
-// iScroll
-  load_iScroll();
-  setHeight();
-
-// iScroll resize on animation event
-  $('#jqt').children('.s-pane').each(function () {
-    $(this).bind('pageAnimationEnd', function (e, data) {
-      if (data.direction === 'in') {
-        setHeight();
-      }
-    });
-  });
-
-// iScroll resize on rotation
-  $('#jqt').bind('turn', function (e, data) {
-    setHeight();
-  });
+$(document).ready(function(){
 
 // tabbar touches
-  $('#tabbar').find('a').each(function () {
-    $(this).click(function () {
-      var $me = $(this);
-      if (!$me.hasClass('enabled')) {
-        jQT.goTo($me.attr('href'));
-        $me.toggleClass('enabled', true);
-        $('#tabbar').find('a').each(function () {
-          $(this).toggleClass('enabled', ($me.get(0) === $(this).get(0)));
+  tabbarTouches = function(){
+    $('#tabbar a').each(function(){
+      var $me;
+      $(this).click(function(){
+        $me = $(this);
+        if(!$me.hasClass('enabled')){
+          jQT.goTo($me.attr('href'));
+          $('#tabbar a').each(function(){
+            $(this).toggleClass('enabled', ($me.get(0) === $(this).get(0)));
+          });
+        }
+      });
+    });
+  };
+
+// Hide tabbar when page has <input>
+  hideTabbarForInputs = function(){
+    $('#jqt').children('div, form').each(function(){
+      if($(this).find('input').length > 0){
+        $(this).bind('pageAnimationStart', function(e, data){
+          if(data.direction === 'in'){
+            $('#tabbar').fadeOut();
+          } else {
+            $('#tabbar').slideDown();
+            $('#tabbar').fadeIn();
+          }
         });
       }
     });
-  });
-
-// Hide tabbar when page has <input>
-  $('#jqt').children('div, form').each(function () {
-    if ($(this).find('input').length > 0) {
-      $(this).bind('pageAnimationStart', function (e, data) {
-        if (data.direction === 'in') {
-          $('#tabbar').fadeOut();
-        } else {
-          $('#tabbar').slideDown();
-          $('#tabbar').fadeIn();
-        }
-      });
-    }
-  });
-
+  };
+  
+  tabbarTouches();
+  hideTabbarForInputs();
 });
 </script>
 </head>
@@ -465,9 +397,13 @@ $(document).ready(function () {
   </div>
 
 <!-- Animations - AnimDemo-->
-  <div id="animdemo"><!--  class="s-pane" -->
-    <div style="font-size: 1.5em; text-align: center; margin: 160px 0 90px; font-family: Marker felt;"> Pretty smooth, eh? </div>
-    <a style="margin:0 10px 120px;color:rgba(0,0,0,.9)" href="#" class="whiteButton goback">Go back</a>
+  <div id="animdemo" class="s-pane">
+    <div id="animdemo-wrapper" class="s-scrollwrapper">
+      <div id="animdemo-pane" class="s-scrollpane">
+        <div style="font-size: 1.5em; text-align: center; margin: 160px 0 90px; font-family: Marker felt;"> Pretty smooth, eh? </div>
+        <a style="margin:0 10px 120px;color:rgba(0,0,0,.9)" href="#" class="whiteButton goback">Go back</a>
+      </div>
+    </div>
   </div>
 
 <!-- Animations - Reversed -->
@@ -511,7 +447,7 @@ $(document).ready(function () {
   </div>
 
 <!-- AJAX - AJAX POST -->
-  <form id="ajax_post" action="ajax_post.php" method="POST" class="forms-pane">
+  <form id="ajax_post" action="ajax_post.php" method="POST" class="form s-pane">
     <div class="toolbar">
       <h1>Post Demo</h1>
       <a class="back" href="#">AJAX</a>
@@ -542,7 +478,7 @@ $(document).ready(function () {
     <div id="callbacks-wrapper" class="s-scrollwrapper">
       <div id="callbacks-pane" class="s-scrollpane">
         <ul class="rounded">
-          <li id="orient">Orientation: <strong>profile</strong></li>
+          <li id="orient">Orientation: <strong>portrait</strong></li>
           <li><a href="#pageevents">Page events</a></li>
           <li><a href="javascript:void(0);" id="swipeme">Swipe me!</a></li>
           <li><a href="javascript:void(0);" id="tapme">Tap me!</a></li>

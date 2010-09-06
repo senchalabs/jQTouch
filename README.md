@@ -1,12 +1,19 @@
-The DataZombies' fork
+The DataZombies jQTouch fork
 =======
 
-Added 
+Fixed
 ------------------------------------------------------------
 
-- iScroll 3.6 integration and Global tabbar with badges ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
-- jqt.activityIndicator ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_activityIndicator/))
-- jqt.checkGroup ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_checkGroup/))
+- Fixed jqt.autotitles.js to preserve hardcoded titles.
+
+Enhancements 
+------------------------------------------------------------
+
+- Global tabbar with badges ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
+- jqt.iscroll - iScroll 3.6 integration ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
+- Reworked Main demo that uses a global tabbar and iScroll (see above demo).
+- jqt.activityIndicator ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_activityIndicator/)), a really cool, customizable object.
+- jqt.checkGroup ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_checkGroup/)), for that to do list you've been putting off.
 - jqt.segmentedControl ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_segmentedControl/))
 
 
