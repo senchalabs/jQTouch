@@ -66,13 +66,11 @@ $(function(){
     $(this).parent().after('<li>swiped!</li>')
 //iScroll integration
     setHeight();
-//    setHeight($(this).parents('.current'));
   });
   $('#tapme').tap(function(){
     $(this).parent().after('<li>tapped!</li>');
 //iScroll integration
     setHeight();
-//    setHeight($(this).parents('.current'));
   })
   $('a[target="_blank"]').click(function(){
     if(confirm('This link opens in a new window.')){
@@ -168,29 +166,45 @@ $(document).ready(function(){
 
 <!-- tabbar -->
 <div id="tabbar">
-     <a href="#about" class="about six">
-     	<strong>About</strong>
-     </a>
-  	<a href="#ui" class="ui six enabled">
-    	<strong>UI Demos</strong>
-      <small class="badge right">5</small>
-     </a>
-     <a href="#animations" class="animations six">
-     	<strong>Animation</strong>
-      <small class="badge right">8</small>
-     </a>
-     <a href="#ajax" class="ajax six">
-     	<strong>AJAX</strong>
-      <small class="badge right">4</small>
-     </a>
-     <a href="#callbacks" class="callbacks six">
-     	<strong>Events</strong>
-      <small class="badge right">4</small>
-     </a>
-     <a href="#more" class="more six">
-     	<strong>More</strong>
-      <small class="badge right">3</small>
-     </a>
+  <table class="six">
+    <tr>
+      <td>
+        <a href="#about" class="about six">
+          <strong>About</strong>
+        </a>
+      </td>
+      <td>
+        <a href="#ui" class="ui six enabled">
+          <strong>UI Demos</strong>
+          <small class="badge right">5</small>
+        </a>
+      </td>
+      <td>
+        <a href="#animations" class="animations six">
+          <strong>Animation</strong>
+          <small class="badge right">8</small>
+        </a>
+      </td>
+      <td>
+        <a href="#ajax" class="ajax six">
+          <strong>AJAX</strong>
+          <small class="badge right">4</small>
+        </a>
+      </td>
+      <td>
+        <a href="#callbacks" class="callbacks six">
+          <strong>Events</strong>
+          <small class="badge right">4</small>
+        </a>
+      </td>
+      <td>
+        <a href="#more" class="more six">
+          <strong>More</strong>
+          <small class="badge right">3</small>
+        </a>
+      </td>
+    </tr>
+  </table>
 </div>
 
 <div id="jqt">

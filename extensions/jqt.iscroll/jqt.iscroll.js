@@ -29,12 +29,12 @@
       $('.s-scrollwrapper').css('z-index','1');
       
       findTabbar = function ($this){
-        // Global tabbar
+        // Global Tab Bar
         if ($('#tabbar').length > 0) {
           $tabbar = $('#tabbar');
         }
   
-        // Local tabbar - if it exists, it overrides global tabbar
+        // Local Tab Bar - if it exists, it overrides global tab bar
         if ($('.tabbar', this).length > 0) {
           $tabbar = $('.tabbar', this);
         }
@@ -43,22 +43,22 @@
 
       // Begin setHeight()
       setHeight = function ($current_page) {
-        var $header, headerH, scroll, $tabbar, tabbarH, $wrapper, wrapperH;
+        var $navbar, navbarH, scroll, $tabbar, tabbarH, $wrapper, wrapperH;
 
         if (typeof $current_page === 'undefined' || $current_page === '') {
           $current_page = $('.current');
         }
         $current_page.each(function () {
 
-          // Header
-          $header = $('.toolbar', this);
-          headerH = $header.length > 0 ? $header.outerHeight() : 0;
+          // Navigation Bar
+          $navbar = $('.toolbar', this);
+          navbarH = $navbar.length > 0 ? $navbar.outerHeight() : 0;
 
           $tabbar = findTabbar($(this));
           tabbarH = $tabbar.css('display') !== 'none' ? $tabbar.outerHeight() : 0;
 
           $wrapper = $('.s-scrollwrapper', this);
-          wrapperH = window.innerHeight - headerH - tabbarH;
+          wrapperH = window.innerHeight - navbarH - tabbarH;
           $wrapper.height(wrapperH);
 
           scroll = $(this).data('iscroll');
