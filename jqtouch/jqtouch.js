@@ -68,6 +68,7 @@
                 fullScreen: true,
                 fullScreenClass: 'fullscreen',
                 icon: null,
+                icon4: null, // icon for retina display
                 touchSelector: 'a, .touch',
                 popSelector: '.pop',
                 preloadImages: false,
@@ -89,9 +90,19 @@
                 };
             }
             // Set icon
-            if (jQTSettings.icon) {
+            if (window.devicePixelRatio && window.devicePixelRatio === 2) { // retina display
+              if (jQTSettings.icon4) {
+                var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
+                hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon4 + '" />';
+              } else if (jQTSettings.icon) { // fallback to default icon
                 var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
                 hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
+              }
+            } else {
+              if (jQTSettings.icon) {
+                var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
+                hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
+              }
             }
             // Set startup screen
             if (jQTSettings.startupScreen) {
