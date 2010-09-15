@@ -1,0 +1,5 @@
+/* @group tabbar theme */
+#tabbar a.enabled::before {
+  background: -webkit-gradient(linear, 30% 0%, 60% 70%, from(#c9ffb1), color-stop(0.6, #74c850), color-stop(0.7, #79cd55), to(#4fa32b));
+}
+/* @end */

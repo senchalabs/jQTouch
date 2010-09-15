@@ -5,56 +5,52 @@
 <title>jQTouch &beta;t</title>
 <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
 <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
-<style type="text/css" media="screen">@import "tabbar.css";</style>
+<style type="text/css" media="screen">@import "../../extensions/jqt.bars/jqt.bars.css";</style>
+<style type="text/css" media="screen">@import "../../extensions/jqt.bars/themes/jqt/theme.css";</style>
 <script src="../../jqtouch/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+<script src="../../extensions/jqt.bars/jqt.bars.js" type="application/x-javascript" charset="utf-8"></script>
 <script src="../../extensions/jqt.iscroll/jqt.iscroll.js" type="application/x-javascript" charset="utf-8"></script>
 <style type="text/css" media="screen">
 #jqt.fullscreen #ui .info,
 #jqt.fullscreen #plastic .info {
-display:none;
+  display:none;
 }
 #jqt #about {
-background:#161618;
-font-size:13px;
-text-align:center;
-text-shadow:rgba(255, 255, 255, 0.3) 0 -1px 0;
+  font-size:13px;
+  text-align:center;
+  text-shadow:rgba(255, 255, 255, 0.3) 0 -1px 0;
 }
 #jqt #about p {
-margin-bottom:8px;
+  margin-bottom:8px;
 }
-#jqt #about a {
-color:#fff;
-font-weight:700;
-text-decoration:none;
+#jqt #about > div > div > p > a, h2 {
+  color:inherit;
+  font-weight:700;
+  text-decoration:none;
 }
-#jqt #about h2 {
-color:#fff;
-}
+
 </style>
 <script type="text/javascript" charset="utf-8">
 var jQT = new $.jQTouch({
-  icon:'img/jqtouch.png',
+  icon:'jqtouch.png',
   addGlossToIcon:false,
   slideSelector: '#jqt ul > li > a, #jqt ol > li > a',
-  startupScreen:'img/jqt_startup.png',
+  startupScreen:'jqt_startup.png',
   statusBar:'black',
   preloadImages:[
-    'img/ajax.png',
-    'img/animation.png',
-    'img/demos.png',
-    'img/events.png',
-    'img/extensions.png',
-    'img/iphone.png',
-    'img/more.png',
-    'img/jqt.png',
-    'img/video.png',
     '../../themes/jqt/img/back_button.png',
     '../../themes/jqt/img/back_button_clicked.png',
     '../../themes/jqt/img/button_clicked.png',
     '../../themes/jqt/img/grayButton.png',
     '../../themes/jqt/img/whiteButton.png',
-    '../../themes/jqt/img/loading.gif'
+    '../../themes/jqt/img/loading.gif',
+    'bar_img/jqt.png',
+    'bar_img/iphone.png',
+    'bar_img/animation.png',
+    'bar_img/ajax.png',
+    'bar_img/events.png',
+    'bar_img/more.png'
   ],
   useFastTouch: true
 });
@@ -65,12 +61,12 @@ $(function(){
     $(this).html('You swiped <strong>' + data.direction + '/' + data.deltaX + ':' + data.deltaY + '</strong>!');
     $(this).parent().after('<li>swiped!</li>')
 //iScroll integration
-    setHeight();
+    jQT.setHeight();
   });
   $('#tapme').tap(function(){
     $(this).parent().after('<li>tapped!</li>');
 //iScroll integration
-    setHeight();
+    jQT.setHeight();
   })
   $('a[target="_blank"]').click(function(){
     if(confirm('This link opens in a new window.')){
@@ -119,86 +115,46 @@ $(function(){
   })
 });
 
-document.addEventListener('touchmove', function(e){
-  e.preventDefault();
-});
-
-$(document).ready(function(){
-
-// tabbar touches
-  tabbarTouches = function(){
-    $('#tabbar a').each(function(){
-      var $me;
-      $(this).click(function(){
-        $me = $(this);
-        if(!$me.hasClass('enabled')){
-          jQT.goTo($me.attr('href'));
-          $('#tabbar a').each(function(){
-            $(this).toggleClass('enabled', ($me.get(0) === $(this).get(0)));
-          });
-        }
-      });
-    });
-  };
-
-// Hide tabbar when page has <input>
-  hideTabbarForInputs = function(){
-    $('#jqt').children('div, form').each(function(){
-      if($(this).find('input').length > 0){
-        $(this).bind('pageAnimationStart', function(e, data){
-          if(data.direction === 'in'){
-            $('#tabbar').fadeOut();
-          } else {
-            $('#tabbar').slideDown();
-            $('#tabbar').fadeIn();
-          }
-        });
-      }
-    });
-  };
-  
-  tabbarTouches();
-  hideTabbarForInputs();
-});
 </script>
 </head>
 <body>
 
 <!-- tabbar -->
-<div id="tabbar">
+<div id="tabbar" style="display:none">
   <table class="six">
     <tr>
       <td>
-        <a href="#about" class="about six">
+        <a href="#about" mask="bar_img/jqt.png">
           <strong>About</strong>
         </a>
       </td>
       <td>
-        <a href="#ui" class="ui six enabled">
+        <a href="#ui" mask="bar_img/iphone.png" class="enabled">
           <strong>UI Demos</strong>
           <small class="badge right">5</small>
         </a>
       </td>
       <td>
-        <a href="#animations" class="animations six">
-          <strong>Animation</strong>
+        <a href="#animations" mask="bar_img/animation.png">
+          <strong>Animations</strong>
           <small class="badge right">8</small>
         </a>
       </td>
       <td>
-        <a href="#ajax" class="ajax six">
+        <a href="#ajax" mask="bar_img/ajax.png">
           <strong>AJAX</strong>
           <small class="badge right">4</small>
         </a>
       </td>
-      <td>
-        <a href="#callbacks" class="callbacks six">
+     <td>
+        <a href="#callbacks" mask="bar_img/events.png">
           <strong>Events</strong>
           <small class="badge right">4</small>
         </a>
       </td>
+
       <td>
-        <a href="#more" class="more six">
+        <a href="#more" mask="bar_img/more.png">
           <strong>More</strong>
           <small class="badge right">3</small>
         </a>
@@ -212,7 +168,7 @@ $(document).ready(function(){
   <div id="about" class="s-pane selectable">
     <div id="about-wrapper" class="s-scrollwrapper">
       <div id="about-pane" class="s-scrollpane">
-        <p style="padding-top: 30px;"><img src="img/jqtouch.png" /></p>
+        <p style="padding-top: 30px;"><img src="jqtouch.png" style="-webkit-border-radius: 9px;"/></p>
         <p><strong>jqtouch</strong><br />
           Version 1.0 beta<br />
           <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
@@ -255,7 +211,7 @@ $(document).ready(function(){
         </ul>
         <h2>Forms</h2>
         <ul class="rounded">
-          <li class="arrow"><a href="#forms">Forms</a></li>
+          <li class="arrow"><a href="javascript:jQT.goTo('#forms');void(0);">Forms</a></li>
         </ul>
       </div>
     </div>
@@ -346,13 +302,14 @@ $(document).ready(function(){
   </div>
 
 <!-- UI - Forms -->
-  <div id="forms" class="s-pane">
+<!-- iScroll is not active on this page. Forms and iScroll, in the words of the developer, "don't play well together." -->
+  <div id="forms"><!--  class="s-pane" -->
     <div class="toolbar">
       <h1>Forms</h1>
       <a href="#" class="back">Back</a>
     </div>
-    <div id="ui-forms-wrapper" class="s-scrollwrapper">
-      <div id="ui-forms-pane" class="s-scrollpane">
+<!--     <div id="ui-forms-wrapper" class="s-scrollwrapper"> -->
+<!--       <div id="ui-forms-pane" class="s-scrollpane"> -->
         <form>
           <ul class="edit rounded">
             <li><input type="text" name="name" placeholder="Text" id="some_name" /></li>
@@ -382,8 +339,8 @@ $(document).ready(function(){
             <li><input type="radio" name="bag" value="plastic" title="Plastic" /></li>
           </ul>
         </form>
-      </div>
-    </div>
+<!--       </div> -->
+<!--     </div> -->
   </div>
 
 <!-- Animations -->
@@ -461,19 +418,20 @@ $(document).ready(function(){
   </div>
 
 <!-- AJAX - AJAX POST -->
-  <form id="ajax_post" action="ajax_post.php" method="POST" class="form s-pane">
+<!-- iScroll is not active on this page. Forms and iScroll, in the words of the developer, "don't play well together." -->
+  <form id="ajax_post" action="ajax_post.php" method="POST" class="keep_tabbar"><!-- class="form s-pane" -->
     <div class="toolbar">
       <h1>Post Demo</h1>
       <a class="back" href="#">AJAX</a>
     </div>
-    <div id="ajax_post-wrapper" class="s-scrollwrapper">
-      <div id="ajax_post-pane" class="s-scrollpane">
+<!--     <div id="ajax_post-wrapper" class="s-scrollwrapper"> -->
+<!--       <div id="ajax_post-pane" class="s-scrollpane"> -->
         <ul class="rounded">
           <li><input type="text" name="zip" value="" placeholder="Zip Code" /></li>
         </ul>
         <a style="margin:0 10px;color:rgba(0,0,0,.9)" href="#" class="submit whiteButton">Submit</a>
-      </div>
-    </div>
+<!--       </div> -->
+<!--     </div> -->
   </form>
 
 <!-- AJAX - Callback -->
@@ -522,7 +480,7 @@ $(document).ready(function(){
     <div id="more-wrapper" class="s-scrollwrapper">
       <div id="more-pane" class="s-scrollpane">
         <ul class="rounded">
-          <li class="arrow"><a href="#extensions">Extensions</a><small class="counter">7</small></li>
+          <li class="arrow"><a href="#extensions">Extensions</a><small class="counter">9</small></li>
           <li class="arrow"><a href="#video">Video</a></li>
           <li class="arrow"><a href="#demos">Demos</a><small class="counter">2</small></li>
         </ul>
@@ -544,9 +502,11 @@ $(document).ready(function(){
           <li class="forward"><a target="_webapp" href="../ext_autotitles/">Auto Titles</a></li>
           <li class="forward"><a target="_webapp" href="../ext_checkGroup/">Check Group</a></li>
           <li class="forward"><a target="_webapp" href="../ext_floaty/">Floaty Bar</a></li>
+          <li class="forward"><a href="javascript:alert('This is the iScroll extension demo');void(0);">iScroll</a></li>
           <li class="forward"><a target="_webapp" href="../ext_location/">Geo Location</a></li>
           <li class="forward"><a target="_webapp" href="../ext_offline/">Offline Utility</a></li>
           <li class="forward"><a target="_webapp" href="../ext_segmentedControl/">Segmented Control</a></li>
+          <li class="forward"><a href="javascript:alert('This is the Tab Bar extension demo');void(0);">Tab Bar</a></li>
         </ul>
       </div>
     </div>

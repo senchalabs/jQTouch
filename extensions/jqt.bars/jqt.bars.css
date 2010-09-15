@@ -1,6 +1,5 @@
-/* @group tabbar */
 /*
-iPhone Guidelines
+iPhone Guidelines - full screen
                  Portrait     Landscape
 Status Bar.......  20px         20px    No change in heigth due to orientation.
 Navigation Bar...  44px         32px
@@ -8,19 +7,27 @@ Tool Bar.........  44px         32px
 Tab Bar..........  49px         49px    No change in heigth due to orientation.
 Source: http://developer.apple.com/iphone/library/documentation/userexperience/conceptual/mobilehig/SpecialViews/SpecialViews.html
 
-Height between a navigation bar and tool or tab bar
-Profile: 367px (480 - 20 - 44 - 49)
-Landscape: 219px (320 - 20 - 32 - 49)
+Height between a navigation bar and tool and/or tab bar
+Tool Bar
+  Profile:   416px (480 - 20 - 44)
+  Landscape: 268px (320 - 20 - 32)
+Tab Bar
+  Profile:   411px (480 - 20 - 49)
+  Landscape: 251px (320 - 20 - 49)
+Tool & Tab Bar
+  Profile:   367px (480 - 20 - 44 - 49)
+  Landscape: 219px (320 - 20 - 32 - 49)
 
 */
 
 * {outline: none !important;}
 
+/* @group tabbar */
 #tabbar {
   -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
   background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000), color-stop(.01, #000), color-stop(.02, #555), color-stop(.03, #2d2d2d), color-stop(.5, #151515), color-stop(.51, #000));
   bottom: 0;
-  display: inline-table;
+  display: display:none !important; /* initially hidden */
   height: 3.0625em !important;
   margin: 0;
   padding: .1em 0;
@@ -40,15 +47,15 @@ Landscape: 219px (320 - 20 - 32 - 49)
 
 #tabbar table.two td {width: 50%;}
 
-#tabbar table.three td {width: 33.333333%;}
+#tabbar table.three td {width: 33.3333%;}
 
 #tabbar table.four td {width: 25%;}
 
 #tabbar table.five td {width: 20%;}
 
-#tabbar table.six td {width: 16.6666667%;}
+#tabbar table.six td {width: 16.6667%;}
 
-#tabbar table.seven td {width: 14.2857143%;} /* iPad only */
+#tabbar table.seven td {width: 14.2857%;} /* iPad only */
 
 /* @end */
 
@@ -118,52 +125,12 @@ Landscape: 219px (320 - 20 - 32 - 49)
 }
 
 #tabbar a.enabled::before {
-  background: -webkit-gradient(linear, 30% 0%, 60% 70%, from(#DDE9F0), color-stop(0.6, #79B2EC), color-stop(0.7, #2E91E5), to(#3FC5F8));
+/* defined in extension themes */
 }
 
 #tabbar a.about::after,
 #tabbar a.about::before {
-  -webkit-mask-image: url('img/jqt.png');
-}
-
-#tabbar a.ajax::after,
-#tabbar a.ajax::before {
-  -webkit-mask-image: url('img/ajax.png');
-}
-
-#tabbar a.animations::after,
-#tabbar a.animations::before {
-  -webkit-mask-image: url('img/animation.png');
-}
-
-#tabbar a.callbacks::after,
-#tabbar a.callbacks::before {
-  -webkit-mask-image: url('img/events.png');
-}
-
-#tabbar a.demos::after,
-#tabbar a.demos::before {
-  -webkit-mask-image: url('img/demos.png');
-}
-
-#tabbar a.extensions::after,
-#tabbar a.extensions::before {
-  -webkit-mask-image: url('img/extensions.png');
-}
-
-#tabbar a.more::after,
-#tabbar a.more::before {
-  -webkit-mask-image: url('img/more.png');
-}
-
-#tabbar a.ui::after,
-#tabbar a.ui::before {
-  -webkit-mask-image: url('img/iphone.png');
-}
-
-#tabbar a.video::after,
-#tabbar a.video::before {
-  -webkit-mask-image: url('img/video.png');
+/* build dynamicall in jqt.bars.js */
 }
 
 /* @group badge for tabbar */

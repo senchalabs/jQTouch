@@ -76,12 +76,13 @@
   </div>
 </div>
 <script type="text/javascript" charset="utf-8">
+$(document).ready(function(){
 /*
-$('#long').find('p').each(function(){
-  $(this).css('-webkit-transform:translate3d(0,0,0)');
-});
+  $('#long > p').each(function(){
+    $(this).css('-webkit-transform:translate3d(0,0,0)');
+  });
 */
-load_iScroll($('#long'));
-setHeight();
+  jQT.init_iScroll($('#long'));
+});
 </script>
 <div></div>
