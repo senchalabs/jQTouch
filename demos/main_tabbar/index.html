@@ -29,7 +29,6 @@
   font-weight:700;
   text-decoration:none;
 }
-
 </style>
 <script type="text/javascript" charset="utf-8">
 var jQT = new $.jQTouch({
@@ -120,7 +119,7 @@ $(function(){
 <body>
 
 <!-- tabbar -->
-<div id="tabbar" style="display:none">
+<div id="tabbar">
   <table class="six">
     <tr>
       <td>
@@ -129,7 +128,7 @@ $(function(){
         </a>
       </td>
       <td>
-        <a href="#ui" mask="bar_img/iphone.png" class="enabled">
+        <a href="#ui" mask="bar_img/iphone.png">
           <strong>UI Demos</strong>
           <small class="badge right">5</small>
         </a>
@@ -146,19 +145,26 @@ $(function(){
           <small class="badge right">4</small>
         </a>
       </td>
-     <td>
+      <td>
         <a href="#callbacks" mask="bar_img/events.png">
           <strong>Events</strong>
           <small class="badge right">4</small>
         </a>
       </td>
-
       <td>
         <a href="#more" mask="bar_img/more.png">
           <strong>More</strong>
           <small class="badge right">3</small>
         </a>
       </td>
+<!--
+      <td>
+        <a href="#more" mask="bar_img/more.png">
+          <strong>More</strong>
+          <small class="badge right">3</small>
+        </a>
+      </td>
+-->
     </tr>
   </table>
 </div>

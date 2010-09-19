@@ -86,46 +86,6 @@ variable name for jQT in the jqt.iscroll function calls.
       $('.s-scrollwrapper').css('position', 'relative');
       $('.s-scrollwrapper').css('z-index', '1');
 
-      // Begin loading iscroll-min.js
-      (function () {
-        var filename = 'iscroll-min.js',
-          getPath, isLoaded, key = 'iScroll';
-
-        // Begin isLoaded()
-        isLoaded = function (key, filename) {
-          return $('body').data(key) === filename ? true : false;
-        }
-        // End isLoaded()
-
-        // Begin getPath()
-        getPath = function () {
-          var path;
-          $('script').each(function () {
-            path = $(this).attr('src');
-            var i = path.indexOf('/jqt.iscroll.js');
-            if (i > 0) {
-              path = path.substring(0, path.lastIndexOf('/') + 1);
-              return false;
-            }
-          });
-          return path;
-        }
-        // End getPath()
-
-        if (!isLoaded(key, filename)) {
-          $.getScript(getPath() + filename, function () {
-            $('body').data(key, filename);
-            document.addEventListener('touchmove', function (e) {
-              e.preventDefault();
-            });
-            init_iScroll();
-          });
-        } else {
-          init_iScroll();
-        }
-      })();
-      // End loading iscroll-min.js
-
       // Begin setHeight()
       setHeight = function ($current_page) {
         var $navbar, navbarH, scroll, $tabbar, tabbarH, $toolbar, toolbarH, $wrapper;
@@ -197,6 +157,46 @@ variable name for jQT in the jqt.iscroll function calls.
         jQT.setHeight();
       };
       // End init_iScroll()
+
+      // Begin loading iscroll-min.js
+      (function () {
+        var filename = 'iscroll-min.js',
+          getPath, isLoaded, key = 'iScroll';
+
+        // Begin isLoaded()
+        isLoaded = function (key, filename) {
+          return $('body').data(key) === filename ? true : false;
+        };
+        // End isLoaded()
+
+        // Begin getPath()
+        getPath = function () {
+          var path;
+          $('script').each(function () {
+            path = $(this).attr('src');
+            var i = path.indexOf('/jqt.iscroll.js');
+            if (i > 0) {
+              path = path.substring(0, path.lastIndexOf('/') + 1);
+              return false;
+            }
+          });
+          return path;
+        };
+        // End getPath()
+
+        if (!isLoaded(key, filename)) {
+          $.getScript(getPath() + filename, function () {
+            $('body').data(key, filename);
+            document.addEventListener('touchmove', function (e) {
+              e.preventDefault();
+            });
+            init_iScroll();
+          });
+        } else {
+          init_iScroll();
+        }
+      })();
+      // End loading iscroll-min.js
 
       return {
         init_iScroll: init_iScroll,

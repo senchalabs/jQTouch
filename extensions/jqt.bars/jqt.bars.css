@@ -1,34 +1,40 @@
 /*
 iPhone Guidelines - full screen
-                 Portrait     Landscape
-Status Bar.......  20px         20px    No change in heigth due to orientation.
-Navigation Bar...  44px         32px
-Tool Bar.........  44px         32px
-Tab Bar..........  49px         49px    No change in heigth due to orientation.
-Source: http://developer.apple.com/iphone/library/documentation/userexperience/conceptual/mobilehig/SpecialViews/SpecialViews.html
+                 Portrait  Landscape
+Status Bar.......       20px         No change in heigth due to orientation.
+Address Bar......  60px      60px    Only in Mobile Safari
+Navigation Bar...  44px      32px
+Tool Bar.........  44px      32px
+Tab Bar..........       49px         No change in heigth due to orientation.
 
-Height between a navigation bar and tool and/or tab bar
-Tool Bar
-  Profile:   416px (480 - 20 - 44)
-  Landscape: 268px (320 - 20 - 32)
-Tab Bar
-  Profile:   411px (480 - 20 - 49)
-  Landscape: 251px (320 - 20 - 49)
-Tool & Tab Bar
-  Profile:   367px (480 - 20 - 44 - 49)
-  Landscape: 219px (320 - 20 - 32 - 49)
+Screen 320 x 480 or 640 x 960 for high resolution
+----------------------------------------
+iPad Guidelines
+                       Portrait &
+                       Landscape
+Status Bar.............  20px
+Navigation in Safari...  58px     Seems to be the only exception in built-in app
+Navigation.............  44px
+Tool Bar...............  44px
+Tab Bar................  49px
+
+Screen 768 x 1024
+
+Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/conceptual/ipadhig/designguidelines/designguidelines.html
 
 */
 
 * {outline: none !important;}
 
 /* @group tabbar */
+
 #tabbar {
   -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
-  background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000), color-stop(.01, #000), color-stop(.02, #555), color-stop(.03, #2d2d2d), color-stop(.5, #151515), color-stop(.51, #000));
-  bottom: 0;
-  display: display:none !important; /* initially hidden */
-  height: 3.0625em !important;
+  background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000), color-stop(.01, #000),
+    color-stop(.02, #555), color-stop(.03, #2d2d2d), color-stop(.5, #151515), color-stop(.51, #000));
+  bottom: 0; /* build the tabbar off screen */
+  display: none; /* build the tabbar off screen */
+  height: 3.0625em  !important;
   margin: 0;
   padding: .1em 0;
   position: fixed;
@@ -36,44 +42,22 @@ Tool & Tab Bar
   z-index: 9999;
 }
 
-/* @group fixed tabbar */
-
 #tabbar table {
   border-collapse: collapse;
   width: 100%;
 }
 
-#tabbar table td {min-width: 3.25em;}
-
-#tabbar table.two td {width: 50%;}
-
-#tabbar table.three td {width: 33.3333%;}
-
-#tabbar table.four td {width: 25%;}
-
-#tabbar table.five td {width: 20%;}
-
-#tabbar table.six td {width: 16.6667%;}
-
-#tabbar table.seven td {width: 14.2857%;} /* iPad only */
-
-/* @end */
-
-/* @group horizontaly scrolling tabbar */
-
-#tabbar table.hScroll {width: 200%;}
-
-#tabbar table.hScroll td {min-width: 4.5em;}
-
-/* @end */
+#tabbar table td {
+  min-width: 3.25em;
+  text-align: center;
+}
 
 #tabbar a {
   border-radius: .25em;
   display: inline-block;
   height: 2.75em;
-  margin: 0 auto;
+  margin: 0;
   position: relative;
-  text-align: center;
   text-decoration: none;
   top: .125em;
   vertical-align: middle;
@@ -85,7 +69,7 @@ Tool & Tab Bar
   bottom: 0;
   color: #787878;
   font: bold .6em "Helvetica Neue", Helvetica;
-  line-height: 1.75em;
+  line-height: 1.25em;
   overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
@@ -93,17 +77,15 @@ Tool & Tab Bar
   width: 100%;
 }
 
-#tabbar a::after,
-#tabbar a::before {
+#tabbar a::after, #tabbar a::before {
   -webkit-mask-position: center center;
   -webkit-mask-repeat: no-repeat;
-  bottom: 0;
+  bottom: .9em;
   content: "";
   left: 0;
   position: absolute;
   right: 0;
-  text-align: center;
-  top: -1em;
+  top: 0;
 }
 
 #tabbar a::before {
@@ -128,9 +110,8 @@ Tool & Tab Bar
 /* defined in extension themes */
 }
 
-#tabbar a.about::after,
-#tabbar a.about::before {
-/* build dynamicall in jqt.bars.js */
+#tabbar a.XX::after, #tabbar a.XX::before {
+/* dynamically build in jqt.bars.js */
 }
 
 /* @group badge for tabbar */
@@ -138,7 +119,8 @@ Tool & Tab Bar
 #tabbar .badge {
   -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 1.0);
   -webkit-border-radius: .8em;
-    background-image: -webkit-gradient(radial, 50% -130%, 25, 50% 0, 54, color-stop(2%, rgba(255,255,255,0.3)), color-stop(4%, rgba(31,31,31,0.1)), color-stop(38%, rgba(239,239,239,0.1)));
+  background-image: -webkit-gradient(radial, 50% -130%, 25, 50% 0, 54, color-stop(2%, rgba(255,255,255,0.3)),
+    color-stop(4%, rgba(31,31,31,0.1)), color-stop(38%, rgba(239,239,239,0.1)));
   background-color: #ff0000;
   border: .2em solid #fff;
   color: #fff;
