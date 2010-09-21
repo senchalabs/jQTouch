@@ -39,11 +39,17 @@
           // Set tabbar button width based on count
           if ($('#tabbar a').length <= 6 || ((/ipad/gi).test(navigator.appVersion) && $('#tabbar a').length <= 7)) {
             $('#tabbar td').css('width', 100 / $('#tabbar a').length + '%');
-          } /* else {
+          } else {
             // If there's more buttons than allowed change tabbar to scrolling tabbar (TODO!)
-            $('#tabbar table').css('width', 3.75 * $('#tabbar a').length + 'em');
-            $('#tabbar td').css('width', '3.75em');
-          } */
+/*
+            tabbarScroll = new iScroll('scroller', { snap:true, momentum:false, hScrollbar:false, vScrollbar:false });
+            $('#tabbar').width(3.75 * $('#tabbar a').length + 'em');
+            $('#tabbar #scroller').width(3.75 * $('#tabbar a').length + 'em');
+            $('#tabbar table').width(3.75 * $('#tabbar a').length + 'em');
+            $('#tabbar td').width('3.75em');
+            tabbarScroll.refresh();
+*/
+          }
 
           $('#tabbar a').each(function (index) {
 

@@ -36,10 +36,17 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   display: none; /* build the tabbar off screen */
   height: 3.0625em  !important;
   margin: 0;
+	overflow: hidden;
   padding: .1em 0;
   position: fixed;
   width: 100%;
-  z-index: 9999;
+  z-index: 1;
+}
+
+#tabbar #scroller {
+	height:100%;
+	float:left;
+	padding:0;
 }
 
 #tabbar table {
