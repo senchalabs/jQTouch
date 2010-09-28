@@ -49,7 +49,8 @@
             extensions=$.jQTouch.prototype.extensions,
             defaultAnimations=['slide','flip','slideup','swap','cube','pop','dissolve','fade','back'],
             animations=[],
-            hairExtensions='';
+            hairExtensions='',
+            xhr=xhr;
         // Get the party started
         init(options);
 
@@ -476,7 +477,7 @@
             var settings = $.extend({}, defaults, options);
 
             if (href != '#') {
-                $.ajax({
+                xhr = $.ajax({
                     url: href,
                     data: settings.data,
                     type: settings.method,
@@ -504,6 +505,12 @@
             else if (settings.$referrer) {
                 settings.$referrer.unselect();
             }
+        }
+        function abortXHR(){
+                if (xhr) {
+                        xhr.abort();
+                }
+                return publicObj;
         }
         function submitForm(e, callback) {
             var $form = (typeof(e)==='string') ? $(e).eq(0) : (e.target ? $(e.target) : $(e));
@@ -647,7 +654,8 @@
             goBack: goBack,
             goTo: goTo,
             addAnimation: addAnimation,
-            submitForm: submitForm
+            submitForm: submitForm,
+            abort: abortXHR
         }
 
         return publicObj;
