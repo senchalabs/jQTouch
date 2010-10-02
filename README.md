@@ -1,4 +1,3 @@
-
 The DataZombies jQTouch fork
 =======
 
@@ -10,8 +9,7 @@ Fixed
 Enhancements 
 ------------------------------------------------------------
 
-- jqt.iscroll - iScroll 3.6 integration ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
-- jqt.bars.js - Tabbar with badges; jqt.iscroll.js REQUIRED ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
+- jqt.bars.js - Horizontal scrolling tabbar with badges; ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
 - Reworked Main demo that uses a global tabbar and iScroll (see above demo).
 - jqt.activityIndicator ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_activityIndicator/)), a really cool, customizable object.
 - jqt.checkGroup ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_checkGroup/)), for that to do list you've been putting off.
