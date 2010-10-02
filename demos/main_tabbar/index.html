@@ -10,7 +10,6 @@
 <script src="../../jqtouch/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
 <script src="../../extensions/jqt.bars/jqt.bars.js" type="application/x-javascript" charset="utf-8"></script>
-<script src="../../extensions/jqt.iscroll/jqt.iscroll.js" type="application/x-javascript" charset="utf-8"></script>
 <style type="text/css" media="screen">
 #jqt.fullscreen #ui .info,
 #jqt.fullscreen #plastic .info {
@@ -49,7 +48,9 @@ var jQT = new $.jQTouch({
     'bar_img/animation.png',
     'bar_img/ajax.png',
     'bar_img/events.png',
-    'bar_img/more.png'
+    'bar_img/extensions.png',
+    'bar_img/video.png',
+    'bar_img/demos.png'
   ],
   useFastTouch: true
 });
@@ -60,12 +61,12 @@ $(function(){
     $(this).html('You swiped <strong>' + data.direction + '/' + data.deltaX + ':' + data.deltaY + '</strong>!');
     $(this).parent().after('<li>swiped!</li>')
 //iScroll integration
-    jQT.setHeight();
+    jQT.setPageHeight();
   });
   $('#tapme').tap(function(){
     $(this).parent().after('<li>tapped!</li>');
 //iScroll integration
-    jQT.setHeight();
+    jQT.setPageHeight();
   })
   $('a[target="_blank"]').click(function(){
     if(confirm('This link opens in a new window.')){
@@ -120,7 +121,61 @@ $(function(){
 
 <!-- tabbar -->
 <div id="tabbar">
-	<div id="scroller">
+	<div id="tabbar-pane">
+    <ul>
+      <li>
+        <a href="#about" mask="bar_img/jqt.png">
+          <strong>About</strong>
+        </a>
+      </li>
+      <li>
+        <a href="#ui" mask="bar_img/iphone.png">
+          <strong>UI Demos</strong>
+          <small class="badge right">5</small>
+        </a>
+      </li>
+      <li>
+        <a href="#animations" mask="bar_img/animation.png">
+          <strong>Animations</strong>
+          <small class="badge right">8</small>
+        </a>
+      </li>
+      <li>
+        <a href="#ajax" mask="bar_img/ajax.png">
+          <strong>AJAX</strong>
+          <small class="badge right">4</small>
+        </a>
+      </li>
+      <li>
+        <a href="#callbacks" mask="bar_img/events.png">
+          <strong>Events</strong>
+          <small class="badge right">4</small>
+        </a>
+      </li>
+      <li>
+        <a href="#extensions" mask="bar_img/extensions.png">
+          <strong>Extensions</strong>
+          <small class="badge right">9</small>
+        </a>
+      </li>
+      <li>
+        <a href="#video" mask="bar_img/video.png">
+          <strong>Videos</strong>
+          <small class="badge right">1</small>
+        </a>
+      </li>
+      <li>
+        <a href="#demos" mask="bar_img/demos.png">
+          <strong>Demos</strong>
+          <small class="badge right">2</small>
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+<!--
+<div id="tabbar">
+	<div id="tabbar-pane">
     <table>
       <tr>
         <td>
@@ -153,13 +208,6 @@ $(function(){
           </a>
         </td>
         <td>
-          <a href="#more" mask="bar_img/more.png">
-            <strong>More</strong>
-            <small class="badge right">3</small>
-          </a>
-        </td>
-<!--
-        <td>
           <a href="#extensions" mask="bar_img/extensions.png">
             <strong>Extensions</strong>
             <small class="badge right">9</small>
@@ -177,11 +225,11 @@ $(function(){
             <small class="badge right">2</small>
           </a>
         </td>
--->
       </tr>
     </table>
   </div>
 </div>
+-->
 
 <div id="jqt">
 <!-- About -->
@@ -492,27 +540,10 @@ $(function(){
     </div>
   </div>
 
-<!-- More -->
-  <div id="more" class="s-pane">
-    <div class="toolbar">
-      <h1>More</h1>
-    </div>
-    <div id="more-wrapper" class="s-scrollwrapper">
-      <div id="more-pane" class="s-scrollpane">
-        <ul class="rounded">
-          <li class="arrow"><a href="#extensions">Extensions</a><small class="counter">9</small></li>
-          <li class="arrow"><a href="#video">Video</a></li>
-          <li class="arrow"><a href="#demos">Demos</a><small class="counter">2</small></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
 <!-- Extensions -->
   <div id="extensions" class="s-pane">
     <div class="toolbar">
       <h1>Extensions</h1>
-      <a class="back" href="#">More</a>
     </div>
     <div id="extensions-wrapper" class="s-scrollwrapper">
       <div id="extensions-pane" class="s-scrollpane">
@@ -536,7 +567,6 @@ $(function(){
   <div id="video" class="s-pane">
     <div class="toolbar">
       <h1>Video</h1>
-      <a class="back" href="#">More</a>
     </div>
     <div id="video-wrapper" class="s-scrollwrapper">
       <div id="video-pane" class="s-scrollpane">
@@ -550,7 +580,6 @@ $(function(){
   <div id="demos" class="s-pane">
     <div class="toolbar">
       <h1>Demos</h1>
-      <a class="back" href="#">More</a>
     </div>
     <div id="demos-wrapper" class="s-scrollwrapper">
       <div id="demos-pane" class="s-scrollpane">

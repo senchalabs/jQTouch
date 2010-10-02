@@ -28,46 +28,65 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 
 /* @group tabbar */
 
+#tabbar div, #tabbar a, #tabbar small, #tabbar strong, #tabbar ul,
+#tabbar li, #tabbar table, #tabbar tr, #tabbar td,
+.tabbar div, .tabbar a, .tabbar small, .tabbar strong, .tabbar ul,
+.tabbar li, .tabbar table, .tabbar tr, .tabbar td {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: normal;
+  font-weight: normal;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+}
+
 #tabbar {
   -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
   background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000), color-stop(.01, #000),
     color-stop(.02, #555), color-stop(.03, #2d2d2d), color-stop(.5, #151515), color-stop(.51, #000));
-  bottom: 0; /* build the tabbar off screen */
-  display: none; /* build the tabbar off screen */
+  bottom: 0;      /* build the tabbar off screen */
+  display: none;  /* build the tabbar off screen */
   height: 3.0625em  !important;
-  margin: 0;
 	overflow: hidden;
-  padding: .1em 0;
   position: fixed;
   width: 100%;
   z-index: 1;
 }
 
-#tabbar #scroller {
-	height:100%;
-	float:left;
-	padding:0;
+#tabbar #tabbar-pane, #tabbar ul, #tabbar li,
+#tabbar table, #tabbar tr, #tabbar td {
+  height: 100%;
 }
 
-#tabbar table {
-  border-collapse: collapse;
-  width: 100%;
+#tabbar #tabbar-pane, {
+  bottom: 0;
+  float:left;
 }
 
-#tabbar table td {
-  min-width: 3.25em;
-  text-align: center;
+#tabbar table, #tabbar ul {
+  display: inline-table;
+  margin-top: .1875em;
+}
+
+#tabbar li, #tabbar td {
+  display: inline-table;
+  min-width: 3.33333em;
 }
 
 #tabbar a {
   border-radius: .25em;
+  bottom: 0;
   display: inline-block;
   height: 2.75em;
-  margin: 0;
   position: relative;
-  text-decoration: none;
-  top: .125em;
-  vertical-align: middle;
+  top: 0;
+  vertical-align: top;
   width: 100%;
 }
 
@@ -75,11 +94,11 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   -webkit-font-smoothing: antialiased;
   bottom: 0;
   color: #787878;
-  font: bold .6em "Helvetica Neue", Helvetica;
-  line-height: 1.25em;
+  font: bold .625em "Helvetica Neue", Helvetica;
   overflow: hidden;
   position: absolute;
   text-overflow: ellipsis;
+  vertical-align: bottom;
   white-space: nowrap;
   width: 100%;
 }
@@ -87,12 +106,12 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 #tabbar a::after, #tabbar a::before {
   -webkit-mask-position: center center;
   -webkit-mask-repeat: no-repeat;
-  bottom: .9em;
+  bottom: .875em;
   content: "";
   left: 0;
   position: absolute;
   right: 0;
-  top: 0;
+  top: .0625em;
 }
 
 #tabbar a::before {
@@ -124,8 +143,8 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 /* @group badge for tabbar */
 
 #tabbar .badge {
-  -webkit-box-shadow: 0px 3px 5px rgba(0, 0, 0, 1.0);
-  -webkit-border-radius: .8em;
+  -webkit-box-shadow: 0px .1875em .3125em rgba(0, 0, 0, 1.0);
+  -webkit-border-radius: .8125em;
   background-image: -webkit-gradient(radial, 50% -130%, 25, 50% 0, 54, color-stop(2%, rgba(255,255,255,0.3)),
     color-stop(4%, rgba(31,31,31,0.1)), color-stop(38%, rgba(239,239,239,0.1)));
   background-color: #ff0000;
@@ -139,11 +158,10 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   overflow: hidden;
   padding: .1em .4em;
   position: absolute;
-  text-align: center;
   text-shadow: 0px -1em 1em rgba(0, 0, 0, 0.3);
-  top: -.1em;
+  top: -.125em;
   vertical-align: middle;
-  z-index: 3;
+  z-index: 2;
 }
 
 #tabbar .badge.left {
@@ -157,4 +175,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 }
 
 /* @end */
+/* @end */
+
+/* @group .tabbar */
 /* @end */
