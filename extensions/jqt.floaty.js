@@ -56,11 +56,12 @@
                 return this.each(function(){
                     var $el = $(this);
                     var settings = $el.data('settings');
-                    var wHeight = $('html').attr('clientHeight'); // WRONG
+                    //var wHeight = $('html').attr('clientHeight'); // WRONG
                     
                     var newY = window.pageYOffset +
                         ((settings.align == 'top') ? 
-                            settings.spacing : wHeight - settings.spacing - $el.get(0).offsetHeight);
+                            settings.spacing : window.innerHeight - settings.spacing - $el.get(0).offsetHeight);
+                            // changed wHeight to window.innerHeight.
                     
                     $el.css('top', newY).data('floatyVisible', true);
                 });
