@@ -106,7 +106,7 @@ variable name for "jQT" in the jqt.bars function calls.
           w += 20;
         }
 
-        if ($bars === null || $bars === undefined) {
+        if ($bars === null || typeof $bars === 'undefined') {
           $bars = $('#tabbar, .tabbar');
         }
         $bars.each(function () {
@@ -131,7 +131,7 @@ variable name for "jQT" in the jqt.bars function calls.
             $('li, td', this).width(min_w2 + 'px');
           }
           if (min_w1 > w / numOfTabs) {
-            if (scroll === null || scroll === undefined) {
+            if (scroll === null || typeof scroll === 'undefined') {
               $(this).data('iscroll', new iScroll(pane, {
                 checkDOMChanges: true,
                 desktopCompatibility: true,
@@ -148,7 +148,7 @@ variable name for "jQT" in the jqt.bars function calls.
 
       // Begin setPageHeight()
       setPageHeight = function ($current_page) {
-        if ($current_page === null || $current_page === undefined) {
+        if ($current_page === null || typeof $current_page === 'undefined') {
           $current_page = $('.current');
         }
         $current_page.each(function () {
@@ -171,7 +171,7 @@ variable name for "jQT" in the jqt.bars function calls.
           $wrapper.css('margin-bottom', parseInt(toolbarH + tabbarH, 10) + 'px');
 
           scroll = $(this).data('iscroll');
-          if (scroll !== null && scroll !== undefined) {
+          if (scroll !== null && typeof scroll !== 'undefined') {
             setTimeout(function () {
               scroll.refresh();
             },
@@ -183,7 +183,7 @@ variable name for "jQT" in the jqt.bars function calls.
 
       // Begin init_iScroll()
       init_iScroll = function ($page) {
-        if ($page === null || $page === undefined) {
+        if ($page === null || typeof $page === 'undefined') {
           $page = $('#jqt > div, #jqt > form').has('.s-scrollpane');
         }
         $page.each(function () {
@@ -260,14 +260,16 @@ variable name for "jQT" in the jqt.bars function calls.
           });
 
           // Hide tabbar when page has a form or any form element except when the page's parent div has the keep_tabbar class
-          $('#jqt > div, #jqt > form').has('button, datalist, fieldset, form, input, keygen, label, legend, meter, optgroup, option, output, progress, select, textarea').each(function () {
+          $('#jqt > div, #jqt > form').has('button, datalist, fieldset, form, keygen, label, legend, meter, optgroup, option, output, progress, select, textarea').each(function () {
 
             // Hide when in a form
             $(this).bind('pageAnimationEnd', function (e, data) {
-              if (data.direction === 'in' && !$(this).hasClass('keep_tabbar')) {
-                $('#tabbar').hide(function () {
-                  setPageHeight();
-                });
+              if ($(':input', this).length !== $(':input:hidden', this).length) {
+                if (data.direction === 'in' && !$(this).hasClass('keep_tabbar')) {
+                  $('#tabbar').hide(function () {
+                    setPageHeight();
+                  });
+                }
               }
             });
 
@@ -284,7 +286,7 @@ variable name for "jQT" in the jqt.bars function calls.
           // Scroll to enabled tab on rotation
           $('#jqt').bind('turn', function (e, data) {
             var scroll = $('#tabbar').data('iscroll');
-            if (scroll !== null && scroll !== undefined) {
+            if (scroll !== null && typeof scroll !== 'undefined') {
               setTimeout(function () {
                 if ($('.enabled').offset().left + $('.enabled').width() >= win.innerWidth) {
                   scroll.scrollToElement('#' + $('.enabled').attr('id'), '0ms');
