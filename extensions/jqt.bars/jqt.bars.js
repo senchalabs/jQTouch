@@ -153,15 +153,18 @@ console.log('\nBegin setBarWidth()');
 
           if (min_w1 <= w / numOfTabs) {
           // Tab width is a percentage of tabbar - no scrolling
+console.log('  Percentage: fixed');
             $(this).removeData('iscroll');
             $('#' + pane + ', table, ul', this).width('100%');
             $('li, td', this).width(100 / numOfTabs + '%');
           } else if (w / numOfTabs < min_w1 && min_w1 <= h / numOfTabs) {
           // Tab width based on longest dimension - scrolling
+console.log('  Longest dimension: scrolling');
             $('#' + pane + ', table, ul', this).width(h + 'px');
             $('li, td', this).width(h / numOfTabs + 'px');
           } else {
           // Tab width is min-width + 5% - scrolling
+console.log('  min-width + 5%: scrolling');
             $('#' + pane + ', table, ul', this).width(min_w2 * numOfTabs + 'px');
             $('li, td', this).width(min_w2 + 'px');
           }
