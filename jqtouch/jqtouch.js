@@ -363,7 +363,8 @@
             $(':focus').blur();
 
             // Make sure we are scrolled up to hide location bar
-            toPage.css('top', window.pageYOffset);
+            if (animation)
+                toPage.css('top', window.pageYOffset);
 
             // Define callback to run after animation completes
             var callback = function animationEnd(event) {
