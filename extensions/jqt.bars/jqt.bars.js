@@ -1,29 +1,61 @@
 /*
 
-            _/    _/_/    _/_/_/_/_/                              _/       
-               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/    
-          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/   
-         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/    
-        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/     
-       _/                                                                  
+            _/    _/_/    _/_/_/_/_/                              _/
+               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
+          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
+         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
+        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
+       _/
     _/
 
     Created by David Kaneda <http://www.davidkaneda.com>
     Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
-    
+
     Special thanks to Jonathan Stark <http://jonathanstark.com/>
     and pinch/zoom <http://www.pinchzoom.com/>
-    
+
     (c) 2009 by jQTouch project members.
     See LICENSE.txt for license.
 
 =======
 jqt.bars.js - Daniel J. Pinter - DataZombies
 
-Integration of iScroll 3.6 into jQT with tab bar and tool bar implementations 
+Integration of iScroll into jQT with tab bar and tool bar implementations
 
+Change Log
+--------------------------------------------------------------------------------
+2010-10-05  Really fixed the "Non-iScroll page not scrolling". jqt.bars used
+e.preventDefault() as per iScroll directions. This is already used in jQT,
+causing a conflict. e.preventDefault() has been removed from jqt.bars.
+Added iScroll 3.7.
+
+2010-10-04  "Non-iScroll page not scrolling" fix.
+
+2010-10-02  Horizontal scrolling tabbar! Merged jqt.iscroll into jqt.bars.
+Table & UL tabbar example. More tabbar css tweaking.
+
+2010-09-19  Changes made to automate tabbar creation. On launch jqt.bars resizes
+the tabbar. If there are 6 or less iPhone tabs, 7 or less for iPad tabs, they
+are distributed evenly across the tabbar. Code for 7 or more iPhone, 8 or more
+iPad, tabs is commented out because I'm working towards a scrolling tabbar.
+jqt.bars then looks for the first occurrence of .current (uses 1st page if not
+found) and enables the tab for that page.
+
+2010-09-14  Abstracted tabbar code into extension jqt.bars.js.
 iScroll Integration
-------------------------------------------------------------
+
+2010-09-08  Squished tabbar icon border bug; replaced more.png; laid groundwork
+for horizontally-scrolling tabbar; updated iPhone sizing guidelines in tabbar.css;
+replaced "$header" and "headerH" in jqt.iscroll.js with "$navbar" and "navbarH"
+to match the iOS HIG.
+
+
+2010-09-05  Abstracted jQT-iScroll code & styles to
+/extensions/jqt.iscroll/jqt.iscroll.js. Added scroll to top when the header is
+touched. Updated ajax_long.html and ajax_post.php. Added iscroll-min.js.
+Dynamically load iscroll.js (or iscroll-min.js). Thanks to BeeDesk for inspiration.
+
+--------------------------------------------------------------------------------
 
 jQT page format
 
@@ -34,15 +66,15 @@ jQT page format
       </div>
       <div id="ANY_ID-wrapper" class="s-scrollwrapper">
         <div id="ANY_ID-pane" class="s-scrollpane">
-  
+
           <!-- your content -->
-  
+
         </div>
       </div>
     </div>
-  
+
     <!-- more pages -->
-  
+
   </div>
 
 The important parts are the s-pane class on the second div and the two inner
@@ -86,7 +118,8 @@ variable name for "jQT" in the jqt.bars function calls.
   if ($.jQTouch) {
     $.jQTouch.addExtension(function bars(jQT) {
 
-      var d = document, init_iScroll, initTabbar, initToolbar, setBarWidth, setPageHeight, win = window;
+      var d = document,
+        init_iScroll, initTabbar, initToolbar, setBarWidth, setPageHeight, win = window;
       /*******************
        css section
        *******************/
@@ -98,6 +131,8 @@ variable name for "jQT" in the jqt.bars function calls.
        *******************/
       // Begin setBarWidth()
       setBarWidth = function ($bars) {
+console.log('\nBegin setBarWidth()');
+
         var h = parseInt(win.innerHeight > win.innerWidth ? win.innerHeight : win.innerWidth, 10),
           w = parseInt(win.innerWidth < win.innerHeight ? win.innerWidth : win.innerHeight, 10);
         if (jQT.getOrientation() === 'portrait') {
@@ -143,39 +178,52 @@ variable name for "jQT" in the jqt.bars function calls.
             }
           }
         });
+console.log('End setBarWidth()');
       };
       // End setBarWidth()
 
       // Begin setPageHeight()
       setPageHeight = function ($current_page) {
+console.log('\nBegin setPageHeight()');
         if ($current_page === null || typeof $current_page === 'undefined') {
           $current_page = $('.current');
         }
         $current_page.each(function () {
           var $navbar, navbarH, scroll, $tabbar, tabbarH, $toolbar, toolbarH, $wrapper;
+          if ($('.s-scrollwrapper', this).length) {
+console.log('  #' + $current_page.attr('id'));
 
-          // Navigation Bar
-          $navbar = $('.toolbar', this);
-          navbarH = $navbar.length > 0 ? ($navbar.length > 0 ? $navbar.outerHeight() : 0) : 0;
+            // Navigation Bar
+            $navbar = $('.toolbar', this);
+            navbarH = $navbar.length > 0 ? ($navbar.length > 0 ? $navbar.outerHeight() : 0) : 0;
 
-          // Tool Bar (tabbar class) <the toolbar class is already being used by jQT>
-          $toolbar = $('.tabbar', this);
-          toolbarH = $toolbar.length > 0 ? ($toolbar.css('display') !== 'none' ? $toolbar.outerHeight() : 0) : 0;
+            // Tool Bar (tabbar class) <the toolbar class is already being used by jQT>
+            $toolbar = $('.tabbar', this);
+            toolbarH = $toolbar.length > 0 ? ($toolbar.css('display') !== 'none' ? $toolbar.outerHeight() : 0) : 0;
 
-          // Tab Bar (tabbar id)
-          $tabbar = $('#tabbar');
-          tabbarH = $tabbar.length > 0 ? ($tabbar.css('display') !== 'none' ? $tabbar.outerHeight() : 0) : 0;
+            // Tab Bar (tabbar id)
+            $tabbar = $('#tabbar');
+            tabbarH = $tabbar.length > 0 ? ($tabbar.css('display') !== 'none' ? $tabbar.outerHeight() : 0) : 0;
 
-          $wrapper = $('.s-scrollwrapper', this);
-          $wrapper.height(parseInt(win.innerHeight - navbarH - toolbarH - tabbarH, 10));
-          $wrapper.css('margin-bottom', parseInt(toolbarH + tabbarH, 10) + 'px');
+            $wrapper = $('.s-scrollwrapper', this);
+            $wrapper.height(parseInt(win.innerHeight - navbarH - toolbarH - tabbarH, 10));
+            $wrapper.css('margin-bottom', parseInt(toolbarH + tabbarH, 10) + 'px');
+console.log('  window.innerHeight = ' + win.innerHeight);
+console.log('  navbarH = ' + navbarH);
+console.log('  toolbarH = ' + toolbarH);
+console.log('  tabbarH = ' + tabbarH);
+console.log('  $wrapper.height = ' + $wrapper.height());
+console.log('  $wrapper.css(\'margin-bottom\') = ' + $wrapper.css('margin-bottom'));
 
-          scroll = $(this).data('iscroll');
-          if (scroll !== null && typeof scroll !== 'undefined') {
-            setTimeout(function () {
-              scroll.refresh();
-            },
-            0);
+            scroll = $(this).data('iscroll');
+            if (scroll !== null && typeof scroll !== 'undefined') {
+console.log('->scroll.refresh()');
+              setTimeout(function () {
+                scroll.refresh();
+              },
+              0);
+console.log('End setPageHeight()');
+            }
           }
         });
       };
@@ -183,10 +231,13 @@ variable name for "jQT" in the jqt.bars function calls.
 
       // Begin init_iScroll()
       init_iScroll = function ($page) {
+console.log('Begin init_iScroll()');
         if ($page === null || typeof $page === 'undefined') {
           $page = $('#jqt > div, #jqt > form').has('.s-scrollpane');
         }
+console.log('Adding iScroll to:');
         $page.each(function () {
+console.log('  #' + this.id);
           var scroll = new iScroll($('.s-scrollpane', this).attr('id'), {
             hScrollbar: false,
             checkDOMChanges: true,
@@ -203,6 +254,7 @@ variable name for "jQT" in the jqt.bars function calls.
           // Resize on animation event
           $(this).bind('pageAnimationEnd', function (e, data) {
             if (data.direction === 'in') {
+console.log('\npageAnimationEnd: In');
               setPageHeight();
             }
           });
@@ -210,16 +262,22 @@ variable name for "jQT" in the jqt.bars function calls.
 
         // Resize on rotation
         $('#jqt').bind('turn', function (e, data) {
+console.log('\nRotation');
           setPageHeight();
         });
 
-        setPageHeight();
+        if (!$('#tabbar').length) {
+          setPageHeight();
+        }
+console.log('End init_iScroll()');
       };
       // End init_iScroll()
 
       // Begin initTabbar()
       initTabbar = function () {
+console.log('\nBegin initTabbar()');
         if ($('#tabbar').length > 0) {
+console.log('  #tabbar exists');
 
           // Find current class or 1st page in #jqt & the last stylesheet
           var firstPageID = '#' + ($('#jqt > .current').length === 0 ? $('#jqt > *:first') : $('#jqt > .current:first')).attr('id'),
@@ -267,6 +325,7 @@ variable name for "jQT" in the jqt.bars function calls.
               if ($(':input', this).length !== $(':input:hidden', this).length) {
                 if (data.direction === 'in' && !$(this).hasClass('keep_tabbar')) {
                   $('#tabbar').hide(function () {
+console.log('\nHide tabbar');
                     setPageHeight();
                   });
                 }
@@ -275,8 +334,9 @@ variable name for "jQT" in the jqt.bars function calls.
 
             // Show when starting to leave a form
             $(this).bind('pageAnimationStart', function (e, data) {
-              if (data.direction === 'out') {
+              if (data.direction === 'out' && $('#tabbar:hidden').length) {
                 $('#tabbar').show(function () {
+console.log('\nShow tabbar');
                   setPageHeight();
                 });
               }
@@ -298,6 +358,7 @@ variable name for "jQT" in the jqt.bars function calls.
 
           // Show tabbar now that it's been built
           $('#tabbar').show(function () {
+console.log('End initTabbar()');
             setPageHeight();
             setBarWidth();
           });
@@ -307,7 +368,9 @@ variable name for "jQT" in the jqt.bars function calls.
 
       // Begin loading iscroll-min.js
       (function () {
-        var filename = 'iscroll-min.js', getPath, key = 'iScroll';
+console.log('Begin loading iScroll');
+        var filename = 'iscroll-min.js',
+          getPath, key = 'iScroll';
 
         // Begin getPath()
         getPath = function () {
@@ -322,15 +385,13 @@ variable name for "jQT" in the jqt.bars function calls.
           });
           return path;
         };
-        // End getPath()
 
+        // End getPath()
         $.getScript(getPath() + filename, function () {
-          d.addEventListener('touchmove', function (e) {
-            e.preventDefault();
-          });
+console.log('End loading iScroll');
           init_iScroll();
           initTabbar();
-          //initToolbar()
+//          initToolbar()
         });
       })();
       // End loading iscroll-min.js
