@@ -116,16 +116,14 @@
             $(document).ready(function() {
 
                 // Add extensions
-                for (var i in extensions) {
-                    var fn = extensions[i];
+                $.each(extensions,function(i,fn){
                     if ($.isFunction(fn)) {
                         $.extend(publicObj, fn(publicObj));
                     }
-                }
+                })
 
                 // Add animations
-                for (var i in defaultAnimations) {
-                    var name = defaultAnimations[i];
+                $.each(defaultAnimations,function(i,name){
                     var selector = jQTSettings[name + 'Selector'];
                     if (typeof(selector) == 'string') {
                         addAnimation({name:name, selector:selector});
