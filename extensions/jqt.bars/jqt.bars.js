@@ -27,7 +27,6 @@ Change Log
 2010-10-05  Really fixed the "Non-iScroll page not scrolling". jqt.bars used
 e.preventDefault() as per iScroll directions. This is already used in jQT,
 causing a conflict. e.preventDefault() has been removed from jqt.bars.
-Added iScroll 3.7.
 
 2010-10-04  "Non-iScroll page not scrolling" fix.
 
@@ -119,7 +118,7 @@ variable name for "jQT" in the jqt.bars function calls.
     $.jQTouch.addExtension(function bars(jQT) {
 
       var d = document,
-        init_iScroll, initTabbar, initToolbar, setBarWidth, setPageHeight, win = window;
+        init_iScroll, initTabbar, initToolbar, refresh_iScroll, setBarWidth, setPageHeight, win = window;
       /*******************
        css section
        *******************/
@@ -129,6 +128,18 @@ variable name for "jQT" in the jqt.bars function calls.
       /*******************
        function section
        *******************/
+      // Begin refresh_iScroll()
+      refresh_iScroll = function (obj) {
+        if (obj !== null && typeof obj !== 'undefined') {
+console.log('->scroll.refresh()');
+            setTimeout(function () {
+              obj.refresh();
+            },
+            0);
+        }
+      }
+      // End refresh_iScroll()
+
       // Begin setBarWidth()
       setBarWidth = function ($bars) {
 console.log('\nBegin setBarWidth()');
@@ -144,41 +155,44 @@ console.log('\nBegin setBarWidth()');
         if ($bars === null || typeof $bars === 'undefined') {
           $bars = $('#tabbar, .tabbar');
         }
+
         $bars.each(function () {
           var min_w1 = parseFloat($('li, td', this).css('min-width')),
             min_w2 = 1.05 * min_w1,
             numOfTabs = $('a', this).length,
-            pane = $('> div', this).attr('id'),
+            $pane = $('> div', this),
             scroll = $(this).data('iscroll');
 
+console.log('  ' + numOfTabs + ' tabs');
           if (min_w1 <= w / numOfTabs) {
           // Tab width is a percentage of tabbar - no scrolling
 console.log('  Percentage: fixed');
-            $(this).removeData('iscroll');
-            $('#' + pane + ', table, ul', this).width('100%');
-            $('li, td', this).width(100 / numOfTabs + '%');
+            $pane.width('100%');
+            $('table, ul', $pane).width($pane.width());
+            $('li, td', $pane).width(100 / numOfTabs + '%');
           } else if (w / numOfTabs < min_w1 && min_w1 <= h / numOfTabs) {
           // Tab width based on longest dimension - scrolling
 console.log('  Longest dimension: scrolling');
-            $('#' + pane + ', table, ul', this).width(h + 'px');
-            $('li, td', this).width(h / numOfTabs + 'px');
+            $pane.width(h + 'px');
+            $('table, ul', $pane).width($pane.width());
+            $('li, td', $pane).width(h / numOfTabs + 'px');
           } else {
           // Tab width is min-width + 5% - scrolling
 console.log('  min-width + 5%: scrolling');
-            $('#' + pane + ', table, ul', this).width(min_w2 * numOfTabs + 'px');
-            $('li, td', this).width(min_w2 + 'px');
+            $pane.width(min_w2 * numOfTabs + 'px');
+            $('table, ul', $pane).width($pane.width());
+            $('li, td', $pane).width(min_w2 + 'px');
           }
           if (min_w1 > w / numOfTabs) {
             if (scroll === null || typeof scroll === 'undefined') {
-              $(this).data('iscroll', new iScroll(pane, {
-                checkDOMChanges: true,
+              $(this).data('iscroll', new iScroll($pane.attr('id'), {
+                bounceLock: true,
                 desktopCompatibility: true,
                 hScrollbar: false,
-                momentum: false,
-                snap: false,
                 vScrollbar: false
               }));
             }
+            refresh_iScroll($(this).data('iscroll'));
           }
         });
 console.log('End setBarWidth()');
@@ -218,15 +232,8 @@ console.log('  tabbarH = ' + tabbarH);
 console.log('  $wrapper.height = ' + $wrapper.height());
 console.log('  $wrapper.css(\'margin-bottom\') = ' + $wrapper.css('margin-bottom'));
 
-            scroll = $(this).data('iscroll');
-            if (scroll !== null && typeof scroll !== 'undefined') {
-console.log('->scroll.refresh()');
-              setTimeout(function () {
-                scroll.refresh();
-              },
-              0);
+            refresh_iScroll($(this).data('iscroll'));
 console.log('End setPageHeight()');
-            }
           }
         });
       };
@@ -234,18 +241,16 @@ console.log('End setPageHeight()');
 
       // Begin init_iScroll()
       init_iScroll = function ($page) {
-console.log('Begin init_iScroll()');
+console.log('\nBegin init_iScroll()');
         if ($page === null || typeof $page === 'undefined') {
           $page = $('#jqt > div, #jqt > form').has('.s-scrollpane');
         }
-console.log('Adding iScroll to:');
+console.log('  Adding iScroll to:');
         $page.each(function () {
-console.log('  #' + this.id);
+console.log('    #' + this.id);
           var scroll = new iScroll($('.s-scrollpane', this).attr('id'), {
             hScrollbar: false,
-            checkDOMChanges: true,
-            desktopCompatibility: true,
-            snap: false
+            desktopCompatibility: true
           });
           $(this).data('iscroll', scroll);
 
@@ -288,7 +293,10 @@ console.log('  #tabbar exists');
 
           // Make sure that the tabbar is not visible while its being built
           $('#tabbar').hide();
-
+          $('#tabbar-pane').height($('#tabbar').height());
+console.log('  #tabbar height = ' + $('#tabbar').height());
+console.log('  #tabbar-pane height = ' + $('#tabbar-pane').height());
+console.log('  #tabbar-pane <ul> height = ' + $('#tabbar-pane ul').height());
           $('#tabbar a').each(function (index) {
 
             // Enummerate the tabbar anchor tags
@@ -361,11 +369,11 @@ console.log('\nShow tabbar');
 
           // Show tabbar now that it's been built
           $('#tabbar').show(function () {
-console.log('End initTabbar()');
             setPageHeight();
             setBarWidth();
           });
         }
+console.log('End initTabbar()');
       };
       // End initTabbar()
 

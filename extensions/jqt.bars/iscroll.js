@@ -7,7 +7,7 @@
  * Released under MIT license
  * http://cubiq.org/dropbox/mit-license.txt
  * 
- * Version 3.6 - Last updated: 2010.08.24
+ * Version 3.7.1 - Last updated: 2010.10.08
  * 
  */
 
@@ -30,11 +30,14 @@ function iScroll (el, options) {
 		topOnDOMChanges: false,
 		hScrollbar: has3d,
 		vScrollbar: has3d,
-		fadeScrollbar: isIphone || isIpad || !isTouch,
-		shrinkScrollbar: isIphone || isIpad || !isTouch,
+		fadeScrollbar: isIthing || !isTouch,
+		shrinkScrollbar: isIthing || !isTouch,
 		desktopCompatibility: false,
-		overflow: 'hidden',
-		snap: false
+		overflow: 'auto',
+		snap: false,
+		bounceLock: false,
+		scrollbarColor: 'rgba(0,0,0,0.5)',
+		onScrollEnd: function () {}
 	};
 	
 	// User defined options
@@ -47,6 +50,9 @@ function iScroll (el, options) {
 	if (that.options.desktopCompatibility) {
 		that.options.overflow = 'hidden';
 	}
+	
+	that.onScrollEnd = that.options.onScrollEnd;
+	delete that.options.onScrollEnd;
 	
 	that.wrapper.style.overflow = that.options.overflow;
 	
@@ -72,7 +78,7 @@ iScroll.prototype = {
 
 	handleEvent: function (e) {
 		var that = this;
-
+		
 		switch (e.type) {
 			case START_EVENT:
 				that.touchStart(e);
@@ -113,7 +119,7 @@ iScroll.prototype = {
 
 	refresh: function () {
 		var that = this,
-			resetX = this.x, resetY = this.y,
+			resetX = that.x, resetY = that.y,
 			snap;
 		
 		that.scrollWidth = that.wrapper.clientWidth;
@@ -139,6 +145,7 @@ iScroll.prototype = {
 				resetY = that.maxScrollY;
 			}
 		}
+
 		// Snap
 		if (that.options.snap) {
 			that.maxPageX = -Math.floor(that.maxScrollX/that.scrollWidth);
@@ -155,11 +162,11 @@ iScroll.prototype = {
 		}
 		
 		that.scrollX = that.scrollerWidth > that.scrollWidth;
-		that.scrollY = !that.scrollX || that.scrollerHeight > that.scrollHeight;
+		that.scrollY = !that.options.bounceLock && !that.scrollX || that.scrollerHeight > that.scrollHeight;
 
 		// Update horizontal scrollbar
 		if (that.options.hScrollbar && that.scrollX) {
-			that.scrollBarX = that.scrollBarX || new scrollbar('horizontal', that.wrapper, that.options.fadeScrollbar, that.options.shrinkScrollbar);
+			that.scrollBarX = that.scrollBarX || new scrollbar('horizontal', that.wrapper, that.options.fadeScrollbar, that.options.shrinkScrollbar, that.options.scrollbarColor);
 			that.scrollBarX.init(that.scrollWidth, that.scrollerWidth);
 		} else if (that.scrollBarX) {
 			that.scrollBarX = that.scrollBarX.remove();
@@ -167,7 +174,7 @@ iScroll.prototype = {
 
 		// Update vertical scrollbar
 		if (that.options.vScrollbar && that.scrollY && that.scrollerHeight > that.scrollHeight) {
-			that.scrollBarY = that.scrollBarY || new scrollbar('vertical', that.wrapper, that.options.fadeScrollbar, that.options.shrinkScrollbar);
+			that.scrollBarY = that.scrollBarY || new scrollbar('vertical', that.wrapper, that.options.fadeScrollbar, that.options.shrinkScrollbar, that.options.scrollbarColor);
 			that.scrollBarY.init(that.scrollHeight, that.scrollerHeight);
 		} else if (that.scrollBarY) {
 			that.scrollBarY = that.scrollBarY.remove();
@@ -212,18 +219,19 @@ iScroll.prototype = {
 	touchStart: function(e) {
 		var that = this,
 			matrix;
-
-		e.preventDefault();
-		// e.stopPropagation();
 		
 		if (!that.enabled) {
 			return;
 		}
 
+		e.preventDefault();
+//		e.stopPropagation(); //DZ Edit
+		
 		that.scrolling = true;		// This is probably not needed, but may be useful if iScroll is used in conjuction with other frameworks
 
 		that.moved = false;
-		that.dist = 0;
+		that.distX = 0;
+		that.distY = 0;
 
 		that.setTransitionTime('0');
 
@@ -250,6 +258,10 @@ iScroll.prototype = {
 	},
 	
 	touchMove: function(e) {
+		if (!this.scrolling) {
+			return;
+		}
+
 		var that = this,
 			pageX = isTouch ? e.changedTouches[0].pageX : e.pageX,
 			pageY = isTouch ? e.changedTouches[0].pageY : e.pageY,
@@ -257,10 +269,6 @@ iScroll.prototype = {
 			topDelta = that.scrollY ? pageY - that.touchStartY : 0,
 			newX = that.x + leftDelta,
 			newY = that.y + topDelta;
-
-		if (!that.scrolling) {
-			return;
-		}
 
 		//e.preventDefault();
 		e.stopPropagation();	// Stopping propagation just saves some cpu cycles (I presume)
@@ -276,17 +284,33 @@ iScroll.prototype = {
 			newY = that.options.bounce ? Math.round(that.y + topDelta / 3) : (newY >= 0 || that.maxScrollY>=0) ? 0 : that.maxScrollY;
 		}
 
-		if (that.dist > 5) {			// 5 pixels threshold is needed on Android, but also on iPhone looks more natural
+		if (that.distX + that.distY > 5) {			// 5 pixels threshold
+
+			// Lock scroll direction
+			if (that.distX-3 > that.distY) {
+				newY = that.y;
+				topDelta = 0;
+			} else if (that.distY-3 > that.distX) {
+				newX = that.x;
+				leftDelta = 0;
+			}
+
 			that.setPosition(newX, newY);
 			that.moved = true;
 			that.directionX = leftDelta > 0 ? -1 : 1;
 			that.directionY = topDelta > 0 ? -1 : 1;
 		} else {
-			that.dist+= Math.abs(leftDelta) + Math.abs(topDelta);
+			that.distX+= Math.abs(leftDelta);
+			that.distY+= Math.abs(topDelta);
+//			that.dist+= Math.abs(leftDelta) + Math.abs(topDelta);
 		}
 	},
 	
 	touchEnd: function(e) {
+		if (!this.scrolling) {
+			return;
+		}
+
 		var that = this,
 			time = e.timeStamp - that.scrollStartTime,
 			point = isTouch ? e.changedTouches[0] : e,
@@ -296,9 +320,6 @@ iScroll.prototype = {
 			newPositionX = that.x, newPositionY = that.y,
 			snap;
 
-		if (!that.scrolling) {
-			return;
-		}
 		that.scrolling = false;
 
 		if (!that.moved) {
@@ -312,7 +333,6 @@ iScroll.prototype = {
 				}
 
 				// Create the fake event
-				target.style.pointerEvents = 'auto';
 				ev = document.createEvent('MouseEvents');
 				ev.initMouseEvent('click', true, true, e.view, 1,
 					point.screenX, point.screenY, point.clientX, point.clientY,
@@ -542,8 +562,6 @@ iScroll.prototype = {
 		return { dist: Math.round(newDist), time: Math.round(newTime) };
 	},
 	
-	onScrollEnd: function () {},
-	
 	destroy: function (full) {
 		var that = this;
 
@@ -573,8 +591,9 @@ iScroll.prototype = {
 	}
 };
 
-function scrollbar (dir, wrapper, fade, shrink) {
-	var that = this, style;
+function scrollbar (dir, wrapper, fade, shrink, color) {
+	var that = this,
+		doc = document;
 	
 	that.dir = dir;
 	that.fade = fade;
@@ -582,19 +601,16 @@ function scrollbar (dir, wrapper, fade, shrink) {
 	that.uid = ++uid;
 
 	// Create main scrollbar
-	that.bar = document.createElement('div');
+	that.bar = doc.createElement('div');
 
-	style = 'position:absolute;top:0;left:0;-webkit-transition-timing-function:cubic-bezier(0,0,0.25,1);pointer-events:none;-webkit-transition-duration:0;-webkit-transition-delay:0;-webkit-transition-property:-webkit-transform;z-index:10;background:rgba(0,0,0,0.5);' +
+	that.bar.style.cssText = 'position:absolute;top:0;left:0;-webkit-transition-timing-function:cubic-bezier(0,0,0.25,1);pointer-events:none;-webkit-transition-duration:0;-webkit-transition-delay:0;-webkit-transition-property:-webkit-transform;z-index:10;background:' + color + ';' +
 		'-webkit-transform:' + translateOpen + '0,0' + translateClose + ';' +
 		(dir == 'horizontal' ? '-webkit-border-radius:3px 2px;min-width:6px;min-height:5px' : '-webkit-border-radius:2px 3px;min-width:5px;min-height:6px');
 
-	that.bar.setAttribute('style', style);
-
 	// Create scrollbar wrapper
-	that.wrapper = document.createElement('div');
-	style = '-webkit-mask:-webkit-canvas(scrollbar' + that.uid + that.dir + ');position:absolute;z-index:10;pointer-events:none;overflow:hidden;opacity:0;-webkit-transition-duration:' + (fade ? '300ms' : '0') + ';-webkit-transition-delay:0;-webkit-transition-property:opacity;' +
+	that.wrapper = doc.createElement('div');
+	that.wrapper.style.cssText = '-webkit-mask:-webkit-canvas(scrollbar' + that.uid + that.dir + ');position:absolute;z-index:10;pointer-events:none;overflow:hidden;opacity:0;-webkit-transition-duration:' + (fade ? '300ms' : '0') + ';-webkit-transition-delay:0;-webkit-transition-property:opacity;' +
 		(that.dir == 'horizontal' ? 'bottom:2px;left:2px;right:7px;height:5px' : 'top:2px;right:2px;bottom:7px;width:5px;');
-	that.wrapper.setAttribute('style', style);
 
 	// Add scrollbar to the DOM
 	that.wrapper.appendChild(that.bar);
@@ -604,30 +620,32 @@ function scrollbar (dir, wrapper, fade, shrink) {
 scrollbar.prototype = {
 	init: function (scroll, size) {
 		var that = this,
+			doc = document,
+			pi = Math.PI,
 			ctx;
 
 		// Create scrollbar mask
 		if (that.dir == 'horizontal') {
 			if (that.maxSize != that.wrapper.offsetWidth) {
 				that.maxSize = that.wrapper.offsetWidth;
-				ctx = document.getCSSCanvasContext("2d", "scrollbar" + that.uid + that.dir, that.maxSize, 5);
+				ctx = doc.getCSSCanvasContext("2d", "scrollbar" + that.uid + that.dir, that.maxSize, 5);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.beginPath();
-				ctx.arc(2.5, 2.5, 2.5, Math.PI/2, -Math.PI/2, false);
+				ctx.arc(2.5, 2.5, 2.5, pi/2, -pi/2, false);
 				ctx.lineTo(that.maxSize-2.5, 0);
-				ctx.arc(that.maxSize-2.5, 2.5, 2.5, -Math.PI/2, Math.PI/2, false);
+				ctx.arc(that.maxSize-2.5, 2.5, 2.5, -pi/2, pi/2, false);
 				ctx.closePath();
 				ctx.fill();
 			}
 		} else {
 			if (that.maxSize != that.wrapper.offsetHeight) {
 				that.maxSize = that.wrapper.offsetHeight;
-				ctx = document.getCSSCanvasContext("2d", "scrollbar" + that.uid + that.dir, 5, that.maxSize);
+				ctx = doc.getCSSCanvasContext("2d", "scrollbar" + that.uid + that.dir, 5, that.maxSize);
 				ctx.fillStyle = "rgb(0,0,0)";
 				ctx.beginPath();
-				ctx.arc(2.5, 2.5, 2.5, Math.PI, 0, false);
+				ctx.arc(2.5, 2.5, 2.5, pi, 0, false);
 				ctx.lineTo(5, that.maxSize-2.5);
-				ctx.arc(2.5, that.maxSize-2.5, 2.5, 0, Math.PI, false);
+				ctx.arc(2.5, that.maxSize-2.5, 2.5, 0, pi, false);
 				ctx.closePath();
 				ctx.fill();
 			}
@@ -690,10 +708,8 @@ scrollbar.prototype = {
 // Is translate3d compatible?
 var has3d = ('WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix()),
 	// Device sniffing
-	isIphone = (/iphone/gi).test(navigator.appVersion),
-	isIpad = (/ipad/gi).test(navigator.appVersion),
-	isAndroid = (/android/gi).test(navigator.appVersion),
-	isTouch = isIphone || isIpad || isAndroid,
+	isIthing = (/iphone|ipad/gi).test(navigator.appVersion),
+	isTouch = ('ontouchstart' in window),
 	// Event sniffing
 	START_EVENT = isTouch ? 'touchstart' : 'mousedown',
 	MOVE_EVENT = isTouch ? 'touchmove' : 'mousemove',
