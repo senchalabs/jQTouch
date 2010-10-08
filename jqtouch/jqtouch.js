@@ -68,6 +68,7 @@
                 fullScreen: true,
                 fullScreenClass: 'fullscreen',
                 icon: null,
+                icon4: null, // experimental
                 touchSelector: 'a, .touch',
                 popSelector: '.pop',
                 preloadImages: false,
@@ -88,11 +89,20 @@
                     (new Image()).src = jQTSettings.preloadImages[i];
                 };
             }
-            // Set icon
-            if (jQTSettings.icon) {
-                var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
-                hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
+            // Set appropriate icon (retina display stuff is experimental)
+            if (jQTSettings.icon || jQTSettings.icon4) {
+                var precomposed, appropriateIcon;
+                if (jQTSettings.icon4 && window.devicePixelRatio && window.devicePixelRatio === 2) {
+                    appropriateIcon = jQTSettings.icon4;
+                } else if (jQTSettings.icon) {
+                    appropriateIcon = jQTSettings.icon;
+                }
+                if (appropriateIcon) {
+                    precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
+                    hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + appropriateIcon + '" />';
+                }
             }
+
             // Set startup screen
             if (jQTSettings.startupScreen) {
                 hairExtensions += '<link rel="apple-touch-startup-image" href="' + jQTSettings.startupScreen + '" />';
@@ -368,8 +378,12 @@
             // Define callback to run after animation completes
             var callback = function animationEnd(event) {
 
-                fromPage[0].removeEventListener('webkitTransitionEnd', callback, false);
-                fromPage[0].removeEventListener('webkitAnimationEnd', callback, false);
+                // fromPage[0].removeEventListener('webkitTransitionEnd', callback, false);
+                // fromPage[0].removeEventListener('webkitAnimationEnd', callback, false);
+                if($.support.WebKitAnimationEvent) {
+                    fromPage[0].removeEventListener('webkitTransitionEnd', callback);
+                    fromPage[0].removeEventListener('webkitAnimationEnd', callback);
+                }
 
                 if (animation) {
                         toPage.removeClass('start in ' + animation.name);
@@ -532,7 +546,11 @@
         function addAnimation(animation) {
             if (typeof(animation.selector) == 'string' && typeof(animation.name) == 'string') {
                 animations.push(animation);
-                $(animation.selector).tap(liveTap);
+                // $(animation.selector).tap(liveTap);
+                // ignore backSelector since they've already been attached
+                if(animation.selector != jQTSettings.backSelector) {
+                    $(animation.selector).tap(liveTap);
+                }
                 touchSelectors.push(animation.selector);
             }
         }
@@ -564,7 +582,8 @@
                     deltaT = 0;
 
                 // Let's bind these after the fact, so we can keep some internal values
-                $el.bind('touchmove', touchmove).bind('touchend', touchend);
+                // $el.bind('touchmove', touchmove).bind('touchend', touchend);
+                $el.bind('touchmove', touchmove).bind('touchend', touchend).bind("touchcancel", touchcancel);
 
                 hoverTimeout = setTimeout(function() {
                     $el.makeActive();
@@ -573,6 +592,11 @@
             }
 
             // Private touch functions (TODO: insert dirty joke)
+            function touchcancel(e) {
+                clearTimeout(hoverTimeout);
+                $el.removeClass('active').unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+            }
+
             function touchmove(e) {
 
                 updateChanges();
@@ -581,7 +605,7 @@
 
                 // Check for swipe
                 if (absX > absY && (absX > 35) && deltaT < 1000) {
-                    $el.trigger('swipe', {direction: (deltaX < 0) ? 'left' : 'right', deltaX: deltaX, deltaY: deltaY }).unbind('touchmove',touchmove).unbind('touchend',touchend);
+                    $el.trigger('swipe', {direction: (deltaX < 0) ? 'left' : 'right', deltaX: deltaX, deltaY: deltaY }).unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 } else if (absY > 1) {
                     $el.removeClass('active');
                 }
@@ -598,7 +622,7 @@
                 } else {
                     $el.removeClass('active');
                 }
-                $el.unbind('touchmove',touchmove).unbind('touchend',touchend);
+                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 clearTimeout(hoverTimeout);
             }
 
