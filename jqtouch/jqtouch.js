@@ -572,7 +572,8 @@
                     deltaT = 0;
 
                 // Let's bind these after the fact, so we can keep some internal values
-                $el.bind('touchmove', touchmove).bind('touchend', touchend);
+                // $el.bind('touchmove', touchmove).bind('touchend', touchend);
+                $el.bind('touchmove', touchmove).bind('touchend', touchend).bind("touchcancel", touchcancel);
 
                 hoverTimeout = setTimeout(function() {
                     $el.makeActive();
@@ -581,6 +582,11 @@
             }
 
             // Private touch functions (TODO: insert dirty joke)
+            function touchcancel(e) {
+                clearTimeout(hoverTimeout);
+                $el.removeClass('active').unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+            }
+
             function touchmove(e) {
 
                 updateChanges();
@@ -589,7 +595,7 @@
 
                 // Check for swipe
                 if (absX > absY && (absX > 35) && deltaT < 1000) {
-                    $el.trigger('swipe', {direction: (deltaX < 0) ? 'left' : 'right', deltaX: deltaX, deltaY: deltaY }).unbind('touchmove',touchmove).unbind('touchend',touchend);
+                    $el.trigger('swipe', {direction: (deltaX < 0) ? 'left' : 'right', deltaX: deltaX, deltaY: deltaY }).unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 } else if (absY > 1) {
                     $el.removeClass('active');
                 }
@@ -606,7 +612,7 @@
                 } else {
                     $el.removeClass('active');
                 }
-                $el.unbind('touchmove',touchmove).unbind('touchend',touchend);
+                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 clearTimeout(hoverTimeout);
             }
 
