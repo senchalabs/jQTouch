@@ -28,7 +28,7 @@
 
         // Set support values
         $.support.WebKitCSSMatrix = (typeof WebKitCSSMatrix != "undefined");
-        $.support.touch = (typeof TouchEvent != "undefined");
+        $.support.touch = (typeof Touch != "undefined");
         $.support.WebKitAnimationEvent = (typeof WebKitTransitionEvent != "undefined");
 
         // Initialize internal variables
