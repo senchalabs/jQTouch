@@ -157,8 +157,16 @@
                 }
 
                 // Create custom live events
+				// use addEventListener for touch events:
+            	// .bind('touchstart', handleTouch)
+				document.addEventListener('touchstart',handleTouch,true);
+				
+				/*
+					TODO overwrite the bind and undbind function to reflect addEventListener, if browser is mobile Safari
+					TODO tryout gestureEvents
+				*/
+				
                 $body
-                    .bind('touchstart', handleTouch)
                     .bind('orientationchange', updateOrientation)
                     .trigger('orientationchange')
                     .submit(submitForm);
