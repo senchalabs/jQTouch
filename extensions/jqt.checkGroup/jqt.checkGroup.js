@@ -35,6 +35,7 @@ jqt.checkGroup - Daniel J. Pinter - DataZombies
       var defaultColor, cgName, selectedColor, cgValue;
       var cgUseLocalStorage = new Boolean();
       
+/* Testing css in seperate file
       $("ul.checkGroup li input[type=radio]").css("-webkit-appearance","textarea");
       $("ul.checkGroup li input[type=radio]").css("background-color","transparent");
       $("ul.checkGroup li input[type=radio]").css("background-position","right center");
@@ -46,6 +47,7 @@ jqt.checkGroup - Daniel J. Pinter - DataZombies
       $("ul.checkGroup li input[type=radio]").css("position","relative;");
       $("ul.checkGroup li input[type=radio]").css("top","0");
       $("ul.checkGroup li input[type=radio]").css("width","20px");
+*/
 
       $(function () {
         $(".checkGroup").children("li").click(function () {

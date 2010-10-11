@@ -1,0 +1,13 @@
+ul.checkGroup li input[type="radio"]{
+  -webkit-appearance: textarea;
+  background-color: transparent;
+  background-position: right center;
+  background-repeat: no-repeat;
+  border: 1px;
+  float: right;
+  height: 13px;
+  margin-right: 0;
+  position: relative;;
+  top: 0;
+  width: 20px;
+}
