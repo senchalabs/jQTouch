@@ -1,6 +1,10 @@
 The DataZombies jQTouch fork
 =======
 
+If you find this fork useful please consider making a donation via PayPal (http://tinyurl.com/2fpmx27).
+=======
+
+
 Fixed
 ------------------------------------------------------------
 
