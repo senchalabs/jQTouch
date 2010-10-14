@@ -56,7 +56,7 @@
                 statusBar: 'default', // other options: black-translucent, black
                 submitSelector: '.submit',
                 useAnimations: true,
-                useFastTouch: true, // experimental
+                useFastTouch: false, // experimental
                 animations: [
                     {name:'cube', selector:'.cube', is3d:true},
                     {name:'dissolve', selector:'.dissolve', is3d:false},
@@ -71,98 +71,12 @@
             animations=[],
             hairExtensions='';
 
-        // PUBLIC FUNCTIONS
         function addAnimation(animation) {
             if (typeof(animation.selector) === 'string' && typeof(animation.name) === 'string') {
                 animations.push(animation);
                 $(animation.selector).tap(liveTap);
             }
         }
-        function goBack(to) {
-
-            // Init the param
-            if (hist.length <= 1) {
-                window.history.go(-2);
-            }
-            
-            var numberOfPages = Math.min(parseInt(to || 1, 10), hist.length-1),
-                curPage = hist[0];
-
-            // Search through the history for an ID
-            if(isNaN(numberOfPages) && typeof(to) === "string" && to != '#' ) {
-                for( var i=1, length=hist.length; i < length; i++ ) {
-                    if( '#' + hist[i].id === to ) {
-                        numberOfPages = i;
-                        break;
-                    }
-                }
-            }
-
-            // If still nothing, assume one
-            if(isNaN(numberOfPages) || numberOfPages < 1) {
-                numberOfPages = 1;
-            };
-
-            if (hist.length > 1) {
-                // Remove all pages in front of the target page
-                hist.splice(0, numberOfPages);
-                animatePages(curPage.page, hist[0].page, curPage.animation, curPage.reverse === false);
-            } else {
-                setHash(curPage.id);
-            }
-
-            return publicObj;
-        }
-        function goTo(toPage, animation, reverse) {
-            var fromPage = hist[0].page;
-
-            if (typeof(animation) === 'string') {
-                for (var i = animations.length - 1; i >= 0; i--) {
-                    if (animations[i].name === animation) {
-                        animation = animations[i];
-                        break;
-                    }
-                }
-            }
-            if (typeof(toPage) === 'string') {
-                nextPage = $(toPage);
-                if (nextPage.length < 1) {
-                    showPageByHref(toPage, {
-                        'animation': animation
-                    });
-                    return;
-                } else {
-                    toPage = nextPage;
-                }
-                
-            }
-            if (animatePages(fromPage, toPage, animation, reverse)) {
-                addPageToHistory(toPage, animation, reverse);
-                return publicObj;
-            } else {
-                console.error('Could not animate pages.');
-                return false;
-            }
-        }
-        function getOrientation() {
-            return orientation;
-        }
-        function submitForm(e, callback) {
-            var $form = (typeof(e)==='string') ? $(e).eq(0) : (e.target ? $(e.target) : $(e));
-
-            if ($form.length && $form.is(jQTSettings.formSelector)) {
-                showPageByHref($form.attr('action'), {
-                    data: $form.serialize(),
-                    method: $form.attr('method') || "POST",
-                    animation: animations[0] || null,
-                    callback: callback
-                });
-                return false;
-            }
-            return true;
-        }
-
-        // PRIVATE FUNCTIONS
         function addPageToHistory(page, animation, reverse) {
             // Grab some info
             var pageId = page.attr('id');
@@ -176,7 +90,7 @@
         }
         function animatePages(fromPage, toPage, animation, backwards) {
             
-            // console.log(animation);
+            // console.log('animation: ' + animation.name + '; backwards: ' + backwards);
             
             // Error check for target page
             if (toPage.length === 0) {
@@ -251,10 +165,8 @@
                 fromPage[0].addEventListener('webkitAnimationEnd', callback);
 
                 // Fail over to 2d if need be
-                if (!$.support.transform3d) {
-                    if (animation.is3d) {
-                        animation.name = 'slideup';
-                    }
+                if (!$.support.transform3d && animation.is3d) {
+                    animation.name = 'slideup';
                 }
                 
                 toPage.addClass(animation.name + ' in current');
@@ -273,56 +185,111 @@
 
             return true;
         }
-        function handleTouch(e) {
-            var $el = $(e.target);
+        function getOrientation() {
+            return orientation;
+        }
+        function goBack(to) {
             
-            // Only handle touchSelectors
-            if (!$(e.target).is(touchSelectors.join(', '))) {
-                var $link = $(e.target).closest('a, area');
-                
-                if ($link.length && $link.is(touchSelectors.join(', '))) {
-                    $el = $link;
-                } else {
+            // Init the param
+            if (hist.length <= 1) {
+                window.history.go(-2);
+            }
+            
+            var numberOfPages = Math.min(parseInt(to || 1, 10), hist.length-1),
+                curPage = hist[0];
+
+            // Search through the history for an ID
+            if(isNaN(numberOfPages) && typeof(to) === "string" && to != '#' ) {
+                for( var i=1, length=hist.length; i < length; i++ ) {
+                    if( '#' + hist[i].id === to ) {
+                        numberOfPages = i;
+                        break;
+                    }
+                }
+            }
+
+            // If still nothing, assume one
+            if(isNaN(numberOfPages) || numberOfPages < 1) {
+                numberOfPages = 1;
+            };
+
+            if (hist.length > 1) {
+                // Remove all pages in front of the target page
+                hist.splice(0, numberOfPages);
+                animatePages(curPage.page, hist[0].page, curPage.animation, curPage.reverse === false);
+            } else {
+                setHash(curPage.id);
+            }
+            
+            // Prevent default behavior
+            return false;
+        }
+        function goTo(toPage, animation, reverse) {
+            var fromPage = hist[0].page;
+
+            if (typeof(animation) === 'string') {
+                for (var i = animations.length - 1; i >= 0; i--) {
+                    if (animations[i].name === animation) {
+                        animation = animations[i];
+                        break;
+                    }
+                }
+            }
+            if (typeof(toPage) === 'string') {
+                nextPage = $(toPage);
+                if (nextPage.length < 1) {
+                    showPageByHref(toPage, {
+                        'animation': animation
+                    });
                     return;
+                } else {
+                    toPage = nextPage;
                 }
+                
+            }
+            if (animatePages(fromPage, toPage, animation, reverse)) {
+                addPageToHistory(toPage, animation, reverse);
+                return publicObj;
+            } else {
+                console.error('Could not animate pages.');
+                return false;
+            }
+        }
+        function handleTouch(e) {
+            
+            if (!$.support.touch) {
+                return;
             }
             
-            if (e) {
-                var 
-                    startTime = (new Date).getTime(),
-                    hoverTimeout = null,
-                    touch, 
-                    startX, 
-                    startY, 
-                    deltaX = 0,
-                    deltaY = 0,
-                    deltaT = 0;
-                
-                if (event.touches && event.touches.length) {
-                    touch = event.touches[0];
-                    startX = touch.pageX;
-                    startY = touch.pageY;
-                } else if (event.changedTouches && event.changedTouches.length) {
-                    touch = event.changedTouches[0];
-                    startX = touch.pageX;
-                    startY = touch.pageY;
-                } else if (event.pageX !== undefined && event.pageY !== undefined) {
-                    startX = event.pageX;
-                    startY = event.pageY;
-                } else if (event.clientX !== undefined && event.clientY !== undefined) {
-                    startX = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-                    startY = event.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-                }
-
-                // Let's bind these after the fact, so we can keep some internal values
-                // $el.bind('touchmove', touchmove).bind('touchend', touchend);
-                $el.bind('touchmove', touchmove).bind('touchend', touchend).bind("touchcancel", touchcancel);
-
-                hoverTimeout = setTimeout(function() {
-                    $el.makeActive();
-                }, 100);
-
+            var $el = $(e.target);
+            var $link = $(e.target).closest('a, area');
+            
+            // Bomb out if we didn't find a link
+            if (!$link.length) {
+                return;
             }
+
+            var startTime = (new Date).getTime(),
+                hoverTimeout = null,
+                touch, 
+                startX, 
+                startY, 
+                deltaX = 0,
+                deltaY = 0,
+                deltaT = 0;
+            
+            if (event.changedTouches && event.changedTouches.length) {
+                touch = event.changedTouches[0];
+                startX = touch.pageX;
+                startY = touch.pageY;
+            }
+
+            // Prep the link
+            $el = $link;
+            $el.bind('touchmove', touchmove).bind('touchend', touchend).bind('touchcancel', touchcancel);
+            hoverTimeout = setTimeout(function() {
+                $el.makeActive();
+            }, 100);
 
             // Private touch functions (TODO: insert dirty joke)
             function touchcancel(e) {
@@ -331,7 +298,6 @@
             }
 
             function touchmove(e) {
-
                 updateChanges();
                 var absX = Math.abs(deltaX);
                 var absY = Math.abs(deltaY);
@@ -342,15 +308,12 @@
                 } else if (absY > 1) {
                     $el.removeClass('active');
                 }
-
                 clearTimeout(hoverTimeout);
             } 
 
             function touchend() {
                 updateChanges();
-
                 if (deltaY === 0 && deltaX === 0) {
-                    $el.makeActive();
                     $el.trigger('tap');
                 } else {
                     $el.removeClass('active');
@@ -360,16 +323,16 @@
             }
 
             function updateChanges() {
-                var first = event.changedTouches[0] || null;
-                deltaX = first.pageX - startX;
-                deltaY = first.pageY - startY;
+                var firstFinger = event.changedTouches[0] || null;
+                deltaX = firstFinger.pageX - startX;
+                deltaY = firstFinger.pageY - startY;
                 deltaT = (new Date).getTime() - startTime;
+                // console.log('deltaX:'+deltaX+';deltaY:'+deltaY+';');
             }
 
         } // End touch handler
         function hashChange(e) {
             if (location.hash != '#' + currentPage.attr('id')) {
-                // console.log('location.hash:' + location.hash +'; currpage id: #' + currentPage.attr('id'));
                 goBack(location.hash);
             }
         }
@@ -418,7 +381,7 @@
                 }
             }
             
-            // Attach hair extensions to head
+            // Attach hair extensions
             if (hairExtensions) {
                 $head.prepend(hairExtensions);
             }
@@ -508,7 +471,7 @@
         }
         function setHash(hash) {
             
-            return; // This function is disabled until I can get real back button support working
+            return; // This function is disabled until I can get real browser history/back button support working
             
             // trim leading # if need be
             if (hash[0]=='#') {
@@ -572,6 +535,20 @@
                 settings.$referrer.unselect();
             }
         }
+        function submitForm(e, callback) {
+            var $form = (typeof(e)==='string') ? $(e).eq(0) : (e.target ? $(e.target) : $(e));
+
+            if ($form.length && $form.is(jQTSettings.formSelector)) {
+                showPageByHref($form.attr('action'), {
+                    data: $form.serialize(),
+                    method: $form.attr('method') || "POST",
+                    animation: animations[0] || null,
+                    callback: callback
+                });
+                return false;
+            }
+            return true;
+        }
         function submitParentForm(e) {
             var $form = $(this).closest('form');
             if ($form.length) {
@@ -582,11 +559,11 @@
             }
             return true;
         }
-        function supportsTouchEvents() {
+        function supportForTouchEvents() {
             var result = (typeof TouchEvent != "undefined");
             return result;
         };
-        function supportsTransform3d() {
+        function supportForTransform3d() {
             
             var head, body, style, div, result;
 
@@ -619,43 +596,48 @@
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
         
-        // Public jQuery Fns
-        $.fn.isExternalLink = function() {
-            var $el = $(this);
-            return ($el.attr('target') == '_blank' || $el.attr('rel') == 'external' || $el.is('input[type="checkbox"], input[type="radio"], a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
-        }
-        $.fn.makeActive = function() {
-            return $(this).addClass('active');
-        }
-        $.fn.swipe = function(fn) {
-            if ($.isFunction(fn)) {
-                return $(this).live('swipe', fn);
-            } else {
-                return $(this).trigger('swipe');
-            }
-        }
-        $.fn.tap = function(fn) {
-            if ($.isFunction(fn)) {
-                var tapEvent = (jQTSettings.useFastTouch && $.support.touch) ? 'tap' : 'click';
-                // console.log(tapEvent);
-                return $(this).live(tapEvent, fn);
-            } else {
-                return $(this).trigger('tap');
-            }
-        }
-        $.fn.unselect = function(obj) {
-            if (obj) {
-                obj.removeClass('active');
-            } else {
-                $('.active').removeClass('active');
-            }
-        }
-
         // Get the party started
         init(options);
 
-        // Initialize on document ready
+        // Document ready stuff
         $(document).ready(function() {
+
+            // Store some properties in the jQuery support object
+            $.support.touch = supportForTouchEvents();
+            $.support.transform3d = supportForTransform3d();
+            $.support.WebKitCSSMatrix = (typeof WebKitCSSMatrix != "undefined");
+            $.support.WebKitAnimationEvent = (typeof WebKitAnimationEvent != "undefined");
+            
+            // Define public jQuery functions
+            $.fn.isExternalLink = function() {
+                var $el = $(this);
+                return ($el.attr('target') == '_blank' || $el.attr('rel') == 'external' || $el.is('input[type="checkbox"], input[type="radio"], a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
+            }
+            $.fn.makeActive = function() {
+                return $(this).addClass('active');
+            }
+            $.fn.swipe = function(fn) {
+                if ($.isFunction(fn)) {
+                    return $(this).live('swipe', fn);
+                } else {
+                    return $(this).trigger('swipe');
+                }
+            }
+            $.fn.tap = function(fn) {
+                if ($.isFunction(fn)) {
+                    var tapEvent = (jQTSettings.useFastTouch && $.support.touch) ? 'tap' : 'click';
+                    return $(this).live(tapEvent, fn);
+                } else {
+                    return $(this).trigger('tap');
+                }
+            }
+            $.fn.unselect = function(obj) {
+                if (obj) {
+                    obj.removeClass('active');
+                } else {
+                    $('.active').removeClass('active');
+                }
+            }
 
             // Add extensions
             for (var i=0, max=extensions.length; i < max; i++) {
@@ -665,29 +647,25 @@
                 }
             }
 
-            // Add animations
+            // Bind touch handlers to DOM objects that trigger standard animations
             for (var i=0, max=defaults.animations.length; i < max; i++) {
                 var animation = defaults.animations[i];
-                // console.log(animation.name + ' override is: ' + typeof jQTSettings[animation.name + 'Selector']);
                 if(jQTSettings[animation.name + 'Selector'] !== undefined){
                     animation.selector = jQTSettings[animation.name + 'Selector'];
                 }
                 addAnimation(animation);
             }
+            
+            // Bind touch handlers to special objects
+            $(jQTSettings.backSelector).tap(goBack);
+            $(jQTSettings.submitSelector).tap(submitParentForm);
 
-            // Store some properties in the jQuery support object
-            $.support.touch = supportsTouchEvents();
-            $.support.transform3d = supportsTransform3d();
-            $.support.WebKitCSSMatrix = (typeof WebKitCSSMatrix != "undefined");
-            $.support.WebKitAnimationEvent = (typeof WebKitTransitionEvent != "undefined");
-
+            // I'm not so sure about this stuff...
             touchSelectors.push('input');
             touchSelectors.push(jQTSettings.touchSelector);
             touchSelectors.push(jQTSettings.backSelector);
             touchSelectors.push(jQTSettings.submitSelector);
             $(touchSelectors.join(', ')).css('-webkit-touch-callout', 'none');
-            $(jQTSettings.backSelector).tap(liveTap);
-            $(jQTSettings.submitSelector).tap(submitParentForm);
 
             $body = $('#jqt');
 
