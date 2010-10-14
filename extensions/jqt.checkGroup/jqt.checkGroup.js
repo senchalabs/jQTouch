@@ -20,13 +20,14 @@
 
 jqt.checkGroup - Daniel J. Pinter - DataZombies
 
-// Use the getCGValue method to use the user's selection
-//  var a = jQT.getCGValue(0).cgName;
-//  var b = jQT.getCGValue(0).cgValue;
+Use the getCGValue method to use the user's selection
+  var a = jQT.getCGValue(0).cgName;
+  var b = jQT.getCGValue(0).cgValue;
 
-// If you want the selection stored in localStorage set this to true:
+If you want the selection stored in localStorage set this to true:
   jQT.cgUseLocalStorage = true;
-// The selected item's color is stored in the extension's theme (apple.css, jqt.css) ul.checkGroup li input[type=radio] CSS rule.
+
+The selected item's color is stored in the extension's theme (apple.css, jqt.css) ul.checkGroup li input[type=radio] CSS rule.
 */
 
 (function ($) {
@@ -35,7 +36,6 @@ jqt.checkGroup - Daniel J. Pinter - DataZombies
       var defaultColor, cgName, selectedColor, cgValue;
       var cgUseLocalStorage = new Boolean();
       
-/* Testing css in seperate file
       $("ul.checkGroup li input[type=radio]").css("-webkit-appearance","textarea");
       $("ul.checkGroup li input[type=radio]").css("background-color","transparent");
       $("ul.checkGroup li input[type=radio]").css("background-position","right center");
@@ -47,7 +47,6 @@ jqt.checkGroup - Daniel J. Pinter - DataZombies
       $("ul.checkGroup li input[type=radio]").css("position","relative;");
       $("ul.checkGroup li input[type=radio]").css("top","0");
       $("ul.checkGroup li input[type=radio]").css("width","20px");
-*/
 
       $(function () {
         $(".checkGroup").children("li").click(function () {
