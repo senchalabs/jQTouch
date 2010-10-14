@@ -508,6 +508,8 @@
         }
         function setHash(hash) {
             
+            return; // This function is disabled until I can get real back button support working
+            
             // trim leading # if need be
             if (hash[0]=='#') {
                 hash = hash.slice(1);
