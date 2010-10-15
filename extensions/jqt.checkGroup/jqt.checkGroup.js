@@ -33,8 +33,8 @@ The selected item's color is stored in the extension's theme (apple.css, jqt.css
 (function ($) {
   if ($.jQTouch) {
     $.jQTouch.addExtension(function checkGroup(jQT) {
-      var defaultColor, cgName, selectedColor, cgValue;
-      var cgUseLocalStorage = new Boolean();
+      var defaultColor, cgName, selectedColor, cgValue,
+      cgUseLocalStorage = new Boolean();
       
       $("ul.checkGroup li input[type=radio]").css("-webkit-appearance","textarea");
       $("ul.checkGroup li input[type=radio]").css("background-color","transparent");
@@ -48,14 +48,14 @@ The selected item's color is stored in the extension's theme (apple.css, jqt.css
       $("ul.checkGroup li input[type=radio]").css("top","0");
       $("ul.checkGroup li input[type=radio]").css("width","20px");
 
-      $(function () {
+      initCG = function () {
         $(".checkGroup").children("li").click(function () {
           $(this).siblings().each(function () {
             if (typeof defaultColor === 'undefined' && $("ul.checkGroup li").css("color") !== selectedColor) {
               defaultColor = $("#jqt ul.checkGroup li").css("color");
             }
             $(this).css("color", defaultColor);
-          })
+          });
           $($(this).children("input")).each(function () {
             this.checked = true;
               cgName = $(this).attr("name");
@@ -70,15 +70,17 @@ The selected item's color is stored in the extension's theme (apple.css, jqt.css
           }
           $(this).css("color", selectedColor);
         });  
-      });
-      function getCGValue(){
+      };
+      getCGValue = function(){
         return {
-          cgName:cgName,
-          cgValue:cgValue
+          cgName: cgName,
+          cgValue: cgValue
         };
-      }
+      };
+      initCG();
       return {
-        getCGValue:getCGValue
+        initCG: initCG,
+        getCGValue: getCGValue
       };
     });
   }
