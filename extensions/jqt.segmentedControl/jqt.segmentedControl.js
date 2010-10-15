@@ -74,7 +74,7 @@ jqt.checkGroup - Daniel J. Pinter - DataZombies
       $("#jqt ul.segmentedControl.five li").css("width","20%");
       $("#jqt ul.segmentedControl.six li").css("width","16.6%");      
 
-      $(function () {
+      initSC = function () {
         $('.segmentedControl').children('li').click(function () {
           $(this).siblings().each(function () {
             $(this).removeClass('scSelected');
@@ -90,15 +90,17 @@ jqt.checkGroup - Daniel J. Pinter - DataZombies
           });
           $(this).addClass('scSelected');
         });  
-      });
-      function getSCValue(){
+      };
+      getSCValue = function(){
         return {
-          scName:scName,
-          scValue:scValue
+          scName: scName,
+          scValue: scValue
         };
-      }
+      };
+      initSC();
       return {
-        getSCValue:getSCValue
+        initSC: initSC,
+        getSCValue: getSCValue
       };
     });
   }
