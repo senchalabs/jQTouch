@@ -1,20 +1,15 @@
 /* @group tabbar theme */
 #tabbar a.enabled::before {
   background-image:
-/* foreground */
-    -webkit-gradient(linear, 0% 50%, 0% 100%,
-    from(transparent),
-    to(rgba(68, 213, 224, .9)),
-    color-stop(0, rgba(68, 213, 224, .10))),
-/* midground */
-    -webkit-gradient(radial, 80 180, 175, 47 90, 79,
-    from(transparent),
-    to(rgba(33, 117, 219, 1)),
-    color-stop(.5, rgba(33, 117, 219, .50))),
-/* background */
-   -webkit-gradient(radial, 10 -30, 50, 24 -28, 25,
-    from(rgba(123, 170, 233, 1)),
-    to(rgba(229, 237, 250, 1)))
-  ; 
+    -webkit-gradient(linear, left top, left bottom,
+      from(rgba(068, 213, 254, 0)),
+      color-stop(.43, rgba(068, 213, 254, 0)),
+      to(rgba(068, 213, 254, 1))),
+    -webkit-gradient(radial, 60 162, 150, 60 162, 149, 
+      from(rgba(049, 123, 220, 0)), 
+      to(rgba(049, 123, 220, 1))),
+    -webkit-gradient(radial, 20 -43, 60, 20 -43, 40, 
+      from(rgba(125, 170, 231, 1)), 
+      to(rgba(230, 238, 250, 1)));
 }
 /* @end */
