@@ -272,6 +272,7 @@ console.log('\npageAnimationEnd: In');
         $('#jqt').bind('turn', function (e, data) {
 console.log('\nRotation');
           setPageHeight();
+          setBarWidth();
         });
 
         if (!$('#tabbar').length) {
