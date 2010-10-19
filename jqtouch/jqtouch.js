@@ -117,7 +117,7 @@
         }
         function doNavigation(fromPage, toPage, animation, backwards) {
             _debug();
-            _alert('animation.name: ' + animation.name + '; backwards: ' + backwards);
+            // _alert('animation.name: ' + animation.name + '; backwards: ' + backwards);
 
             // Error check for target page
             if (toPage.length === 0) {
@@ -153,7 +153,6 @@
                 
                 // Reverse animation if need be
                 if (backwards) {
-                    _alert('in backwards block');
                     if (animation.name.indexOf('left') > 0) {
                         finalAnimationName = animation.name.replace(/left/, 'right');
                     } else if (animation.name.indexOf('right') > 0) {
@@ -169,8 +168,6 @@
                 
                 // Bind internal "cleanup" callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
-                
-                _alert('finalAnimationName: ' + finalAnimationName);
                 
                 // Trigger animations
                 toPage.addClass(finalAnimationName + ' in current');
