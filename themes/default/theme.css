@@ -2,7 +2,7 @@ body {
     background: #000;
     color: #ddd;
 }
-div#jqt > * {
+#jqt > * {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#5e5e65));
 }
 #jqt h1, #jqt h2 {
@@ -23,7 +23,7 @@ div#jqt > * {
 #jqt .black-translucent .toolbar {
     margin-top: 20px;
 }
-div#jqt .toolbar > h1 {
+#jqt .toolbar > h1 {
     position: absolute;
     overflow: hidden;
     left: 50%;
@@ -40,7 +40,7 @@ div#jqt .toolbar > h1 {
     white-space: nowrap;
     color: #fff;
 }
-div#jqt.landscape .toolbar > h1 {
+#jqt.landscape .toolbar > h1 {
     margin-left: -125px;
     width: 250px;
 }
