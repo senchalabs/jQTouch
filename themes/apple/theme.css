@@ -28,7 +28,7 @@ body {
 	margin-top: 20px;
 }
 
-div#jqt .toolbar > h1 {
+#jqt .toolbar > h1 {
     position: absolute;
     overflow: hidden;
     left: 50%;
@@ -46,7 +46,7 @@ div#jqt .toolbar > h1 {
     color: #fff;
 }
 
-div#jqt.landscape .toolbar > h1 {
+#jqt.landscape .toolbar > h1 {
     margin-left: -125px;
     width: 250px;
 }
