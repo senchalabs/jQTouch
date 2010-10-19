@@ -29,6 +29,7 @@
         // Initialize internal jQT variables
         var $body,
             $head=$('head'),
+            initialPageId='',
             hist=[],
             newPageCount=0,
             jQTSettings={},
@@ -40,11 +41,13 @@
             publicObj={},
             tapBuffer=351,
             extensions=$.jQTouch.prototype.extensions,
+            animations=[],
+            hairExtensions='', 
             defaults = {
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                default2dAnimation: 'slideup', 
+                fallback2dAnimation: 'fade', 
                 fixedViewport: true,
                 formSelector: 'form',
                 fullScreen: true,
@@ -58,22 +61,28 @@
                 statusBar: 'default', // other options: black-translucent, black
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
-                unloadMessage: 'Doing so will log you out of the app.', 
+                unloadMessage: 'Are you sure you want to leave this page? Doing so will log you out of the app.', 
                 useAnimations: true,
-                useFastTouch: true, // experimental
-                animations: [
-                    {name:'cube', selector:'.cube', is3d:true, default2d:'slideup'},
-                    {name:'dissolve', selector:'.dissolve', is3d:false},
-                    {name:'fade', selector:'.fade', is3d:false},
-                    {name:'flip', selector:'.flip', is3d:true, default2d:'fade'},
-                    {name:'pop', selector:'.pop', is3d:false},
-                    {name:'slide', selector:'#jqt > * > ul li a, .slide', is3d:false},
-                    {name:'slideup', selector:'.slideup', is3d:false},
-                    {name:'swap', selector:'.swap', is3d:true, default2d:'slideup'}
+                useTouch: true, // experimental 
+                animations: [ // highest to lowest priority
+                    {selector:'.cube', name:'cubeleft', is3d:true},
+                    {selector:'.cubeleft', name:'cubeleft', is3d:true},
+                    {selector:'.cuberight', name:'cuberight', is3d:true},
+                    {selector:'.dissolve', name:'fade', is3d:false},
+                    {selector:'.fade', name:'fade', is3d:false},
+                    {selector:'.flip', name:'flipleft', is3d:true},
+                    {selector:'.flipleft', name:'flipleft', is3d:true},
+                    {selector:'.flipright', name:'flipright', is3d:true},
+                    {selector:'.pop', name:'pop', is3d:true},
+                    {selector:'.slide', name:'slideleft', is3d:false},
+                    {selector:'.slidedown', name:'slidedown', is3d:false},
+                    {selector:'.slideleft', name:'slideleft', is3d:false},
+                    {selector:'.slideright', name:'slideright', is3d:false},
+                    {selector:'.slideup', name:'slideup', is3d:false},
+                    {selector:'.swap', name:'swapleft', is3d:true},
+                    {selector:'#jqt > * > ul li a', name:'slideleft', is3d:false}
                 ]
-            },
-            animations=[],
-            hairExtensions='';
+            };
         
         function _alert(message) {
             // alert(message);
@@ -86,121 +95,15 @@
             _debug();
             if (typeof(animation.selector) === 'string' && typeof(animation.name) === 'string') {
                 animations.push(animation);
-                $(animation.selector).tap(tapHandler);
             }
         }
         function addPageToHistory(page, animation, reverse) {
             _debug();
-            // Grab some info
-            var pageId = page.attr('id');
-            // Prepend info to page history
             hist.unshift({
                 page: page,
                 animation: animation,
-                reverse: reverse || false,
-                id: pageId
+                id: page.attr('id')
             });
-        }
-        function animatePages(fromPage, toPage, animation, backwards) {
-            _debug();
-            
-            // _alert('animation: ' + animation.name + '; backwards: ' + backwards);
-            
-            // Error check for target page
-            if (toPage.length === 0) {
-                $.fn.unselect();
-                _alert('Target element is missing.');
-                return false;
-            }
-
-            // Error check for fromPage=toPage
-            if (toPage.hasClass('current')) {
-                $.fn.unselect();
-                _alert('Target element is the current page.');
-                return false;
-            }
-
-            // Collapse the keyboard
-            $(':focus').blur();
-
-            // Make sure we are scrolled up to hide location bar
-            // toPage.css('top', window.pageYOffset);
-
-            // Define callback to run after animation completes
-            var callback = function(event) {
-
-                if($.support.animationEvents) {
-                    fromPage.unbind('webkitTransitionEnd', callback);
-                    fromPage.unbind('webkitAnimationEnd', callback);
-                }
-
-                if (animation) {
-                    toPage.removeClass('start in ' + animation.name);
-                    fromPage.removeClass('start out current ' + animation.name);
-                    if (backwards) {
-                        toPage.toggleClass('reverse');
-                        fromPage.toggleClass('reverse');
-                    }
-                    // toPage.css('top', 0);
-                } else {
-                    fromPage.removeClass('current');
-                }
-
-                toPage.trigger('pageAnimationEnd', {direction:'in', reverse:backwards });
-                fromPage.trigger('pageAnimationEnd', {direction:'out', reverse:backwards });
-
-                currentPage = toPage;
-                setHash(currentPage.attr('id'));
-
-                var $originallink = toPage.data('referrer');
-                if ($originallink) {
-                    $originallink.unselect();
-                }
-                lastAnimationTime = (new Date()).getTime();
-                tapReady = true;
-
-            }
-
-            fromPage.trigger('pageAnimationStart', { direction: 'out' });
-            toPage.trigger('pageAnimationStart', { direction: 'in' });
-
-            if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
-
-                tapReady = false;
-
-                if (backwards) {
-                    toPage.toggleClass('reverse');
-                    fromPage.toggleClass('reverse');
-                }
-
-                // Support both transitions and animations
-                fromPage.bind('webkitTransitionEnd', callback);
-                fromPage.bind('webkitAnimationEnd', callback);
-
-                // Fail over to 2d if need be
-                if (!$.support.transform3d && animation.is3d) {
-                    if (animation.default2d) {
-                        animation.name = animation.default2d;
-                    } else {
-                        animation.name = jQTSettings.default2dAnimation;
-                    }
-                }
-                
-                toPage.addClass(animation.name + ' in current');
-                fromPage.addClass(animation.name + ' out');
-
-                
-                setTimeout(function(){
-                    toPage.addClass('start');
-                    fromPage.addClass('start');
-                }, 0);
-
-            } else {
-                toPage.addClass('current');
-                callback();
-            }
-
-            return true;
         }
         function clickHandler(e) {
             _debug();
@@ -212,13 +115,114 @@
             $(e.target).trigger('tap');
             
         }
+        function doNavigation(fromPage, toPage, animation, backwards) {
+            _debug();
+            _alert('animation.name: ' + animation.name + '; backwards: ' + backwards);
+
+            // Error check for target page
+            if (toPage.length === 0) {
+                $.fn.unselect();
+                _alert('Target element is missing.');
+                return false;
+            }
+
+            // Error check for fromPage===toPage
+            if (toPage.hasClass('current')) {
+                $.fn.unselect();
+                _alert('You are already on the page you are trying to navigate to.');
+                return false;
+            }
+
+            // Collapse the keyboard
+            $(':focus').blur();
+
+            // Make sure we are scrolled up to hide location bar
+            // toPage.css('top', window.pageYOffset);
+
+            // fromPage.trigger('pageAnimationStart', { direction: 'out' });
+            // toPage.trigger('pageAnimationStart', { direction: 'in' });
+
+            if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
+
+                tapReady = false;
+
+                // Fail over to 2d animation if need be
+                if (!$.support.transform3d && animation.is3d) {
+                    animation.name = jQTSettings.fallback2dAnimation;
+                }
+                
+                // Reverse animation if need be
+                if (backwards) {
+                    _alert('in backwards block');
+                    if (animation.name.indexOf('left') > 0) {
+                        finalAnimationName = animation.name.replace(/left/, 'right');
+                    } else if (animation.name.indexOf('right') > 0) {
+                        finalAnimationName = animation.name.replace(/right/, 'left');
+                    } else if (animation.name.indexOf('up') > 0) {
+                        finalAnimationName = animation.name.replace(/up/, 'down');
+                    } else if (animation.name.indexOf('down') > 0) {
+                        finalAnimationName = animation.name.replace(/down/, 'up');
+                    }
+                } else {
+                    finalAnimationName = animation.name;
+                }
+                
+                // Bind internal "cleanup" callback
+                fromPage.bind('webkitAnimationEnd', navigationEndHandler);
+                
+                _alert('finalAnimationName: ' + finalAnimationName);
+                
+                // Trigger animations
+                toPage.addClass(finalAnimationName + ' in current');
+                fromPage.addClass(finalAnimationName + ' out');
+
+            } else {
+                toPage.addClass('current');
+                navigationEndHandler();
+            }
+            
+            // Define private navigationEnd callback
+            function navigationEndHandler(event) {
+                _debug();
+
+                if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
+                    fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
+                    fromPage.attr('class', '');
+                    toPage.attr('class', 'current');
+                    // toPage.css('top', 0);
+                } else {
+                    fromPage.attr('class', '');
+                }
+
+                // Housekeeping
+                currentPage = toPage;
+                if (backwards) {
+                    hist.shift();
+                } else {
+                    addPageToHistory(currentPage, animation);
+                }
+                
+                fromPage.unselect();
+                lastAnimationTime = (new Date()).getTime();
+                setHash(currentPage.attr('id'));
+                tapReady = true;
+
+                // Finally, trigger custom events
+                toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
+                fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
+
+            }
+            
+            // We's out
+            return true;
+        }
         function getOrientation() {
             _debug();
             return orientation;
         }
-        function goBack(to) {
+        function goBack() {
             _debug();
-            
+
             // Error checking
             if (hist.length < 1 ) {
                 _alert('History is empty.');
@@ -228,30 +232,14 @@
                 _alert('You are on the first panel.');
             }
             
-            var numberOfPages = Math.min(parseInt(to || 1, 10), hist.length-1),
-                curPage = hist[0];
+            var from = hist[0],
+                to = hist[1];
 
-            // Search through the history for an ID
-            if(isNaN(numberOfPages) && typeof(to) === "string" && to != '#' ) {
-                for( var i=1, length=hist.length; i < length; i++ ) {
-                    if( '#' + hist[i].id === to ) {
-                        numberOfPages = i;
-                        break;
-                    }
-                }
-            }
-
-            // If still nothing, assume one
-            if(isNaN(numberOfPages) || numberOfPages < 1) {
-                numberOfPages = 1;
-            };
-
-            if (hist.length > 1) {
-                // Remove all pages in front of the target page
-                hist.splice(0, numberOfPages);
-                animatePages(curPage.page, hist[0].page, curPage.animation, curPage.reverse === false);
+            if (doNavigation(from.page, to.page, from.animation, true)) {
+                return publicObj;
             } else {
-                setHash(curPage.id);
+                _alert('Could not go back.');
+                return false;
             }
             
             // Prevent default behavior
@@ -260,9 +248,13 @@
         function goTo(toPage, animation, reverse) {
             _debug();
 
+            if (reverse) {
+                console.warn('The reverse parameter was sent to goTo() function, which is bad.');
+            }
+
             var fromPage = hist[0].page;
 
-            if (typeof(animation) === 'string') {
+            if (typeof animation === 'string') {
                 for (var i=0, max=animations.length; i < max; i++) {
                     if (animations[i].name === animation) {
                         animation = animations[i];
@@ -270,6 +262,7 @@
                     }
                 }
             }
+
             if (typeof(toPage) === 'string') {
                 nextPage = $(toPage);
                 if (nextPage.length < 1) {
@@ -282,8 +275,7 @@
                 }
                 
             }
-            if (animatePages(fromPage, toPage, animation, reverse)) {
-                addPageToHistory(toPage, animation, reverse);
+            if (doNavigation(fromPage, toPage, animation, reverse)) {
                 return publicObj;
             } else {
                 _alert('Could not animate pages.');
@@ -292,8 +284,10 @@
         }
         function hashChange(e) {
             _debug();
-            if (location.hash != '#' + currentPage.attr('id')) {
-                goBack(location.hash);
+            if (location.href == hist[1].href) {
+                goBack();
+            } else {
+                _alert(location.href+' == '+hist[1].href);
             }
         }
         function init(options) {
@@ -385,20 +379,18 @@
         function setHash(hash) {
             _debug();
             
-            return; // This function is disabled until I can get real browser history/back button support working
+            return; // Deactivated at the moment
             
             // trim leading # if need be
-            if (hash[0]=='#') {
-                hash = hash.slice(1);
-            }
+            hash = hash.replace(/^#/, ''),
             
             // remove listener
             // window.removeEventListener('hashchange', hashChange, false);
             window.onhashchange = null;
             
             // change hash
-            if (location.hash=='') {
-                location.replace(location.href + '#' + hash);
+            if (hash === initialPageId) {
+                location.href = location.href.split('#')[0];
             } else {
                 location.hash = '#' + hash;
             }
@@ -492,7 +484,7 @@
             _debug();
             
             // If dev wants fast touch off, shut off touch whether device supports it or not
-            if (!jQTSettings.useFastTouch) {
+            if (!jQTSettings.useTouch) {
                 return false
             }
             
@@ -572,6 +564,11 @@
                     break;
                 }
             };
+            
+            if (!animation) {
+                console.warn('Animation could not be found. Using slideleft.');
+                animation = 'slideleft';
+            }
             
             if ($el.is(jQTSettings.backSelector)) {
                 // User clicked or tapped a back button
@@ -674,7 +671,6 @@
                     } else {
                         direction = 'right';
                     }
-                    // _alert('Swipe ' + direction);
                     $el.trigger('swipe', {direction:direction, deltaX:deltaX, deltaY: deltaY});
                     $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 } else if (absY > 1) {
@@ -691,7 +687,6 @@
                 updateChanges();
                 // _alert('deltaX:'+deltaX+';deltaY:'+deltaY+';');
                 if (Math.abs(deltaX) < jQTSettings.moveThreshold && Math.abs(deltaY) < jQTSettings.moveThreshold && deltaT < jQTSettings.pressDelay) {
-                    _alert('tapped')
                     $el.trigger('tap');
                 } else {
                     $el.removeClass('active');
@@ -724,7 +719,7 @@
             $.support.transform3d = supportForTransform3d();
             
             if (!$.support.touch) {
-                _alert('This device does not support touch interaction, or they have been shut off by the developer. Some features might be unavailable.');
+                _alert('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
             }
             if (!$.support.transform3d) {
                 _alert('This device does not support 3d animation. 2d animations will be used instead.');
@@ -774,8 +769,20 @@
                     $.extend(publicObj, fn(publicObj));
                 }
             }
-
-            // Bind touch handlers to DOM objects that trigger standard animations
+            
+            // Set up animations array
+            if (jQTSettings['cubeSelector']) {
+                console.warn('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
+                jQTSettings['cubeleftSelector'] = jQTSettings['cubeSelector'];
+            }
+            if (jQTSettings['flipSelector']) {
+                console.warn('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
+                jQTSettings['flipleftSelector'] = jQTSettings['flipSelector'];
+            }
+            if (jQTSettings['slideSelector']) {
+                console.warn('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
+                jQTSettings['slideleftSelector'] = jQTSettings['slideSelector'];
+            }
             for (var i=0, max=defaults.animations.length; i < max; i++) {
                 var animation = defaults.animations[i];
                 if(jQTSettings[animation.name + 'Selector'] !== undefined){
@@ -806,23 +813,12 @@
             }
             $body.bind('mousedown', mousedownHandler);
             $body.bind('orientationchange', orientationChangeHandler);
+            $body.bind('submit', submitForm);
             $body.bind('tap', tapHandler);
             $body.trigger('orientationchange');
-            $body.submit(submitForm);
-            
-            // Interim back button solution
-            window.onbeforeunload = function(e) {
-                var e = e || window.event;
-                var message = jQTSettings.unloadMessage;
-                if (e) {
-                    e.returnValue = message;
-                }
-                return message;
-            }
-            
 
 /*
-            if (jQTSettings.useFastTouch && $.support.touch) {
+            if (jQTSettings.useTouch && $.support.touch) {
                 $body.click(function(e) {
                     // _alert('click called');
                     var timeDiff = (new Date()).getTime() - lastAnimationTime;
@@ -842,6 +838,11 @@
             }
 */
 
+            // Normalize href
+            if (location.hash.length) {
+                location.replace(location.href.split('#')[0]);
+            }
+
             // Make sure exactly one child of body has "current" class
             if ($('#jqt > .current').length == 0) {
                 currentPage = $('#jqt > *:first');
@@ -851,9 +852,9 @@
             }
 
             // Go to the top of the "current" page
-
             $(currentPage).addClass('current');
             setHash($(currentPage).attr('id'));
+            initialPageId = $(currentPage).attr('id');
             addPageToHistory(currentPage);
             scrollTo(0, 0);
         });
