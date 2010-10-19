@@ -89,7 +89,7 @@
             console.log(message);
         }
         function _debug() {
-            _alert('called: ' + arguments.callee.caller.name);
+            _alert('called ' + arguments.callee.caller.name);
         }
         function addAnimation(animation) {
             _debug();
@@ -650,14 +650,12 @@
 
             // Private touch functions (TODO: insert dirty joke)
             function touchcancel(e) {
-                _debug();
                 clearTimeout(hoverTimeout);
                 $el.removeClass('active');
                 $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
             }
 
             function touchmove(e) {
-                _debug();
                 updateChanges();
                 var absX = Math.abs(deltaX);
                 var absY = Math.abs(deltaY);
@@ -680,7 +678,6 @@
             } 
 
             function touchend() {
-                _debug();
                 updateChanges();
                 // _alert('deltaX:'+deltaX+';deltaY:'+deltaY+';');
                 if (Math.abs(deltaX) < jQTSettings.moveThreshold && Math.abs(deltaY) < jQTSettings.moveThreshold && deltaT < jQTSettings.pressDelay) {
@@ -794,6 +791,12 @@
             touchSelectors.push(jQTSettings.backSelector);
             touchSelectors.push(jQTSettings.submitSelector);
             $(touchSelectors.join(', ')).css('-webkit-touch-callout', 'none');
+
+            
+            // Add some 3d specific css if need be
+            if ($.support.transform3d) {
+                $('#jqt').addClass('supports3d');
+            }
 
             $body = $('#jqt');
 

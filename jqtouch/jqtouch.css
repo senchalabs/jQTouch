@@ -7,25 +7,25 @@ a {
 }
 
 body {
-    -webkit-touch-callout: none;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
 }
 
 #jqt {
-    -webkit-user-select: none;
     -webkit-text-size-adjust: none;
-    font-family: "Helvetica Neue", Helvetica;
-    -webkit-perspective: 800;
-    -webkit-transform-style: preserve-3d;
-    position: absolute;
-    top: 0;
+    -webkit-user-select: none;
     bottom: 0;
+    font-family: "Helvetica Neue", Helvetica;
     left: 0;
+    position: absolute;
     right: 0;
+    top: 0;
 }
+
 #jqt .selectable, #jqt input, #jqt textarea {
     -webkit-user-select: auto;
 }
+
 #jqt.notransform {
     -webkit-transform: none !important;
 }
@@ -33,21 +33,31 @@ body {
 #jqt > * {
     -webkit-box-sizing: border-box;
     display: none;
-    position: absolute;
     left: 0;
-    width: 100%;
-    -webkit-transform: translate3d(0,0,0) rotate(0) scale(1);
     min-height: 100%;
     overflow-x: hidden;
+    position: absolute;
+    width: 100%;
 }
 
 #jqt > .current {
     display: block !important;
 }
+
 #jqt .in, #jqt .out {
     -webkit-animation-duration: 350ms;
     -webkit-animation-timing-function: ease-in-out;
 }
+
+#jqt.supports3d {
+    -webkit-perspective: 800;
+    -webkit-transform-style: preserve-3d;
+}
+
+#jqt.supports3d > * {
+    -webkit-transform: translate3d(0,0,0) rotate(0) scale(1);
+}
+
 
 
 
