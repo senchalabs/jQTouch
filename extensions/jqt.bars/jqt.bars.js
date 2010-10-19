@@ -292,6 +292,9 @@ console.log('  #tabbar exists');
           var firstPageID = '#' + ($('#jqt > .current').length === 0 ? $('#jqt > *:first') : $('#jqt > .current:first')).attr('id'),
             sheet = d.styleSheets[d.styleSheets.length - 1];
 
+          // pad .s-scrollpane
+          $('.s-scrollpane').css('padding-bottom', '20px');
+
           // Make sure that the tabbar is not visible while its being built
           $('#tabbar').hide();
           $('#tabbar-pane').height($('#tabbar').height());
