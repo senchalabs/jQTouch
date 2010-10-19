@@ -82,7 +82,7 @@ body {
     border-width: 0 8px 0 14px;
     -webkit-border-image: url(img/back_button.png) 0 8 0 14;
 }
-#jqt .back.active, #jqt .back:hover {
+#jqt .back.active {
     -webkit-border-image: url(img/back_button_clicked.png) 0 8 0 14;
 }
 #jqt .leftButton, #jqt .cancel {
