@@ -89,7 +89,7 @@
             console.log(message);
         }
         function _debug() {
-            _alert('called ' + arguments.callee.caller.name);
+            _alert('Called ' + arguments.callee.caller.name);
         }
         function addAnimation(animation) {
             _debug();
@@ -792,13 +792,17 @@
             touchSelectors.push(jQTSettings.submitSelector);
             $(touchSelectors.join(', ')).css('-webkit-touch-callout', 'none');
 
-            
-            // Add some 3d specific css if need be
-            if ($.support.transform3d) {
-                $('#jqt').addClass('supports3d');
+            // Make sure we have a jqt element
+            $body = $('#jqt');
+            if ($body.length === 0) {
+                console.warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". This might cause problems, so you should prolly wrap your panels in a div with the id "jqt".');
+                $body = $('body').attr('id', 'jqt');
             }
 
-            $body = $('#jqt');
+            // Add some 3d specific css if need be
+            if ($.support.transform3d) {
+                $body.addClass('supports3d');
+            }
 
             if (jQTSettings.fullScreenClass && window.navigator.standalone == true) {
                 $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
