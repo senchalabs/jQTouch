@@ -12,5 +12,6 @@
 #jqt ul.segmentedControl li.scSelected {
   background-color: #528ce7;
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#336ed2), to(#70aafc));
+  color: #fff;
 }
 /* @end */
