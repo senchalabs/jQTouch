@@ -293,7 +293,7 @@ console.log('  #tabbar exists');
             sheet = d.styleSheets[d.styleSheets.length - 1];
 
           // pad .s-scrollpane
-          $('.s-scrollpane').css('padding-bottom', '20px');
+          $('.s-scrollpane').css('padding-bottom', '1px');
 
           // Make sure that the tabbar is not visible while its being built
           $('#tabbar').hide();
