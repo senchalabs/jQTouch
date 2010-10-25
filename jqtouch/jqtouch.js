@@ -145,8 +145,8 @@
             // Make sure we are scrolled up to hide location bar
             // toPage.css('top', window.pageYOffset);
 
-            // fromPage.trigger('pageAnimationStart', { direction: 'out' });
-            // toPage.trigger('pageAnimationStart', { direction: 'in' });
+            fromPage.trigger('pageAnimationStart', { direction: 'out' });
+            toPage.trigger('pageAnimationStart', { direction: 'in' });
 
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
 
