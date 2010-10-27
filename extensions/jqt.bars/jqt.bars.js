@@ -338,7 +338,7 @@ console.log('  #tabbar-pane <ul> height = ' + $('#tabbar-pane ul').height());
             // Hide when in a form
             $(this).bind('pageAnimationEnd', function (e, data) {
               if ($(':input', this).length !== $(':input:hidden', this).length) {
-                if (data.direction === 'in' && !$(this).hasClass('keep_tabbar')) {
+                if (data.direction === 'in' && !$(this).hasClass('keep_tabbar') && !$(this).children().hasClass('keep_tabbar')) {
                   $('#tabbar').hide(function () {
 console.log('\nHide tabbar');
                     setPageHeight();
