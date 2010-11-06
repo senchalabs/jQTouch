@@ -462,15 +462,16 @@
             var $form = (typeof(e)==='string') ? $(e).eq(0) : (e.target ? $(e.target) : $(e));
             
             _debug($form.attr('action'));
-            
-            if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
+            if (!$form.length) return false;
+            // someone else will handle this event
+            if (!$form.is(jQTSettings.formSelector)) return true;
+            if ($form.attr('action')) {
                 showPageByHref($form.attr('action'), {
                     data: $form.serialize(),
                     method: $form.attr('method') || "POST",
                     animation: animations[0] || null,
                     callback: callback
                 });
-                return false;
             }
             return false;
         }
