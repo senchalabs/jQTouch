@@ -129,6 +129,7 @@
             if (toPage.length === 0) {
                 $.fn.unselect();
                 _debug('Target element is missing.');
+                tapReady = true;
                 return false;
             }
 
@@ -136,6 +137,7 @@
             if (toPage.hasClass('current')) {
                 $.fn.unselect();
                 _debug('You are already on the page you are trying to navigate to.');
+                tapReady = true;
                 return false;
             }
 
@@ -417,6 +419,8 @@
             var settings = $.extend({}, defaults, options);
 
             if (href != '#') {
+                tapReady = false;
+
                 $.ajax({
                     url: href,
                     data: settings.data,
@@ -430,6 +434,8 @@
                             if (settings.callback) {
                                 settings.callback(true);
                             }
+                        } else {
+                            tapReady = true;
                         }
                     },
                     error: function (data) {
@@ -439,6 +445,7 @@
                         if (settings.callback) {
                             settings.callback(false);
                         }
+                        tapReady = true;
                     }
                 });
             } else if (settings.$referrer) {
