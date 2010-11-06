@@ -354,7 +354,7 @@
                     $node.attr('id', 'page-' + (++newPageCount));
                 }
 
-		        $body.trigger('pageInserted', {page: $node.appendTo($body)});
+                $body.trigger('pageInserted', {page: $node.appendTo($body)});
 
                 if ($node.hasClass('current') || !targetPage) {
                     targetPage = $node;
@@ -557,6 +557,7 @@
 
             if (tapReady == false) {
                 _debug('Tap is not ready');
+                e.stopImmediatePropagation();  // kill event for all handlers
                 return false;
             }
 
@@ -629,13 +630,14 @@
 
             var $el = $(e.target);
 
-            if ($el.attr('nodeName')!=='A' && $el.attr('nodeName')!=='AREA') {
-                $el = $el.closest('a, area');
+            if ($el.attr('nodeName')!=='A' && $el.attr('nodeName')!=='AREA' &&
+                !$el.is('.touch')) {
+                $el = $el.closest('a, area, .touch');
             }
             
             // Error check
             if (!$el.length) {
-                _debug('Could not find a link element.');
+                _debug('Could not find a touch element.');
                 return;
             }
 
