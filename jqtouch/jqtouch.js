@@ -192,11 +192,11 @@
 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
-                    fromPage.attr('class', '');
-                    toPage.attr('class', 'current');
+                    fromPage.removeClass('out current ' + finalAnimationName);
+                    toPage.removeClass('in ' + finalAnimationName);
                     // toPage.css('top', 0);
                 } else {
-                    fromPage.attr('class', '');
+                    fromPage.removeClass('current');
                 }
 
                 // Housekeeping
