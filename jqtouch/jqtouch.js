@@ -563,7 +563,7 @@
 
             if (!$el.length) {
                 _debug('Nothing tappable here');
-                return false;
+                return true;  // Maybe another tap handler wants to process
             }
 
             if ($el.isExternalLink()) {
