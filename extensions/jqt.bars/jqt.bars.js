@@ -122,9 +122,10 @@ variable name for "jQT" in the jqt.bars function calls.
       /*******************
        css section
        *******************/
-      $('.s-scrollwrapper').css('position', 'relative');
-      $('.s-scrollwrapper').css('z-index', '1');
-
+      $('.s-scrollwrapper').css({ 
+        'position' : 'relative',
+        'z-index'  : '1'
+      });
       /*******************
        function section
        *******************/
