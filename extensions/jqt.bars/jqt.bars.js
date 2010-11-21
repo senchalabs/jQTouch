@@ -260,7 +260,7 @@ variable name for "jQT" in the jqt.bars function calls.
             tabbarH = $tabbar.length > 0 ? ($tabbar.css('display') !== 'none' ? $tabbar.outerHeight() : 0) : 0;
 
             $wrapper = $('.s-scrollwrapper', this);
-            $wrapper.height(parseInt(win.innerHeight, 10) - navbarH - toolbarH - tabbarH);
+            $wrapper.height(parseInt(win.innerHeight, 10) - navbarH - toolbarH - tabbarH + 'px');
 
             console.log('  window.innerHeight = ' + win.innerHeight + 'px');
             console.log('  navbarH = ' + navbarH + 'px');
