@@ -354,6 +354,9 @@
                     $node.attr('id', 'page-' + (++newPageCount));
                 }
 
+		        /* remove any existing instance */
+		        $('#' + $node.attr('id')).remove();
+
 		        $body.trigger('pageInserted', {page: $node.appendTo($body)});
 
                 if ($node.hasClass('current') || !targetPage) {
