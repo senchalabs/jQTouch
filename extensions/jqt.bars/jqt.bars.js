@@ -24,11 +24,12 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
-2010-12-13 Preventing navbar pull-down (thanks Aaron Mc Adam);
+2010-12-13 Preventing navbar pull-down (thanks Aaron Mc Adam); Added 2px padding
+inside #tabbar requested by @sennevdb;
 
 2010-11-18  Chaged syntax on CSS section - Less code! Still works!;
 Added a check for existing iScroll object in init_iScroll();
-Added fixed-tab-width class code. Adding class="fixed-tab-width" and setting 
+Added fixed-tab-width class code. Adding class="fixed-tab-width" and setting
 #tabbar li, #tabbar td {width: <some value>em;} will prevent the tabs from being
 resized EXCEPT if the tab width <= screen width / number of tabs. In that case
 the tabs will be resized to fill the screen width.
@@ -155,18 +156,23 @@ variable name for "jQT" in the jqt.bars function calls.
 
       // Begin setBarWidth()
       setBarWidth = function ($bars) {
+        var h, w;
+
         console.log('\nBegin setBarWidth()');
 
-        var h = parseInt(win.innerHeight > win.innerWidth ? win.innerHeight : win.innerWidth, 10),
-          w = parseInt(win.innerWidth < win.innerHeight ? win.innerWidth : win.innerHeight, 10);
+        if ($bars === null || typeof $bars === 'undefined') {
+          $bars = $('#tabbar, .tabbar');
+          adjustment =  parseInt($('#tabbar table:first-child').css('margin-left'),10) +
+                        parseInt($('#tabbar table:first-child').css('margin-right'),10);
+        }
+
+        h = parseInt(win.innerHeight > win.innerWidth ? win.innerHeight : win.innerWidth, 10) + adjustment;
+        w = parseInt(win.innerWidth < win.innerHeight ? win.innerWidth : win.innerHeight, 10) + adjustment;
+
         if (jQT.getOrientation() === 'portrait') {
           h += 20;
         } else {
           w += 20;
-        }
-
-        if ($bars === null || typeof $bars === 'undefined') {
-          $bars = $('#tabbar, .tabbar');
         }
 
         $bars.each(function () {
@@ -179,7 +185,7 @@ variable name for "jQT" in the jqt.bars function calls.
             scroll = $(this).data('iscroll');
 
           console.log('  ' + numOfTabs + ' tabs');
-          
+
           // Fixed tab width
           if ($(this).hasClass('fixed-tab-width')) {
 
@@ -189,7 +195,7 @@ variable name for "jQT" in the jqt.bars function calls.
               $pane.width('100%');
               $('table, ul', $pane).width($pane.width());
               $('li, td', $pane).width(100 / numOfTabs + '%');
-            
+
             // Fixed tab width - scrolling
             } else {
               console.log('  Fixed tab width - scrolling');

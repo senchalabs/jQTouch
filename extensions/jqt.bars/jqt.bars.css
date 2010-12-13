@@ -72,6 +72,20 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   margin-top: .1875em;
 }
 
+#tabbar table:first-child,
+#tabbar ul:first-child,
+.tabbar table:first-child,
+.tabbar ul:first-child {
+  margin-left: .125em;
+}
+
+#tabbar table:last-child,
+#tabbar ul:last-child,
+.tabbar table:last-child,
+.tabbar ul:last-child {
+  margin-right: .125em;
+}
+
 #tabbar li, #tabbar td {
   display: inline-table;
   min-width: 3.33333em;
@@ -198,7 +212,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
   background: -webkit-gradient(linear, left top, left bottom, from(#2c2f34), to(#6d84a2), color-stop(.01, #2c2f34),
     color-stop(.02, #d8dee6), color-stop(.03, #b0bccd), color-stop(.5, #899bb4), color-stop(.51, #8195af));
-  /* bottom: 0; */      /* build the tabbar off screen*/ 
+  /* bottom: 0; */      /* build the tabbar off screen*/
   /* display: none; */  /* build the tabbar off screen */
   max-height: 2.75em  !important;
   min-height: 2em  !important;
