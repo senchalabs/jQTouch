@@ -24,6 +24,8 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2010-12-13 Preventing navbar pull-down (thanks Aaron Mc Adam);
+
 2010-11-18  Chaged syntax on CSS section - Less code! Still works!;
 Added a check for existing iScroll object in init_iScroll();
 Added fixed-tab-width class code. Adding class="fixed-tab-width" and setting 
@@ -296,6 +298,12 @@ variable name for "jQT" in the jqt.bars function calls.
           // Scroll to the top of the page when <h1> is touched
           $('.toolbar h1', this).click(function () {
             $('.current').data('iscroll').scrollTo(0, 0, 0);
+          });
+
+          // Prevent navbar pull-down
+          $('.toolbar').bind('touchmove', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
           });
 
           // Resize on animation event
