@@ -72,6 +72,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   margin-top: .1875em;
 }
 
+/*
 #tabbar table:first-child,
 #tabbar ul:first-child,
 .tabbar table:first-child,
@@ -85,6 +86,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 .tabbar ul:last-child {
   margin-right: .125em;
 }
+*/
 
 #tabbar li, #tabbar td {
   display: inline-table;

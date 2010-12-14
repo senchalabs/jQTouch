@@ -182,12 +182,12 @@ slide, slideup & swap). If an animation is not recognized, like...
 
         if ($bars === null || typeof $bars === 'undefined') {
           $bars = $('#tabbar, .tabbar');
-          adjustment =  parseInt($('#tabbar table:first-child').css('margin-left'),10) +
-                        parseInt($('#tabbar table:first-child').css('margin-right'),10);
+          adjustment =  parseInt($('#tabbar table:first-child, #tabbar ul:first-child, .tabbar table:first-child, .tabbar ul:first-child').css('margin-left'),10) +
+                        parseInt($('#tabbar table:last-child, #tabbar ul:last-child, .tabbar table:last-child, .tabbar ul:last-child').css('margin-right'),10);
         }
 
-        h = parseInt(win.innerHeight > win.innerWidth ? win.innerHeight : win.innerWidth, 10) + adjustment;
-        w = parseInt(win.innerWidth < win.innerHeight ? win.innerWidth : win.innerHeight, 10) + adjustment;
+        h = parseInt(win.innerHeight > win.innerWidth ? win.innerHeight : win.innerWidth, 10); //+ adjustment;
+        w = parseInt(win.innerWidth < win.innerHeight ? win.innerWidth : win.innerHeight, 10); //+ adjustment;
 
         if (jQT.getOrientation() === 'portrait') {
           h += 20;
