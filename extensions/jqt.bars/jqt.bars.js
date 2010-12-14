@@ -25,7 +25,8 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 Change Log
 --------------------------------------------------------------------------------
 2010-12-13 Preventing navbar pull-down (thanks Aaron Mc Adam); Added 2px padding
-inside #tabbar requested by @sennevdb;
+inside #tabbar requested by @sennevdb; Added animations to tabs as requested by
+barts2108. See note below.
 
 2010-11-18  Chaged syntax on CSS section - Less code! Still works!;
 Added a check for existing iScroll object in init_iScroll();
@@ -120,6 +121,25 @@ Please note that jQT is the variable I used to instantiate jQTouch in...
 
 You can choose to use any variable you want. Just make sure to substitute that
 variable name for "jQT" in the jqt.bars function calls.
+
+--------------------------------------------------------------------------------
+Tabbar Animations
+
+Animations between tabs are marked-up in the anchor tag like so:
+  <div id="tabbar">
+  	<div id="tabbar-pane">
+      <ul>
+        <li>
+          <a href="#about" mask="bar_img/jqt.png" animation="slideup"> <!-- this line -->
+            <strong>About</strong>
+          </a>
+        </li>
+  ...
+
+The standar jQT animations are supported (cube, dissolve, fade, flip, pop,
+slide, slideup & swap). If an animation is not recognized, like...
+  animation="bugsBunny"
+...then the default tab animation will be used (none).
 
 */
 
@@ -355,18 +375,22 @@ variable name for "jQT" in the jqt.bars function calls.
           console.log('  #tabbar-pane height = ' + $('#tabbar-pane').height() + 'px');
           console.log('  #tabbar-pane <ul>/<table> height = ' + $('#tabbar-pane ul').height() + 'px');
           $('#tabbar a').each(function (index) {
+            var $me = $(this);
 
             // Enummerate the tabbar anchor tags
-            $(this).attr('id', 'tabbar_' + index);
+            $me.attr('id', 'tabbar_' + index);
 
             // If this is the button for the page with the current class then enable it
-            if ($(this).attr('href') === firstPageID) {
-              $(this).addClass('enabled');
+            if ($me.attr('href') === firstPageID) {
+              $me.addClass('enabled');
             }
 
+            // Put page animation, if any, into data('animation')
+            $me.data('animation', $me.attr('animation'));
+
             // Put href target into data('default_target') and void href
-            $(this).data('default_target', $(this).attr('href'));
-            $(this).attr('href', 'javascript:void(0);');
+            $me.data('default_target', $me.attr('href'));
+            $me.attr('href', 'javascript:void(0);');
 
             // Create css masks from the anchor's mask property
             sheet.insertRule("a#tabbar_" + index + "::after, a#tabbar_" + index + "::before {-webkit-mask-image:url('" + $(this).attr('mask') + "')}", sheet.cssRules.length);
@@ -374,10 +398,15 @@ variable name for "jQT" in the jqt.bars function calls.
             // tabbar touches
             $(this).click(function () {
               var $me = $(this),
-                t;
+                animation,
+                animations = ':cube:dissolve:fade:flip:pop:slide:slideup:swap:',
+                target;
+
               if (!$me.hasClass('enabled')) {
-                t = $me.data('default_target');
-                jQT.goTo(t);
+                animation = animations.indexOf(':' + $me.data('animation') + ':') > -1 ? $me.data('animation') : '';
+                target = $me.data('default_target');
+
+                jQT.goTo(target, animation);
                 $('#tabbar a').each(function () {
                   $(this).toggleClass('enabled', ($me.get(0) === $(this).get(0)));
                 });
