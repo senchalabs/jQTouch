@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 152 $
-    $Date: Fri Dec 17 16:44:19 EST 2010 $
+    $Revision: 153 $
+    $Date: Fri Dec 17 16:55:50 EST 2010 $
     $LastChangedBy: jonathanstark $
     
     
@@ -121,7 +121,6 @@
             // Prevent the default click behavior for links only (i.e., not checkboxes, radios, etc..)
             if (e.target.nodeName === 'A') {
                 e.preventDefault();
-                return false; // just in case
             }
         
             if ($.support.touch) {
@@ -132,6 +131,7 @@
                 $el.makeActive();
                 $el.trigger('tap', e);
             }
+            return false; // just in case
         }
         function doNavigation(fromPage, toPage, animation, backwards) {
             _debug();
