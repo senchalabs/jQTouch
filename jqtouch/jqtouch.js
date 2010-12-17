@@ -17,9 +17,11 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 151 $
-    $Date: Fri Dec 17 12:34:07 EST 2010 $
+    $Revision: 152 $
+    $Date: Fri Dec 17 16:44:19 EST 2010 $
     $LastChangedBy: jonathanstark $
+    
+    
 
 */
 
@@ -36,6 +38,7 @@
             currentPage='',
             orientation='portrait',
             tapReady=true,
+            lastTime=0,
             lastAnimationTime=0,
             touchSelectors=[],
             publicObj={},
@@ -47,7 +50,7 @@
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                debug: false,
+                debug: true,
                 fallback2dAnimation: 'fade', 
                 fixedViewport: true,
                 formSelector: 'form',
@@ -87,11 +90,14 @@
             };
         
         function _debug(message) {
+            now = (new Date).getTime();
+            delta = now - lastTime;
+            lastTime = now;
             if (jQTSettings.debug) {
                 if (message) {
-                    console.log(message);
+                    console.log(delta + ': ' + message);
                 } else {
-                    console.log('Called ' + arguments.callee.caller.name);
+                    console.log(delta + ': ' + 'Called ' + arguments.callee.caller.name);
                 }
             }
         }
@@ -112,16 +118,20 @@
         function clickHandler(e) {
             _debug();
             
-            // Prevent the default click behavior for links
+            // Prevent the default click behavior for links only (i.e., not checkboxes, radios, etc..)
             if (e.target.nodeName === 'A') {
                 e.preventDefault();
+                return false; // just in case
             }
         
-            // Convert the click to a tap
-            $el = $(e.target);
-            $el.makeActive();
-            $el.trigger('tap', e);
-            
+            if ($.support.touch) {
+                // Touch handler will trigger tap handler
+            } else {
+                // Convert the click to a tap
+                $el = $(e.target);
+                $el.makeActive();
+                $el.trigger('tap', e);
+            }
         }
         function doNavigation(fromPage, toPage, animation, backwards) {
             _debug();
@@ -176,7 +186,7 @@
                 
                 // Bind internal "cleanup" callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
-                
+
                 // Trigger animations
                 toPage.addClass(finalAnimationName + ' in current');
                 fromPage.addClass(finalAnimationName + ' out');
@@ -215,7 +225,7 @@
                 // Finally, trigger custom events
                 toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
                 fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
-
+                
             }
             
             // We's out
@@ -640,8 +650,8 @@
                 _debug('Could not find a link element.');
                 return;
             }
-
-            var startTime = (new Date).getTime(),
+            
+            var startTime = (new Date).getTime(), 
                 hoverTimeout = null,
                 pressTimeout = null,
                 touch, 
@@ -658,7 +668,7 @@
             }
 
             // Prep the link
-            $el.bind('touchmove', touchmove).bind('touchend', touchend).bind('touchcancel', touchcancel);
+            $el.bind('touchend', touchend).bind('touchcancel', touchcancel);
 
             hoverTimeout = setTimeout(function() {
                 $el.makeActive();
@@ -666,7 +676,7 @@
 
             pressTimeout = setTimeout(function() {
                 _debug('press');
-                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 $el.removeClass('active');
                 clearTimeout(hoverTimeout);
                 $el.trigger('press');
@@ -677,7 +687,7 @@
                 _debug();
                 clearTimeout(hoverTimeout);
                 $el.removeClass('active');
-                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
             }
 
             function touchmove(e) {
@@ -692,7 +702,7 @@
                     } else {
                         direction = 'right';
                     }
-                    $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                    $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                     $el.trigger('swipe', {direction:direction, deltaX:deltaX, deltaY: deltaY});
                 }
                 $el.removeClass('active');
@@ -704,8 +714,8 @@
 
             function touchend() {
                 _debug();
-                updateChanges();
-                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                // updateChanges();
+                $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 clearTimeout(hoverTimeout);
                 clearTimeout(pressTimeout);
                 if (Math.abs(deltaX) < jQTSettings.moveThreshold && Math.abs(deltaY) < jQTSettings.moveThreshold && deltaT < jQTSettings.pressDelay) {
@@ -837,35 +847,13 @@
             // Bind events
             if ($.support.touch) {
                 $body.bind('touchstart', touchStartHandler);
-            } else {
-                $body.bind('click', clickHandler);
             }
+            $body.bind('click', clickHandler);
             $body.bind('mousedown', mousedownHandler);
             $body.bind('orientationchange', orientationChangeHandler);
             $body.bind('submit', submitHandler);
             $body.bind('tap', tapHandler);
             $body.trigger('orientationchange');
-
-/*
-            if (jQTSettings.useFastTouch && $.support.touch) {
-                $body.click(function(e) {
-                    // _debug('click called');
-                    var timeDiff = (new Date()).getTime() - lastAnimationTime;
-                    if (timeDiff > tapBuffer) {
-                        var $el = $(e.target);
-
-                        if ($el.attr('nodeName')!=='A' && $el.attr('nodeName')!=='AREA' && $el.attr('nodeName')!=='INPUT') {
-                            $el = $el.closest('a, area');
-                        }
-
-                        if ($el.isExternalLink()) {
-                            return true;
-                        }
-                    }
-                    return false;
-                });
-            }
-*/
 
             // Normalize href
             if (location.hash.length) {
