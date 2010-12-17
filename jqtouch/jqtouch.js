@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 150 $
-    $Date: Tue Oct 19 13:10:44 EDT 2010 $
+    $Revision: 151 $
+    $Date: Fri Dec 17 12:34:07 EST 2010 $
     $LastChangedBy: jonathanstark $
 
 */
@@ -47,7 +47,7 @@
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                debug: true,
+                debug: false,
                 fallback2dAnimation: 'fade', 
                 fixedViewport: true,
                 formSelector: 'form',
@@ -65,7 +65,7 @@
                 touchSelector: 'a, .touch',
                 unloadMessage: 'Are you sure you want to leave this page? Doing so will log you out of the app.', 
                 useAnimations: true,
-                useTouch: true, // experimental 
+                useFastTouch: false, // experimental 
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},
@@ -116,9 +116,11 @@
             if (e.target.nodeName === 'A') {
                 e.preventDefault();
             }
-
+        
             // Convert the click to a tap
-            $(e.target).trigger('tap');
+            $el = $(e.target);
+            $el.makeActive();
+            $el.trigger('tap', e);
             
         }
         function doNavigation(fromPage, toPage, animation, backwards) {
@@ -380,9 +382,9 @@
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
         function setHash(hash) {
-            _debug();
-            
             return; // Deactivated at the moment
+            
+            _debug();
             
             // trim leading # if need be
             hash = hash.replace(/^#/, ''),
@@ -445,7 +447,7 @@
                 settings.$referrer.unselect();
             }
         }
-        function submitForm(e, callback) {
+        function submitHandler(e, callback) {
             _debug();
 
             $(':focus').blur();
@@ -496,7 +498,7 @@
             _debug();
             
             // If dev wants fast touch off, shut off touch whether device supports it or not
-            if (!jQTSettings.useTouch) {
+            if (!jQTSettings.useFastTouch) {
                 return false
             }
             
@@ -664,13 +666,13 @@
 
             pressTimeout = setTimeout(function() {
                 _debug('press');
-                $el.trigger('press');
                 $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 $el.removeClass('active');
                 clearTimeout(hoverTimeout);
+                $el.trigger('press');
             }, jQTSettings.pressDelay);
 
-            // Private touch functions (TODO: insert dirty joke)
+            // Private touch functions
             function touchcancel(e) {
                 _debug();
                 clearTimeout(hoverTimeout);
@@ -690,8 +692,8 @@
                     } else {
                         direction = 'right';
                     }
-                    $el.trigger('swipe', {direction:direction, deltaX:deltaX, deltaY: deltaY});
                     $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                    $el.trigger('swipe', {direction:direction, deltaX:deltaX, deltaY: deltaY});
                 }
                 $el.removeClass('active');
                 clearTimeout(hoverTimeout);
@@ -703,15 +705,14 @@
             function touchend() {
                 _debug();
                 updateChanges();
-                if (Math.abs(deltaX) < jQTSettings.moveThreshold && Math.abs(deltaY) < jQTSettings.moveThreshold && deltaT < jQTSettings.pressDelay) {
-                    _debug('deltaX:'+deltaX+';deltaY:'+deltaY+';');
-                    $el.trigger('tap');
-                } else {
-                    $el.removeClass('active');
-                }
                 $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 clearTimeout(hoverTimeout);
                 clearTimeout(pressTimeout);
+                if (Math.abs(deltaX) < jQTSettings.moveThreshold && Math.abs(deltaY) < jQTSettings.moveThreshold && deltaT < jQTSettings.pressDelay) {
+                    $el.trigger('tap', e);
+                } else {
+                    $el.removeClass('active');
+                }
             }
 
             function updateChanges() {
@@ -836,18 +837,17 @@
             // Bind events
             if ($.support.touch) {
                 $body.bind('touchstart', touchStartHandler);
-                $body.bind('click', function(){return false});
             } else {
                 $body.bind('click', clickHandler);
             }
             $body.bind('mousedown', mousedownHandler);
             $body.bind('orientationchange', orientationChangeHandler);
-            $body.bind('submit', submitForm);
+            $body.bind('submit', submitHandler);
             $body.bind('tap', tapHandler);
             $body.trigger('orientationchange');
 
 /*
-            if (jQTSettings.useTouch && $.support.touch) {
+            if (jQTSettings.useFastTouch && $.support.touch) {
                 $body.click(function(e) {
                     // _debug('click called');
                     var timeDiff = (new Date()).getTime() - lastAnimationTime;
@@ -898,7 +898,7 @@
             goBack: goBack,
             goTo: goTo,
             addAnimation: addAnimation,
-            submitForm: submitForm
+            submitForm: submitHandler
         }
         return publicObj;
     }
