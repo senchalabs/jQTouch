@@ -24,7 +24,8 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
-2010-12-16 2px #tabbar padding restored.
+2010-12-16 2px #tabbar padding restored. Tab animations restored and limited to
+fade, pop & slideup.
 
 2010-12-13 Preventing navbar pull-down (thanks Aaron Mc Adam); Added 2px padding
 inside #tabbar requested by @sennevdb; Added animations to tabs as requested by
@@ -138,10 +139,10 @@ Animations between tabs are marked-up in the anchor tag like so:
         </li>
   ...
 
-The standar jQT animations are supported (cube, dissolve, fade, flip, pop,
-slide, slideup & swap). If an animation is not recognized, like...
+Only three jQT animations are supported (fade, pop & slideup). If an animation
+is not recognized, like...
   animation="bugsBunny"
-...then the default tab animation will be used (none).
+...then the default tab animation (none) will be used.
 
 */
 
@@ -419,7 +420,7 @@ slide, slideup & swap). If an animation is not recognized, like...
             $(this).click(function () {
               var $me = $(this),
                 animation,
-                animations = ':cube:dissolve:fade:flip:pop:slide:slideup:swap:',
+                animations = ':fade:pop:slideup:',
                 target;
 
               if (!$me.hasClass('enabled')) {
