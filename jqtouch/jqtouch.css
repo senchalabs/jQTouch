@@ -49,6 +49,14 @@ body {
     -webkit-animation-timing-function: ease-in-out;
 }
 
+#jqt .in {
+    z-index: 10;
+}
+
+#jqt .out {
+    z-index: 0;
+}
+
 #jqt.supports3d {
     -webkit-perspective: 800;
     -webkit-transform-style: preserve-3d;
