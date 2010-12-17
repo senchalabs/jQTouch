@@ -24,6 +24,8 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2010-12-16 2px #tabbar padding restored.
+
 2010-12-13 Preventing navbar pull-down (thanks Aaron Mc Adam); Added 2px padding
 inside #tabbar requested by @sennevdb; Added animations to tabs as requested by
 barts2108. See note below.
@@ -127,7 +129,7 @@ Tabbar Animations
 
 Animations between tabs are marked-up in the anchor tag like so:
   <div id="tabbar">
-  	<div id="tabbar-pane">
+    <div id="tabbar-pane">
       <ul>
         <li>
           <a href="#about" mask="bar_img/jqt.png" animation="slideup"> <!-- this line -->
@@ -176,45 +178,59 @@ slide, slideup & swap). If an animation is not recognized, like...
 
       // Begin setBarWidth()
       setBarWidth = function ($bars) {
-        var h, w;
+        var h = win.innerHeight + (jQT.getOrientation() === 'portrait' ? 20 : 0),
+            w = win.innerWidth;
 
         console.log('\nBegin setBarWidth()');
 
         if ($bars === null || typeof $bars === 'undefined') {
           $bars = $('#tabbar, .tabbar');
-          adjustment =  parseInt($('#tabbar table:first-child, #tabbar ul:first-child, .tabbar table:first-child, .tabbar ul:first-child').css('margin-left'),10) +
-                        parseInt($('#tabbar table:last-child, #tabbar ul:last-child, .tabbar table:last-child, .tabbar ul:last-child').css('margin-right'),10);
-        }
-
-        h = parseInt(win.innerHeight > win.innerWidth ? win.innerHeight : win.innerWidth, 10); //+ adjustment;
-        w = parseInt(win.innerWidth < win.innerHeight ? win.innerWidth : win.innerHeight, 10); //+ adjustment;
-
-        if (jQT.getOrientation() === 'portrait') {
-          h += 20;
-        } else {
-          w += 20;
         }
 
         $bars.each(function () {
-          var tab_w = parseFloat($('li, td', this).css('width')),
-            min_w1 = parseFloat($('li, td', this).css('min-width')),
-            min_w2 = 1.05 * min_w1,
-            numOfTabs = $('a', this).length,
-            $pane = $('> div', this),
-            refresh_iscroll = false,
-            scroll = $(this).data('iscroll');
+          var adjustTabWidth, $bar = $(this),
+              $pane = $('> div', $bar),
+              min_w1 = parseFloat($('li, td', $bar).css('min-width')),
+              min_w2 = 1.05 * min_w1,
+              numOfTabs = $('a', $bar).length,
+              refresh_iscroll = false,
+              $scroll = $bar.data('iscroll'),
+              tab_w = parseFloat($('li, td', $bar).css('width')),
+              tabWidthIsPercentage;
+
+          adjustFirstAndLastTabWidth = function () {
+            var $tab_first = $bar.html().indexOf('ul') > -1 ? $('ul li:first-child', $bar) : $('table td:first-child', $bar),
+                $tab_last = $bar.html().indexOf('ul') > -1 ? $('ul li:last-child', $bar) : $('table td:last-child', $bar);
+
+            $tab_first.width($tab_first.width() - parseFloat($tab_first.css('margin-left'), 10));
+            $tab_last.width($tab_last.width() - parseFloat($tab_last.css('margin-right'), 10));
+          };
+
+          tabWidthIsPercentage = function () {
+            var b = 0, c = 0, d = 0;
+
+            $pane.width(w + 'px');
+            $('table, ul', $pane).width($pane.width());
+            $('li, td', $pane).each(function (a) {
+              if (a + 1 === $('li, td', $pane).length) {
+                c = w - d;
+              } else {
+                b = (w / numOfTabs) * (a + 1);
+                c = parseInt((w / numOfTabs) + parseInt(b + 0.5, 10) - parseInt(b, 10), 10);
+                d += c;
+              }
+              $(this).width(c + 'px');
+            });
+          };
 
           console.log('  ' + numOfTabs + ' tabs');
-
           // Fixed tab width
-          if ($(this).hasClass('fixed-tab-width')) {
+          if ($bar.hasClass('fixed-tab-width')) {
 
             // Tab width <= screen width / number of tabs :: override fixed width - no scrolling
             if (tab_w <= w / numOfTabs) {
               console.log('  Tab width <= screen width / number of tabs :: override fixed width - no scrolling');
-              $pane.width('100%');
-              $('table, ul', $pane).width($pane.width());
-              $('li, td', $pane).width(100 / numOfTabs + '%');
+              tabWidthIsPercentage();
 
             // Fixed tab width - scrolling
             } else {
@@ -225,39 +241,43 @@ slide, slideup & swap). If an animation is not recognized, like...
             }
 
           // Non-fixed tab width
-          // Tab width is a percentage of tabbar width - no scrolling
-          } else if (min_w1 <= w / numOfTabs) {
-            console.log('  Tab width is a percentage of tabbar width - no scrolling');
-            $pane.width('100%');
-            $('table, ul', $pane).width($pane.width());
-            $('li, td', $pane).width(100 / numOfTabs + '%');
-
-          // Tab width based on longest dimension - scrolling
-          } else if (w / numOfTabs < min_w1 && min_w1 <= h / numOfTabs) {
-            console.log('  Tab width based on longest dimension - scrolling');
-            $pane.width(h + 'px');
-            $('table, ul', $pane).width($pane.width());
-            $('li, td', $pane).width(h / numOfTabs + 'px');
-            refresh_iscroll = true;
-
-          // Tab width is min-width + 5% - scrolling
           } else {
-            console.log('  Tab width is min-width + 5% - scrolling');
-            $pane.width(min_w2 * numOfTabs + 'px');
-            $('table, ul', $pane).width($pane.width());
-            $('li, td', $pane).width(min_w2 + 'px');
-            refresh_iscroll = true;
+
+            // Tab width is a percentage of tabbar width - no scrolling
+            if (min_w1 <= w / numOfTabs) {
+              console.log('  Tab width is a percentage of tabbar width - no scrolling');
+              tabWidthIsPercentage();
+
+            // Tab width based on longest dimension - scrolling
+            } else if (w / numOfTabs < min_w1 && min_w1 <= h / numOfTabs) {
+              console.log('  Tab width based on longest dimension - scrolling');
+              $pane.width(h + 'px');
+              $('table, ul', $pane).width($pane.width());
+              $('li, td', $pane).width(h / numOfTabs + 'px');
+              refresh_iscroll = true;
+
+            // Tab width is min-width + 5% - scrolling
+            } else {
+              console.log('  Tab width is min-width + 5% - scrolling');
+              $pane.width(min_w2 * numOfTabs + 'px');
+              $('table, ul', $pane).width($pane.width());
+              $('li, td', $pane).width(min_w2 + 'px');
+              refresh_iscroll = true;
+            }
           }
+
+          adjustFirstAndLastTabWidth();
+
           if (refresh_iscroll) {
-            if (scroll === null || typeof scroll === 'undefined') {
-              $(this).data('iscroll', new iScroll($pane.attr('id'), {
+            if ($scroll === null || typeof $scroll === 'undefined') {
+              $bar.data('iscroll', new iScroll($pane.attr('id'), {
                 bounceLock: true,
                 desktopCompatibility: true,
                 hScrollbar: false,
                 vScrollbar: false
               }));
             }
-            refresh_iScroll($(this).data('iscroll'));
+            refresh_iScroll($bar.data('iscroll'));
           }
         });
         console.log('End setBarWidth()');
@@ -442,11 +462,11 @@ slide, slideup & swap). If an animation is not recognized, like...
 
           // Scroll to enabled tab on rotation
           $('#jqt').bind('turn', function (e, data) {
-            var scroll = $('#tabbar').data('iscroll');
-            if (scroll !== null && typeof scroll !== 'undefined') {
+            var $scroll = $('#tabbar').data('iscroll');
+            if ($scroll !== null && typeof $scroll !== 'undefined') {
               setTimeout(function () {
                 if ($('.enabled').offset().left + $('.enabled').width() >= win.innerWidth) {
-                  scroll.scrollToElement('#' + $('.enabled').attr('id'), '0ms');
+                  $scroll.scrollToElement('#' + $('.enabled').attr('id'), '0ms');
                 }
               },
               0);

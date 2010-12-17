@@ -65,6 +65,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 #tabbar #tabbar-pane, {
   bottom: 0;
   float:left;
+  width: auto;
 }
 
 #tabbar table, #tabbar ul {
@@ -72,21 +73,19 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   margin-top: .1875em;
 }
 
-/*
-#tabbar table:first-child,
-#tabbar ul:first-child,
-.tabbar table:first-child,
-.tabbar ul:first-child {
+#tabbar table td:first-child,
+#tabbar ul li:first-child,
+.tabbar table td:first-child,
+.tabbar ul li:first-child {
   margin-left: .125em;
 }
 
-#tabbar table:last-child,
-#tabbar ul:last-child,
-.tabbar table:last-child,
-.tabbar ul:last-child {
+#tabbar table td:last-child,
+#tabbar ul li:last-child,
+.tabbar table td:last-child,
+.tabbar ul li:last-child {
   margin-right: .125em;
 }
-*/
 
 #tabbar li, #tabbar td {
   display: inline-table;
