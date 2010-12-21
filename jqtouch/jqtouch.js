@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 155 $
-    $Date: Tue Dec 21 16:23:15 EST 2010 $
+    $Revision: 156 $
+    $Date: Tue Dec 21 17:14:14 EST 2010 $
     $LastChangedBy: jonathanstark $
     
     
@@ -118,16 +118,18 @@
         function clickHandler(e) {
             _debug();
             
-            // Prevent the default click behavior for links only (i.e., not checkboxes, radios, etc..)
-            if (e.target.nodeName === 'A') {
-                e.preventDefault();
-            }
-        
+            $el = $(e.target);
+            
+            if ($el.attr('href')) {
+                if (!$el.isExternalLink()) { // Checks for mailto, maps, tel, checkboxes, etc...
+                    e.preventDefault();
+                }
+            };
+            
             if ($.support.touch) {
-                // touchstart handler will trigger tap handler
+                // The touchstart handler will trigger tap handler
             } else {
                 // Convert the click to a tap
-                $el = $(e.target);
                 $el.makeActive();
                 $el.trigger('tap', e);
             }
@@ -365,7 +367,10 @@
                     $node.attr('id', 'page-' + (++newPageCount));
                 }
 
-		        $body.trigger('pageInserted', {page: $node.appendTo($body)});
+                // remove any existing instance
+                $('#' + $node.attr('id')).remove();
+
+                $body.trigger('pageInserted', {page: $node.appendTo($body)});
 
                 if ($node.hasClass('current') || !targetPage) {
                     targetPage = $node;
@@ -622,6 +627,7 @@
 
                 } else {
                     // External href
+                    // alert('mkay');
                     $el.addClass('loading active');
                     showPageByHref($el.attr('href'), {
                         animation: animation,
@@ -846,9 +852,8 @@
             // Bind events
             if ($.support.touch) {
                 $body.bind('touchstart', touchStartHandler);
-            } else {
-                $body.bind('click', clickHandler);
             }
+            $body.bind('click', clickHandler);
             $body.bind('mousedown', mousedownHandler);
             $body.bind('orientationchange', orientationChangeHandler);
             $body.bind('submit', submitHandler);
