@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 154 $
-    $Date: Tue Dec 21 16:02:09 EST 2010 $
+    $Revision: 155 $
+    $Date: Tue Dec 21 16:23:15 EST 2010 $
     $LastChangedBy: jonathanstark $
     
     
@@ -131,7 +131,6 @@
                 $el.makeActive();
                 $el.trigger('tap', e);
             }
-            return false; // just in case
         }
         function doNavigation(fromPage, toPage, animation, backwards) {
             _debug();
