@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 153 $
-    $Date: Fri Dec 17 16:55:50 EST 2010 $
+    $Revision: 154 $
+    $Date: Tue Dec 21 16:02:09 EST 2010 $
     $LastChangedBy: jonathanstark $
     
     
@@ -68,7 +68,7 @@
                 touchSelector: 'a, .touch',
                 unloadMessage: 'Are you sure you want to leave this page? Doing so will log you out of the app.', 
                 useAnimations: true,
-                useFastTouch: false, // experimental 
+                useFastTouch: true, // experimental 
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},
@@ -124,7 +124,7 @@
             }
         
             if ($.support.touch) {
-                // Touch handler will trigger tap handler
+                // touchstart handler will trigger tap handler
             } else {
                 // Convert the click to a tap
                 $el = $(e.target);
@@ -668,7 +668,7 @@
             }
 
             // Prep the link
-            $el.bind('touchend', touchend).bind('touchcancel', touchcancel);
+            $el.bind('touchmove',touchmove).bind('touchend',touchend).bind('touchcancel',touchcancel);
 
             hoverTimeout = setTimeout(function() {
                 $el.makeActive();
@@ -676,7 +676,7 @@
 
             pressTimeout = setTimeout(function() {
                 _debug('press');
-                $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 $el.removeClass('active');
                 clearTimeout(hoverTimeout);
                 $el.trigger('press');
@@ -687,7 +687,7 @@
                 _debug();
                 clearTimeout(hoverTimeout);
                 $el.removeClass('active');
-                $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
             }
 
             function touchmove(e) {
@@ -702,7 +702,7 @@
                     } else {
                         direction = 'right';
                     }
-                    $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                    $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                     $el.trigger('swipe', {direction:direction, deltaX:deltaX, deltaY: deltaY});
                 }
                 $el.removeClass('active');
@@ -847,8 +847,9 @@
             // Bind events
             if ($.support.touch) {
                 $body.bind('touchstart', touchStartHandler);
+            } else {
+                $body.bind('click', clickHandler);
             }
-            $body.bind('click', clickHandler);
             $body.bind('mousedown', mousedownHandler);
             $body.bind('orientationchange', orientationChangeHandler);
             $body.bind('submit', submitHandler);
