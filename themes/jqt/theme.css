@@ -391,23 +391,21 @@ body {
     float: right;
 }
 #jqt .toggle input[type="checkbox"]:checked {
-    left: 0px;
+    background-position: 0 0;
 }
 #jqt .toggle input[type="checkbox"] {
     -webkit-appearance: textarea;
     -webkit-border-radius: 5px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-transition: left .15s;
+    -webkit-transition: background-position .15s;
     background-color: transparent;
-    background: #fff url(img/on_off.png) 0 0 no-repeat;
+    background: #fff url(img/on_off.png) -55px 0 no-repeat;
     border: 0;
     height: 27px;
-    left: -55px;
     margin: 0;
     overflow: hidden;
     position: absolute;
-    top: 0;
-    width: 149px;
+    width: 94px;
 }
 /* @end */
 /* @group Info */

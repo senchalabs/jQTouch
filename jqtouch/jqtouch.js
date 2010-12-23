@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 153 $
-    $Date: Fri Dec 17 16:55:50 EST 2010 $
+    $Revision: 156 $
+    $Date: Tue Dec 21 17:14:14 EST 2010 $
     $LastChangedBy: jonathanstark $
     
     
@@ -68,7 +68,7 @@
                 touchSelector: 'a, .touch',
                 unloadMessage: 'Are you sure you want to leave this page? Doing so will log you out of the app.', 
                 useAnimations: true,
-                useFastTouch: false, // experimental 
+                useFastTouch: true, // experimental 
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},
@@ -118,20 +118,21 @@
         function clickHandler(e) {
             _debug();
             
-            // Prevent the default click behavior for links only (i.e., not checkboxes, radios, etc..)
-            if (e.target.nodeName === 'A') {
-                e.preventDefault();
-            }
-        
+            $el = $(e.target);
+            
+            if ($el.attr('href')) {
+                if (!$el.isExternalLink()) { // Checks for mailto, maps, tel, checkboxes, etc...
+                    e.preventDefault();
+                }
+            };
+            
             if ($.support.touch) {
-                // Touch handler will trigger tap handler
+                // The touchstart handler will trigger tap handler
             } else {
                 // Convert the click to a tap
-                $el = $(e.target);
                 $el.makeActive();
                 $el.trigger('tap', e);
             }
-            return false; // just in case
         }
         function doNavigation(fromPage, toPage, animation, backwards) {
             _debug();
@@ -366,7 +367,10 @@
                     $node.attr('id', 'page-' + (++newPageCount));
                 }
 
-		        $body.trigger('pageInserted', {page: $node.appendTo($body)});
+                // remove any existing instance
+                $('#' + $node.attr('id')).remove();
+
+                $body.trigger('pageInserted', {page: $node.appendTo($body)});
 
                 if ($node.hasClass('current') || !targetPage) {
                     targetPage = $node;
@@ -623,6 +627,7 @@
 
                 } else {
                     // External href
+                    // alert('mkay');
                     $el.addClass('loading active');
                     showPageByHref($el.attr('href'), {
                         animation: animation,
@@ -668,7 +673,7 @@
             }
 
             // Prep the link
-            $el.bind('touchend', touchend).bind('touchcancel', touchcancel);
+            $el.bind('touchmove',touchmove).bind('touchend',touchend).bind('touchcancel',touchcancel);
 
             hoverTimeout = setTimeout(function() {
                 $el.makeActive();
@@ -676,7 +681,7 @@
 
             pressTimeout = setTimeout(function() {
                 _debug('press');
-                $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                 $el.removeClass('active');
                 clearTimeout(hoverTimeout);
                 $el.trigger('press');
@@ -687,7 +692,7 @@
                 _debug();
                 clearTimeout(hoverTimeout);
                 $el.removeClass('active');
-                $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
             }
 
             function touchmove(e) {
@@ -702,7 +707,7 @@
                     } else {
                         direction = 'right';
                     }
-                    $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                    $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
                     $el.trigger('swipe', {direction:direction, deltaX:deltaX, deltaY: deltaY});
                 }
                 $el.removeClass('active');
