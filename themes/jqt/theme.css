@@ -2,7 +2,7 @@ body {
     background: #000;
     color: #ddd;
 }
-div#jqt > * {
+#jqt > * {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#5e5e65));
 }
 #jqt h1, #jqt h2 {
@@ -23,7 +23,7 @@ div#jqt > * {
 #jqt .black-translucent .toolbar {
     margin-top: 20px;
 }
-div#jqt .toolbar > h1 {
+#jqt .toolbar > h1 {
     position: absolute;
     overflow: hidden;
     left: 50%;
@@ -40,7 +40,7 @@ div#jqt .toolbar > h1 {
     white-space: nowrap;
     color: #fff;
 }
-div#jqt.landscape .toolbar > h1 {
+#jqt.landscape .toolbar > h1 {
     margin-left: -125px;
     width: 250px;
 }
@@ -82,7 +82,7 @@ div#jqt.landscape .toolbar > h1 {
     border-width: 0 8px 0 14px;
     -webkit-border-image: url(img/back_button.png) 0 8 0 14;
 }
-#jqt .back.active, #jqt .back:hover {
+#jqt .back.active {
     -webkit-border-image: url(img/back_button_clicked.png) 0 8 0 14;
 }
 #jqt .leftButton, #jqt .cancel {
@@ -166,7 +166,7 @@ div#jqt.landscape .toolbar > h1 {
 }
 #jqt ul li.arrow {
     background-color: #4c4d4e !important;
-    background-image: url(img/chevron.png) !important;
+    background-image: url(img/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
     background-position: right center !important;
     background-repeat: no-repeat !important;
 }
@@ -391,23 +391,21 @@ div#jqt.landscape .toolbar > h1 {
     float: right;
 }
 #jqt .toggle input[type="checkbox"]:checked {
-    left: 0px;
+    background-position: 0 0;
 }
 #jqt .toggle input[type="checkbox"] {
     -webkit-appearance: textarea;
     -webkit-border-radius: 5px;
     -webkit-tap-highlight-color: rgba(0,0,0,0);
-    -webkit-transition: left .15s;
+    -webkit-transition: background-position .15s;
     background-color: transparent;
-    background: #fff url(img/on_off.png) 0 0 no-repeat;
+    background: #fff url(img/on_off.png) -55px 0 no-repeat;
     border: 0;
     height: 27px;
-    left: -55px;
     margin: 0;
     overflow: hidden;
     position: absolute;
-    top: 0;
-    width: 149px;
+    width: 94px;
 }
 /* @end */
 /* @group Info */

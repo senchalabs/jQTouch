@@ -28,7 +28,7 @@ body {
 	margin-top: 20px;
 }
 
-div#jqt .toolbar > h1 {
+#jqt .toolbar > h1 {
     position: absolute;
     overflow: hidden;
     left: 50%;
@@ -46,7 +46,7 @@ div#jqt .toolbar > h1 {
     color: #fff;
 }
 
-div#jqt.landscape .toolbar > h1 {
+#jqt.landscape .toolbar > h1 {
     margin-left: -125px;
     width: 250px;
 }
@@ -194,7 +194,7 @@ div#jqt.landscape .toolbar > h1 {
 	padding: 12px 22px 12px 10px;
 }
 
-#jqt #plastic ul li.arrow, #jqt #metal ul li.arrow {
+#jqt ul.plastic li.arrow, #jqt ul.metal li.arrow {
     background-image: url(img/chevron.png);
     background-position: right center;
     background-repeat: no-repeat;
@@ -369,7 +369,7 @@ div#jqt.landscape .toolbar > h1 {
     text-shadow: #636a6f 0 1px 0;
 }
 
-#jqt .edgetoedge h4 {
+#jqt ul.edgetoedge h4 {
     color: #fff;
     background: rgb(154,159,170) url(img/listGroup.png) top left repeat-x;
     border-top: 1px solid rgb(165,177,186);
@@ -384,7 +384,7 @@ div#jqt.landscape .toolbar > h1 {
     background-color: rgb(255,255,255);
 }
 
-#jqt .edgetoedge ul, #jqt .metal ul, #jqt .plastic ul {
+#jqt ul.edgetoedge, #jqt ul.metal, #jqt ul.plastic {
     -webkit-border-radius: 0;
     margin: 0;
     border-left: 0;
@@ -392,36 +392,36 @@ div#jqt.landscape .toolbar > h1 {
     border-top: 0;
 }
 
-#jqt .metal ul {
+#jqt ul.metal {
     border-top: 0;
     border-bottom: 0;
     background: rgb(180,180,180);
 }
 
-#jqt .edgetoedge ul li:first-child,
-#jqt .edgetoedge ul li:first-child a,
-#jqt .edgetoedge ul li:last-child,
-#jqt .edgetoedge ul li:last-child a,
-#jqt .metal ul li:first-child a,
-#jqt .metal ul li:last-child a {
+#jqt ul.edgetoedge li:first-child,
+#jqt ul.edgetoedge li:first-child a,
+#jqt ul.edgetoedge li:last-child,
+#jqt ul.edgetoedge li:last-child a,
+#jqt ul.metal li:first-child a,
+#jqt ul.metal li:last-child a {
     -webkit-border-radius: 0;
 }
 
-#jqt .edgetoedge ul li small {
+#jqt ul.edgetoedge li small {
     font-size: 16px;
     line-height: 28px;
 }
 
-#jqt .edgetoedge li, #jqt .metal li {
+#jqt ul.edgetoedge li, #jqt .metal li {
     -webkit-border-radius: 0;
 }
 
-#jqt .edgetoedge li em {
+#jqt ul.edgetoedge li em {
     font-weight: normal;
     font-style: normal;
 }
 
-#jqt .edgetoedge h4 + ul {
+#jqt ul.edgetoedge h4 + ul {
     border-top: 1px solid rgb(152,158,164);
     border-bottom: 1px solid rgb(113,125,133);
 }
@@ -474,7 +474,7 @@ div#jqt.landscape .toolbar > h1 {
     background-repeat: no-repeat;
 }
 
-#jqt .edgetoedge ul, #jqt .metal ul, #jqt .plastic ul {
+#jqt ul.edgetoedge, #jqt ul.metal, #jqt ul.plastic {
     -webkit-border-radius: 0;
     margin: 0;
     border-left: 0;
@@ -482,28 +482,28 @@ div#jqt.landscape .toolbar > h1 {
     border-top: 0;
 }
 
-#jqt .metal ul li {
+#jqt ul.metal li {
     border-top: 1px solid rgb(238,238,238);
     border-bottom: 1px solid rgb(156,158,165);
     font-size: 26px;
     text-shadow: #fff 0 1px 0;
 }
 
-#jqt .metal ul li a {
+#jqt ul.metal li a {
     line-height: 26px;
     margin: 0;
     padding: 13px 0;
 }
 
-#jqt .metal ul li a:hover {
+#jqt ul.metal li a:hover {
     color: rgb(0,0,0);
 }
 
-#jqt .metal ul li:hover small {
+#jqt ul.metal li:hover small {
     color: inherit;
 }
 
-#jqt .metal ul li a em {
+#jqt ul.metal li a em {
     display: block;
     font-size: 14px;
     font-style: normal;
@@ -512,19 +512,19 @@ div#jqt.landscape .toolbar > h1 {
     line-height: 14px;
 }
 
-#jqt .metal ul li small {
+#jqt ul.metal li small {
     float: right;
     position: relative;
     margin-top: 10px;
     font-weight: bold;
 }
 
-#jqt .metal ul li.arrow a small {
+#jqt ul.metal li.arrow a small {
     padding-right: 0;
     line-height: 17px;
 }
 
-#jqt .metal ul li.arrow {
+#jqt ul.metal li.arrow {
     background:  url(img/chevron.png) right center no-repeat;
 }
 
@@ -534,7 +534,7 @@ div#jqt.landscape .toolbar > h1 {
     background: rgb(173,173,173);
 }
 
-#jqt .plastic ul {
+#jqt ul.plastic {
     -webkit-border-radius: 0;
     margin: 0;
     border-left: 0;
@@ -543,40 +543,40 @@ div#jqt.landscape .toolbar > h1 {
     background-color: rgb(173,173,173);
 }
 
-#jqt .plastic ul li {
+#jqt ul.plastic li {
     -webkit-border-radius: 0;
     border-top: 1px solid rgb(191,191,191);
     border-bottom: 1px solid rgb(157,157,157);
 }
 
-#jqt .plastic ul li:nth-child(odd) {
+#jqt ul.plastic li:nth-child(odd) {
     background-color: rgb(152,152,152);
     border-top: 1px solid rgb(181,181,181);
     border-bottom: 1px solid rgb(138,138,138);
 }
 
-#jqt .plastic ul + p {
+#jqt ul.plastic + p {
     font-size: 11px;
     color: #2f3237;
     text-shadow: none;
     padding: 10px 10px;
 }
 
-#jqt .plastic ul + p strong {
+#jqt ul.plastic + p strong {
     font-size: 14px;
     line-height: 18px;
     text-shadow: #fff 0 1px 0;
 }
 
-#jqt .plastic ul li a {
+#jqt ul.plastic li a {
     text-shadow: rgb(211,211,211) 0 1px 0;
 }
 
-#jqt .plastic ul li:nth-child(odd) a {
+#jqt ul.plastic li:nth-child(odd) a {
     text-shadow: rgb(191,191,191) 0 1px 0;
 }
 
-#jqt .plastic ul li small {
+#jqt ul.plastic li small {
     color: #3C3C3C;
     text-shadow: rgb(211,211,211) 0 1px 0;
     font-size: 13px;
