@@ -24,6 +24,8 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2010-12-23 Optimizaitons & code clean-up.
+
 2010-12-16 2px #tabbar padding restored. Tab animations restored and limited to
 fade, pop & slideup.
 
@@ -189,23 +191,17 @@ is not recognized, like...
         }
 
         $bars.each(function () {
-          var adjustTabWidth, $bar = $(this),
+          var $bar = $(this),
               $pane = $('> div', $bar),
+              $tab_first = $bar.html().indexOf('ul') > -1 ? $('ul li:first-child', $bar) : $('table td:first-child', $bar),
+              $tab_last = $bar.html().indexOf('ul') > -1 ? $('ul li:last-child', $bar) : $('table td:last-child', $bar),
               min_w1 = parseFloat($('li, td', $bar).css('min-width')),
               min_w2 = 1.05 * min_w1,
               numOfTabs = $('a', $bar).length,
               refresh_iscroll = false,
-              $scroll = $bar.data('iscroll'),
+              scroll = $bar.data('iscroll'),
               tab_w = parseFloat($('li, td', $bar).css('width')),
               tabWidthIsPercentage;
-
-          adjustFirstAndLastTabWidth = function () {
-            var $tab_first = $bar.html().indexOf('ul') > -1 ? $('ul li:first-child', $bar) : $('table td:first-child', $bar),
-                $tab_last = $bar.html().indexOf('ul') > -1 ? $('ul li:last-child', $bar) : $('table td:last-child', $bar);
-
-            $tab_first.width($tab_first.width() - parseFloat($tab_first.css('margin-left'), 10));
-            $tab_last.width($tab_last.width() - parseFloat($tab_last.css('margin-right'), 10));
-          };
 
           tabWidthIsPercentage = function () {
             var b = 0, c = 0, d = 0;
@@ -217,7 +213,7 @@ is not recognized, like...
                 c = w - d;
               } else {
                 b = (w / numOfTabs) * (a + 1);
-                c = parseInt((w / numOfTabs) + parseInt(b + 0.5, 10) - parseInt(b, 10), 10);
+                c = ~~((w / numOfTabs) + ~~(b + 0.5) - ~~(b));
                 d += c;
               }
               $(this).width(c + 'px');
@@ -267,10 +263,11 @@ is not recognized, like...
             }
           }
 
-          adjustFirstAndLastTabWidth();
-
+          $tab_first.width($tab_first.width() - parseFloat($tab_first.css('margin-left'), 10));
+          $tab_last.width($tab_last.width() - parseFloat($tab_last.css('margin-right'), 10));
+            
           if (refresh_iscroll) {
-            if ($scroll === null || typeof $scroll === 'undefined') {
+            if (scroll === null || typeof scroll === 'undefined') {
               $bar.data('iscroll', new iScroll($pane.attr('id'), {
                 bounceLock: true,
                 desktopCompatibility: true,
@@ -292,7 +289,7 @@ is not recognized, like...
           $current_page = $('.current');
         }
         $current_page.each(function () {
-          var $navbar, navbarH, scroll, $tabbar, tabbarH, $toolbar, toolbarH, $wrapper;
+          var $navbar, navbarH, $tabbar, tabbarH, $toolbar, toolbarH, $wrapper;
           if ($('.s-scrollwrapper', this).length) {
             console.log('  #' + $current_page.attr('id'));
 
@@ -309,7 +306,7 @@ is not recognized, like...
             tabbarH = $tabbar.length > 0 ? ($tabbar.css('display') !== 'none' ? $tabbar.outerHeight() : 0) : 0;
 
             $wrapper = $('.s-scrollwrapper', this);
-            $wrapper.height(parseInt(win.innerHeight, 10) - navbarH - toolbarH - tabbarH + 'px');
+            $wrapper.height(win.innerHeight - navbarH - toolbarH - tabbarH + 'px');
 
             console.log('  window.innerHeight = ' + win.innerHeight + 'px');
             console.log('  navbarH = ' + navbarH + 'px');
@@ -348,7 +345,7 @@ is not recognized, like...
           });
 
           // Prevent navbar pull-down
-          $('.toolbar').bind('touchmove', function(e) {
+          $('.toolbar').bind('touchmove', function (e) {
             e.preventDefault();
             e.stopPropagation();
           });
@@ -463,11 +460,11 @@ is not recognized, like...
 
           // Scroll to enabled tab on rotation
           $('#jqt').bind('turn', function (e, data) {
-            var $scroll = $('#tabbar').data('iscroll');
-            if ($scroll !== null && typeof $scroll !== 'undefined') {
+            var scroll = $('#tabbar').data('iscroll');
+            if (scroll !== null && typeof scroll !== 'undefined') {
               setTimeout(function () {
                 if ($('.enabled').offset().left + $('.enabled').width() >= win.innerWidth) {
-                  $scroll.scrollToElement('#' + $('.enabled').attr('id'), '0ms');
+                  scroll.scrollToElement('#' + $('.enabled').attr('id'), '0ms');
                 }
               },
               0);
@@ -488,7 +485,7 @@ is not recognized, like...
       (function () {
         console.log('Begin loading iScroll');
         var filename = 'iscroll-min.js',
-          getPath, key = 'iScroll';
+            getPath;
 
         // Begin getPath()
         getPath = function () {
