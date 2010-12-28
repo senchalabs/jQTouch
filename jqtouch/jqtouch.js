@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 157 $
-    $Date: Mon Dec 27 19:59:24 EST 2010 $
+    $Revision: 158 $
+    $Date: Mon Dec 27 22:29:27 EST 2010 $
     $LastChangedBy: jonathanstark $
     
     
@@ -172,6 +172,7 @@
                 
                 // Reverse animation if need be
                 if (backwards) {
+                    var finalAnimationName;
                     if (animation.name.indexOf('left') > 0) {
                         finalAnimationName = animation.name.replace(/left/, 'right');
                     } else if (animation.name.indexOf('right') > 0) {
@@ -280,7 +281,7 @@
             }
 
             if (typeof(toPage) === 'string') {
-                nextPage = $(toPage);
+                var nextPage = $(toPage);
                 if (nextPage.length < 1) {
                     showPageByHref(toPage, {
                         'animation': animation
