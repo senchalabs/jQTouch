@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 156 $
-    $Date: Tue Dec 21 17:14:14 EST 2010 $
+    $Revision: 157 $
+    $Date: Mon Dec 27 19:59:24 EST 2010 $
     $LastChangedBy: jonathanstark $
     
     
@@ -118,7 +118,7 @@
         function clickHandler(e) {
             _debug();
             
-            $el = $(e.target);
+            var $el = $(e.target);
             
             if ($el.attr('href')) {
                 if (!$el.isExternalLink()) { // Checks for mailto, maps, tel, checkboxes, etc...
