@@ -96,14 +96,15 @@ body {
 }
 #jqt .whiteButton,
 #jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
-    display: block;
     border-width: 0 12px;
-    padding: 10px;
-    text-align: center;
+    color: #000000;
+    display: block;
     font-size: 20px;
     font-weight: bold;
+    padding: 10px;
+    text-align: center;
     text-decoration: inherit;
-    color: inherit;
+    text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
 
 #jqt .whiteButton.active, #jqt .grayButton.active, #jqt .redButton.active, #jqt .blueButton.active, #jqt .greenButton.active,
@@ -112,7 +113,6 @@ body {
 }
 #jqt .whiteButton {
     -webkit-border-image: url(img/whiteButton.png) 0 12 0 12;
-    text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
 #jqt .grayButton {
     -webkit-border-image: url(img/grayButton.png) 0 12 0 12;
@@ -121,12 +121,10 @@ body {
 
 #jqt .redButton {
     -webkit-border-image: url(img/redButton.png) 0 12 0 12;
-    color: #FFFFFF;
 }
 
 #jqt .greenButton {
     -webkit-border-image: url(img/greenButton.png) 0 12 0 12;
-    color: #FFFFFF;
 }
 
 
