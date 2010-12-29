@@ -68,7 +68,6 @@ body {
 }
 #jqt .button.active, #jqt .cancel.active, #jqt .add.active {
     -webkit-border-image: url(img/button_clicked.png) 0 5 0 5;
-    color: #aaa;
 }
 #jqt .blueButton {
     -webkit-border-image: url(img/blueButton.png) 0 5 0 5;
