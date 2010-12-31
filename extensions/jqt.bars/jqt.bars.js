@@ -24,6 +24,9 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2010-12-30 As suggested by barts2108, you can refresh the tabbar by calling
+refreshTabbar().
+
 2010-12-23 Optimizaitons & code clean-up.
 
 2010-12-16 2px #tabbar padding restored. Tab animations restored and limited to
@@ -169,7 +172,7 @@ is not recognized, like...
 
       // Begin refresh_iScroll()
       refresh_iScroll = function (obj) {
-        if (obj !== null && typeof obj !== 'undefined') {
+        if (obj !== null && typeof (obj) !== 'undefined') {
           console.log('->scroll.refresh()');
           setTimeout(function () {
             obj.refresh();
@@ -186,7 +189,7 @@ is not recognized, like...
 
         console.log('\nBegin setBarWidth()');
 
-        if ($bars === null || typeof $bars === 'undefined') {
+        if ($bars === null || typeof ($bars) === 'undefined') {
           $bars = $('#tabbar, .tabbar');
         }
 
@@ -267,7 +270,7 @@ is not recognized, like...
           $tab_last.width($tab_last.width() - parseFloat($tab_last.css('margin-right'), 10));
             
           if (refresh_iscroll) {
-            if (scroll === null || typeof scroll === 'undefined') {
+            if (scroll === null || typeof (scroll) === 'undefined') {
               $bar.data('iscroll', new iScroll($pane.attr('id'), {
                 bounceLock: true,
                 desktopCompatibility: true,
@@ -285,7 +288,7 @@ is not recognized, like...
       // Begin setPageHeight()
       setPageHeight = function ($current_page) {
         console.log('\nBegin setPageHeight()');
-        if ($current_page === null || typeof $current_page === 'undefined') {
+        if ($current_page === null || typeof ($current_page) === 'undefined') {
           $current_page = $('.current');
         }
         $current_page.each(function () {
@@ -324,13 +327,13 @@ is not recognized, like...
       // Begin init_iScroll()
       init_iScroll = function ($page) {
         console.log('\nBegin init_iScroll()');
-        if ($page === null || typeof $page === 'undefined') {
+        if ($page === null || typeof ($page) === 'undefined') {
           $page = $('#jqt > div, #jqt > form').has('.s-scrollpane');
         }
         console.log('  Adding iScroll to:');
         $page.each(function () {
           var scroll = $(this).data('iscroll');
-          if (scroll === null || typeof scroll === 'undefined') {
+          if (scroll === null || typeof (scroll) === 'undefined') {
             console.log('    #' + this.id);
             scroll = new iScroll($('.s-scrollpane', this).attr('id'), {
               hScrollbar: false,
@@ -407,8 +410,10 @@ is not recognized, like...
             $me.data('animation', $me.attr('animation'));
 
             // Put href target into data('default_target') and void href
-            $me.data('default_target', $me.attr('href'));
-            $me.attr('href', 'javascript:void(0);');
+            if ($me.data('default_target') !== null && typeof ($me.data('default_target')) !== 'undefined') {
+              $me.data('default_target', $me.attr('href'));
+              $me.attr('href', 'javascript:void(0);');
+            }
 
             // Create css masks from the anchor's mask property
             sheet.insertRule("a#tabbar_" + index + "::after, a#tabbar_" + index + "::before {-webkit-mask-image:url('" + $(this).attr('mask') + "')}", sheet.cssRules.length);
@@ -461,7 +466,7 @@ is not recognized, like...
           // Scroll to enabled tab on rotation
           $('#jqt').bind('turn', function (e, data) {
             var scroll = $('#tabbar').data('iscroll');
-            if (scroll !== null && typeof scroll !== 'undefined') {
+            if (scroll !== null && typeof (scroll) !== 'undefined') {
               setTimeout(function () {
                 if ($('.enabled').offset().left + $('.enabled').width() >= win.innerWidth) {
                   scroll.scrollToElement('#' + $('.enabled').attr('id'), '0ms');
@@ -513,6 +518,7 @@ is not recognized, like...
 
       return {
         init_iScroll: init_iScroll,
+        refreshTabbar: initTabbar,
         setPageHeight: setPageHeight
       };
 
