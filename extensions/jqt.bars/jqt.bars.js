@@ -410,7 +410,11 @@ is not recognized, like...
             $me.data('animation', $me.attr('animation'));
 
             // Put href target into data('default_target') and void href
+<<<<<<< HEAD
             if ($me.data('default_target') === null || typeof ($me.data('default_target')) === 'undefined') {
+=======
+            if ($me.data('default_target') !== null && typeof ($me.data('default_target')) !== 'undefined') {
+>>>>>>> 3dca79c03909c2648c02f06fad1bcbd5ca4bec03
               $me.data('default_target', $me.attr('href'));
               $me.attr('href', 'javascript:void(0);');
             }
