@@ -495,10 +495,12 @@ is not recognized, like...
           var path;
           $('script').each(function () {
             path = $(this).attr('src');
-            var i = path.indexOf('/jqt.bars.js');
-            if (i > 0) {
-              path = path.substring(0, path.lastIndexOf('/') + 1);
-              return false;
+            if (path) {
+              var i = path.indexOf('/jqt.bars.js');
+              if (i > 0) {
+                path = path.substring(0, path.lastIndexOf('/') + 1);
+                return false;
+              }
             }
           });
           return path;
