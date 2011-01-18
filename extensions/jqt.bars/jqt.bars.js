@@ -496,11 +496,14 @@ is not recognized, like...
         getPath = function () {
           var path;
           $('script').each(function () {
+            var i;
             path = $(this).attr('src');
-            var i = path.indexOf('/jqt.bars.js');
-            if (i > 0) {
-              path = path.substring(0, path.lastIndexOf('/') + 1);
-              return false;
+            if (path) {
+              i = path.indexOf('/jqt.bars.js');
+              if (i > 0) {
+                path = path.substring(0, path.lastIndexOf('/') + 1);
+                return false;
+              }
             }
           });
           return path;
@@ -525,3 +528,4 @@ is not recognized, like...
     });
   }
 })(jQuery);
+
