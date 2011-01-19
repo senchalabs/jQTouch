@@ -417,7 +417,11 @@
             hash = hash.replace(/^#/, ''),
 
             // Change hash
-            history.pushState(null, null, '#' + hash);
+            if (history && history.pushState) {
+              history.pushState(null, null, '#' + hash);
+            } else {
+              location.hash = '#' + hash;
+            }
 
         }
         function showPageByHref(href, options) {
@@ -878,7 +882,13 @@
             // Go to the top of the "current" page
             $(currentPage).addClass('current');
             initialPageId = $(currentPage).attr('id');
-            history.replaceState(null, null, '#' + initialPageId);
+
+            if (history && history.replaceState) {
+                history.replaceState(null, null, '#' + initialPageId);
+            } else {
+                setHash(initialPageId);
+            }
+
             addPageToHistory(currentPage);
             scrollTo(0, 0);
             window.onhashchange = hashChangeHandler;
