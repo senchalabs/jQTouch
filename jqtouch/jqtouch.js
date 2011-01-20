@@ -66,7 +66,6 @@
                 statusBar: 'default', // other options: black-translucent, black
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
-                unloadMessage: 'Are you sure you want to leave this page? Doing so will log you out of the app.',
                 useAnimations: true,
                 useFastTouch: true, // experimental
                 animations: [ // highest to lowest priority
@@ -118,7 +117,13 @@
         }
         function clickHandler(e) {
             _debug();
-            
+
+            if (!tapReady) {
+                _debug('ClickHandler handler aborted because tap is not ready');
+                e.preventDefault();
+                return false;
+            }
+
             // Figure out whether to prevent default
             var $el = $(e.target);
 
@@ -197,7 +202,7 @@
                     finalAnimationName = animation.name;
                 }
 
-                _debug('finalAnimationName is ' + finalAnimationName);
+                // _debug('finalAnimationName is ' + finalAnimationName);
 
                 // Bind internal "cleanup" callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
@@ -214,14 +219,14 @@
             // Define private navigationEnd callback
             function navigationEndHandler(event) {
                 _debug();
-
+                
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
-                    fromPage.attr('class', '');
-                    toPage.attr('class', 'current');
+                    fromPage.removeClass(finalAnimationName + ' out current');
+                    toPage.removeClass(finalAnimationName + ' in');
                     // toPage.css('top', 0);
                 } else {
-                    fromPage.attr('class', '');
+                    fromPage.removeClass(finalAnimationName + ' out current');
                 }
 
                 // Housekeeping
@@ -237,7 +242,7 @@
                 setHash(currentPage.attr('id'));
                 tapReady = true;
 
-                // Finally, trigger custom events
+                // Trigger custom events
                 toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
                 fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
 
