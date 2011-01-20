@@ -421,8 +421,14 @@
             // Trim leading # if need be
             hash = hash.replace(/^#/, ''),
 
+            // Remove listener
+            window.onhashchange = null;
+
             // Change hash
-            history.pushState(null, null, '#' + hash);
+            location.hash = '#' + hash;
+            
+            // Add listener
+            window.onhashchange = hashChangeHandler;
 
         }
         function showPageByHref(href, options) {
@@ -883,10 +889,13 @@
             // Go to the top of the "current" page
             $(currentPage).addClass('current');
             initialPageId = $(currentPage).attr('id');
-            history.replaceState(null, null, '#' + initialPageId);
+            if(history.replaceState !== undefined) {
+                history.replaceState(null, null, '#' + initialPageId);
+            } else {
+                setHash(initialPageId);
+            }
             addPageToHistory(currentPage);
             scrollTo(0, 0);
-            window.onhashchange = hashChangeHandler;
 
         });
 
