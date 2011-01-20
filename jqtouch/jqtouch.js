@@ -46,7 +46,6 @@
             extensions=$.jQTouch.prototype.extensions,
             animations=[],
             hairExtensions='',
-            xhr=false,
             defaults = {
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
@@ -446,7 +445,7 @@
             var settings = $.extend({}, defaults, options);
 
             if (href != '#') {
-                xhr = $.ajax({
+                $.ajax({
                     url: href,
                     data: settings.data,
                     type: settings.method,
@@ -910,8 +909,7 @@
             goBack: goBack,
             goTo: goTo,
             addAnimation: addAnimation,
-            submitForm: submitHandler,
-            xhr: xhr
+            submitForm: submitHandler
         }
         return publicObj;
     }
