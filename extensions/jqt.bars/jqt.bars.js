@@ -24,6 +24,11 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2011-01-19 Two options added: debug & autoLoad_iScroll. Both are boolean values.
+debug = true send messages to console.log(). autoLoad_iScroll = true finds this
+script's path and loads iscroll-min.js. They can be set manually or programmatically
+using jQT.barsSettings.
+
 2010-12-30 As suggested by barts2108, you can refresh the tabbar by calling
 refreshTabbar().
 
@@ -154,8 +159,12 @@ is not recognized, like...
 (function ($) {
   if ($.jQTouch) {
     $.jQTouch.addExtension(function bars(jQT) {
+      var d = document,
+          lastTime = (new Date()).getTime(),
+          win = window;
 
-      var d = document, init_iScroll, initTabbar, initToolbar, refresh_iScroll, setBarWidth, setPageHeight, win = window;
+      jQT.barsSettings = {debug: true,
+                          autoLoad_iScroll: true};
 
       /*******************
        css section
@@ -169,26 +178,38 @@ is not recognized, like...
       /*******************
        function section
        *******************/
+      // "Borrowing" jQT's _debug function
+      function _debug(message) {
+        var now = (new Date()).getTime(), delta = now - lastTime;
+        lastTime = now;
+        if (jQT.barsSettings.debug) {
+          if (message) {
+            console.log(delta + ': ' + message);
+          } else {
+            console.log(delta + ': ' + 'Called ' + arguments.callee.caller.name);
+          }
+        }
+      }
 
       // Begin refresh_iScroll()
-      refresh_iScroll = function (obj) {
+      function refresh_iScroll(obj) {
+        _debug();
         if (obj !== null && typeof (obj) !== 'undefined') {
-          console.log('->scroll.refresh()');
+          _debug('->scroll.refresh()');
           setTimeout(function () {
             obj.refresh();
           },
           0);
         }
-      };
+      }
       // End refresh_iScroll()
 
       // Begin setBarWidth()
-      setBarWidth = function ($bars) {
+      function setBarWidth($bars) {
         var h = win.innerHeight + (jQT.getOrientation() === 'portrait' ? 20 : 0),
             w = win.innerWidth;
 
-        console.log('\nBegin setBarWidth()');
-
+        _debug();
         if ($bars === null || typeof ($bars) === 'undefined') {
           $bars = $('#tabbar, .tabbar');
         }
@@ -203,10 +224,9 @@ is not recognized, like...
               numOfTabs = $('a', $bar).length,
               refresh_iscroll = false,
               scroll = $bar.data('iscroll'),
-              tab_w = parseFloat($('li, td', $bar).css('width')),
-              tabWidthIsPercentage;
+              tab_w = parseFloat($('li, td', $bar).css('width'));
 
-          tabWidthIsPercentage = function () {
+          function tabWidthIsPercentage() {
             var b = 0, c = 0, d = 0;
 
             $pane.width(w + 'px');
@@ -221,20 +241,21 @@ is not recognized, like...
               }
               $(this).width(c + 'px');
             });
-          };
+          }
 
-          console.log('  ' + numOfTabs + ' tabs');
+          _debug();
+          _debug('  ' + numOfTabs + ' tabs');
           // Fixed tab width
           if ($bar.hasClass('fixed-tab-width')) {
 
             // Tab width <= screen width / number of tabs :: override fixed width - no scrolling
             if (tab_w <= w / numOfTabs) {
-              console.log('  Tab width <= screen width / number of tabs :: override fixed width - no scrolling');
+              _debug('  Tab width <= screen width / number of tabs :: override fixed width - no scrolling');
               tabWidthIsPercentage();
 
             // Fixed tab width - scrolling
             } else {
-              console.log('  Fixed tab width - scrolling');
+              _debug('  Fixed tab width - scrolling');
               $pane.width(tab_w * numOfTabs + 'px');
               $('table, ul', $pane).width($pane.width());
               refresh_iscroll = true;
@@ -245,12 +266,12 @@ is not recognized, like...
 
             // Tab width is a percentage of tabbar width - no scrolling
             if (min_w1 <= w / numOfTabs) {
-              console.log('  Tab width is a percentage of tabbar width - no scrolling');
+              _debug('  Tab width is a percentage of tabbar width - no scrolling');
               tabWidthIsPercentage();
 
             // Tab width based on longest dimension - scrolling
             } else if (w / numOfTabs < min_w1 && min_w1 <= h / numOfTabs) {
-              console.log('  Tab width based on longest dimension - scrolling');
+              _debug('  Tab width based on longest dimension - scrolling');
               $pane.width(h + 'px');
               $('table, ul', $pane).width($pane.width());
               $('li, td', $pane).width(h / numOfTabs + 'px');
@@ -258,7 +279,7 @@ is not recognized, like...
 
             // Tab width is min-width + 5% - scrolling
             } else {
-              console.log('  Tab width is min-width + 5% - scrolling');
+              _debug('  Tab width is min-width + 5% - scrolling');
               $pane.width(min_w2 * numOfTabs + 'px');
               $('table, ul', $pane).width($pane.width());
               $('li, td', $pane).width(min_w2 + 'px');
@@ -268,7 +289,7 @@ is not recognized, like...
 
           $tab_first.width($tab_first.width() - parseFloat($tab_first.css('margin-left'), 10));
           $tab_last.width($tab_last.width() - parseFloat($tab_last.css('margin-right'), 10));
-            
+
           if (refresh_iscroll) {
             if (scroll === null || typeof (scroll) === 'undefined') {
               $bar.data('iscroll', new iScroll($pane.attr('id'), {
@@ -281,20 +302,19 @@ is not recognized, like...
             refresh_iScroll($bar.data('iscroll'));
           }
         });
-        console.log('End setBarWidth()');
-      };
+      }
       // End setBarWidth()
 
       // Begin setPageHeight()
-      setPageHeight = function ($current_page) {
-        console.log('\nBegin setPageHeight()');
+      function setPageHeight ($current_page) {
+        _debug();
         if ($current_page === null || typeof ($current_page) === 'undefined') {
           $current_page = $('.current');
         }
         $current_page.each(function () {
           var $navbar, navbarH, $tabbar, tabbarH, $toolbar, toolbarH, $wrapper;
           if ($('.s-scrollwrapper', this).length) {
-            console.log('  #' + $current_page.attr('id'));
+            _debug('  #' + $current_page.attr('id'));
 
             // Navigation Bar
             $navbar = $('.toolbar', this);
@@ -311,30 +331,29 @@ is not recognized, like...
             $wrapper = $('.s-scrollwrapper', this);
             $wrapper.height(win.innerHeight - navbarH - toolbarH - tabbarH + 'px');
 
-            console.log('  window.innerHeight = ' + win.innerHeight + 'px');
-            console.log('  navbarH = ' + navbarH + 'px');
-            console.log('  toolbarH = ' + toolbarH + 'px');
-            console.log('  tabbarH = ' + tabbarH + 'px');
-            console.log('  $wrapper.height = ' + $wrapper.height() + 'px');
+            _debug('  window.innerHeight = ' + win.innerHeight + 'px');
+            _debug('  navbarH = ' + navbarH + 'px');
+            _debug('  toolbarH = ' + toolbarH + 'px');
+            _debug('  tabbarH = ' + tabbarH + 'px');
+            _debug('  $wrapper.height = ' + $wrapper.height() + 'px');
 
             refresh_iScroll($(this).data('iscroll'));
-            console.log('End setPageHeight()');
           }
         });
-      };
+      }
       // End setPageHeight()
 
       // Begin init_iScroll()
-      init_iScroll = function ($page) {
-        console.log('\nBegin init_iScroll()');
+      function init_iScroll($page) {
+        _debug();
         if ($page === null || typeof ($page) === 'undefined') {
           $page = $('#jqt > div, #jqt > form').has('.s-scrollpane');
         }
-        console.log('  Adding iScroll to:');
+        _debug('  Adding iScroll to:');
         $page.each(function () {
           var scroll = $(this).data('iscroll');
           if (scroll === null || typeof (scroll) === 'undefined') {
-            console.log('    #' + this.id);
+            _debug('    #' + this.id);
             scroll = new iScroll($('.s-scrollpane', this).attr('id'), {
               hScrollbar: false,
               desktopCompatibility: true
@@ -356,7 +375,7 @@ is not recognized, like...
           // Resize on animation event
           $(this).bind('pageAnimationEnd', function (e, data) {
             if (data.direction === 'in') {
-              console.log('\npageAnimationEnd: In');
+              _debug('\npageAnimationEnd: In');
               setPageHeight();
             }
           });
@@ -364,7 +383,7 @@ is not recognized, like...
 
         // Resize on rotation
         $('#jqt').bind('turn', function (e, data) {
-          console.log('\nRotation');
+          _debug('\nRotation');
           setPageHeight();
           setBarWidth();
         });
@@ -372,15 +391,14 @@ is not recognized, like...
         if (!$('#tabbar').length) {
           setPageHeight();
         }
-        console.log('End init_iScroll()');
-      };
+      }
       // End init_iScroll()
 
       // Begin initTabbar()
-      initTabbar = function () {
-        console.log('\nBegin initTabbar()');
+      function initTabbar() {
+        _debug();
         if ($('#tabbar').length > 0) {
-          console.log('  #tabbar exists');
+          _debug('  #tabbar exists');
 
           // Find current class or 1st page in #jqt & the last stylesheet
           var firstPageID = '#' + ($('#jqt > .current').length === 0 ? $('#jqt > *:first') : $('#jqt > .current:first')).attr('id'),
@@ -392,9 +410,9 @@ is not recognized, like...
           // Make sure that the tabbar is not visible while its being built
           $('#tabbar').hide();
           $('#tabbar-pane').height($('#tabbar').height());
-          console.log('  #tabbar height = ' + $('#tabbar').height() + 'px');
-          console.log('  #tabbar-pane height = ' + $('#tabbar-pane').height() + 'px');
-          console.log('  #tabbar-pane <ul>/<table> height = ' + $('#tabbar-pane ul').height() + 'px');
+          _debug('  #tabbar height = ' + $('#tabbar').height() + 'px');
+          _debug('  #tabbar-pane height = ' + $('#tabbar-pane').height() + 'px');
+          _debug('  #tabbar-pane <ul>/<table> height = ' + $('#tabbar-pane ul').height() + 'px');
           $('#tabbar a').each(function (index) {
             var $me = $(this);
 
@@ -445,7 +463,7 @@ is not recognized, like...
               if ($(':input', this).length !== $(':input:hidden', this).length) {
                 if (data.direction === 'in' && !$(this).hasClass('keep_tabbar') && !$(this).children().hasClass('keep_tabbar')) {
                   $('#tabbar').hide(function () {
-                    console.log('\nHide tabbar');
+                    _debug('\nHide tabbar');
                     setPageHeight();
                   });
                 }
@@ -456,7 +474,7 @@ is not recognized, like...
             $(this).bind('pageAnimationStart', function (e, data) {
               if (data.direction === 'out' && $('#tabbar:hidden').length) {
                 $('#tabbar').show(function () {
-                  console.log('\nShow tabbar');
+                  _debug('\nShow tabbar');
                   setPageHeight();
                 });
               }
@@ -482,19 +500,16 @@ is not recognized, like...
             setBarWidth();
           });
         }
-        console.log('End initTabbar()');
-      };
+      }
       // End initTabbar()
 
       // Begin loading iscroll-min.js
       (function () {
-        console.log('Begin loading iScroll');
-        var filename = 'iscroll-min.js',
-            getPath;
 
         // Begin getPath()
-        getPath = function () {
+        function getPath() {
           var path;
+          _debug();
           $('script').each(function () {
             var i;
             path = $(this).attr('src');
@@ -507,15 +522,22 @@ is not recognized, like...
             }
           });
           return path;
-        };
-
+        }
         // End getPath()
-        $.getScript(getPath() + filename, function () {
-          console.log('End loading iScroll');
+
+        if(jQT.barsSettings.autoLoad_iScroll) {
+          var filename = 'iscroll-min.js';
+          _debug('Begin loading iScroll');
+          $.getScript(getPath() + filename, function () {
+            init_iScroll();
+            initTabbar();
+            //initToolbar();
+          });
+        } else {
           init_iScroll();
           initTabbar();
-          //initToolbar()
-        });
+          //initToolbar();
+        }
       })();
       // End loading iscroll-min.js
 
@@ -524,8 +546,6 @@ is not recognized, like...
         refreshTabbar: initTabbar,
         setPageHeight: setPageHeight
       };
-
     });
   }
 })(jQuery);
-
