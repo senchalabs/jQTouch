@@ -38,7 +38,7 @@
             currentPage='',
             orientation='portrait',
             tapReady=true,
-            lastTime=0,
+            lastTime=(new Date()).getTime(),
             lastAnimationTime=0,
             touchSelectors=[],
             publicObj={},
@@ -90,8 +90,7 @@
             };
 
         function _debug(message) {
-            now = (new Date).getTime();
-            delta = now - lastTime;
+            var now = (new Date()).getTime(), delta = now - lastTime;
             lastTime = now;
             if (jQTSettings.debug) {
                 if (message) {
