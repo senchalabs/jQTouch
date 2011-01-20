@@ -46,11 +46,12 @@
             extensions=$.jQTouch.prototype.extensions,
             animations=[],
             hairExtensions='',
+            xhr=false,
             defaults = {
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                debug: false,
+                debug: true,
                 fallback2dAnimation: 'fade',
                 fixedViewport: true,
                 formSelector: 'form',
@@ -387,7 +388,7 @@
                     $node.attr('id', 'page-' + (++newPageCount));
                 }
 
-                // remove any existing instance
+                // Remove any existing instance
                 $('#' + $node.attr('id')).remove();
 
                 $body.trigger('pageInserted', {page: $node.appendTo($body)});
@@ -445,7 +446,7 @@
             var settings = $.extend({}, defaults, options);
 
             if (href != '#') {
-                $.ajax({
+                xhr = $.ajax({
                     url: href,
                     data: settings.data,
                     type: settings.method,
@@ -909,7 +910,8 @@
             goBack: goBack,
             goTo: goTo,
             addAnimation: addAnimation,
-            submitForm: submitHandler
+            submitForm: submitHandler,
+            xhr: xhr
         }
         return publicObj;
     }
