@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 160 $
-    $Date: Tue Jan 18 00:22:18 EST 2011 $
+    $Revision: 161 $
+    $Date: Wed Jan 19 23:43:35 EST 2011 $
     $LastChangedBy: jonathanstark $
 
 
@@ -50,7 +50,7 @@
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                debug: true,
+                debug: false,
                 fallback2dAnimation: 'fade',
                 fixedViewport: true,
                 formSelector: 'form',
@@ -322,7 +322,7 @@
                 if(location.hash === hist[1].hash) {
                     goBack();
                 } else {
-                    _debug(location.hash + ' === ' + hist[1].id);
+                    _debug(location.hash + ' !== ' + hist[1].hash);
                 }
             } 
         }
