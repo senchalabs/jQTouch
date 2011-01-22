@@ -23,14 +23,20 @@
     if ($.jQTouch) {
         $.jQTouch.addExtension(function AutoTitles(jQT) {
             var titleSelector = '.toolbar h1';
+
             $(function () {
                 $('#jqt').bind('pageAnimationStart', function (e, data) {
+                    var $ref = $(e.target).data('referrer'),
+                        $title = $(titleSelector, $(e.target));
                     if (data.direction === 'in') {
-                        var $ref = $(e.target).data('referrer'),
-                            $title = $(titleSelector, $(e.target));
-                        if ($title.length && $ref && $title.data('title') !== $ref.text()) {
+                        if ($title.html() === '' && $ref && $title.data('title') !== $ref.text()) {
+                            $title.data('title', $title.html());
                             $title.html($ref.text());
-                            $title.data('title', $ref.text());
+                        }
+                    } else {
+                        if (typeof($title.data('title')) !== 'undefined' && $title.data('title') !== null) {
+                            $title.html($title.data('title'));
+                            $title.data('title', null);
                         }
                     }
                 });
