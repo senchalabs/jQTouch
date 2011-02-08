@@ -48,7 +48,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
   background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000), color-stop(.01, #000),
     color-stop(.02, #555), color-stop(.03, #2d2d2d), color-stop(.5, #151515), color-stop(.51, #000));
-  bottom: 0;      /* build the tabbar off screen */
+  bottom: 0;
   display: none;  /* build the tabbar off screen */
   height: 3.0625em  !important;
 	overflow: hidden;

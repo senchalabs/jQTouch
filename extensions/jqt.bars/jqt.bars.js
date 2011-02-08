@@ -434,7 +434,7 @@ is not recognized, like...
             }
 
             // Create css masks from the anchor's mask property
-            sheet.insertRule("a#tabbar_" + index + "::after, a#tabbar_" + index + "::before {-webkit-mask-image:url('" + $(this).attr('mask') + "')}", sheet.cssRules.length);
+            sheet.insertRule("a#tabbar_" + index + "::after, a#tabbar_" + index + "::before {-webkit-mask-image:url('" + $(this).attr('mask') + "');}", sheet.cssRules.length);
 
             // tabbar touches
             $(this).click(function () {
@@ -504,7 +504,7 @@ is not recognized, like...
       // End initTabbar()
 
       // Begin loading iscroll-min.js
-      (function () {
+      $(document).ready(function () {
 
         // Begin getPath()
         function getPath() {
@@ -538,7 +538,7 @@ is not recognized, like...
           initTabbar();
           //initToolbar();
         }
-      })();
+      });
       // End loading iscroll-min.js
 
       return {
