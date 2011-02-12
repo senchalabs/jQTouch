@@ -118,7 +118,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 }
 
 #tabbar a::after, #tabbar a::before {
-  -webkit-mask-position: center center;
+  -webkit-mask-position: center top;
   -webkit-mask-repeat: no-repeat;
   bottom: .875em;
   content: "";
@@ -147,11 +147,11 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 }
 
 #tabbar a.enabled::before {
-/* defined in extension themes */
+/* tab background is defined in extension theme */
 }
 
 #tabbar a.XX::after, #tabbar a.XX::before {
-/* dynamically build in jqt.bars.js */
+/* tab mask is dynamically build in jqt.bars.js */
 }
 
 /* @group badge for tabbar */

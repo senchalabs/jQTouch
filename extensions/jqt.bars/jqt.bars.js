@@ -24,7 +24,9 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
-2011-02-11 Android 2.2+ fix for -webkit-mask-image that don't show up for the party.
+2011-02-11 Android 2.2+ fix for -webkit-mask-image that don't show up for the
+party. Added retina display support to tabbar.
+
 2011-01-19 Two options added: debug & autoLoad_iScroll. Both are boolean values.
 debug = true send messages to console.log(). autoLoad_iScroll = true finds this
 script's path and loads iscroll-min.js. They can be set manually or programmatically
@@ -144,7 +146,7 @@ Animations between tabs are marked-up in the anchor tag like so:
     <div id="tabbar-pane">
       <ul>
         <li>
-          <a href="#about" mask="bar_img/jqt.png" animation="slideup"> <!-- this line -->
+          <a href="#about" mask="bar_img/jqt.png" mask2x="bar_img/jqt@2x.png" animation="slideup"> <!-- this line -->
             <strong>About</strong>
           </a>
         </li>
@@ -415,7 +417,7 @@ is not recognized, like...
           _debug('  #tabbar-pane height = ' + $('#tabbar-pane').height() + 'px');
           _debug('  #tabbar-pane <ul>/<table> height = ' + $('#tabbar-pane ul').height() + 'px');
           $('#tabbar a').each(function (index) {
-            var $me = $(this);
+            var $me = $(this), tabIcon, tabZoom;
 
             // Enummerate the tabbar anchor tags
             $me.attr('id', 'tab_' + index);
@@ -435,7 +437,14 @@ is not recognized, like...
             }
 
             // Create css masks from the anchor's mask property
-            sheet.insertRule('a#tab_' + index + '::after, a#tab_' + index + '::before {-webkit-mask-image:url(\'' + $(this).attr('mask') + '\');}', sheet.cssRules.length);
+            tabIcon = $(this).attr('mask');
+            tabZoom = 1;
+            if (window.devicePixelRatio && window.devicePixelRatio === 2) {
+              tabIcon = $(this).attr('mask2x');
+              tabZoom = .5
+            }
+            sheet.insertRule('a#tab_' + index + '::after, a#tab_' + index + '::before {-webkit-mask-image:url(\'' + tabIcon + '\');' +
+              ' zoom: '+tabZoom+';}', sheet.cssRules.length);
 
             // tabbar touches
             $(this).click(function () {
