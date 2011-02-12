@@ -24,6 +24,7 @@ Integration of iScroll into jQT with tab bar and tool bar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2011-02-11 Android 2.2+ fix for -webkit-mask-image that don't show up for the party.
 2011-01-19 Two options added: debug & autoLoad_iScroll. Both are boolean values.
 debug = true send messages to console.log(). autoLoad_iScroll = true finds this
 script's path and loads iscroll-min.js. They can be set manually or programmatically
@@ -417,7 +418,7 @@ is not recognized, like...
             var $me = $(this);
 
             // Enummerate the tabbar anchor tags
-            $me.attr('id', 'tabbar_' + index);
+            $me.attr('id', 'tab_' + index);
 
             // If this is the button for the page with the current class then enable it
             if ($me.attr('href') === firstPageID) {
@@ -434,7 +435,7 @@ is not recognized, like...
             }
 
             // Create css masks from the anchor's mask property
-            sheet.insertRule("a#tabbar_" + index + "::after, a#tabbar_" + index + "::before {-webkit-mask-image:url('" + $(this).attr('mask') + "');}", sheet.cssRules.length);
+            sheet.insertRule('a#tab_' + index + '::after, a#tab_' + index + '::before {-webkit-mask-image:url(\'' + $(this).attr('mask') + '\');}', sheet.cssRules.length);
 
             // tabbar touches
             $(this).click(function () {

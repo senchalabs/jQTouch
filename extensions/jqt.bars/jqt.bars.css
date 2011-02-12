@@ -52,7 +52,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   display: none;  /* build the tabbar off screen */
   height: 3.0625em  !important;
 	overflow: hidden;
-  position: fixed;
+  position: absolute;
   width: 100%;
   z-index: 1;
 }
