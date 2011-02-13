@@ -20,7 +20,7 @@
 =======
 jqt.bars.js - Daniel J. Pinter - DataZombies
 
-Integration of iScroll into jQT with tab bar and tool bar implementations
+Integration of iScroll into jQT with tabbar and toolbar implementations
 
 Change Log
 --------------------------------------------------------------------------------
@@ -439,7 +439,7 @@ is not recognized, like...
             // Create css masks from the anchor's mask property
             tabIcon = $(this).attr('mask');
             tabZoom = 1;
-            if (window.devicePixelRatio && window.devicePixelRatio === 2) {
+            if (window.devicePixelRatio && window.devicePixelRatio === 2 && typeof ($(this).attr('mask2x')) !== 'undefined') {
               tabIcon = $(this).attr('mask2x');
               tabZoom = .5
             }
