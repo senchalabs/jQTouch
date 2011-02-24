@@ -1,0 +1,38 @@
+#alphaIndex ul li {
+  display: none;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: normal;
+  font-weight: normal;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
+
+#alphaIndex ul {
+  height: 355px;
+/*   line-height: .5; */
+  position: absolute; z-index: 1000;
+  right: 4px;
+  text-align: center;
+  top: 55px;
+  width: 28px;
+  -webkit-border-radius: 14px;
+}
+
+#alphaIndex ul li {
+  color: #fff;
+/*   color: #6a737d; */
+  font: bold 9.45px "Helvetica Neue", Helvetica;
+  padding-top: 1px;
+}
+
+#alphaIndex ul li: first-child {
+  padding-top: 6px;
+}
+
+#alphaIndex ul.hover {
+  background: rgba(106,115,125,0.5);
+}

@@ -295,7 +295,7 @@ is not recognized, like...
 
           if (refresh_iscroll) {
             if (scroll === null || typeof (scroll) === 'undefined') {
-              $bar.data('iscroll', new iScroll($pane.attr('id'), {
+              $bar.data('iscroll', new iScroll($bar.attr('id'), {
                 bounceLock: true,
                 desktopCompatibility: true,
                 hScrollbar: false,
@@ -350,14 +350,14 @@ is not recognized, like...
       function init_iScroll($page) {
         _debug();
         if ($page === null || typeof ($page) === 'undefined') {
-          $page = $('#jqt > div, #jqt > form').has('.s-scrollpane');
+          $page = $('#jqt > div, #jqt > form').has('.s-scrollwrapper');
         }
         _debug('  Adding iScroll to:');
         $page.each(function () {
           var scroll = $(this).data('iscroll');
           if (scroll === null || typeof (scroll) === 'undefined') {
             _debug('    #' + this.id);
-            scroll = new iScroll($('.s-scrollpane', this).attr('id'), {
+            scroll = new iScroll($('.s-scrollwrapper', this).attr('id'), {
               hScrollbar: false,
               desktopCompatibility: true
             });
@@ -536,7 +536,7 @@ is not recognized, like...
         // End getPath()
 
         if(jQT.barsSettings.autoLoad_iScroll) {
-          var filename = 'iscroll-min.js';
+          var filename = 'iscroll.js';
           _debug('Begin loading iScroll');
           $.getScript(getPath() + filename, function () {
             init_iScroll();
