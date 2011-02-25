@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+  "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+<title>iPhone-like Sliding Headers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css" media="screen">
+.box {
+    margin: 0 auto;
+    height: 400px;
+    width: 400px;
+    position: relative;
+    border: 5px solid #999;
+}
+
+#box {
+  overflow: auto;
+  position: relative;
+}
+
+h2 {
+  background: #999;
+  margin: 0;
+  opacity: 1;
+  padding: 10px;
+  color: #fff;
+}
+
+#box p {
+  margin: 10px;
+}
+
+/* JS required styles */
+.box .box {
+    border: 0;
+}
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+//http://jqueryfordesigners.com/iphone-like-sliding-headers/
+$(document).ready(function () {
+  // 1. grab a bunch of variables
+  var $container = $('#box'),
+      $headers = $container.find('h2'),
+      zIndex = 2,
+      containerTop = $container.offset().top + parseInt($container.css('marginTop'), 10) + parseInt($container.css('borderTopWidth'), 10),
+      $fakeHeader = $headers.filter(':first').clone();
+
+  // 2. absolute position on the h2, and fix the z-index so they increase
+  $headers.each(function () {
+    // set position absolute, etc
+    var $header = $(this),
+        height = $header.outerHeight(),
+        width = $header.outerWidth(),
+        $spacer;
+
+    zIndex += 2;
+
+    $header.css({
+      position: 'absolute',
+      width: $header.width(),
+      zIndex: zIndex
+    });
+
+    // create the white space
+    $spacer = $header.after('<div />').next();
+    $spacer.css({
+      height: height,
+      width: width
+    });
+  });
+
+  // 3. bind a scroll event and change the text of the take heading
+  $container.scroll(function () {
+    $headers.each(function () {
+      var $header = $(this),
+          top = $header.offset().top;
+
+      if (top < containerTop) {
+        $fakeHeader.text($header.text());
+        $fakeHeader.css('zIndex', parseInt($header.css('zIndex'), 10) + 1);
+      }
+    });
+  });
+
+  // 4. initialisation
+  $container.wrap('<div class="box" />');
+  $fakeHeader.css({
+    zIndex: 1,
+    position: 'absolute',
+    width: $headers.filter(':first').width()
+  });
+  $container.before($fakeHeader.text($headers.filter(':first').text()));
+
+});
+</script>
+</head>
+<body>
+  <!-- <h1>Fixed Header Slide</h1> -->
+  <div class="box" id="box">
+    <h2>Header 1</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h2>Header 2</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h2>Header 3</h2>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h2>Header 4</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h2>Header 5</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h2>Header 6</h2>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  </div>
+</body>
+</html>

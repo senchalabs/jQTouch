@@ -13,7 +13,6 @@
 
 #alphaIndex ul {
   height: 355px;
-/*   line-height: .5; */
   position: absolute; z-index: 1000;
   right: 4px;
   text-align: center;
@@ -26,7 +25,7 @@
   color: #fff;
 /*   color: #6a737d; */
   font: bold 9.45px "Helvetica Neue", Helvetica;
-  padding-top: 1px;
+  padding: 1px;
 }
 
 #alphaIndex ul li: first-child {
