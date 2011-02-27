@@ -24,6 +24,8 @@ Integration of iScroll into jQT with tabbar and toolbar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2011-02-27 iScroll v4
+
 2011-02-11 Android 2.2+ fix for -webkit-mask-image that don't show up for the
 party. Added retina display support to tabbar.
 
@@ -536,7 +538,7 @@ is not recognized, like...
         // End getPath()
 
         if(jQT.barsSettings.autoLoad_iScroll) {
-          var filename = 'iscroll.js';
+          var filename = 'iscroll-min.js';
           _debug('Begin loading iScroll');
           $.getScript(getPath() + filename, function () {
             init_iScroll();
