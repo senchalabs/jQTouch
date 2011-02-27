@@ -14,7 +14,7 @@
     Special thanks to Jonathan Stark <http://jonathanstark.com/>
     and pinch/zoom <http://www.pinchzoom.com/>
 
-    (c) 2009 by jQTouch project members.
+    (c) 2011 by jQTouch project members.
     See LICENSE.txt for license.
 
 =======
