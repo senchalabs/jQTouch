@@ -7,7 +7,7 @@ If you find this fork useful please make a donation via PayPal (http://tinyurl.c
 Fixed
 ------------------------------------------------------------
 
-- Fixed jqt.autotitles.js to honoring hardcoded titles (and does back buttons, too). [demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_autotitles)
+- Fixed jqt.autotitles.js to honor hardcoded titles (and does back buttons, too). [demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_autotitles)
 
 Enhancements 
 ------------------------------------------------------------
