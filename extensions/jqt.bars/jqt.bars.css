@@ -45,7 +45,6 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 }
 
 #tabbar {
-  -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
   background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000), color-stop(.01, #000),
     color-stop(.02, #555), color-stop(.03, #2d2d2d), color-stop(.5, #151515), color-stop(.51, #000));
   bottom: 0;
@@ -55,6 +54,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   position: absolute;
   width: 100%;
   z-index: 1;
+  -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
 }
 
 #tabbar #tabbar-pane, #tabbar ul, #tabbar li,
@@ -104,7 +104,6 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 }
 
 #tabbar a > strong {
-  -webkit-font-smoothing: antialiased;
   bottom: 0;
   color: #787878;
   font: bold .625em "Helvetica Neue", Helvetica;
@@ -115,17 +114,18 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   vertical-align: bottom;
   white-space: nowrap;
   width: 100%;
+  -webkit-font-smoothing: antialiased;
 }
 
 #tabbar a::after, #tabbar a::before {
-  -webkit-mask-position: center top;
-  -webkit-mask-repeat: no-repeat;
   bottom: .875em;
   content: "";
   left: 0;
   position: absolute;
   right: 0;
   top: 0;
+  -webkit-mask-position: center top;
+  -webkit-mask-repeat: no-repeat;
 }
 
 #tabbar a::before {
@@ -157,8 +157,6 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 /* @group badge for tabbar */
 
 #tabbar .badge {
-  -webkit-box-shadow: 0px .1875em .3125em rgba(0, 0, 0, 1.0);
-  -webkit-border-radius: .8125em;
   background-image: -webkit-gradient(radial, 50% -130%, 25, 50% 0, 54, color-stop(2%, rgba(255,255,255,0.3)),
     color-stop(4%, rgba(31,31,31,0.1)), color-stop(38%, rgba(239,239,239,0.1)));
   background-color: #ff0000;
@@ -176,6 +174,8 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   top: 0;
   vertical-align: middle;
   z-index: 1;
+  -webkit-box-shadow: 0px .1875em .3125em rgba(0, 0, 0, 1.0);
+  -webkit-border-radius: .8125em;
 }
 
 #tabbar .badge.left {
@@ -210,7 +210,6 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 }
 
 .tabbar {
-  -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
   background: -webkit-gradient(linear, left top, left bottom, from(#2c2f34), to(#6d84a2), color-stop(.01, #2c2f34),
     color-stop(.02, #d8dee6), color-stop(.03, #b0bccd), color-stop(.5, #899bb4), color-stop(.51, #8195af));
   /* bottom: 0; */      /* build the tabbar off screen*/
@@ -221,6 +220,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   position: relative;
   width: 100%;
   z-index: 1;
+  -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
 }
 
 /* @end */
