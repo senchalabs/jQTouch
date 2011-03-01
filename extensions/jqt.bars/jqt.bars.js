@@ -24,6 +24,9 @@ Integration of iScroll into jQT with tabbar and toolbar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2011-02-28 Added hide_tabbar class to prevent the tabbar in specific pages. Use
+that class the same way that keep_tabbar is used.
+
 2011-02-11 Android 2.2+ fix for -webkit-mask-image that don't show up for the
 party. Added retina display support to tabbar.
 
@@ -400,7 +403,7 @@ is not recognized, like...
       // Begin initTabbar()
       function initTabbar() {
         _debug();
-        if ($('#tabbar').length > 0) {
+        if ($('#tabbar')) {
           _debug('  #tabbar exists');
 
           // Find current class or 1st page in #jqt & the last stylesheet
@@ -465,28 +468,29 @@ is not recognized, like...
             });
           });
 
-          // Hide tabbar when page has a form or any form element except when the page's parent div has the keep_tabbar class
-          $('#jqt > div, #jqt > form').has('button, datalist, fieldset, form, keygen, label, legend, meter, optgroup, option, output, progress, select, textarea').each(function () {
+          // Hide tabbar when page has a form or any form element or .hide_tabbar class except when the page's parent div has the .keep_tabbar class.
+          // Show tabbar when leaving a form or .hide_tabbar page except when going into a page with a form or .hide_tabbar class
+          $('#jqt > div, #jqt > form').each(function () {
+            $(this).bind('pageAnimationStart', function (e, data) {
+              var $target = $(e.target),
+                  isForm = function($page){
+                    return $page.has('button, datalist, fieldset, form, keygen, label, legend, meter, optgroup, option, output, progress, select, textarea').length > 0 && !($(':input', $page).length !== $(':input:hidden', $page).length);
+                  },
+                  isHide = function($page) {return $page.hasClass('hide_tabbar') || $page.children().hasClass('hide_tabbar'); },
+                  isKeep = function($page) {return $page.hasClass('keep_tabbar') || $page.children().hasClass('keep_tabbar'); };
 
-            // Hide when in a form
-            $(this).bind('pageAnimationEnd', function (e, data) {
-              if ($(':input', this).length !== $(':input:hidden', this).length) {
-                if (data.direction === 'in' && !$(this).hasClass('keep_tabbar') && !$(this).children().hasClass('keep_tabbar')) {
+              if (data.direction === 'in') {
+                if((!isForm($target) && !isHide($target)) || isKeep($target)) {
+                  $('#tabbar').show(function () {
+                    _debug('\nShow tabbar');
+                    setPageHeight();
+                  });
+                } else {
                   $('#tabbar').hide(function () {
                     _debug('\nHide tabbar');
                     setPageHeight();
                   });
                 }
-              }
-            });
-
-            // Show when starting to leave a form
-            $(this).bind('pageAnimationStart', function (e, data) {
-              if (data.direction === 'out' && $('#tabbar:hidden').length) {
-                $('#tabbar').show(function () {
-                  _debug('\nShow tabbar');
-                  setPageHeight();
-                });
               }
             });
           });
@@ -504,11 +508,16 @@ is not recognized, like...
             }
           });
 
-          // Show tabbar now that it's been built
-          $('#tabbar').show(function () {
+          // Show tabbar now that it's been built, maybe
+          if (!$('.current').hasClass('.hide_tabbar')) {
+            $('#tabbar').show(function () {
+                setPageHeight();
+                setBarWidth();
+            });
+          } else {
             setPageHeight();
             setBarWidth();
-          });
+          }
         }
       }
       // End initTabbar()
