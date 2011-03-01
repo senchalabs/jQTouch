@@ -34,7 +34,7 @@ Modified to honor hardcoded titles; set back button text - Daniel J. Pinter - Da
 
                 eventIn = function (e) {
                     var $backButton = $(e.target) !== null ? $(backButtonSelector, $(e.target)) : null,
-                        $referrer = $(e.target).data('referrer') !== null ? $(e.target).data('referrer') : null,
+                        $referrer = $(e.target).data('referrer'),
                         $title = $(e.target) !== null ? $(titleSelector, $(e.target)) : null;
                     
                     if ($backButton.data('hardCoded') === null) {
