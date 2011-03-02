@@ -24,6 +24,8 @@ Integration of iScroll into jQT with tabbar and toolbar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2011-03-01 First and last tab's margin now subtracted from the tab's calculated width.
+
 2011-02-28 Added hide_tabbar class to prevent the tabbar in specific pages. Use
 that class the same way that keep_tabbar is used.
 
@@ -293,8 +295,8 @@ is not recognized, like...
             }
           }
 
-          $tab_first.width($tab_first.width() - parseFloat($tab_first.css('margin-left'), 10));
-          $tab_last.width($tab_last.width() - parseFloat($tab_last.css('margin-right'), 10));
+          $tab_first.width(parseFloat($tab_first.css('width')) - parseFloat($tab_first.css('margin-left'), 10) + 'px');
+          $tab_last.width(parseFloat($tab_last.css('width')) - parseFloat($tab_last.css('margin-right'), 10) + 'px');
 
           if (refresh_iscroll) {
             if (scroll === null || typeof (scroll) === 'undefined') {
