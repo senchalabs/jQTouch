@@ -160,7 +160,7 @@ is not recognized, like...
 ...then the default tab animation (none) will be used.
 
 */
-
+barsReady = false;
 (function ($) {
   if ($.jQTouch) {
     $.jQTouch.addExtension(function bars(jQT) {
@@ -168,8 +168,10 @@ is not recognized, like...
           lastTime = (new Date()).getTime(),
           win = window;
 
-      jQT.barsSettings = {debug: true,
+      jQT.barsSettings = {debug: false,
                           autoLoad_iScroll: true};
+
+//      jQT.barsReady = false;
 
       /*******************
        css section
@@ -544,11 +546,15 @@ is not recognized, like...
             init_iScroll();
             initTabbar();
             //initToolbar();
+            barsReady = true;
+//            jQT.barsReady = true;
           });
         } else {
           init_iScroll();
           initTabbar();
           //initToolbar();
+          barsReady = true;
+//          jQT.barsReady = true;
         }
       });
       // End loading iscroll-min.js

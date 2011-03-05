@@ -4,14 +4,14 @@
 <meta charset="UTF-8" />
 <title>jQTouch &beta;t</title>
 <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
-<style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
-<style type="text/css" media="screen">@import "../../extensions/jqt.alphaIndex/jqt.alphaIndex.css";</style>
+<style type="text/css" media="screen">@import "../../themes/apple/theme.css";</style>
 <style type="text/css" media="screen">@import "../../extensions/jqt.bars/jqt.bars.css";</style>
-<style type="text/css" media="screen">@import "../../extensions/jqt.bars/themes/jqt/theme.css";</style>
+<style type="text/css" media="screen">@import "../../extensions/jqt.bars/themes/apple/theme.css";</style>
+<style type="text/css" media="screen">@import "../../extensions/jqt.listIndex/jqt.listIndex.css";</style>
 <script src="../../jqtouch/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
-<script src="../../extensions/jqt.alphaIndex/jqt.alphaIndex.js" type="application/x-javascript" charset="utf-8"></script>
 <script src="../../extensions/jqt.bars/jqt.bars.js" type="application/x-javascript" charset="utf-8"></script>
+<script src="../../extensions/jqt.listIndex/jqt.listIndex.js" type="application/x-javascript" charset="utf-8"></script>
 <style type="text/css" media="screen">
 #jqt.fullscreen #ui .info,
 #jqt.fullscreen #plastic .info {
@@ -129,44 +129,12 @@ $(function(){
       $('#movie').css('display', 'block');
     }
   })
+
 });
 
 </script>
 </head>
 <body>
-
-<!-- alphaIndex -->
-<div id="alphaIndex">
-  <ul>
-    <li>#</li>
-    <li>A</li>
-    <li>B</li>
-    <li>C</li>
-    <li>D</li>
-    <li>E</li>
-    <li>F</li>
-    <li>G</li>
-    <li>H</li>
-    <li>I</li>
-    <li>J</li>
-    <li>K</li>
-    <li>L</li>
-    <li>M</li>
-    <li>N</li>
-    <li>O</li>
-    <li>P</li>
-    <li>Q</li>
-    <li>R</li>
-    <li>S</li>
-    <li>T</li>
-    <li>U</li>
-    <li>V</li>
-    <li>W</li>
-    <li>X</li>
-    <li>Y</li>
-    <li>Z</li>
-  </ul>
-</div>
 
 <!-- tabbar -->
 <div id="tabbar">
@@ -336,7 +304,7 @@ $(function(){
   </div>
 
 <!-- UI - AI -->
-  <div id="ai" class="s-pane alphaIndex">
+  <div id="ai" class="s-pane indexed">
     <div class="toolbar">
       <h1>alphaIndex</h1>
       <a href="#" class="back">Back</a>
@@ -382,7 +350,7 @@ $(function(){
       <h1>Edge to Edge</h1>
       <a href="#" class="back">Back</a>
     </div>
-    <div id="ui-edge-wrapper" class="s-scrollwrapper">
+    <div id="ui-edge-wrapper" class="s-scrollwrapper indexed">
       <div id="ui-edge-pane" class="s-scrollpane">
         <ul class="edgetoedge">
           <li class="sep">F</li>
