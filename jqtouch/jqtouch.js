@@ -50,7 +50,7 @@
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                debug: false,
+                debug: true,
                 fallback2dAnimation: 'fade',
                 fixedViewport: true,
                 formSelector: 'form',
@@ -387,7 +387,7 @@
                 }
 
                 // Remove any existing instance
-                $('#' + $node.attr('id')).remove();
+//                $('#' + $node.attr('id')).remove();
 
                 $body.trigger('pageInserted', {page: $node.appendTo($body)});
 
