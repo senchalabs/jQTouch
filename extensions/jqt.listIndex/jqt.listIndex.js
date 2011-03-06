@@ -80,8 +80,8 @@ ListIndex.prototype = {
   },
 
   onTouchStart: function (e) {
-    var iscroll = $('.current').data('iscroll'),
-        pageID = $('.current').attr('id'),
+    var pageID = $('#' + this.element.id).parents('#jqt > div, #jqt > form').attr('id'),
+        iscroll = $('#' + pageID).data('iscroll'),
         theTarget = e.target;
 
     e.preventDefault();
@@ -102,8 +102,8 @@ ListIndex.prototype = {
   },
 
   onTouchMove: function (e) {
-    var iscroll = $('.current').data('iscroll'),
-        pageID = $('.current').attr('id'),
+    var pageID = $('#' + this.element.id).parents('#jqt > div, #jqt > form').attr('id'),
+        iscroll = $('#' + pageID).data('iscroll'),
         theTarget;
 
     e.preventDefault();
@@ -128,8 +128,10 @@ ListIndex.prototype = {
   },
 
   onTouchEnd: function (e) {
+    var pageID = $('#' + this.element.id).parents('#jqt > div, #jqt > form').attr('id');
+
     e.preventDefault();
-    $('#' + $('.current').attr('id') + 'listIndex').css({
+    $('#' + pageID + 'listIndex').css({
       'background-color': 'transparent'
     });
     this.element.removeEventListener('touchmove', this, false);
@@ -140,48 +142,50 @@ ListIndex.prototype = {
 };
 
 initListIndex = function (page) {
-  var indexDelay, $page = $('#' + page);
-
-  if (jQT.barsReady) {
-    if (typeof($page) !== 'undefined') {
-      if ($page.parents('#jqt > div').length) {
-        $page = $page.parents('#jqt > div');
-        $page.data('listIndex', new ListIndex($page));
-      }
-      if ($page.data('listIndex') === null) {
-        $page.data('listIndex', new ListIndex($page));
-      } else {
-        console.warn('#' + page + ' already has a listIndex.');
-      }
-    }
-    clearTimeout(this.indexDelay);
-  } else {
-    this.indexDelay = setTimeout('initListIndex(\'' + page + '\')', 100);
-  }
+  initListIndices(page);
 };
 
-initListIndices = function () {
-  var indicesDelay;
+initListIndices = function (page) {
+  var $page, indicesDelay;
 
   if (jQT.barsReady) {
-    $('#jqt .indexed').each(function () {
-      var $page = $(this);
-
+    if (typeof(page) === 'undefined' || page === null) {
+      $('#jqt .indexed').each(function () {
+        $page = $(this);
+        if ($page.parents('#jqt > div').length) {
+          $page = $page.parents('#jqt > div');
+        }
+        if (typeof($page.data('listIndex')) === 'undefined' || $page.data('listIndex') === null) {
+          $page.data('listIndex', new ListIndex($page));
+        }
+      });
+    } else {
+      $page = $('#' + page);
       if ($page.parents('#jqt > div').length) {
         $page = $page.parents('#jqt > div');
       }
       if (typeof($page.data('listIndex')) === 'undefined' || $page.data('listIndex') === null) {
         $page.data('listIndex', new ListIndex($page));
-      }
-    });
+      } else {
+        console.warn('#' + page + ' already has a listIndex.');
+      }      
+    }
     clearTimeout(this.indicesDelay);
   } else {
-    this.indicesDelay = setTimeout('initListIndices()', 100);
+    if (typeof(page) === 'undefined' || page === null) {
+      page = 'initListIndices()';
+    } else {
+      page = 'initListIndices(\'' + page + '\')';
+    }
+    this.indicesDelay = setTimeout(page, 100);
   }
 };
 
 $(document).ready(function () {
-  initListIndices();
+//  initListIndices();
+});
+$(document).ready(function () {
+//  initListIndex('bigList');
 });
 
 /*jslint onevar: true, undef: true, newcap: true, nomen: true, regexp: true, plusplus: true, bitwise: true, devel: true, browser: true, maxerr: 50, indent: 0 */
