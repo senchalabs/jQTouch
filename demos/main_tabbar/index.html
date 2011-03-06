@@ -4,9 +4,9 @@
 <meta charset="UTF-8" />
 <title>jQTouch &beta;t</title>
 <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
-<style type="text/css" media="screen">@import "../../themes/apple/theme.css";</style>
+<style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
 <style type="text/css" media="screen">@import "../../extensions/jqt.bars/jqt.bars.css";</style>
-<style type="text/css" media="screen">@import "../../extensions/jqt.bars/themes/apple/theme.css";</style>
+<style type="text/css" media="screen">@import "../../extensions/jqt.bars/themes/jqt/theme.css";</style>
 <style type="text/css" media="screen">@import "../../extensions/jqt.listIndex/jqt.listIndex.css";</style>
 <script src="../../jqtouch/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
 <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
@@ -129,6 +129,9 @@ $(function(){
       $('#movie').css('display', 'block');
     }
   })
+  $(document).ready(function () {
+    initListIndex('bigList');
+  });
 
 });
 
@@ -286,7 +289,7 @@ $(function(){
         </div>
         <h2>Lists</h2>
         <ul class="rounded">
-          <li class="arrow"><a href="#ai">alphaIndex</a></li>
+          <li class="arrow"><a href="#bigList">Big List</a></li>
           <li class="arrow"><a href="#edge">Edge to Edge</a></li>
           <li class="arrow"><a href="#plastic">Plastic</a></li>
           <li class="arrow"><a href="#metal">Metal</a></li>
@@ -303,17 +306,17 @@ $(function(){
     </div>
   </div>
 
-<!-- UI - AI -->
-  <div id="ai" class="s-pane indexed">
+<!-- UI - bigList -->
+  <div id="bigList" class="s-pane indexed">
     <div class="toolbar">
-      <h1>alphaIndex</h1>
+      <h1>Big List</h1>
       <a href="#" class="back">Back</a>
     </div>
     <div id="ui-ai-wrapper" class="s-scrollwrapper">
       <div id="ui-ai-pane" class="s-scrollpane">
         <ul id="thelist" class="edgetoedge">
-          <li class="sep" id="#">#</li>
-          <li class="sep" id="A">A</li><li><a href="#">Acme Corporation</a></li><li><a href="#">Acvbqdf, <em>Qefhwg</em></a></li><li><a href="#">Afuzdpvp, <em>Nbuwnwywl</em></a></li><li><a href="#">Apjlfji, <em>Gaohdrg</em></a></li><li><a href="#">Aqwfxqe, <em>Vtdux</em></a></li><li><a href="#">Aubrzh, <em>Vam</em></a></li>
+          <li class="sep" id="#">#</li><li><a href="#">3 Ring Wing Ding</a></li><li><a href="#">14 Carrot Rabbit</a></li><li><a href="#">90 Day Wondering</a></li>
+          <li class="sep">A</li><li><a href="#">Acme Corporation</a></li><li><a href="#">Acvbqdf, <em>Qefhwg</em></a></li><li><a href="#">Afuzdpvp, <em>Nbuwnwywl</em></a></li><li><a href="#">Apjlfji, <em>Gaohdrg</em></a></li><li><a href="#">Aqwfxqe, <em>Vtdux</em></a></li><li><a href="#">Aubrzh, <em>Vam</em></a></li>
           <li class="sep" id="B">B</li><li><a href="#">Big Kahuna Burger</a></li><li><a href="#">Bjyflwo, <em>Fcabkttf</em></a></li><li><a href="#">Brawndo</a></li><li><a href="#">Bslycqo, <em>Buamkom</em></a></li><li><a href="#">Bzgqruvbf, <em>Ijlebiga</em></a></li>
           <li class="sep" id="C">C</li><li><a href="#">Casly, <em>Vpuakokdi</em></a></li><li><a href="#">Cgxlqar, <em>Ahdinrqdl</em></a></li><li><a href="#">Chne, <em>Jobzrm</em></a></li><li><a href="#">Cjptf, <em>Kri</em></a></li><li><a href="#">Csa, <em>Awvpw</em></a></li><li><a href="http://www.cubiq.org" target="_blank">cubiq.org</a></li><li><a href="#">Cuzotyp, <em>Zanvp</em></a></li><li><a href="#">Cwqjta, <em>Dldghjlky</em></a></li><li><a href="#">Cwvv, <em>Ynk</em></a></li><li><a href="#">Cxapyqm, <em>Nhgtqnc</em></a></li><li><a href="#">Cxfveswpw, <em>Zesor</em></a></li>
           <li class="sep" id="D">D</li><li><a href="#">DataZombies</a></li><li><a href="#">Dkdtcmeb, <em>Drwf</em></a></li><li><a href="#">Dmdentfr, <em>Bngvcav</em></a></li><li><a href="#">Dnpw, <em>Ubqx</em></a></li><li><a href="#">Dofgcbzi, <em>Xkvo</em></a></li><li><a href="#">Dohlnov, <em>Kilnkfm</em></a></li><li><a href="#">Dpo, <em>Dun</em></a></li><li><a href="#">Duff Beer</a></li><li><a href="#">Dycsqdnu, <em>Xddaztiv</em></a></li><li><a href="#">Dyk, <em>Meao</em></a></li>
@@ -353,16 +356,16 @@ $(function(){
     <div id="ui-edge-wrapper" class="s-scrollwrapper indexed">
       <div id="ui-edge-pane" class="s-scrollpane">
         <ul class="edgetoedge">
-          <li class="sep">F</li>
+          <li class="sep" id="F">F</li>
           <li><a href="#">Flintstone, <em>Fred</em></a></li>
           <li><a href="#">Flintstone, <em>Pebble</em></a></li>
           <li><a href="#">Flintstone, <em>Wilma</em></a></li>
-          <li class="sep">J</li>
+          <li class="sep" id="J">J</li>
           <li><a href="#">Jetson, <em>Elroy</em></a></li>
           <li><a href="#">Jetson, <em>George</em></a></li>
           <li><a href="#">Jetson, <em>Jane</em></a></li>
           <li><a href="#">Jetson, <em>Judy</em></a></li>
-          <li class="sep">R</li>
+          <li class="sep" id="R">R</li>
           <li><a href="#">Rubble, <em>Bambam</em></a></li>
           <li><a href="#">Rubble, <em>Barney</em></a></li>
           <li><a href="#">Rubble, <em>Betty</em></a></li>

@@ -160,13 +160,14 @@ is not recognized, like...
 ...then the default tab animation (none) will be used.
 
 */
-barsReady = false;
 (function ($) {
   if ($.jQTouch) {
     $.jQTouch.addExtension(function bars(jQT) {
       var d = document,
           lastTime = (new Date()).getTime(),
           win = window;
+
+      jQT.barsReady = false;
 
       jQT.barsSettings = {debug: false,
                           autoLoad_iScroll: true};
@@ -546,15 +547,13 @@ barsReady = false;
             init_iScroll();
             initTabbar();
             //initToolbar();
-            barsReady = true;
-//            jQT.barsReady = true;
+            jQT.barsReady = true;
           });
         } else {
           init_iScroll();
           initTabbar();
           //initToolbar();
-          barsReady = true;
-//          jQT.barsReady = true;
+          jQT.barsReady = true;
         }
       });
       // End loading iscroll-min.js
