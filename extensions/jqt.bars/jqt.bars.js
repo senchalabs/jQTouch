@@ -24,10 +24,14 @@ Integration of iScroll into jQT with tabbar and toolbar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+<<<<<<< HEAD
 2011-03-01 First and last tab's margin now subtracted from the tab's calculated width.
 
 2011-02-28 Added hide_tabbar class to prevent the tabbar in specific pages. Use
 that class the same way that keep_tabbar is used.
+=======
+2011-02-27 iScroll v4
+>>>>>>> iScrollv4
 
 2011-02-11 Android 2.2+ fix for -webkit-mask-image that don't show up for the
 party. Added retina display support to tabbar.
@@ -163,7 +167,6 @@ is not recognized, like...
 ...then the default tab animation (none) will be used.
 
 */
-
 (function ($) {
   if ($.jQTouch) {
     $.jQTouch.addExtension(function bars(jQT) {
@@ -171,8 +174,12 @@ is not recognized, like...
           lastTime = (new Date()).getTime(),
           win = window;
 
-      jQT.barsSettings = {debug: true,
+      jQT.barsReady = false;
+
+      jQT.barsSettings = {debug: false,
                           autoLoad_iScroll: true};
+
+//      jQT.barsReady = false;
 
       /*******************
        css section
@@ -300,7 +307,7 @@ is not recognized, like...
 
           if (refresh_iscroll) {
             if (scroll === null || typeof (scroll) === 'undefined') {
-              $bar.data('iscroll', new iScroll($pane.attr('id'), {
+              $bar.data('iscroll', new iScroll($bar.attr('id'), {
                 bounceLock: true,
                 desktopCompatibility: true,
                 hScrollbar: false,
@@ -355,14 +362,14 @@ is not recognized, like...
       function init_iScroll($page) {
         _debug();
         if ($page === null || typeof ($page) === 'undefined') {
-          $page = $('#jqt > div, #jqt > form').has('.s-scrollpane');
+          $page = $('#jqt > div, #jqt > form').has('.s-scrollwrapper');
         }
         _debug('  Adding iScroll to:');
         $page.each(function () {
           var scroll = $(this).data('iscroll');
           if (scroll === null || typeof (scroll) === 'undefined') {
             _debug('    #' + this.id);
-            scroll = new iScroll($('.s-scrollpane', this).attr('id'), {
+            scroll = new iScroll($('.s-scrollwrapper', this).attr('id'), {
               hScrollbar: false,
               desktopCompatibility: true
             });
@@ -553,11 +560,13 @@ is not recognized, like...
             init_iScroll();
             initTabbar();
             //initToolbar();
+            jQT.barsReady = true;
           });
         } else {
           init_iScroll();
           initTabbar();
           //initToolbar();
+          jQT.barsReady = true;
         }
       });
       // End loading iscroll-min.js

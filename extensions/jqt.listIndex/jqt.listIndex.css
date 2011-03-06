@@ -1,0 +1,42 @@
+#jqt .listIndex, #jqt .listIndex ul, #jqt .listIndex li {
+  background-image: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+  border-top: none
+  font-family: inherit;
+  font-size: 100%;
+  font-style: normal;
+  font-weight: normal;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+}
+
+#jqt .listIndex {
+  background-color: transparent;
+  color: #6a737d;
+  font-size: 11px;
+  height: 364px;
+  line-height: 1;
+  position: absolute;
+  right: 4px;
+  top: 48px;
+  width: 28px;
+  z-index: 1000;
+  -webkit-border-radius: 14px;
+}
+
+#jqt .listIndex li {
+  background-color: transparent;
+  font-weight: bold;
+  padding-top: 2px;
+  list-style: none;
+  text-align: center;
+}
+
+#jqt .listIndex li:first-child {
+  padding-top: 6px;
+}
