@@ -24,14 +24,12 @@ Integration of iScroll into jQT with tabbar and toolbar implementations
 
 Change Log
 --------------------------------------------------------------------------------
-<<<<<<< HEAD
+2011-03-06 iScroll v4
+
 2011-03-01 First and last tab's margin now subtracted from the tab's calculated width.
 
 2011-02-28 Added hide_tabbar class to prevent the tabbar in specific pages. Use
 that class the same way that keep_tabbar is used.
-=======
-2011-02-27 iScroll v4
->>>>>>> iScrollv4
 
 2011-02-11 Android 2.2+ fix for -webkit-mask-image that don't show up for the
 party. Added retina display support to tabbar.
@@ -176,10 +174,8 @@ is not recognized, like...
 
       jQT.barsReady = false;
 
-      jQT.barsSettings = {debug: false,
+      jQT.barsSettings = {debug: true,
                           autoLoad_iScroll: true};
-
-//      jQT.barsReady = false;
 
       /*******************
        css section
