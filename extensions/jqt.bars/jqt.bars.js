@@ -174,14 +174,15 @@ is not recognized, like...
 
       jQT.barsReady = false;
 
-      jQT.barsSettings = {debug: true,
-                          autoLoad_iScroll: true};
+      jQT.barsSettings = {autoLoad_iScroll: true,
+                          debug: true,
+                          wrapper: 's-scrollwrapper'};
 
       /*******************
        css section
        *******************/
 
-      $('.s-scrollwrapper').css({
+      $('.' + jQT.barsSettings.wrapper).css({
         'position': 'relative',
         'z-index': '1'
       });
@@ -324,7 +325,7 @@ is not recognized, like...
         }
         $current_page.each(function () {
           var $navbar, navbarH, $tabbar, tabbarH, $toolbar, toolbarH, $wrapper;
-          if ($('.s-scrollwrapper', this).length) {
+          if ($('.' + jQT.barsSettings.wrapper, this).length) {
             _debug('  #' + $current_page.attr('id'));
 
             // Navigation Bar
@@ -339,7 +340,7 @@ is not recognized, like...
             $tabbar = $('#tabbar');
             tabbarH = $tabbar.length > 0 ? ($tabbar.css('display') !== 'none' ? $tabbar.outerHeight() : 0) : 0;
 
-            $wrapper = $('.s-scrollwrapper', this);
+            $wrapper = $('.' + jQT.barsSettings.wrapper, this);
             $wrapper.height(win.innerHeight - navbarH - toolbarH - tabbarH + 'px');
 
             _debug('  window.innerHeight = ' + win.innerHeight + 'px');
@@ -358,14 +359,14 @@ is not recognized, like...
       function init_iScroll($page) {
         _debug();
         if ($page === null || typeof ($page) === 'undefined') {
-          $page = $('#jqt > div, #jqt > form').has('.s-scrollwrapper');
+          $page = $('#jqt > div, #jqt > form').has('.' + jQT.barsSettings.wrapper);
         }
         _debug('  Adding iScroll to:');
         $page.each(function () {
           var scroll = $(this).data('iscroll');
           if (scroll === null || typeof (scroll) === 'undefined') {
             _debug('    #' + this.id);
-            scroll = new iScroll($('.s-scrollwrapper', this).attr('id'), {
+            scroll = new iScroll($('.' + jQT.barsSettings.wrapper, this).attr('id'), {
               hScrollbar: false,
               desktopCompatibility: true
             });
