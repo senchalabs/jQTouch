@@ -88,15 +88,24 @@
                 ]
             };
 
-        function _debug(message) {
-            now = (new Date).getTime();
-            delta = now - lastTime;
+        function _debug(message, is_warning) {
+            var now = (new Date).getTime(),
+                delta = now - lastTime,
+                logger;
+            
             lastTime = now;
-            if (jQTSettings.debug) {
-                if (message) {
-                    console.log(delta + ': ' + message);
+            
+            if (jQTSettings.debug && window.console) {
+                if (is_warning) {
+                    logger = console.warn;
                 } else {
-                    console.log(delta + ': ' + 'Called ' + arguments.callee.caller.name);
+                    logger = console.log;
+                }
+                
+                if (message) {
+                    logger.call(console, delta + ': ' + message);
+                } else {
+                    logger.call(console, delta + ': ' + 'Called ' + arguments.callee.caller.name);
                 }
             }
         }
@@ -281,7 +290,18 @@
             _debug();
 
             if (reverse) {
-                console.warn('The reverse parameter was sent to goTo() function, which is bad.');
+                _debug('The reverse parameter was sent to goTo() function, which is bad.', true);
+            }
+
+            if (!tapReady) {
+                _debug('Enqueueing navigation to ' + toPage);
+                navigationQueue.push({
+                    toPage: toPage,
+                    animation: animation
+                });
+
+                // Wait until the current animation finishes and navigationEndHandler runs before proceeding
+                return;
             }
 
             var fromPage = hist[0].page;
@@ -628,7 +648,7 @@
                 };
 
                 if (!animation) {
-                    console.warn('Animation could not be found. Using slideleft.');
+                    _debug('Animation could not be found. Using slideleft.', true);
                     animation = 'slideleft';
                 }
 
@@ -757,6 +777,7 @@
         } // End touch handler
 
         // Get the party started
+        _debug('jQTouch init');
         init(options);
 
         // Document ready stuff
@@ -769,10 +790,10 @@
             $.support.transform3d = supportForTransform3d();
 
             if (!$.support.touch) {
-                console.warn('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
+                _debug('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.', true);
             }
             if (!$.support.transform3d) {
-                console.warn('This device does not support 3d animation. 2d animations will be used instead.');
+                _debug('This device does not support 3d animation. 2d animations will be used instead.', true);
             }
 
             // Define public jQuery functions
@@ -822,15 +843,15 @@
 
             // Set up animations array
             if (jQTSettings['cubeSelector']) {
-                console.warn('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
+                _debug('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.', true);
                 jQTSettings['cubeleftSelector'] = jQTSettings['cubeSelector'];
             }
             if (jQTSettings['flipSelector']) {
-                console.warn('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
+                _debug('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.', true);
                 jQTSettings['flipleftSelector'] = jQTSettings['flipSelector'];
             }
             if (jQTSettings['slideSelector']) {
-                console.warn('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
+                _debug('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.', true);
                 jQTSettings['slideleftSelector'] = jQTSettings['slideSelector'];
             }
             for (var i=0, max=defaults.animations.length; i < max; i++) {
@@ -851,7 +872,7 @@
             // Make sure we have a jqt element
             $body = $('#jqt');
             if ($body.length === 0) {
-                console.warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
+                _debug('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.', true);
                 $body = $('body').attr('id', 'jqt');
             }
 
