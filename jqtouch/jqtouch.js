@@ -46,6 +46,7 @@
             extensions=$.jQTouch.prototype.extensions,
             animations=[],
             hairExtensions='',
+            navigationQueue=[],
             defaults = {
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
@@ -227,6 +228,8 @@
 
             // Define private navigationEnd callback
             function navigationEndHandler(event) {
+                var nextNav;
+
                 _debug();
                 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
@@ -255,6 +258,16 @@
                 toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
                 fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
 
+                if (navigationQueue.length) {
+                    nextNav = navigationQueue.shift();
+                    var t = _.template('{ isGoBack: <%= isGoBack %>, toPage: <%= toPage %> }');
+                    _debug('nextNav: ' + t(nextNav));
+                    var nq = '';
+                    for (var i = 0; i < navigationQueue.length; i++) nq = nq + ', ' + t(navigationQueue[i]);
+                    _debug('remaining navigationQueue: [ ' + nq + ' ]');
+                    if (nextNav.isGoBack) { goBack(); }
+                    else { goTo(nextNav.toPage, nextNav.animation); }
+                }
             }
 
             // We's out
@@ -266,6 +279,14 @@
         }
         function goBack() {
             _debug();
+
+            if (!tapReady) {
+                _debug('Enqueueing back-navigation');
+                navigationQueue.push({ isGoBack: true, toPage: null });
+
+                // Wait until the current animation finishes and navigationEndHandler runs before proceeding
+                return publicObj;
+            }
 
             // Error checking
             if (hist.length < 1 ) {
@@ -291,6 +312,18 @@
 
             if (reverse) {
                 _debug('The reverse parameter was sent to goTo() function, which is bad.', true);
+            }
+
+            if (!tapReady) {
+                _debug('Enqueueing navigation to ' + toPage);
+                navigationQueue.push({
+                    toPage: toPage,
+                    animation: animation,
+                    isGoBack: false
+                });
+
+                // Wait until the current animation finishes and navigationEndHandler runs before proceeding
+                return publicObj;
             }
 
             var fromPage = hist[0].page;
