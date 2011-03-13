@@ -293,17 +293,6 @@
                 _debug('The reverse parameter was sent to goTo() function, which is bad.', true);
             }
 
-            if (!tapReady) {
-                _debug('Enqueueing navigation to ' + toPage);
-                navigationQueue.push({
-                    toPage: toPage,
-                    animation: animation
-                });
-
-                // Wait until the current animation finishes and navigationEndHandler runs before proceeding
-                return;
-            }
-
             var fromPage = hist[0].page;
 
             if (typeof animation === 'string') {
