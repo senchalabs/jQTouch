@@ -38,18 +38,18 @@ Modified to honor hardcoded titles; set back button text - Daniel J. Pinter - Da
                         $title = $(e.target) !== null ? $(titleSelector, $(e.target)) : null;
                     
                     if ($backButton.data('hardCoded') === null) {
-                        $backButton.data('hardCoded', $backButton.text() !== '');
+                        $backButton.data('hardCoded', $backButton.html() !== '');
                     }
                     if ($backButton && $referrer && !$backButton.data('hardCoded')) {
-                        $backButton.data('backButton', $backButton.text());
+                        $backButton.data('backButton', $backButton.html());
                         $backButton.text($referrer.parents(parentSelector).find(titleSelector).text());
                     }
                     
                     if ($title.data('hardCoded') === null) {
-                        $title.data('hardCoded', $title.text() !== '');
+                        $title.data('hardCoded', $title.html() !== '');
                     }
                     if ($title && $referrer && !$title.data('hardCoded')) {
-                        $title.data('title', $title.text());
+                        $title.data('title', $title.html());
                         $title.text($referrer.text());
                     }
                 };
