@@ -310,6 +310,9 @@ body {
     color: #777;
     margin: -12px 0 0 17px;
 }
+#jqt.android ul li input[type="checkbox"]:after, #jqt.android ul li input[type="radio"]:after {
+    margin: 3px 0 0 24px;
+}
 /* @end */
 /* @group Mini Label */
 #jqt ul li small {
