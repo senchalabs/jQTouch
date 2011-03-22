@@ -38,15 +38,17 @@ body {
     overflow-x: hidden;
     position: absolute;
     width: 100%;
+    z-index: 0;
 }
 
 #jqt > .current {
     display: block !important;
+    z-index: 10;
 }
 
 #jqt .in, #jqt .out {
     -webkit-animation-duration: 250ms;
-    -webkit-animation-fill-mode: forwards;
+    -webkit-animation-fill-mode: both;
     -webkit-animation-timing-function: ease-in-out;
 }
 
@@ -55,7 +57,7 @@ body {
 }
 
 #jqt .out {
-    z-index: 0;
+    z-index: 0 !important;
 }
 
 #jqt.supports3d {

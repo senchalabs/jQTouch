@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 161 $
-    $Date: Wed Jan 19 23:43:35 EST 2011 $
+    $Revision: 162 $
+    $Date: Thu Mar 17 17:32:36 EDT 2011 $
     $LastChangedBy: jonathanstark $
 
 
@@ -179,9 +179,9 @@
             // Collapse the keyboard
             $(':focus').blur();
 
-            // Make sure we are scrolled up to hide location bar
+            // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
             // toPage.css('top', window.pageYOffset);
-
+            
             fromPage.trigger('pageAnimationStart', { direction: 'out' });
             toPage.trigger('pageAnimationStart', { direction: 'in' });
 
@@ -216,8 +216,10 @@
 
                 // Bind internal "cleanup" callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
+                fromPage.bind('webkitTransitionEnd', navigationEndHandler);
 
                 // Trigger animations
+                scrollTo(0, 0);
                 toPage.addClass(finalAnimationName + ' in current');
                 fromPage.addClass(finalAnimationName + ' out');
 
@@ -234,8 +236,10 @@
                 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
+                    fromPage.unbind('webkitTransitionEnd', navigationEndHandler);
                     fromPage.removeClass(finalAnimationName + ' out current');
                     toPage.removeClass(finalAnimationName + ' in');
+                    // scrollTo(0, 0);
                     // toPage.css('top', 0);
                 } else {
                     fromPage.removeClass(finalAnimationName + ' out current');
@@ -458,7 +462,8 @@
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
         function setHash(hash) {
-            _debug();
+            _debug('setHash is off at the moment');
+            return;
 
             // Trim leading # if need be
             hash = hash.replace(/^#/, ''),
@@ -729,31 +734,31 @@
             }
 
             // Prep the element
-            $el.bind('touchmove',touchmove).bind('touchend',touchend).bind('touchcancel',touchcancel);
+            $el.bind('touchmove',touchMoveHandler).bind('touchend',touchEndHandler).bind('touchcancel',touchCancelHandler);
 
             hoverTimeout = setTimeout(function() {
                 $el.makeActive();
             }, jQTSettings.hoverDelay);
 
             pressTimeout = setTimeout(function() {
-                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchmove',touchMoveHandler).unbind('touchend',touchEndHandler).unbind('touchcancel',touchCancelHandler);
                 $el.unselect();
                 clearTimeout(hoverTimeout);
                 $el.trigger('press');
             }, jQTSettings.pressDelay);
 
             // Private touch functions
-            function touchcancel(e) {
+            function touchCancelHandler(e) {
                 _debug();
                 clearTimeout(hoverTimeout);
                 $el.unselect();
-                $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchmove',touchMoveHandler).unbind('touchend',touchEndHandler).unbind('touchcancel',touchCancelHandler);
             }
 
-            function touchend(e) {
+            function touchEndHandler(e) {
                 _debug();
                 // updateChanges();
-                $el.unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                $el.unbind('touchend',touchEndHandler).unbind('touchcancel',touchCancelHandler);
                 clearTimeout(hoverTimeout);
                 clearTimeout(pressTimeout);
                 if (Math.abs(deltaX) < jQTSettings.moveThreshold && Math.abs(deltaY) < jQTSettings.moveThreshold && deltaT < jQTSettings.pressDelay) {
@@ -765,7 +770,7 @@
                 }
             }
 
-            function touchmove(e) {
+            function touchMoveHandler(e) {
                 // _debug();
                 updateChanges();
                 var absX = Math.abs(deltaX);
@@ -777,7 +782,7 @@
                     } else {
                         direction = 'right';
                     }
-                    $el.unbind('touchmove',touchmove).unbind('touchend',touchend).unbind('touchcancel',touchcancel);
+                    $el.unbind('touchmove',touchMoveHandler).unbind('touchend',touchEndHandler).unbind('touchcancel',touchCancelHandler);
                     $el.trigger('swipe', {direction:direction, deltaX:deltaX, deltaY: deltaY});
                 }
                 $el.unselect();
@@ -898,13 +903,15 @@
                 $body = $('body').attr('id', 'jqt');
             }
 
-            // Add some 3d specific css if need be
+            // Add some specific css if need be
             if ($.support.transform3d) {
                 $body.addClass('supports3d');
             }
-
             if (jQTSettings.fullScreenClass && window.navigator.standalone == true) {
                 $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
+            }
+            if (window.navigator.userAgent.match(/Android/ig)) { // Grr... added to postion checkbox labels. Lame I know. - js
+                $body.addClass('android');
             }
 
             // Bind events
@@ -915,13 +922,8 @@
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
                 .trigger('orientationchange');
-
-            // Normalize href
-            if (location.hash.length) {
-                location.replace(location.href.split('#')[0]);
-            }
             
-            // Make sure exactly one child of body has "current" class
+            // Determine what the "current" (initial) panel should be
             if ($('#jqt > .current').length == 0) {
                 currentPage = $('#jqt > *:first');
             } else {
@@ -932,13 +934,12 @@
             // Go to the top of the "current" page
             $(currentPage).addClass('current');
             initialPageId = $(currentPage).attr('id');
-            if(history.replaceState !== undefined) {
-                history.replaceState(null, null, '#' + initialPageId);
-            } else {
-                setHash(initialPageId);
-            }
+            setHash(initialPageId);
             addPageToHistory(currentPage);
             scrollTo(0, 0);
+            
+            // Make sure none of the panels yank the location bar into view
+            $('#jqt > *').css('minHeight', window.innerHeight);
 
         });
 
