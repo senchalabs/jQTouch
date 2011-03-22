@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 163 $
-    $Date: Tue Mar 22 15:42:07 EDT 2011 $
+    $Revision: 164 $
+    $Date: Tue Mar 22 17:42:13 EDT 2011 $
     $LastChangedBy: jonathanstark $
 
 
@@ -72,7 +72,7 @@
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},
                     {selector:'.cuberight', name:'cuberight', is3d:true},
-                    {selector:'.dissolve', name:'fade', is3d:false},
+                    {selector:'.dissolve', name:'dissolve', is3d:false},
                     {selector:'.fade', name:'fade', is3d:false},
                     {selector:'.flip', name:'flipleft', is3d:true},
                     {selector:'.flipleft', name:'flipleft', is3d:true},
@@ -111,7 +111,7 @@
                 animations.push(animation);
             }
         }
-        function addPageToHistory(page, animation, reverse) {
+        function addPageToHistory(page, animation) {
             _debug();
             hist.unshift({
                 page: page,
@@ -154,7 +154,7 @@
             }
 
         }
-        function doNavigation(fromPage, toPage, animation, backwards) {
+        function doNavigation(fromPage, toPage, animation, goingBack) {
             _debug();
 
             // Error check for target page
@@ -191,7 +191,7 @@
 
                 // Reverse animation if need be
                 var finalAnimationName;
-                if (backwards) {
+                if (goingBack) {
                     if (animation.name.indexOf('left') > 0) {
                         finalAnimationName = animation.name.replace(/left/, 'right');
                     } else if (animation.name.indexOf('right') > 0) {
@@ -240,7 +240,7 @@
 
                 // Housekeeping
                 currentPage = toPage;
-                if (backwards) {
+                if (goingBack) {
                     hist.shift();
                 } else {
                     addPageToHistory(currentPage, animation);
@@ -290,7 +290,7 @@
             _debug();
 
             if (reverse) {
-                _log('The reverse parameter was sent to goTo() function, which is bad.');
+                _log('The reverse parameter of the goTo() function has been deprecated.');
             }
 
             var fromPage = hist[0].page;
@@ -316,7 +316,7 @@
                 }
 
             }
-            if (doNavigation(fromPage, toPage, animation, reverse)) {
+            if (doNavigation(fromPage, toPage, animation)) {
                 return publicObj;
             } else {
                 _debug('Could not animate pages.');
@@ -645,7 +645,7 @@
                 if (hash && hash !== '#') {
                     // Internal href
                     $el.addClass('active');
-                    goTo($(hash).data('referrer', $el), animation, $(this).hasClass('reverse'));
+                    goTo($(hash).data('referrer', $el), animation, $el.hasClass('reverse'));
                     return false;
 
                 } else {
