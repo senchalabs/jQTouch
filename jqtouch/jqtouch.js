@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 162 $
-    $Date: Thu Mar 17 17:32:36 EDT 2011 $
+    $Revision: 163 $
+    $Date: Tue Mar 22 15:42:07 EDT 2011 $
     $LastChangedBy: jonathanstark $
 
 
@@ -94,10 +94,15 @@
             lastTime = now;
             if (jQTSettings.debug) {
                 if (message) {
-                    console.log(delta + ': ' + message);
+                    _log(delta + ': ' + message);
                 } else {
-                    console.log(delta + ': ' + 'Called ' + arguments.callee.caller.name);
+                    _log(delta + ': ' + 'Called ' + arguments.callee.caller.name);
                 }
+            }
+        }
+        function _log(message) {
+            if (window.console !== undefined) {
+                console.log(message);
             }
         }
         function addAnimation(animation) {
@@ -285,7 +290,7 @@
             _debug();
 
             if (reverse) {
-                console.warn('The reverse parameter was sent to goTo() function, which is bad.');
+                _log('The reverse parameter was sent to goTo() function, which is bad.');
             }
 
             var fromPage = hist[0].page;
@@ -633,7 +638,7 @@
                 };
 
                 if (!animation) {
-                    console.warn('Animation could not be found. Using slideleft.');
+                    _log('Animation could not be found. Using slideleft.');
                     animation = 'slideleft';
                 }
 
@@ -774,10 +779,10 @@
             $.support.transform3d = supportForTransform3d();
 
             if (!$.support.touch) {
-                console.warn('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
+                _log('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
             }
             if (!$.support.transform3d) {
-                console.warn('This device does not support 3d animation. 2d animations will be used instead.');
+                _log('This device does not support 3d animation. 2d animations will be used instead.');
             }
 
             // Define public jQuery functions
@@ -827,15 +832,15 @@
 
             // Set up animations array
             if (jQTSettings['cubeSelector']) {
-                console.warn('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
+                _log('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
                 jQTSettings['cubeleftSelector'] = jQTSettings['cubeSelector'];
             }
             if (jQTSettings['flipSelector']) {
-                console.warn('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
+                _log('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
                 jQTSettings['flipleftSelector'] = jQTSettings['flipSelector'];
             }
             if (jQTSettings['slideSelector']) {
-                console.warn('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
+                _log('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
                 jQTSettings['slideleftSelector'] = jQTSettings['slideSelector'];
             }
             for (var i=0, max=defaults.animations.length; i < max; i++) {
@@ -856,7 +861,7 @@
             // Make sure we have a jqt element
             $body = $('#jqt');
             if ($body.length === 0) {
-                console.warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
+                _log('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
                 $body = $('body').attr('id', 'jqt');
             }
 
