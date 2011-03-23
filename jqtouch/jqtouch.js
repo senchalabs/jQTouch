@@ -17,10 +17,9 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 164 $
-    $Date: Tue Mar 22 17:42:13 EDT 2011 $
+    $Revision: 165 $
+    $Date: Wed Mar 23 02:38:26 EDT 2011 $
     $LastChangedBy: jonathanstark $
-
 
 
 */
@@ -325,15 +324,16 @@
         }
         function hashChangeHandler(e) {
             _debug();
-            if (hist[1] === undefined) {
-                _debug('There is no previous page in history');
+            if (location.hash === hist[0].hash) {
+                _debug('We are on the right panel');
             } else {
+                _debug('We are not on the right panel');
                 if(location.hash === hist[1].hash) {
                     goBack();
                 } else {
                     _debug(location.hash + ' !== ' + hist[1].hash);
-                }
-            } 
+                } 
+            }
         }
         function init(options) {
             _debug();
@@ -425,20 +425,13 @@
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
         function setHash(hash) {
-            _debug('setHash is off at the moment');
-            return;
+            _debug();
 
             // Trim leading # if need be
             hash = hash.replace(/^#/, ''),
 
-            // Remove listener
-            window.onhashchange = null;
-
             // Change hash
             location.hash = '#' + hash;
-            
-            // Add listener
-            window.onhashchange = hashChangeHandler;
 
         }
         function showPageByHref(href, options) {
@@ -872,11 +865,12 @@
             if (jQTSettings.fullScreenClass && window.navigator.standalone == true) {
                 $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
             }
-            if (window.navigator.userAgent.match(/Android/ig)) { // Grr... added to postion checkbox labels. Lame I know. - js
+            if (window.navigator.userAgent.match(/Android/ig)) { // Grr... added to postion checkbox labels. Lame. I know. - js
                 $body.addClass('android');
             }
 
             // Bind events
+            $(window).bind('hashchange', hashChangeHandler);
             $body.bind('touchstart', touchStartHandler)
                 .bind('click', clickHandler)
                 .bind('mousedown', mousedownHandler)
@@ -884,6 +878,7 @@
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
                 .trigger('orientationchange');
+            
             
             // Determine what the "current" (initial) panel should be
             if ($('#jqt > .current').length == 0) {
