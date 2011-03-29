@@ -17,8 +17,8 @@
     (c) 2010 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 165 $
-    $Date: Wed Mar 23 02:38:26 EDT 2011 $
+    $Revision: 166 $
+    $Date: Tue Mar 29 01:24:46 EDT 2011 $
     $LastChangedBy: jonathanstark $
 
 
@@ -105,7 +105,7 @@
             }
         }
         function addAnimation(animation) {
-            _debug();
+            // _debug();
             if (typeof(animation.selector) === 'string' && typeof(animation.name) === 'string') {
                 animations.push(animation);
             }
@@ -148,7 +148,7 @@
             if ($.support.touch) {
                 _debug('Not converting click to a tap event because touch handler is on the job');
             } else {
-                _debug('Converting click event to a tap event');
+                _debug('Converting click event to a tap event because touch handlers are not present or off');
                 $(e.target).trigger('tap', e);
             }
 
@@ -526,11 +526,13 @@
         function supportForTouchEvents() {
             _debug();
 
+/*
             // If dev wants fast touch off, shut off touch whether device supports it or not
             if (!jQTSettings.useFastTouch) {
                 return false
             }
 
+*/
             // Dev must want touch, so check for support
             if (typeof TouchEvent != 'undefined') {
                 if (window.navigator.userAgent.indexOf('Mobile') > -1) { // Grrrr...
@@ -758,6 +760,24 @@
             }
 
         } // End touch handler
+        function useFastTouch(setting) {
+            _debug();
+
+            if (setting !== undefined) {
+                if (setting === true) {
+                    if (supportForTouchEvents()) {
+                        $.support.touch = true;
+                    } else{
+                        _log('This device does not support touch events');
+                    };
+                } else {
+                    $.support.touch = false;
+                }
+            }
+
+            return $.support.touch;
+
+        }
 
         // Get the party started
         init(options);
@@ -768,7 +788,7 @@
             // Store some properties in the jQuery support object
             $.support.animationEvents = supportForAnimationEvents();
             $.support.cssMatrix = supportForCssMatrix();
-            $.support.touch = supportForTouchEvents();
+            $.support.touch = supportForTouchEvents() && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
 
             if (!$.support.touch) {
@@ -902,15 +922,16 @@
 
         // Expose public methods and properties
         publicObj = {
+            addAnimation: addAnimation,
             animations: animations,
-            hist: hist,
-            settings: jQTSettings,
-            support: $.support,
             getOrientation: getOrientation,
             goBack: goBack,
             goTo: goTo,
-            addAnimation: addAnimation,
-            submitForm: submitHandler
+            hist: hist,
+            settings: jQTSettings,
+            submitForm: submitHandler,
+            support: $.support,
+            useFastTouch: useFastTouch
         }
         return publicObj;
     }
