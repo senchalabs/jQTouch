@@ -30,6 +30,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 
 #tabbar div, #tabbar a, #tabbar small, #tabbar strong, #tabbar ul,
 #tabbar li, #tabbar table, #tabbar tr, #tabbar td {
+  background: none;
   border-collapse: collapse;
   border-spacing: 0;
   border: none;
@@ -42,6 +43,8 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   padding: 0;
   text-align: left;
   text-decoration: none;
+  top: auto;
+  width: 0;
 }
 
 #tabbar {
@@ -53,7 +56,7 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
 	overflow: hidden;
   position: absolute;
   width: 100%;
-  z-index: 1;
+  z-index: 100 !important;
   -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
 }
 

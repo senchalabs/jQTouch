@@ -564,7 +564,7 @@ is not recognized, like...
       }
       // End init_iScroll()
 
-      // Begin loading iscroll-min.js & initialization
+      // Begin loading iscroll & initialization
       $(document).ready(function () {
 
         // Begin getPath()
@@ -626,7 +626,7 @@ is not recognized, like...
           initializations();
         }
       });
-      // End loading iscroll-min.js
+      // End loading iscroll & initialization
 
       return {
         refresh_iScroll: refresh_iScroll,
