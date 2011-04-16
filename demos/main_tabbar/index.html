@@ -37,7 +37,7 @@ var jQT = new $.jQTouch({
   icon: 'jqtouch.png',
   icon4: 'jqtouch4.png',
   addGlossToIcon: false,
-  slideleftSelector: '#jqt ul > li > a, #jqt ol > li > a',
+  slideleftSelector: '#jqt > ul > li > a, #jqt > ol > li > a',
   startupScreen: 'jqt_startup.png',
   statusBar: 'black',
   preloadImages: [
@@ -435,8 +435,8 @@ $(function(){
       <h1></h1>
       <a href="#" class="back"></a>
     </div>
-<!--     <div class="s-scrollwrapper"> -->
-<!--       <div> -->
+    <div class="s-scrollwrapper">
+      <div>
         <form>
           <ul class="edit rounded">
             <li><input type="text" name="name" placeholder="Text" id="some_name" /></li>
@@ -466,8 +466,8 @@ $(function(){
             <li><input type="radio" name="bag" value="plastic" title="Plastic" /></li>
           </ul>
         </form>
-<!--       </div> -->
-<!--     </div> -->
+      </div>
+    </div>
   </div>
 
 <!-- Animations -->
@@ -511,7 +511,7 @@ $(function(){
     </div>
     <div class="s-scrollwrapper">
       <div>
-        <div class="info"> Just add <code>class=&quote;reverse&quote;</code> to reverse your animation. </div>
+        <div class="info"> Just add <code>class=&quot;reverse&quot;</code> to reverse your animation. </div>
         <ul class="rounded">
           <li><a class="reverse" href="#animdemo">Slide</a></li>
           <li><a class="reverse slideup" href="#animdemo">Slide Up</a></li>
