@@ -37,7 +37,7 @@
             currentPage='',
             orientation='portrait',
             tapReady=true,
-            lastTime=(new Date()).getTime(),
+            lastTime=0,
             lastAnimationTime=0,
             touchSelectors=[],
             publicObj={},
@@ -49,7 +49,7 @@
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                debug: true,
+                debug: false,
                 fallback2dAnimation: 'fade',
                 fixedViewport: true,
                 formSelector: 'form',
@@ -88,7 +88,8 @@
             };
 
         function _debug(message) {
-            var now = (new Date()).getTime(), delta = now - lastTime;
+            now = (new Date).getTime();
+            delta = now - lastTime;
             lastTime = now;
             if (jQTSettings.debug) {
                 if (message) {
@@ -396,7 +397,7 @@
                 }
 
                 // Remove any existing instance
-//                $('#' + $node.attr('id')).remove();
+                $('#' + $node.attr('id')).remove();
 
                 $body.trigger('pageInserted', {page: $node.appendTo($body)});
 
