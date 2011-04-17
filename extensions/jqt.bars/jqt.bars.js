@@ -28,9 +28,12 @@ Integration of iScroll into jQT with tabbar and toolbar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+<<<<<<< HEAD
 2010-04-16 Optimized setPageHeight. Added jQT.barsSettings.phonegap. This, along
 with typeof(PhoneGap) != 'undefined' can be used to prepare app for PhoneGap. 
 
+=======
+>>>>>>> tabbar_init_improvements
 2011-03-20 Since portions of jqt.bars.js have to be rewritten for iScroll v4 I
 decided to revamp the initilization process and get rid of some outstanding
 issues.
@@ -178,7 +181,11 @@ is not recognized, like...
   if ($.jQTouch) {
     $.jQTouch.addExtension(function bars(jQT) {
       var d = document,
+<<<<<<< HEAD
           lastTime = 0,
+=======
+          lastTime = (new Date()).getTime(),
+>>>>>>> tabbar_init_improvements
           scrollerRulez = {
             'box-flex': '1.0',
             'height': 'auto',
@@ -200,7 +207,10 @@ is not recognized, like...
       jQT.barsSettings = {
         autoLoad_iScroll: true,
         debug: true,
+<<<<<<< HEAD
         phonegap: false,
+=======
+>>>>>>> tabbar_init_improvements
         wrapperClass: 's-scrollwrapper'
       };
 
@@ -222,7 +232,11 @@ is not recognized, like...
       function refresh_iScroll(obj) {
         _debug();
         if (obj !== null && typeof(obj) !== 'undefined') {
+<<<<<<< HEAD
           _debug('->scroll.refresh(' + obj.wrapper.id + ')');
+=======
+          _debug('->scroll.refresh()');
+>>>>>>> tabbar_init_improvements
           setTimeout(function () {
             obj.refresh();
           }, 0);
@@ -250,6 +264,7 @@ is not recognized, like...
               numOfTabs = $('a', $bar).length,
               refresh_iscroll = false,
               scroll = $bar.data('iscroll'),
+<<<<<<< HEAD
               tab_w = parseFloat($('li, td', $bar).css('width')),
               tabWidthIsPercentage = function () {
                 var b = 0,
@@ -269,6 +284,28 @@ is not recognized, like...
                   $(this).width(c + 'px');
                 });
               };
+=======
+              tab_w = parseFloat($('li, td', $bar).css('width'));
+
+          function tabWidthIsPercentage() {
+            var b = 0,
+                c = 0,
+                d = 0;
+
+            $pane.width(w + 'px');
+            $('table, ul', $pane).width($pane.width());
+            $('li, td', $pane).each(function (a) {
+              if (a + 1 === $('li, td', $pane).length) {
+                c = w - d;
+              } else {
+                b = (w / numOfTabs) * (a + 1);
+                c = ~~ ((w / numOfTabs) + ~~ (b + 0.5) - ~~ (b));
+                d += c;
+              }
+              $(this).width(c + 'px');
+            });
+          }
+>>>>>>> tabbar_init_improvements
 
           _debug();
           _debug('  ' + numOfTabs + ' tabs');
@@ -288,7 +325,11 @@ is not recognized, like...
               refresh_iscroll = true;
             }
           } else {
+<<<<<<< HEAD
             // Non-fixed tab width
+=======
+          // Non-fixed tab width
+>>>>>>> tabbar_init_improvements
             // Tab width is a percentage of tabbar width - no scrolling
             if (min_w1 <= w / numOfTabs) {
               _debug('  Tab width is a percentage of tabbar width - no scrolling');
@@ -330,11 +371,16 @@ is not recognized, like...
         });
       }
       // End setBarWidth()
-
+       
       // Begin setPageHeight()
       function setPageHeight($current_page) {
+<<<<<<< HEAD
         var fixed = 0,
             $tabbar, tabbarH, $toolbar, toolbarH;
+=======
+          var fixed = 0,
+              $tabbar, tabbarH, $toolbar, toolbarH;
+>>>>>>> tabbar_init_improvements
 
         _debug();
         if ($current_page === null || typeof($current_page) === 'undefined') {
@@ -353,6 +399,7 @@ is not recognized, like...
         // Tab Bar (tabbar id)
         $tabbar = $('#tabbar');
         tabbarH = $tabbar.length > 0 ? ($tabbar.css('display') !== 'none' ? $tabbar.outerHeight() : 0) : 0;
+<<<<<<< HEAD
 
         $('.' + jQT.barsSettings.wrapperClass, $current_page).each(function () {
           var $wrapper = $(this),
@@ -396,6 +443,37 @@ is not recognized, like...
 
             refresh_iScroll($wrapper.data('iscroll'));
             _debug('Refresh done.');
+=======
+        
+        $('.' + jQT.barsSettings.wrapperClass, $current_page).each(function(){
+          var $wrapper = $(this),
+              getLast = function($obj, i){
+                  if($obj.is(':visible')) {
+                    i += parseFloat($obj.css('line-height'), 10) || 0;            
+                    i += parseFloat($obj.css('margin-bottom'), 10) || 0;            
+                    i += parseFloat($obj.css('padding-bottom'), 10) || 0;            
+                  }
+                  if($obj.children(':last').length) {
+                    getLast($obj.children(':last'), i);
+                  }
+                  return i;
+                };
+
+          if($wrapper.is(':visible')){
+            _debug(' #' + $(this).attr('id'));
+  
+            $wrapper.height(win.innerHeight - fixed - toolbarH - tabbarH + 'px');
+            $('div:first', $wrapper).css('padding-bottom', getLast($('div:first', $wrapper).children(':last'),0) + 1 + 'px !important');
+  
+            _debug(' window.innerHeight .......... ' + win.innerHeight + 'px');
+            _debug(' fixed ..................... - ' + fixed + 'px');
+            _debug(' toolbarH .................. - ' + toolbarH + 'px');
+            _debug(' tabbarH ................... - ' + tabbarH + 'px');
+            _debug(' $wrapper.height ........... = ' + $wrapper.height() + 'px');
+            _debug(' $scroller.padding-bottom .. ' + $('div:first', $wrapper).css('padding-bottom'));
+
+            refresh_iScroll($wrapper.data('iscroll'));
+>>>>>>> tabbar_init_improvements
           }
         });
       }
@@ -417,6 +495,7 @@ is not recognized, like...
           _debug('  #tabbar height = ' + $('#tabbar').height() + 'px');
           $('#tabbar a').each(function (index) {
             var $me = $(this),
+<<<<<<< HEAD
                 defaultTarget = $me.data('defaultTarget'),
                 mask2x = $(this).attr('mask2x'),
                 tabIcon, tabZoom;
@@ -425,6 +504,9 @@ is not recognized, like...
             if (typeof(PhoneGap) != 'undefined' && jQT.barsSettings.phonegap) {
               $('body > #tabbar').css({bottom: '20px !important'});
             }
+=======
+                tabIcon, tabZoom;
+>>>>>>> tabbar_init_improvements
 
             // Enummerate the tabbar anchor tags
             $me.attr('id', 'tab_' + index);
@@ -437,16 +519,26 @@ is not recognized, like...
             // Put page animation, if any, into data('animation')
             $me.data('animation', $me.attr('animation'));
 
+<<<<<<< HEAD
             // Put href target into data('defaultTarget') and void href
             if (defaultTarget === null || typeof(defaultTarget) === 'undefined') {
               $me.data('defaultTarget', $me.attr('href'));
+=======
+            // Put href target into data('default_target') and void href
+            if ($me.data('default_target') === null || typeof($me.data('default_target')) === 'undefined') {
+              $me.data('default_target', $me.attr('href'));
+>>>>>>> tabbar_init_improvements
               $me.attr('href', 'javascript:void(0);');
             }
 
             // Create css masks from the anchor's mask property
             tabIcon = $(this).attr('mask');
             tabZoom = 1;
+<<<<<<< HEAD
             if (window.devicePixelRatio && window.devicePixelRatio === 2 && typeof(mask2x) !== 'undefined') {
+=======
+            if (window.devicePixelRatio && window.devicePixelRatio === 2 && typeof($(this).attr('mask2x')) !== 'undefined') {
+>>>>>>> tabbar_init_improvements
               tabIcon = $(this).attr('mask2x');
               tabZoom = 0.5;
             }
@@ -455,12 +547,17 @@ is not recognized, like...
             // tabbar touches
             $me.click(function () {
               var $me = $(this),
+<<<<<<< HEAD
                   animations = ':fade:pop:slideup:',
                   animation = animations.indexOf(':' + $me.data('animation') + ':') > -1 ? $me.data('animation') : '',
                   i = $('#tabbar a').length - 1,
                   $tabs = $('#tabbar a'),
                   target = $me.data('defaultTarget'),
                   thisTab;
+=======
+                  animation, animations = ':fade:pop:slideup:',
+                  target;
+>>>>>>> tabbar_init_improvements
 
               if (!$me.hasClass('enabled')) {
                 for (i; i >= 0; --i) {
@@ -526,7 +623,10 @@ is not recognized, like...
           // Show tabbar now that it's been built, maybe
           if (!$('.current').hasClass('hide_tabbar')) {
             $('#tabbar').show(function () {
+<<<<<<< HEAD
               _debug('initTabbar hide tabbar');
+=======
+>>>>>>> tabbar_init_improvements
               setPageHeight();
               setBarWidth();
             });
@@ -542,8 +642,13 @@ is not recognized, like...
       // Begin init_iScroll()
       function init_iScroll(page) {
         var $wrappers, pageID;
+<<<<<<< HEAD
 
         if (page[0].nodeType === 1) {
+=======
+      
+        if(page[0].nodeType === 1) {
+>>>>>>> tabbar_init_improvements
           pageID = page.attr('id');
           $wrappers = $('.' + jQT.barsSettings.wrapperClass, page);
 
@@ -551,6 +656,7 @@ is not recognized, like...
           _debug('  #' + pageID + ' nodeType: ' + page[0].nodeType);
           $wrappers.each(function (index) {
             var $this = $(this),
+<<<<<<< HEAD
                 i, iscroll, scroll = $this.data('iscroll'),
                 scrollID = $this.attr('id') || pageID + '_wrapper_' + index;
 
@@ -562,6 +668,17 @@ is not recognized, like...
               iscroll = new iScroll(scrollID, {
                 desktopCompatibility: true
               });
+=======
+                i, iscroll, scroll = $(this).data('iscroll'),
+                scrollID = $this.attr('id') || pageID + '_wrapper_' + index;
+  
+            $this.css(wrapperRulez);
+            $('div:first', this).css(scrollerRulez);
+  
+            $this.attr('id', scrollID);
+            if (typeof(scroll) === 'undefined' || scroll === null) {
+              iscroll = new iScroll(scrollID, {});
+>>>>>>> tabbar_init_improvements
               for (i in iscroll.options) {
                 if (iscroll.options.hasOwnProperty(i)) {
                   if (typeof($this.attr(i)) !== 'undefined') {
@@ -570,12 +687,17 @@ is not recognized, like...
                 }
               }
               $this.data('iscroll', iscroll);
+<<<<<<< HEAD
               if ($('#' + pageID).hasClass('current')) {
                 _debug('init_iScroll');
+=======
+              if($('#' + pageID).hasClass('current')){
+>>>>>>> tabbar_init_improvements
                 setPageHeight($('#' + pageID));
               }
             }
           });
+<<<<<<< HEAD
 
           // Prevent navbar pull-down
           $('#' + pageID + ' .toolbar ~ div').andSelf().not('.' + jQT.barsSettings.wrapperClass + ', .listIndex').bind('touchmove', function (e) {
@@ -595,6 +717,27 @@ is not recognized, like...
           $('.toolbar h1', '#' + pageID).click(function () {
             var $wrappers = $(this).parents('#jqt > *').children('.' + jQT.barsSettings.wrapperClass);
             $wrappers.each(function () {
+=======
+  
+          // Prevent navbar pull-down
+          $('#' + pageID + ' .toolbar ~ div').andSelf().not('.'+jQT.barsSettings.wrapperClass+', .listIndex').bind('touchmove', function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+          });
+  
+          // Resize on animation event
+          page.bind('pageAnimationEnd', function (e, data) {
+            if (data.direction === 'in') {
+              _debug('\npageAnimationEnd: In');
+              setPageHeight($(this));
+            }
+          });
+  
+          // Scroll to the top of the page when <h1> is touched
+          $('.toolbar h1', '#' + pageID).click(function () {
+            var $wrappers = $(this).parents('#jqt > *').children('.' + jQT.barsSettings.wrapperClass);
+            $wrappers.each(function(){
+>>>>>>> tabbar_init_improvements
               if ($(this).is(':visible')) {
                 $(this).data('iscroll').scrollTo(0, 0, 0);
               }
@@ -604,7 +747,11 @@ is not recognized, like...
       }
       // End init_iScroll()
 
+<<<<<<< HEAD
       // Begin loading iscroll & initialization
+=======
+      // Begin loading iscroll-min.js & initialization
+>>>>>>> tabbar_init_improvements
       $(document).ready(function () {
 
         // Begin getPath()
@@ -632,6 +779,7 @@ is not recognized, like...
 
           $('#jqt > *').each(function () {
             init_iScroll($(this));
+<<<<<<< HEAD
           });
           initTabbar();
           //initToolbar();
@@ -660,6 +808,38 @@ is not recognized, like...
           $.getScript(getPath() + filename, function () {
             initializations();
           });
+=======
+          });
+          initTabbar();
+          //initToolbar();
+
+          // Resize on rotation
+          $('#jqt').bind('turn', function (e, data) {
+            _debug('\nRotation');
+            setPageHeight();
+            setBarWidth();
+          });
+
+          jQT.barsReady = true;
+
+          // Bind intialization to pageInserted event
+          $(document.body).bind('pageInserted',
+            function(e, data){
+              jQT.barsReady = false;
+              init_iScroll(data.page);
+              jQT.barsReady = true;
+            }
+          );
+        }
+        // End initializatons
+
+        if (jQT.barsSettings.autoLoad_iScroll) {
+          var filename = 'iscroll-min.js';
+          _debug('Begin loading iScroll');
+          $.getScript(getPath() + filename, function () {
+            initializations();
+          });
+>>>>>>> tabbar_init_improvements
         } else {
           initializations();
         }
@@ -674,5 +854,9 @@ is not recognized, like...
     });
   }
 })(jQuery);
+<<<<<<< HEAD
 /*jslint onevar: true, undef: true, regexp: true, devel: true, maxerr: 50, indent: 0 */
+=======
+/*jslint white: true, onevar: true, undef: true, newcap: true, nomen: true, browser: true, devel: true, maxerr: 50, indent: 0 */
+>>>>>>> tabbar_init_improvements
 /*global document, window, console, setTimeout, iScroll, jQuery */

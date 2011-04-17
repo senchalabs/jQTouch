@@ -37,7 +37,11 @@ var jQT = new $.jQTouch({
   icon: 'jqtouch.png',
   icon4: 'jqtouch4.png',
   addGlossToIcon: false,
+<<<<<<< HEAD
   slideleftSelector: '#jqt > ul li a, #jqt > ol li a',
+=======
+  slideleftSelector: '#jqt ul > li > a, #jqt ol > li > a',
+>>>>>>> tabbar_init_improvements
   startupScreen: 'jqt_startup.png',
   statusBar: 'black',
   preloadImages: [
@@ -435,8 +439,13 @@ $(function(){
       <h1></h1>
       <a href="#" class="back"></a>
     </div>
+<<<<<<< HEAD
     <div class="s-scrollwrapper">
       <div>
+=======
+<!--     <div class="s-scrollwrapper"> -->
+<!--       <div> -->
+>>>>>>> tabbar_init_improvements
         <form>
           <ul class="edit rounded">
             <li><input type="text" name="name" placeholder="Text" id="some_name" /></li>
@@ -488,10 +497,19 @@ $(function(){
           <li><a href="#animdemo" class="slideleft">Slide Left</a></li>
           <li><a href="#animdemo" class="slideright">Slide Right</a></li>
           <li><a href="#animdemo" class="slideup">Slide Up</a></li>
+<<<<<<< HEAD
           <li><a href="#animdemo" class="dissolve">Dissolve</a></li>
           <li><a href="#animdemo" class="fade">Fade</a></li>
           <li><a href="#animdemo" class="pop">Pop</a></li>
           <li><a href="#animdemo" class="swap">Swap</a></li>
+=======
+          <li><a class="fade" href="#animdemo">Fade</a></li>
+          <li><a class="flip" href="#animdemo">Flip</a></li>
+          <li><a class="pop" href="#animdemo">Pop</a></li>
+          <li><a class="swap" href="#animdemo">Swap</a></li>
+          <li><a class="cube" href="#animdemo">Cube</a></li>
+          <li><a href="#reversed">Reverse animations&hellip;</a></li>
+>>>>>>> tabbar_init_improvements
         </ul>
       </div>
     </div>
@@ -507,6 +525,32 @@ $(function(){
     </div>
   </div>
 
+<<<<<<< HEAD
+=======
+<!-- Animations - Reversed -->
+  <div id="reversed">
+    <div class="toolbar">
+      <h1>Reversed</h1>
+      <a href="#" class="back">Back</a>
+    </div>
+    <div class="s-scrollwrapper">
+      <div>
+        <div class="info"> Just add <code>class=&quote;reverse&quote;</code> to reverse your animation. </div>
+        <ul class="rounded">
+          <li><a class="reverse" href="#animdemo">Slide</a></li>
+          <li><a class="reverse slideup" href="#animdemo">Slide Up</a></li>
+          <li><a class="reverse dissolve" href="#animdemo">Dissolve</a></li>
+          <li><a class="reverse fade" href="#animdemo">Fade</a></li>
+          <li><a class="reverse flip" href="#animdemo">Flip</a></li>
+          <li><a class="reverse pop" href="#animdemo">Pop</a></li>
+          <li><a class="reverse swap" href="#animdemo">Swap</a></li>
+          <li><a class="reverse cube" href="#animdemo">Cube</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+>>>>>>> tabbar_init_improvements
 <!-- AJAX -->
   <div id="ajax">
     <div class="toolbar">
@@ -531,8 +575,13 @@ $(function(){
       <h1>Post Demo</h1>
       <a class="back" href="#">AJAX</a>
     </div>
+<<<<<<< HEAD
     <div class="s-scrollwrapper">
       <div>
+=======
+<!--     <div class="s-scrollwrapper"> -->
+<!--       <div> -->
+>>>>>>> tabbar_init_improvements
         <ul class="rounded" class="keep_tabbar">
           <li><input type="text" name="zip" value="" placeholder="Zip Code" /></li>
         </ul>
