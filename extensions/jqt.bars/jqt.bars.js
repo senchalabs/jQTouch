@@ -184,7 +184,7 @@ is not recognized, like...
             'height': 'auto',
             'padding-bottom': '1px !important',
             'width': '100%',
-            'z-Index': '1'
+            'z-index': '1'
           },
           win = window,
           wrapperRulez = {
