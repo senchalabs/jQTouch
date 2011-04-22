@@ -511,11 +511,13 @@ is not recognized, like...
             });
           });
 
-          // Scroll to enabled tab on rotation
+          // Resize tabbar & scroll to enabled tab on rotation
           $('#jqt').bind('turn', function (e, data) {
-            var scroll = $('#tabbar').data('iscroll');
+            var $tabbar = $('#tabbar'),
+                scroll = $tabbar.data('iscroll');
             if (scroll !== null && typeof(scroll) !== 'undefined') {
               setTimeout(function () {
+                $tabbar.width = win.innerWidth;
                 if ($('.enabled').offset().left + $('.enabled').width() >= win.innerWidth) {
                   scroll.scrollToElement('#' + $('.enabled').attr('id'), 0);
                 }
