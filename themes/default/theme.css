@@ -145,7 +145,7 @@ body {
 }
 #jqt ul li.arrow {
     background-color: #4c4d4e !important;
-    background-image: url(img/chevron.png) !important;
+    background-image: url(img/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
     background-position: right center !important;
     background-repeat: no-repeat !important;
 }
@@ -418,7 +418,7 @@ body {
 }
 #jqt ul.edgetoedge li.arrow {
     background-color: #404142 !important;
-    background-image: url(img/chevron.png);
+    background-image: url(img/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1e1f21), to(#272729));
     background-position: right center;
     background-repeat: no-repeat;
 }
