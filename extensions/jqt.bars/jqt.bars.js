@@ -177,7 +177,8 @@ is not recognized, like...
 (function ($) {
   if ($.jQTouch) {
     $.jQTouch.addExtension(function bars(jQT) {
-      var d = document,
+      var animations = ':dissolve:fade:pop:slidedown:slideleft:slideright:slideup:',
+          d = document,
           lastTime = 0,
           scrollerRulez = {
             'box-flex': '1.0',
@@ -272,6 +273,7 @@ is not recognized, like...
 
           _debug();
           _debug('  ' + numOfTabs + ' tabs');
+          $bar.css({'display': 'box'});
           // Fixed tab width
           if ($bar.hasClass('fixed-tab-width')) {
 
@@ -334,6 +336,7 @@ is not recognized, like...
       // Begin setPageHeight()
       function setPageHeight($current_page) {
         var fixed = 0,
+            pGapAdjustment = (typeof(PhoneGap) != 'undefined' && jQT.barsSettings.phonegap ? 20: 0),
             $tabbar, tabbarH, $toolbar, toolbarH;
 
         _debug();
@@ -383,9 +386,9 @@ is not recognized, like...
           if ($wrapper.is(':visible')) {
             _debug(' #' + $(this).attr('id'));
 
-            $wrapper.height(win.innerHeight - fixed - toolbarH - tabbarH + 'px');
-            $wrapper.css({'min-height': win.innerHeight - fixed - toolbarH - tabbarH + 'px'});
-            $pane.css('padding-bottom', getLast(pane, 0) + (typeof(PhoneGap) != 'undefined' && jQT.barsSettings.phonegap ? 20: 1) + 'px !important');
+            $wrapper.height(win.innerHeight - fixed - toolbarH - tabbarH - pGapAdjustment + 'px');
+            $wrapper.css({'min-height': win.innerHeight - fixed - toolbarH - tabbarH - pGapAdjustment + 'px'});
+            $pane.css('padding-bottom', getLast(pane, 0) + 'px !important');
 
             _debug(' window.innerHeight .... ' + win.innerHeight + 'px');
             _debug(' fixed ............... - ' + fixed + 'px');
@@ -649,13 +652,15 @@ is not recognized, like...
 
           // Bind intialization to pageInserted event
           $(document.body).bind('pageInserted', function (e, data) {
-            jQT.barsReady = false;
-            init_iScroll(data.page);
-            jQT.barsReady = true;
+            if (typeof (data.page[0].innerHTML) !== 'undefined') {
+              jQT.barsReady = false;
+              init_iScroll(data.page);
+              jQT.barsReady = true;
+            }
           });
         }
-
         // End initializatons
+
         if (jQT.barsSettings.autoLoad_iScroll) {
           var filename = 'iscroll-lite-min.js';
           _debug('Begin loading iScroll');
