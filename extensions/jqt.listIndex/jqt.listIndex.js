@@ -89,7 +89,7 @@ $(document).ready(function () {
 (function ($) {
   if ($.jQTouch) {
     $.jQTouch.addExtension(function listIndex(jQT) {
-      var ListIndex;
+      var device, ListIndex;
 
       jQT.listIndexSettings = {
         index: ['#', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'],
@@ -98,9 +98,11 @@ $(document).ready(function () {
 
       ListIndex = function ($page) {
         var buildIndex = function ($page) {
-          var i = jQT.listIndexSettings.index.length - 1,
+          var h = window.innerHeight,
+              i = jQT.listIndexSettings.index.length - 1,
               pageID = $page.attr('id'),
-              pageIndex = '';
+              pageIndex = '',
+              w = window.innerWidth;
 
           $wrapper = $('.' + jQT.barsSettings.wrapperClass, '#' + pageID);
 
@@ -119,7 +121,7 @@ $(document).ready(function () {
           for (i; i >= 0; --i) {
             pageIndex = '<li>' + jQT.listIndexSettings.index[i] + '</li>' + pageIndex;
           }
-          $page.append('<ul id="' + pageID + '_listIndex" class="listIndex">' + pageIndex + '</ul>');
+          $page.append('<ul id="' + pageID + '_listIndex" class="listIndex ' + device + ' ' + (h > w ? 'portrait' : 'landscape') + '">' + pageIndex + '</ul>');
           $wrapper.data('iscroll').options.vScrollbar = false;
           return document.getElementById(pageID + '_listIndex');
         };
@@ -218,7 +220,7 @@ $(document).ready(function () {
 
         if (jQT.barsReady) {
           //multiple pages
-          if (typeof(page) === 'undefined' || page === null) {
+          if (typeof (page) === 'undefined' || page === null) {
             $('#jqt .indexed').each(function () {
               $page = $(this);
               if ($page.parents('#jqt > div').length) {
@@ -227,21 +229,21 @@ $(document).ready(function () {
               iScrollData = $('.' + jQT.barsSettings.wrapperClass, page).data('iscroll');
               listIndexData = $page.data('listIndex');
 
-              if ((listIndexData === null || typeof(listIndexData) === 'undefined') && (iScrollData !== null || typeof(iScrollData) !== 'undefined')) {
+              if ((listIndexData === null || typeof (listIndexData) === 'undefined') && (iScrollData !== null || typeof (iScrollData) !== 'undefined')) {
                 $page.data('listIndex', new ListIndex($page));
               }
             });
           } else {
             //single page
             $page = $('#' + page);
-            if ($page.hasClass('indexed')) {
+            if ($page.children().hasClass('indexed') && !$page.children().hasClass('listIndex')) {
               if ($page.parents('#jqt > div').length) {
                 $page = $page.parents('#jqt > div');
               }
               iScrollData = $('.' + jQT.barsSettings.wrapperClass, page).data('iscroll');
               listIndexData = $page.data('listIndex');
 
-              if ((listIndexData === null || typeof(listIndexData) === 'undefined') && (iScrollData !== null || typeof(iScrollData) !== 'undefined')) {
+              if ((listIndexData === null || typeof (listIndexData) === 'undefined') && (iScrollData !== null || typeof (iScrollData) !== 'undefined')) {
                 $page.data('listIndex', new ListIndex($page));
               } else {
                 console.warn('#' + page + ' already has a listIndex.');
@@ -250,7 +252,7 @@ $(document).ready(function () {
           }
           clearTimeout(this.indicesDelay);
         } else {
-          if (typeof(page) === 'undefined' || page === null) {
+          if (typeof (page) === 'undefined' || page === null) {
             page = 'initListIndices()';
           } else {
             page = 'initListIndices(\'' + page + '\')';
@@ -260,10 +262,38 @@ $(document).ready(function () {
       };
 
       $(document).ready(function () {
+        var deviceDetection = function () {
+            var nua = navigator.userAgent;
+
+            if (nua.indexOf('iPhone') !== -1) {
+              device = 'iPhone';
+            }
+            if (nua.indexOf('iPod') !== -1) {
+              device = 'iPhone';
+            }
+            if (nua.indexOf('iPad') !== -1) {
+              device = 'iPad';
+            }
+          };
+
+        deviceDetection();
         initListIndices();
+
         $(document.body).bind('pageInserted', function (e, data) {
-          initListIndex(data.page.attr('id'));
+          if (typeof (data.page[0].innerHTML) !== 'undefined') {
+            if ($(data.page).children().hasClass('indexed')) {
+              initListIndex(data.page.attr('id'));
+            }
+          }
         });
+
+        $('#jqt').bind('turn', function (e, data) {
+          var h = window.innerHeight,
+              w = window.innerWidth;
+
+          $('.listIndex').removeClass('portrait landscape').addClass(h > w ? 'portrait' : 'landscape');
+        });
+
       });
 
       return {
