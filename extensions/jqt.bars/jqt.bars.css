@@ -21,7 +21,7 @@ Tab Bar................  49px
 Screen 768 x 1024
 
 Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/conceptual/ipadhig/designguidelines/designguidelines.html
-
+px <--> em factor is 16
 */
 
 * {outline: none !important;}
@@ -114,7 +114,6 @@ Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/
   position: absolute;
   text-align: center;
   text-overflow: ellipsis;
-  vertical-align: bottom;
   white-space: nowrap;
   width: 100%;
   -webkit-font-smoothing: antialiased;
