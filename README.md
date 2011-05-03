@@ -32,7 +32,8 @@ jQTouch is a jQuery plugin with native animations, automatic navigation, and the
 - [Entirely customizable](http://wiki.github.com/senchalabs/jQTouch/initoptions) with selector options
 - [Theme support](http://wiki.github.com/senchalabs/jQTouch/themingstyling), including default Apple and jQTouch custom themes
 - [Callback functions](http://wiki.github.com/senchalabs/jQTouch/callbackevents) throughout, including swipe and orientation change detection
-- Page history management and CSS3 page transitions, including 3d flip
+- Page history management and CSS3 page transitions, including 3D flip
+- Failover to 2D animations for devices that don't support 3D
 - Easily allow apps to run in fullscreen mode with custom icons and startup screens
 - The power of jQuery to build AJAX applications
 - New demos: Clock and Todo
@@ -41,12 +42,10 @@ jQTouch is a jQuery plugin with native animations, automatic navigation, and the
 
 [Watch this video preview](http://www.jqtouch.com/) to see it in action.
 
-[Please consider donating](http://bit.ly/support-jqt) so we can keep making jQTouch.
-
 External Guides
 ---------------
 
-Jonathan Stark has created an excellent introduction to jQTouch as part of his book, [Building iPhone Apps with HTML, CSS, and Javascript](http://building-iphone-apps.labs.oreilly.com/ch04.html).
+Jonathan Stark has created an excellent introduction to jQTouch as part of his book, [Building iPhone Apps with HTML, CSS, and Javascript](http://ofps.oreilly.com/titles/9780596805784/chapAnimation.html).
 
 [PeepCode did a screencast](http://peepcode.com/products/jqtouch) ($9), as well as a [cheat sheet](http://blog.peepcode.com/tutorials/2009/jqtouch-cheat-sheet), which have been helpful to many people.
 
@@ -59,6 +58,6 @@ Maintained by [Jonathan Stark](http://jonathanstark.com/).
 
 Special thanks to [pinch/zoom](http://www.pinchzoom.com/).
 
-(c) 2009 by jQTouch project members.
+(c) 2009-2011 by jQTouch project members.
 See LICENSE.txt for license.
 
