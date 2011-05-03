@@ -785,7 +785,8 @@
         // Document ready stuff
         $(document).ready(function() {
 
-            // Store some properties in the jQuery support object
+            // Store some properties in the support object
+            $.support = {};
             $.support.animationEvents = supportForAnimationEvents();
             $.support.cssMatrix = supportForCssMatrix();
             $.support.touch = supportForTouchEvents() && jQTSettings.useFastTouch;
@@ -902,9 +903,9 @@
             
             // Determine what the "current" (initial) panel should be
             if ($('#jqt > .current').length == 0) {
-                currentPage = $('#jqt > *:first');
+                currentPage = $('#jqt > *:first-child');
             } else {
-                currentPage = $('#jqt > .current:first');
+                currentPage = $('#jqt > .current:first-child');
                 $('#jqt > .current').removeClass('current');
             }
 
@@ -942,4 +943,4 @@
         $.jQTouch.prototype.extensions.push(extension);
     }
 
-})(jQuery);
+})(Zepto);
