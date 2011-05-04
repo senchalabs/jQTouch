@@ -28,6 +28,9 @@ Integration of iScroll into jQT with tabbar and toolbar implementations
 
 Change Log
 --------------------------------------------------------------------------------
+2010-05-04 Added jQT.barsSettings.iscroll_lite (true|false). Set this to false
+to use the full-featured version of iScroll.
+
 2010-04-16 Optimized setPageHeight. Added jQT.barsSettings.phonegap. This, along
 with typeof(PhoneGap) != 'undefined' can be used to prepare app for PhoneGap. 
 
@@ -201,6 +204,7 @@ is not recognized, like...
       jQT.barsSettings = {
         autoLoad_iScroll: true,
         debug: true,
+        iscroll_lite: true,
         phonegap: false,
         wrapperClass: 's-scrollwrapper'
       };
@@ -662,7 +666,7 @@ is not recognized, like...
         // End initializatons
 
         if (jQT.barsSettings.autoLoad_iScroll) {
-          var filename = 'iscroll-lite-min.js';
+          var filename = jQT.barsSettings.iscroll_lite ? 'iscroll-lite-min.js' : 'iscroll-min.js';
           _debug('Begin loading iScroll');
           $.getScript(getPath() + filename, function () {
             initializations();
