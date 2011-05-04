@@ -32,6 +32,7 @@
                     '../../themes/jqt/img/loading.gif'
                     ]
             });
+            
             // Some sample Javascript functions:
             $(function(){
                 // Show a swipe event on swipe test
@@ -43,7 +44,7 @@
                 $('#tapme').tap(function(){
                     $(this).parent().after('<li>tapped!</li>')
                 })
-                $('a[target="_blank"]').click(function() {
+                $('a[target="_blank"]').bind('click', function() {
                     if (confirm('This link opens in a new window.')) {
                         return true;
                     } else {
