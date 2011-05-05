@@ -386,12 +386,15 @@
             }
 
         }
-        function insertPages(nodes, animation) {
+        function insertPages(nodes, animation, $referrer) {
             _debug();
 
             var targetPage = null;
             $(nodes).each(function(index, node) {
                 var $node = $(this);
+				if($referrer) {
+					$node.data('referrer', $referrer);
+				}
                 if (!$node.attr('id')) {
                     $node.attr('id', 'page-' + (++newPageCount));
                 }
@@ -453,7 +456,7 @@
                     data: settings.data,
                     type: settings.method,
                     success: function (data, textStatus) {
-                        var firstPage = insertPages(data, settings.animation);
+                        var firstPage = insertPages(data, settings.animation, settings.$referrer);
                         if (firstPage) {
                             if (settings.method == 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
                                 settings.$referrer.attr('href', '#' + firstPage.attr('id'));
