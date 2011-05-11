@@ -45,6 +45,7 @@
             extensions=$.jQTouch.prototype.extensions,
             animations=[],
             hairExtensions='',
+			isAjaxLoading = false,
             defaults = {
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
@@ -83,7 +84,7 @@
                     {selector:'.slideright', name:'slideright', is3d:false},
                     {selector:'.slideup', name:'slideup', is3d:false},
                     {selector:'.swap', name:'swapleft', is3d:true},
-                    {selector:'#jqt > * > ul li a', name:'slideleft', is3d:false}
+                    {selector:'#jqt * ul li a', name:'slideleft', is3d:false}
                 ]
             };
 
@@ -215,8 +216,8 @@
                 // Trigger animations
                 scrollTo(0, 0);
                 toPage.addClass(finalAnimationName + ' in current');
-                fromPage.addClass(finalAnimationName + ' out');
-
+				fromPage.addClass(finalAnimationName + ' out');
+                
             } else {
                 toPage.addClass('current');
                 navigationEndHandler();
@@ -451,30 +452,35 @@
             var settings = $.extend({}, defaults, options);
 
             if (href != '#') {
-                $.ajax({
-                    url: href,
-                    data: settings.data,
-                    type: settings.method,
-                    success: function (data, textStatus) {
-                        var firstPage = insertPages(data, settings.animation, settings.$referrer);
-                        if (firstPage) {
-                            if (settings.method == 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
-                                settings.$referrer.attr('href', '#' + firstPage.attr('id'));
-                            }
-                            if (settings.callback) {
-                                settings.callback(true);
-                            }
-                        }
-                    },
-                    error: function (data) {
-                        if (settings.$referrer) {
-                            settings.$referrer.unselect();
-                        }
-                        if (settings.callback) {
-                            settings.callback(false);
-                        }
-                    }
-                });
+				if(!isAjaxLoading) {
+					isAjaxLoading = true;
+					$.ajax({
+						url: href,
+						data: settings.data,
+						type: settings.method,
+						success: function (data, textStatus) {
+							var firstPage = insertPages(data, settings.animation, settings.$referrer);
+							if (firstPage) {
+								if (settings.method == 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
+									settings.$referrer.attr('href', '#' + firstPage.attr('id'));
+								}
+								if (settings.callback) {
+									settings.callback(true);
+								}
+							}
+							isAjaxLoading = false;
+						},
+						error: function (data) {
+							if (settings.$referrer) {
+								settings.$referrer.unselect();
+							}
+							if (settings.callback) {
+								settings.callback(false);
+							}
+							isAjaxLoading = false;
+						}
+					});
+				}
             } else if (settings.$referrer) {
                 settings.$referrer.unselect();
             }
@@ -663,7 +669,7 @@
         }
         function touchStartHandler(e) {
             _debug();
-            
+			
             if (!tapReady) {
                 _debug('TouchStart handler aborted because tap is not ready');
                 e.preventDefault();
