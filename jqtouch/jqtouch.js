@@ -177,7 +177,7 @@
             }
 
             // Collapse the keyboard
-            $(':focus').blur();
+            $(':focus').trigger('blur');
 
             // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
             // toPage.css('top', window.pageYOffset);
@@ -925,9 +925,9 @@
             
             // Determine what the "current" (initial) panel should be
             if ($('#jqt > .current').length == 0) {
-                currentPage = $('#jqt > *:first');
+                currentPage = $('#jqt > *').first();
             } else {
-                currentPage = $('#jqt > .current:first');
+                currentPage = $('#jqt > .current').first();
                 $('#jqt > .current').removeClass('current');
             }
 
@@ -964,4 +964,5 @@
         $.jQTouch.prototype.extensions.push(extension);
     }
 
-})(jQuery);
+})($); // zepto or jQuery
+
