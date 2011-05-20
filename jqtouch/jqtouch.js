@@ -88,7 +88,7 @@
             };
 
         function _debug(message) {
-            now = (new Date).getTime();
+            var now = (new Date).getTime();
             delta = now - lastTime;
             lastTime = now;
             if (jQTSettings.debug) {
