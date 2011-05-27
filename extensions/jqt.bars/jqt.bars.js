@@ -461,26 +461,55 @@ is not recognized, like...
 
             // tabbar touches
             $me.click(function () {
-              var $me = $(this),
-                  animations = ':fade:pop:slideup:',
-                  animation = animations.indexOf(':' + $me.data('animation') + ':') > -1 ? $me.data('animation') : '',
-                  i = $('#tabbar a').length - 1,
+              var $referrerTab = $('#tabbar .enabled'),
                   $tabs = $('#tabbar a'),
+                  $targetTab = $(this),
+                  animation = animations.indexOf(':' + $me.data('animation') + ':') > -1 ? $me.data('animation') : '', 
+                  i,
+                  referrerAnimation = animations.indexOf(':' + $referrerTab.data('animation') + ':') > -1 ? $referrerTab.data('animation') : '',
+                  referrerPage = $referrerTab.data('defaultTarget'),
                   target = $me.data('defaultTarget'),
-                  thisTab;
+                  targetAnimation = animations.indexOf(':' + $targetTab.data('animation') + ':') > -1 ? $targetTab.data('animation') : '',
+                  targetHist = $targetTab.data('hist'),
+                  targetPage = $targetTab.data('defaultTarget'),
+                  thisTab, 
+                  dzGoTo = function(page, anime) {
+                    if(page.search(/^#/) > -1) {
+                      jQT.goTo(page, anime);
+                    } else {
+                      $('#jqt').append('<a id="___dz1965" href="'+page+'" class="'+anime+'"></a>');
+                      $('#___dz1965').click();
+                      $('#___dz1965').remove();
+                    }
+                  };
+                  TARDIS = function(anime) {
+                    var DW;
+                    if (anime.indexOf('left') > 0) {
+                        DW = anime.replace(/left/, 'right');
+                    } else if (anime.indexOf('right') > 0) {
+                        DW = anime.replace(/right/, 'left');
+                    } else if (anime.indexOf('up') > 0) {
+                        DW = anime.replace(/up/, 'down');
+                    } else if (anime.indexOf('down') > 0) {
+                        DW = anime.replace(/down/, 'up');
+                    } else {
+                        DW = anime;
+                    }
+                    return DW;
+                  };
 
-              if (!$me.hasClass('enabled')) {
-                for (i; i >= 0; --i) {
+              if (!$targetTab.hasClass('enabled')) {
+                for (i = $('#tabbar a').length - 1; i >= 0; --i) {
                   thisTab = $tabs.eq(i);
-                  thisTab.toggleClass('enabled', ($me.get(0) === thisTab.get(0)));
-                  if ($me.get(0) === thisTab.get(0)) {
-                    jQT.goTo(target, animation);
+                  thisTab.toggleClass('enabled', ($targetTab.get(0) === thisTab.get(0)));
+                  if ($targetTab.get(0) === thisTab.get(0)) {
+                    dzGoTo(target, (targetAnimation === '' ? TARDIS(referrerAnimation) : targetAnimation));
                     _debug('tabbbar touch, new tab');
                     setPageHeight();
                   }
                 }
               } else {
-                jQT.goTo(target);
+                dzGoTo(target);
                 _debug('tabbar touch, same tab');
                 setPageHeight();
               }
