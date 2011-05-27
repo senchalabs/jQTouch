@@ -11,7 +11,7 @@
     Created by David Kaneda <http://www.davidkaneda.com>
     Maintained by Jonathan Stark <http://jonathanstark.com/>
     Sponsored by Sencha Labs <http://www.sencha.com/>
-    
+
     Documentation and issue tracking on GitHub <http://wiki.github.com/senchalabs/jQTouch/>
 
     (c) 2009-2011 by jQTouch project members.
@@ -23,11 +23,12 @@
 
 */
 
-(function($) {
-    $.jQTouch = function(options) {
+(function() {
 
+    TouchCore = function(options) {
         // Initialize internal jQT variables
-        var $body,
+        var $ = options.framework,
+            $body,
             $head=$('head'),
             initialPageId='',
             hist=[],
@@ -41,7 +42,7 @@
             touchSelectors=[],
             publicObj={},
             tapBuffer=351,
-            extensions=$.jQTouch.prototype.extensions,
+            extensions=TouchCore.prototype.extensions,
             animations=[],
             hairExtensions='',
             defaults = {
@@ -174,7 +175,7 @@
 
             // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
             // toPage.css('top', window.pageYOffset);
-            
+
             fromPage.trigger('pageAnimationStart', { direction: 'out' });
             toPage.trigger('pageAnimationStart', { direction: 'in' });
 
@@ -224,7 +225,7 @@
             // Define private navigationEnd callback
             function navigationEndHandler(event) {
                 _debug();
-                
+
 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
@@ -332,7 +333,7 @@
                     goBack();
                 } else {
                     _debug(location.hash + ' !== ' + hist[1].hash);
-                } 
+                }
             }
         }
         function init(options) {
@@ -398,7 +399,7 @@
 
                 // Remove any existing instance
                 $('#' + $node.attr('id')).remove();
-                
+
                 $body.append($node);
                 $body.trigger('pageInserted', {page: $node});
 
@@ -514,6 +515,27 @@
             }
             return true;
         }
+        function supportForTouchEvents() {
+            _debug();
+
+            /*
+            // If dev wants fast touch off, shut off touch whether device supports it or not
+            if (!jQTSettings.useFastTouch) {
+                return false
+            }
+            */
+
+            // Dev must want touch, so check for support
+            if (typeof TouchEvent != 'undefined') {
+                if (window.navigator.userAgent.indexOf('Mobile') > -1) { // Grrrr...
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        };
         function supportForTransform3d() {
             _debug();
 
@@ -558,7 +580,7 @@
             if (!$el.is(touchSelectors.join(', '))) {
                 var $el = $(e.target).closest(touchSelectors.join(', '));
             }
-            
+
             // Make sure we have a tappable element
             if (!$el.length || !$el.attr('href')) {
                 _debug('Could not find a link related to tapped element');
@@ -743,9 +765,9 @@
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
                 .trigger('orientationchange');
-            
+
             // Determine what the "current" (initial) panel should be
-            
+
             if ($('#jqt > .current').length == 0) {
                 $currentPage = $('#jqt > *:first-child');
             } else {
@@ -756,11 +778,11 @@
             // Go to the top of the "current" page
             $currentPage.addClass('current');
             initialPageId = $currentPage.attr('id');
-            
+
             setHash(initialPageId);
             addPageToHistory($currentPage);
             scrollTo(0,0);
-            
+
             // Make sure none of the panels yank the location bar into view
             $('#jqt > *').css('minHeight', window.innerHeight);
 
@@ -778,14 +800,14 @@
             submitForm: submitHandler,
             support: $.support,
             useFastTouch: useFastTouch
-        }
+        };
         return publicObj;
-    }
+    };
 
     // Extensions directly manipulate the jQTouch object, before it's initialized.
-    $.jQTouch.prototype.extensions = [];
-    $.jQTouch.addExtension = function(extension) {
-        $.jQTouch.prototype.extensions.push(extension);
-    }
+    TouchCore.prototype.extensions = [];
+    TouchCore.addExtension = function(extension) {
+      TouchCore.prototype.extensions.push(extension);
+    };
 
-})(Zepto);
+})();
