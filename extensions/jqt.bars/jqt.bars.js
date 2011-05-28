@@ -481,7 +481,7 @@ is not recognized, like...
                       $('#___dz1965').click();
                       $('#___dz1965').remove();
                     }
-                  };
+                  },
                   TARDIS = function(anime) {
                     var DW;
                     if (anime.indexOf('left') > 0) {
