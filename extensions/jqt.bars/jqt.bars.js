@@ -32,7 +32,7 @@ Change Log
 to use the full-featured version of iScroll.
 
 2010-04-16 Optimized setPageHeight. Added jQT.barsSettings.phonegap. This, along
-with typeof(PhoneGap) != 'undefined' can be used to prepare app for PhoneGap. 
+with typeof(PhoneGap) !== 'undefined' can be used to prepare app for PhoneGap. 
 
 2011-03-20 Since portions of jqt.bars.js have to be rewritten for iScroll v4 I
 decided to revamp the initilization process and get rid of some outstanding
@@ -340,7 +340,7 @@ is not recognized, like...
       // Begin setPageHeight()
       function setPageHeight($current_page) {
         var fixed = 0,
-            pGapAdjustment = (typeof(PhoneGap) != 'undefined' && jQT.barsSettings.phonegap ? 20: 0),
+            pGapAdjustment = (typeof(PhoneGap) !== 'undefined' && jQT.barsSettings.phonegap ? 20: 0),
             $tabbar, tabbarH, $toolbar, toolbarH;
 
         _debug();
@@ -429,7 +429,7 @@ is not recognized, like...
                 tabIcon, tabZoom;
 
             // PhoneGap integration
-            if (typeof(PhoneGap) != 'undefined' && jQT.barsSettings.phonegap) {
+            if (typeof(PhoneGap) !== 'undefined' && jQT.barsSettings.phonegap) {
               $('body > #tabbar').css({bottom: '20px !important'});
             }
 
@@ -481,7 +481,7 @@ is not recognized, like...
                       $('#___dz1965').click();
                       $('#___dz1965').remove();
                     }
-                  };
+                  },
                   TARDIS = function(anime) {
                     var DW;
                     if (anime.indexOf('left') > 0) {
