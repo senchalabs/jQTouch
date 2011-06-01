@@ -153,7 +153,7 @@
         };
 
         options.framework = $;
-        var core = TouchCore(options);
+        var core = jQTouchCore(options);
         return core;
     };
 })(jQuery);

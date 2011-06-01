@@ -25,7 +25,7 @@
 
 (function() {
 
-    TouchCore = function(options) {
+    jQTouchCore = function(options) {
         // Initialize internal jQT variables
         var $ = options.framework,
             $body,
@@ -42,7 +42,7 @@
             touchSelectors=[],
             publicObj={},
             tapBuffer=351,
-            extensions=TouchCore.prototype.extensions,
+            extensions=jQTouchCore.prototype.extensions,
             animations=[],
             hairExtensions='',
             defaults = {
@@ -805,9 +805,20 @@
     };
 
     // Extensions directly manipulate the jQTouch object, before it's initialized.
-    TouchCore.prototype.extensions = [];
-    TouchCore.addExtension = function(extension) {
-      TouchCore.prototype.extensions.push(extension);
+    jQTouchCore.prototype.extensions = [];
+    jQTouchCore.addExtension = function(extension) {
+      jQTouchCore.prototype.extensions.push(extension);
     };
 
+    // If Zepto exists, jQTouch will use Zepto. Otherwise, a bridge should initialize
+    // jQTouch. See jqtouch-jquery.js.
+    if (!!Zepto) {
+        (function($) {
+            $.jQTouch = function(options) {
+                options.framework = $;
+                var core = jQTouchCore(options);
+                return core;
+            };
+        })(Zepto);
+    }
 })();
