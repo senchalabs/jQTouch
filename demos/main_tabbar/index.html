@@ -158,7 +158,7 @@ $(function(){
         </a>
       </li>
       <li>
-        <a href="ajax_page.html" mask="bar_img/ajax.png" mask2x="bar_img/ajax@2x.png" animation="pop">
+        <a href="ajax_page" mask="bar_img/ajax.png" mask2x="bar_img/ajax@2x.png" animation="pop">
           <small class="badge right">4</small>
           <strong>AJAX</strong>
         </a>
@@ -506,14 +506,46 @@ $(function(){
     </div>
   </div>
 
+  <div id="ajax_page">
 <!-- AJAX -->
-<!-- This is loaded dyanmically via (ironically) AJAX -->
+    <div class="toolbar">
+      <h1>ExtenalAJAX</h1>
+    </div>
+    <div class="s-scrollwrapper">
+      <div>
+        <ul class="rounded">
+          <li class="arrow"><a href="#ajax_post">POST Form Example</a></li>
+          <li class="arrow"><a href="ajax.html">GET Example</a></li>
+          <li class="arrow"><a href="ajax_long.html">Long GET Example</a></li>
+          <li class="arrow"><a href="#callback">With Callback</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
 
 <!-- AJAX - AJAX POST -->
-<!-- This is loaded dyanmically via (ironically) AJAX -->
+  <form id="ajax_post" action="ajax_post.php" class="form" method="POST">
+    <div class="toolbar"> 
+      <h1>Post Demo</h1>
+      <a class="back" href="#">AJAX</a>
+    </div>
+    <div class="s-scrollwrapper">
+      <div>
+        <ul class="rounded" class="keep_tabbar">
+          <li><input type="text" name="zip" value="" placeholder="Zip Code" /></li>
+        </ul>
+        <a style="margin:0 10px;color:rgba(0,0,0,.9)" href="#" class="submit whiteButton">Submit</a>
+      </div>
+    </div>
+  </form>
 
 <!-- AJAX - Callback -->
-<!-- This is loaded dyanmically via (ironically) AJAX -->
+  <div id="callback">
+    <div class="toolbar">
+      <h1>AJAX Callback</h1>
+      <a class="back" href="#">AJAX</a>
+    </div>
+  </div>
 
 <!-- Callbacks -->
   <div id="callbacks">
