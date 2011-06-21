@@ -203,7 +203,7 @@ is not recognized, like...
 
       jQT.barsSettings = {
         autoLoad_iScroll: true,
-        debug: true,
+        debug: false,
         iscroll_lite: true,
         phonegap: false,
         wrapperClass: 's-scrollwrapper'
@@ -473,27 +473,18 @@ is not recognized, like...
                   targetHist = $targetTab.data('hist'),
                   targetPage = $targetTab.data('defaultTarget'),
                   thisTab, 
-                  dzGoTo = function(page, anime) {
-                    if(page.search(/^#/) > -1) {
-                      jQT.goTo(page, anime);
-                    } else {
-                      $('#jqt').append('<a id="___dz1965" href="'+page+'" class="'+anime+'"></a>');
-                      $('#___dz1965').click();
-                      $('#___dz1965').remove();
-                    }
-                  },
                   TARDIS = function(anime) {
                     var DW;
                     if (anime.indexOf('left') > 0) {
-                        DW = anime.replace(/left/, 'right');
+                      DW = anime.replace(/left/, 'right');
                     } else if (anime.indexOf('right') > 0) {
-                        DW = anime.replace(/right/, 'left');
+                      DW = anime.replace(/right/, 'left');
                     } else if (anime.indexOf('up') > 0) {
-                        DW = anime.replace(/up/, 'down');
+                       DW = anime.replace(/up/, 'down');
                     } else if (anime.indexOf('down') > 0) {
-                        DW = anime.replace(/down/, 'up');
+                      DW = anime.replace(/down/, 'up');
                     } else {
-                        DW = anime;
+                      DW = anime;
                     }
                     return DW;
                   };
@@ -503,13 +494,13 @@ is not recognized, like...
                   thisTab = $tabs.eq(i);
                   thisTab.toggleClass('enabled', ($targetTab.get(0) === thisTab.get(0)));
                   if ($targetTab.get(0) === thisTab.get(0)) {
-                    dzGoTo(target, (targetAnimation === '' ? TARDIS(referrerAnimation) : targetAnimation));
+                    jQT.goTo(target, (targetAnimation === '' ? TARDIS(referrerAnimation) : targetAnimation));
                     _debug('tabbbar touch, new tab');
                     setPageHeight();
                   }
                 }
               } else {
-                dzGoTo(target);
+                jQT.goTo(target);
                 _debug('tabbar touch, same tab');
                 setPageHeight();
               }
