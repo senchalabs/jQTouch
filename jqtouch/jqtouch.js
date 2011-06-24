@@ -348,16 +348,17 @@
             }
 
             // Set appropriate icon (retina display available in iOS 4.2 and later.)
-	   var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
+            var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
             if (jQTSettings.icon) {
-		hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
+                hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
             }
             if (jQTSettings.iconPad) {
-		hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" sizes="72x72" href="' + jQTSettings.iconPad + '" />';
+                hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" sizes="72x72" href="' + jQTSettings.iconPad + '" />';
             }
             if (jQTSettings.icon4) {
-		hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" sizes="114x114" href="' + jQTSettings.icon4 + '" />';
+                hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" sizes="114x114" href="' + jQTSettings.icon4 + '" />';
             }
+
             // Set startup screen
             if (jQTSettings.startupScreen) {
                 hairExtensions += '<link rel="apple-touch-startup-image" href="' + jQTSettings.startupScreen + '" />';
