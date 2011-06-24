@@ -1,0 +1,228 @@
+/*
+iPhone Guidelines - full screen
+                 Portrait  Landscape
+Status Bar.......       20px         No change in heigth due to orientation.
+Address Bar......  60px      60px    Only in Mobile Safari
+Navigation Bar...  44px      32px
+Tool Bar.........  44px      32px
+Tab Bar..........       49px         No change in heigth due to orientation.
+
+Screen 320 x 480 or 640 x 960 for high resolution
+----------------------------------------
+iPad Guidelines
+                       Portrait &
+                       Landscape
+Status Bar.............  20px
+Navigation in Safari...  58px     Seems to be the only exception in built-in app
+Navigation.............  44px
+Tool Bar...............  44px
+Tab Bar................  49px
+
+Screen 768 x 1024
+
+Source: BeeDesk & http://developer.apple.com/library/ios/#documentation/general/conceptual/ipadhig/designguidelines/designguidelines.html
+px <--> em factor is 16
+*/
+
+* {outline: none !important;}
+
+/* @group #tabbar */
+
+#tabbar div, #tabbar a, #tabbar small, #tabbar strong, #tabbar ul,
+#tabbar li, #tabbar table, #tabbar tr, #tabbar td {
+  background: none;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: normal;
+  font-weight: normal;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  text-decoration: none;
+  top: auto;
+  width: 0;
+}
+
+#tabbar {
+  background: -webkit-gradient(linear, left top, left bottom, from(#000), to(#000), color-stop(.01, #000),
+    color-stop(.02, #555), color-stop(.03, #2d2d2d), color-stop(.5, #151515), color-stop(.51, #000));
+  bottom: 0;
+  display: none;  /* build the tabbar off screen */
+  height: 3.0625em  !important;
+	overflow: hidden;
+  position: absolute;
+  width: 100%;
+  z-index: 100 !important;
+  -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
+}
+
+#tabbar #tabbar-pane, #tabbar ul, #tabbar li,
+#tabbar table, #tabbar tr, #tabbar td {
+  height: auto;
+}
+
+#tabbar #tabbar-pane, {
+  bottom: 0;
+  float:left;
+  width: auto;
+}
+
+#tabbar table, #tabbar ul {
+  display: inline-table;
+  margin-top: .1875em;
+}
+
+#tabbar table td:first-child,
+#tabbar ul li:first-child,
+.tabbar table td:first-child,
+.tabbar ul li:first-child {
+  margin-left: .125em;
+}
+
+#tabbar table td:last-child,
+#tabbar ul li:last-child,
+.tabbar table td:last-child,
+.tabbar ul li:last-child {
+  margin-right: .125em;
+}
+
+#tabbar li, #tabbar td {
+  display: inline-table;
+  min-width: 3.33333em;
+}
+
+#tabbar a {
+  border-radius: .25em;
+  bottom: 0;
+  display: inline-block;
+  height: 2.75em;
+  position: relative;
+  top: 0;
+  vertical-align: top;
+  width: 100%;
+}
+
+#tabbar a > strong {
+  bottom: 0;
+  color: #787878;
+  font: bold .625em "Helvetica Neue", Helvetica;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+#tabbar a::after, #tabbar a::before {
+  bottom: .875em;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  -webkit-mask-position: center top;
+  -webkit-mask-repeat: no-repeat;
+}
+
+#tabbar a::before {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255,255,255,.6)), to(rgba(255,255,255,.3)));
+  z-index: 1;
+}
+
+#tabbar a::after {
+  background-color: rgba(0,0,0,.75);
+  z-index: 0;
+}
+
+#tabbar a.enabled {
+  background-color: rgba(255,255,255,.10);
+}
+
+#tabbar a.enabled > strong {
+  color: #FFF;
+}
+
+#tabbar a.enabled::before {
+/* tab background is defined in extension theme */
+}
+
+#tabbar a.XX::after, #tabbar a.XX::before {
+/* tab mask is dynamically build in jqt.bars.js */
+}
+
+/* @group badge for tabbar */
+
+#tabbar .badge {
+  background-image: -webkit-gradient(radial, 50% -130%, 25, 50% 0, 54, color-stop(2%, rgba(255,255,255,0.3)),
+    color-stop(4%, rgba(31,31,31,0.1)), color-stop(38%, rgba(239,239,239,0.1)));
+  background-color: #ff0000;
+  border: .25em solid #fff;
+  color: #fff;
+  display: block;
+  font: bold .72em "Helvetica Neue", Helvetica;
+  height: 1.1em;
+  line-height: 1em;
+  min-width: .5em;
+  overflow: hidden;
+  padding: .125em .375em;
+  position: absolute;
+  text-shadow: 0px -1em 1em rgba(0, 0, 0, 0.3);
+  top: 0;
+  vertical-align: middle;
+  z-index: 1;
+  -webkit-box-shadow: 0px .1875em .3125em rgba(0, 0, 0, 1.0);
+  -webkit-border-radius: .8125em;
+}
+
+#tabbar .badge.left {
+  left: auto;
+  right: 55%;
+}
+
+#tabbar .badge.right {
+  left: 55%;
+  right: auto;
+}
+
+/* @end */
+/* @end */
+
+/* @group .tabbar */
+
+.tabbar div, .tabbar a, .tabbar small, .tabbar strong, .tabbar ul,
+.tabbar li, .tabbar table, .tabbar tr, .tabbar td {
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: none;
+  font-family: inherit;
+  font-size: 100%;
+  font-style: normal;
+  font-weight: normal;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-decoration: none;
+}
+
+.tabbar {
+  background: -webkit-gradient(linear, left top, left bottom, from(#2c2f34), to(#6d84a2), color-stop(.01, #2c2f34),
+    color-stop(.02, #d8dee6), color-stop(.03, #b0bccd), color-stop(.5, #899bb4), color-stop(.51, #8195af));
+  /* bottom: 0; */      /* build the tabbar off screen*/
+  /* display: none; */  /* build the tabbar off screen */
+  max-height: 2.75em  !important;
+  min-height: 2em  !important;
+	overflow: hidden;
+  position: relative;
+  width: 100%;
+  z-index: 1;
+  -webkit-box-shadow: 0 -0.05em 0 rgba(0,0,0,0.9);
+}
+
+/* @end */

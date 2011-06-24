@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>jQT.segmentedControl</title>
+<style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+<style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
+<style type="text/css" media="screen">@import "../../extensions/jqt.segmentedControl/themes/jqt/theme.css";</style>
+<script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+<script src="../../extensions/jqt.segmentedControl/jqt.segmentedControl.js" type="application/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	var jQT = new $.jQTouch({
+		icon: 'jqtouch.png',
+		addGlossToIcon: false,
+		startupScreen: 'jqt_startup.png',
+		statusBar: 'black'
+	});
+  $(document).ready(function () {
+    $('#twoControls').click(function(){$('#Two').html($('input:radio[name="twoSCs"]:checked').val());});
+    $('#threeControls').click(function(){$('#Three').html($('input:radio[name="threeSCs"]:checked').val());});
+    $('#fourControls').click(function(){$('#Four').html($('input:radio[name="fourSCs"]:checked').val());});
+    $('#fiveControls').click(function(){$('#Five').html($('input:radio[name="fiveSCs"]:checked').val());});
+    $('#sixControls').click(function(){$('#Six').html($('input:radio[name="sixSCs"]:checked').val());});
+  
+    if(typeof $('input:radio[name="fourSCs"]:checked').val() === 'undefined') {
+      $('input:radio[name="fourSCs"]').filter('[value="3"]').attr('checked', true);
+      $('input:radio[name="fourSCs"]').filter('[value="3"]').click();
+    }
+  });
+</script>
+</head>
+<body>
+<div id="jqt">
+  <div id="page1">
+    <div class="toolbar">
+      <h1>segmentedControl</h1>
+    </div>
+    <ul id="twoControls" class="segmentedControl two">
+      <li><label>One</label><input type="radio" name="twoSCs" value="1"/></li>
+      <li><label>Two</label><input type="radio" name="twoSCs" value="2" /></li>
+    </ul>
+    <ul id="threeControls" class="segmentedControl three">
+      <li><label>One</label><input type="radio" name="threeSCs" value="1" /></li>
+      <li><label>Two</label><input type="radio" name="threeSCs" value="2" /></li>
+      <li><label>Three</label><input type="radio" name="threeSCs" value="3" /></li>
+    </ul>
+    <ul id="fourControls" class="segmentedControl four">
+      <li><label>One</label><input type="radio" name="fourSCs" value="1"/></li>
+      <li><label>Two</label><input type="radio" name="fourSCs" value="2" /></li>
+      <li><label>Three</label><input type="radio" name="fourSCs" value="3" /></li>
+      <li><label>Four</label><input type="radio" name="fourSCs" value="4" /></li>
+    </ul>
+    <ul id="fiveControls" class="segmentedControl five">
+      <li><label>One</label><input type="radio" name="fiveSCs" value="1" /></li>
+      <li><label>Two</label><input type="radio" name="fiveSCs" value="2" /></li>
+      <li><label>Three</label><input type="radio" name="fiveSCs" value="3" /></li>
+      <li><label>Four</label><input type="radio" name="fiveSCs" value="4" /></li>
+      <li><label>Five</label><input type="radio" name="fiveSCs" value="5" /></li>
+    </ul>
+    <ul id="sixControls" class="segmentedControl six">
+      <li><label>One</label><input type="radio" name="sixSCs" value="1" /></li>
+      <li><label>Two</label><input type="radio" name="sixSCs" value="2" /></li>
+      <li><label>Three</label><input type="radio" name="sixSCs" value="3" /></li>
+      <li><label>Four</label><input type="radio" name="sixSCs" value="4" /></li>
+      <li><label>Five</label><input type="radio" name="sixSCs" value="5" /></li>
+      <li><label>Six</label><input type="radio" name="sixSCs" value="6" /></li>
+    </ul>
+    <h2>Selected Button</h2>
+    <ul class="rounded">
+      <li>twoControls<small id="Two">--</small></li>
+      <li>threeControls<small id="Three">--</small></li>
+      <li>fourControls<small id="Four">--</small></li>
+      <li>fiveControls<small id="Five">--</small></li>
+      <li>sixControls<small id="Six">--</small></li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>

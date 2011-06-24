@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>jQT.checkGroup</title>
+<style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
+<style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
+<style type="text/css" media="screen">@import "../../extensions/jqt.checkGroup/jqt.checkGroup.css";</style>
+<style type="text/css" media="screen">@import "../../extensions/jqt.checkGroup/themes/jqt/theme.css";</style>
+<script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+<script src="../../extensions/jqt.checkGroup/jqt.checkGroup.js" type="application/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+	var jQT = new $.jQTouch({
+		icon: 'jqtouch.png',
+		addGlossToIcon: false,
+		startupScreen: 'jqt_startup.png',
+		statusBar: 'black'
+	});
+</script>
+</head>
+<body>
+  <div id="jqt">
+    <div id="page1">
+      <div class="toolbar">
+        <h1>checkGroup</h1>
+      </div>
+      <ul class="rounded checkGroup">
+        <li>Choice 1<input type="radio" name="optChoice" value="1" /></li>
+        <li>Choice 2<input type="radio" name="optChoice" value="2" /></li>
+        <li>Choice 3<input type="radio" name="optChoice" value="3" /></li>
+        <li>Choice 4<input type="radio" name="optChoice" value="4" /></li>
+        <li>Choice 5<input type="radio" name="optChoice" value="5" /></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

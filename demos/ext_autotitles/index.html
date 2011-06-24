@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>jQT.Floaty</title>
+        <title>jQT.AutoTitles</title>
         <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
         <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
         <script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
@@ -18,27 +18,62 @@
             });
         </script>
     </head>
-    <body>
-        <div id="jqt">
-            <div id="page1">
-                <div class="toolbar">
-                    <h1>Auto Titles</h1>
-                </div>
-                <ul class="edgetoedge">
-                    <li><a href="#page2">Oranges</a></li>
-                    <li><a href="#page2">Bananas</a></li>
-                    <li><a href="#page2">Apples</a></li>
-                </ul>
-            </div>
-            <div id="page2">
-                <div class="toolbar">
-                    <a href="#" class="back">back</a>
-                    <h1>[Fruit Name]</h1>
-                </div>
-                <div class="info">
-                    The title for this page was automatically set from it&#8217;s referring link, no extra scripts required. Just include the extension and this happens.
-                </div>
-            </div>
-        </div>
-    </body>
+<body>
+<div id="jqt">
+  <div id="page1" class="current">
+    <div class="toolbar">
+      <h1>page1</h1>
+    </div>
+      <div class="info">page1</div>
+      <ul class="rounded">
+        <li class="arrow"><a href="#page2">page2a</a></li>
+        <li class="arrow"><a href="#page2">page2b</a></li>
+        <li class="arrow"><a href="#page3">page3</a></li>
+        <li class="arrow"><a href="#page4">page4<br />Hardcoded Title &amp; Backbutton</a></li>
+        <li class="arrow"><a href="#page5">page5<br />Backbutton Image</a></li>
+        <li class="arrow"><a href="page6.html">page6<br />AJAX</a></li>
+      </ul>
+  </div>
+
+  <div id="page2">
+    <div class="toolbar">
+      <h1></h1>
+      <a href="#" class="back"></a>
+    </div>
+      <div class="info">page2<br />This page is referenced by the page2a and page2b links on page1.<br />The title and back button for this page was automatically set from it&#8217;s referring page, no extra scripts required. Just include the extension and this happens.</div>
+      <ul class="rounded">
+        <li class="arrow"><a href="#page3">page3</a></li>
+        <li class="arrow"><a href="#page4">page4<br />hardcoded title &amp; back button</a></li>
+      </ul>
+  </div>
+
+  <div id="page3">
+    <div class="toolbar">
+      <h1></h1>
+      <a href="#" class="back"></a>
+    </div>
+      <div class="info">page3<br />The title and back button for this page was automatically set from it&#8217;s referring page, no extra scripts required. Just include the extension and this happens.</div>
+      <ul class="rounded">
+        <li class="arrow"><a href="#page4">page4</a></li>
+      </ul>
+  </div>
+
+  <div id="page4">
+    <div class="toolbar">
+      <h1>Hardcoded</h1>
+      <a href="#" class="back">Hardcoded</a>
+    </div>
+      <div class="info">page4<br />The title &amp; back button for this page were hardcoded and <i>not</i> replaced by the extension.</div>
+  </div>
+
+  <div id="page5">
+    <div class="toolbar">
+      <h1>BackButtonImage</h1>
+      <a href="#" class="back"><img src="goback.png" alt="Back" /></a>
+    </div>
+      <div class="info">page5<br />The back button for this page has an image and has <i>not</i> been replaced by the extension.</div>
+  </div>
+
+</div>
+</body>
 </html>

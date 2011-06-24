@@ -43,7 +43,7 @@ body {
 
 #jqt > .current {
     display: block !important;
-    z-index: 10;
+/*     z-index: 10; */
 }
 
 #jqt .in, #jqt .out {

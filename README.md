@@ -1,3 +1,25 @@
+The DataZombies jQTouch fork
+=======
+
+If you find this fork useful please make a donation via PayPal (http://tinyurl.com/2fpmx27).
+
+
+Fixed
+------------------------------------------------------------
+
+- Fixed jqt.autotitles.js to honor hardcoded titles (and does back buttons, too). [demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_autotitles)
+
+Enhancements 
+------------------------------------------------------------
+
+- jqt.bars.js - Horizontal scrolling tabbar with badges; ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/main_tabbar/))
+- Reworked Main demo that uses a global tabbar and iScroll (see above demo).
+- jqt.activityIndicator ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_activityIndicator/)), a really cool, customizable object.
+- jqt.autotitles ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_autotitles)), now sets the back button's text honoring any hardcoded text.
+- jqt.checkGroup ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_checkGroup/)), for that to do list you've been putting off.
+- jqt.segmentedControl ([demo](http://web.me.com/djpinter1/iPhone/jqtouch/demos/ext_segmentedControl/))
+
+
 jQTouch
 =======
 
