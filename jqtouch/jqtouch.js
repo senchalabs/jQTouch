@@ -534,12 +534,9 @@
 
 */
             // Dev must want touch, so check for support
-            if (typeof TouchEvent != 'undefined') {
-                if (window.navigator.userAgent.indexOf('Mobile') > -1) { // Grrrr...
-                    return true;
-                } else {
-                    return false;
-                }
+            // in case this check fails, NEVER ever fall back to user agent hacks
+            if (('ontouchstart' in window)) {
+                return true;
             } else {
                 return false;
             }
