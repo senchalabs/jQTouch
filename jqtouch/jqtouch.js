@@ -682,11 +682,9 @@
                 deltaY = 0,
                 deltaT = 0;
 
-            if (event.changedTouches && event.changedTouches.length) {
-                touch = event.changedTouches[0];
-                startX = touch.pageX;
-                startY = touch.pageY;
-            }
+            touch = e.changedTouches ? e.changedTouches[0] : e;
+            startX = touch.clientX;
+            startY = touch.clientY;
 
             // Prep the element
             $el.bind('touchmove',touchMoveHandler).bind('touchend',touchEndHandler).bind('touchcancel',touchCancelHandler);
@@ -712,7 +710,7 @@
 
             function touchEndHandler(e) {
                 _debug();
-                // updateChanges();
+                // updateChanges(e);
                 $el.unbind('touchend',touchEndHandler).unbind('touchcancel',touchCancelHandler);
                 clearTimeout(hoverTimeout);
                 clearTimeout(pressTimeout);
@@ -727,7 +725,7 @@
 
             function touchMoveHandler(e) {
                 // _debug();
-                updateChanges();
+                updateChanges(e);
                 var absX = Math.abs(deltaX);
                 var absY = Math.abs(deltaY);
                 var direction;
@@ -747,11 +745,11 @@
                 }
             }
 
-            function updateChanges() {
+            function updateChanges(e) {
                 // _debug();
-                var firstFinger = event.changedTouches[0] || null;
-                deltaX = firstFinger.pageX - startX;
-                deltaY = firstFinger.pageY - startY;
+                var firstFinger = e.changedTouches ? e.changedTouches[0] : e;
+                deltaX = firstFinger.clientX - startX;
+                deltaY = firstFinger.clientY - startY;
                 deltaT = (new Date).getTime() - startTime;
                 // _debug('deltaX:'+deltaX+';deltaY:'+deltaY+';');
             }
