@@ -187,6 +187,10 @@
 
                 tapReady = false;
 
+                setTimeout(function() {
+                  tapReady = true;
+                }, 1000);
+
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
                     animation.name = jQTSettings.fallback2dAnimation;
