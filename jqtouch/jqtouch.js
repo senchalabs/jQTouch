@@ -635,11 +635,26 @@
                 }
 
                 if (hash && hash !== '#') {
-                    // Internal href
-                    $el.addClass('active');
-                    goTo($(hash).data('referrer', $el), animation, $el.hasClass('reverse'));
-                    return false;
+                    var id = $(hash);
+                    var id_cb = id.data('callback') || undefined;
+                    var referrer = id.data('referrer', $el);
 
+                    if (id_cb != undefined) {
+                      currentPage.addClass('loading');
+                      $el.addClass('active');
+
+                      var cb = function() {
+                        currentPage.removeClass('loading');
+                        goTo(referrer, animation, $el.hasClass('reverse'));
+                        setTimeout($.fn.unselect, 250, $el);
+                      }
+                      id_cb($el, cb);
+                    } else {
+                      // Internal href
+                      $el.addClass('active');
+                      goTo(referrer, animation, $el.hasClass('reverse'));
+                    }
+                    return false;
                 } else {
                     // External href
                     $el.addClass('loading active');
