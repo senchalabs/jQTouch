@@ -51,6 +51,7 @@
                 cacheGetRequests: true,
                 debug: false,
                 fallback2dAnimation: 'fade',
+                defaultAnimation: 'slideleft',
                 fixedViewport: true,
                 formSelector: 'form',
                 fullScreen: true,
@@ -630,8 +631,8 @@
                 };
 
                 if (!animation) {
-                    _log('Animation could not be found. Using slideleft.');
-                    animation = 'slideleft';
+                    _log('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
+                    animation = jQTSettings.defaultAnimation;
                 }
 
                 if (hash && hash !== '#') {
