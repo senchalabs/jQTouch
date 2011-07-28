@@ -586,7 +586,7 @@
 
             // Find the nearest tappable ancestor
             if (!$el.is(touchSelectors.join(', '))) {
-                var $el = $(e.target).closest(touchSelectors.join(', '));
+                $el = $(e.target).closest(touchSelectors.join(', '));
             }
             
             // Make sure we have a tappable element
