@@ -68,7 +68,7 @@
                 statusBar: 'default', // other options: black-translucent, black
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
-                useAnimations: true,
+                useAnimations: (isAndroid) ? false : true,
                 useFastTouch: true, // experimental
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
