@@ -295,7 +295,7 @@ body {
 
 /* Flip Left */
 
-#jqt .flipleft {
+#jqt.supports3d .flipleft {
     -webkit-backface-visibility: hidden;
 }
 
@@ -329,7 +329,7 @@ body {
 
 /* Flip Right */
 
-#jqt .flipright {
+#jqt.supports3d .flipright {
     -webkit-backface-visibility: hidden;
 }
 
