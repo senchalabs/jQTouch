@@ -186,7 +186,21 @@
 
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
-                    animation.name = jQTSettings.fallback2dAnimation;
+                    (function(anim, sets) {
+                        var fback2d = sets.fallback2dAnimation;
+
+                        if (anim.name.indexOf('left') > 0) {
+                            anim.name = fback2d.replace(/right/, 'left');
+                        } else if (anim.name.indexOf('right') > 0) {
+                            anim.name = fback2d.replace(/left/, 'right');
+                        } else if (anim.name.indexOf('up') > 0) {
+                            anim.name = fback2d.replace(/down/, 'up');
+                        } else if (anim.name.indexOf('down') > 0) {
+                            anim.name = fback2d.replace(/up/, 'down');
+                        } else {
+                            anim.name = fback2d;
+                        }
+                    })(animation, jQTSettings);
                 }
 
                 // Reverse animation if need be
