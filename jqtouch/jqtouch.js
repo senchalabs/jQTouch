@@ -45,12 +45,15 @@
             extensions=$.jQTouch.prototype.extensions,
             animations=[],
             hairExtensions='',
+            isAndroid=RegExp("Android").test(navigator.userAgent),
+            isiOS=RegExp("iPod|iPhone|iPad").test(navigator.userAgent),
             defaults = {
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
                 debug: false,
                 fallback2dAnimation: 'fade',
+                defaultAnimation: 'slideleft',
                 fixedViewport: true,
                 formSelector: 'form',
                 fullScreen: true,
@@ -66,7 +69,7 @@
                 statusBar: 'default', // other options: black-translucent, black
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
-                useAnimations: true,
+                useAnimations: (isAndroid) ? false : true,
                 useFastTouch: true, // experimental
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
@@ -183,6 +186,10 @@
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
 
                 tapReady = false;
+
+                setTimeout(function() {
+                  tapReady = true;
+                }, 1000);
 
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
@@ -329,6 +336,13 @@
                 _debug('We are on the right panel');
             } else {
                 _debug('We are not on the right panel');
+                if (hist[1] == undefined) {
+                    _debug("No history, going to new panel: " + location.hash);
+                    var panel = $(location.hash);
+                    addPageToHistory(panel);
+                    goTo(panel);
+                    return false;
+                }
                 if(location.hash === hist[1].hash) {
                     goBack();
                 } else {
@@ -366,7 +380,7 @@
 
             // Set viewport
             if (jQTSettings.fixedViewport) {
-                hairExtensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>';
+                hairExtensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>';
             }
 
             // Set full-screen
@@ -531,12 +545,9 @@
 
 */
             // Dev must want touch, so check for support
-            if (typeof TouchEvent != 'undefined') {
-                if (window.navigator.userAgent.indexOf('Mobile') > -1) { // Grrrr...
-                    return true;
-                } else {
-                    return false;
-                }
+            // in case this check fails, NEVER ever fall back to user agent hacks
+            if (('ontouchstart' in window)) {
+                return true;
             } else {
                 return false;
             }
@@ -583,7 +594,7 @@
 
             // Find the nearest tappable ancestor
             if (!$el.is(touchSelectors.join(', '))) {
-                var $el = $(e.target).closest(touchSelectors.join(', '));
+                $el = $(e.target).closest(touchSelectors.join(', '));
             }
             
             // Make sure we have a tappable element
@@ -630,16 +641,31 @@
                 };
 
                 if (!animation) {
-                    _log('Animation could not be found. Using slideleft.');
-                    animation = 'slideleft';
+                    _log('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
+                    animation = jQTSettings.defaultAnimation;
                 }
 
                 if (hash && hash !== '#') {
-                    // Internal href
-                    $el.addClass('active');
-                    goTo($(hash).data('referrer', $el), animation, $el.hasClass('reverse'));
-                    return false;
+                    var id = $(hash);
+                    var id_cb = id.data('callback') || undefined;
+                    var referrer = id.data('referrer', $el);
 
+                    if (id_cb != undefined) {
+                      currentPage.addClass('loading');
+                      $el.addClass('active');
+
+                      var cb = function() {
+                        currentPage.removeClass('loading');
+                        goTo(referrer, animation, $el.hasClass('reverse'));
+                        setTimeout($.fn.unselect, 250, $el);
+                      }
+                      id_cb($el, cb);
+                    } else {
+                      // Internal href
+                      $el.addClass('active');
+                      goTo(referrer, animation, $el.hasClass('reverse'));
+                    }
+                    return false;
                 } else {
                     // External href
                     $el.addClass('loading active');
@@ -682,11 +708,9 @@
                 deltaY = 0,
                 deltaT = 0;
 
-            if (event.changedTouches && event.changedTouches.length) {
-                touch = event.changedTouches[0];
-                startX = touch.pageX;
-                startY = touch.pageY;
-            }
+            touch = e.changedTouches ? e.changedTouches[0] : e;
+            startX = touch.clientX;
+            startY = touch.clientY;
 
             // Prep the element
             $el.bind('touchmove',touchMoveHandler).bind('touchend',touchEndHandler).bind('touchcancel',touchCancelHandler);
@@ -712,7 +736,7 @@
 
             function touchEndHandler(e) {
                 _debug();
-                // updateChanges();
+                // updateChanges(e);
                 $el.unbind('touchend',touchEndHandler).unbind('touchcancel',touchCancelHandler);
                 clearTimeout(hoverTimeout);
                 clearTimeout(pressTimeout);
@@ -727,7 +751,7 @@
 
             function touchMoveHandler(e) {
                 // _debug();
-                updateChanges();
+                updateChanges(e);
                 var absX = Math.abs(deltaX);
                 var absY = Math.abs(deltaY);
                 var direction;
@@ -747,11 +771,11 @@
                 }
             }
 
-            function updateChanges() {
+            function updateChanges(e) {
                 // _debug();
-                var firstFinger = event.changedTouches[0] || null;
-                deltaX = firstFinger.pageX - startX;
-                deltaY = firstFinger.pageY - startY;
+                var firstFinger = e.changedTouches ? e.changedTouches[0] : e;
+                deltaX = firstFinger.clientX - startX;
+                deltaY = firstFinger.clientY - startY;
                 deltaT = (new Date).getTime() - startTime;
                 // _debug('deltaX:'+deltaX+';deltaY:'+deltaY+';');
             }
@@ -882,8 +906,12 @@
             if (jQTSettings.fullScreenClass && window.navigator.standalone == true) {
                 $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
             }
-            if (window.navigator.userAgent.match(/Android/ig)) { // Grr... added to postion checkbox labels. Lame. I know. - js
+
+            if (isAndroid == true) {
                 $body.addClass('android');
+            }
+            if (isiOS == true) {
+                $body.addClass('ios');
             }
 
             // Bind events
