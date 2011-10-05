@@ -595,7 +595,7 @@
 
             // Init some vars
             var target = $el.attr('target'),
-                hash = $el.attr('hash') || $el.prop('hash'), // jQuery 1.6+ attr vs. prop
+                hash = $el.attr('hash') || ($el.prop && $el.prop('hash')), // jQuery 1.6+ attr vs. prop
                 animation = null;
 
             if ($el.isExternalLink()) {
