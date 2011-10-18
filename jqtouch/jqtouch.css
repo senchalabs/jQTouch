@@ -60,6 +60,7 @@ body {
     z-index: 0 !important;
 }
 
+/*
 #jqt.supports3d {
     -webkit-perspective: 800;
     -webkit-transform-style: preserve-3d;
@@ -67,12 +68,7 @@ body {
 
 #jqt.supports3d > * {
     -webkit-transform: translate3d(0,0,0) rotate(0) scale(1);
-}
-
-
-
-
-
+}*/
 
 
 

@@ -15,20 +15,25 @@ body {
 
 /* @group Toolbar */
 
-#jqt .toolbar {
-    -webkit-box-sizing: border-box;
+#jqt > * > .toolbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    overflow: visible;
+    -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
     border-bottom: 1px solid #2d3642;
     padding: 10px;
     height: 45px;
     background: url(img/toolbar.png) #6d84a2 repeat-x;
-    position: relative;
 }
-
+#jqt > * > .toolbar + * {
+    margin-top: 45px;
+    padding-top: 10px;
+}
 #jqt .black-translucent .toolbar {
 	margin-top: 20px;
 }
 
-#jqt .toolbar > h1 {
+#jqt > * > .toolbar > h1 {
     position: absolute;
     overflow: hidden;
     left: 50%;
@@ -46,7 +51,7 @@ body {
     color: #fff;
 }
 
-#jqt.landscape .toolbar > h1 {
+#jqt.landscape > * > .toolbar > h1 {
     margin-left: -125px;
     width: 250px;
 }
@@ -117,6 +122,11 @@ body {
     font-weight: bold;
     text-decoration: inherit;
     color: inherit;
+}
+
+#jqt > * > * > .whiteButton,
+#jqt > * > * >  .grayButton, #jqt > * > * > .redButton, #jqt > * > * > .blueButton, #jqt > * > * > .greenButton {
+    margin: 10px;
 }
 
 #jqt .whiteButton.active, #jqt .grayButton.active, #jqt .redButton.active, #jqt .blueButton.active, #jqt .greenButton.active,

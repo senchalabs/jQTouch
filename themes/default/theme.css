@@ -18,7 +18,8 @@ body {
     padding: 10px;
     height: 45px;
     background: url(img/toolbarBackground.png) #000000 repeat-x;
-    position: relative;
+    position: fixed;
+    width: 100%;
 }
 #jqt .black-translucent .toolbar {
     margin-top: 20px;
