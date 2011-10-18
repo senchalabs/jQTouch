@@ -4,7 +4,6 @@ body {
 }
 #jqt > * {
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#5e5e65));
-    -webkit-overflow-scrolling: touch;
 }
 #jqt h1, #jqt h2 {
     font: bold 18px "Helvetica Neue", Helvetica;
@@ -13,24 +12,18 @@ body {
     margin: 10px 20px 5px;
 }
 /* @group Toolbar */
-#jqt > * > .toolbar {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    overflow: visible;
-    -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+#jqt .toolbar {
+    -webkit-box-sizing: border-box;
     border-bottom: 1px solid #000;
     padding: 10px;
     height: 45px;
     background: url(img/toolbar.png) #000000 repeat-x;
-}
-#jqt > * > .toolbar + * {
-    margin-top: 45px;
-    padding-top: 10px;
+    position: relative;
 }
 #jqt .black-translucent .toolbar {
     margin-top: 20px;
 }
-#jqt > * > .toolbar > h1 {
+#jqt .toolbar > h1 {
     position: absolute;
     overflow: hidden;
     left: 50%;
@@ -47,7 +40,7 @@ body {
     white-space: nowrap;
     color: #fff;
 }
-#jqt.landscape > * > .toolbar > h1 {
+#jqt.landscape .toolbar > h1 {
     margin-left: -125px;
     width: 250px;
 }
@@ -112,10 +105,7 @@ body {
     text-decoration: inherit;
     text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
-#jqt > * > * > .whiteButton,
-#jqt > * > * >  .grayButton, #jqt > * > * > .redButton, #jqt > * > * > .blueButton, #jqt > * > * > .greenButton {
-    margin: 10px;
-}
+
 #jqt .whiteButton.active, #jqt .grayButton.active, #jqt .redButton.active, #jqt .blueButton.active, #jqt .greenButton.active,
 #jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active {
     -webkit-border-image: url(img/activeButton.png) 0 12 0 12;
