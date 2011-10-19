@@ -683,7 +683,7 @@
                 deltaY = 0,
                 deltaT = 0;
 
-            touch = (e.changedTouches && e.event.changedTouches.length) ? e.changedTouches[0] : e;
+            touch = (e.changedTouches && e.changedTouches.length) ? e.changedTouches[0] : e;
             startX = touch.clientX;
             startY = touch.clientY;
 
