@@ -318,6 +318,7 @@
 
             }
             if (doNavigation(fromPage, toPage, animation)) {
+                addPageToHistory(toPage, animation);
                 return publicObj;
             } else {
                 _debug('Could not animate pages.');
