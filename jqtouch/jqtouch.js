@@ -159,7 +159,7 @@
             _debug();
 
             // Error check for target page
-            if (toPage.length === 0) {
+            if (toPage == undefined || toPage.length === 0) {
                 $.fn.unselect();
                 _debug('Target element is missing.');
                 return false;
