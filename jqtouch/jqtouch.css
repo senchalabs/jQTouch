@@ -21,7 +21,9 @@ body {
     right: 0;
     top: 0;
 }
-
+#jqt:not(.singlescroll) {
+    overflow: hidden;
+}
 #jqt .selectable, #jqt input, #jqt textarea {
     -webkit-user-select: auto;
 }
@@ -40,10 +42,30 @@ body {
     width: 100%;
     z-index: 0;
 }
-
 #jqt > .current {
-    display: block !important;
+    display: block;
     z-index: 10;
+}
+#jqt:not(.singlescroll) > .current {
+    display: -webkit-box; display: box;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: start;
+    -webkit-box-align: stretch;
+}
+#jqt:not(.singlescroll) > * > .touchscroll,
+#jqt:not(.singlescroll) > * > :only-child() {
+    display: -webkit-box; display: -moz-box; display: box;
+    -webkit-box-orient: vertical; -moz-box-orient: vertical; box-orient: vertical;
+    -webkit-box-pack: start; -moz-box-pack: start; box-pack: start;
+    -webkit-box-align: stretch; -moz-box-align: stretch; box-align: stretch;
+    position: relative;
+    -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
+    bottom: 0; left: 0; right: 0;
+    margin: 0px; margin-top: 0px;
+    padding-top: 0px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
 }
 
 #jqt .in, #jqt .out {
