@@ -21,9 +21,7 @@ body {
     right: 0;
     top: 0;
 }
-#jqt:not(.singlescroll) {
-    overflow: hidden;
-}
+
 #jqt .selectable, #jqt input, #jqt textarea {
     -webkit-user-select: auto;
 }
@@ -34,37 +32,51 @@ body {
 
 #jqt > * {
     -webkit-box-sizing: border-box;
-    display: none;
+    display: block;
     left: 0;
-    min-height: 100%;
     overflow-x: hidden;
     position: absolute;
+    min-height: 100%;
     width: 100%;
     z-index: 0;
-}
-#jqt > .current {
-    display: block;
-    z-index: 10;
-}
-#jqt:not(.singlescroll) > .current {
-    display: -webkit-box; display: box;
     -webkit-box-orient: vertical;
     -webkit-box-pack: start;
     -webkit-box-align: stretch;
 }
-#jqt:not(.singlescroll) > * > .touchscroll,
-#jqt:not(.singlescroll) > * > :only-child() {
+
+#jqt > .current {
+    z-index: 10;
+}
+
+#jqt > :not(.current) {
+    display: none;
+}
+
+#jqt:not(.unfixed) > :not(.unfixed) {
+    min-height: auto;
+    height: 100%;
+    overflow-y: hidden;
+}
+
+#jqt:not(.unfixed) > :not(.unfixed) {
+    display: -webkit-box; display: box;
+}
+
+#jqt:not(.unfixed) > :not(.unfixed):not(.current) {
+    display: none;
+}
+
+#jqt:not(.unfixed) > :not(.unfixed) > .view,
+#jqt:not(.unfixed) > :not(.unfixed) > :only-child {
+    position: relative;
     display: -webkit-box; display: -moz-box; display: box;
     -webkit-box-orient: vertical; -moz-box-orient: vertical; box-orient: vertical;
     -webkit-box-pack: start; -moz-box-pack: start; box-pack: start;
     -webkit-box-align: stretch; -moz-box-align: stretch; box-align: stretch;
-    position: relative;
     -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
     bottom: 0; left: 0; right: 0;
-    margin: 0px; margin-top: 0px;
-    padding-top: 0px;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     -webkit-overflow-scrolling: touch;
 }
 
