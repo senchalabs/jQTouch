@@ -28,6 +28,7 @@
     jQTouchCore = function(options) {
         // Initialize internal jQT variables
         var $ = options.framework,
+            serialize = options.serialize, 
             $body,
             $head=$('head'),
             initialPageId='',
@@ -488,7 +489,7 @@
 
             if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
                 showPageByHref($form.attr('action'), {
-                    data: $form.serialize(),
+                    data: serialize($form),
                     method: $form.attr('method') || "POST",
                     animation: animations[0] || null,
                     callback: callback
@@ -505,9 +506,7 @@
                 _debug('No parent form found');
             } else {
                 _debug('About to submit parent form');
-                var evt = $.Event('submit');
-                evt.preventDefault();
-                $form.trigger(evt);
+                $form.trigger('submit');
                 return false;
             }
             return true;
@@ -811,8 +810,57 @@
     // jQTouch. See jqtouch-jquery.js.
     if (!!Zepto) {
         (function($) {
+            var 
+                rselectTextarea = /select|textarea/i,
+                rinput = /color|date|datetime|email|hidden|month|number|password|range|search|tel|text|time|url|week/i;
+
+            function encodeArray(array) {
+                var result = '';
+                for (var i=0, len=array.length; i<len; i++) {
+                    if (i > 0) {
+                         result += '&';
+                    }
+                    result += (encodeURIComponent(array[i].name) + "=" + encodeURIComponent(array[i].value));
+                }
+                return result;
+            }
+            function serialize($forms) {                
+                var array = [];
+
+                $forms.each(function(i, form) {
+                    // map
+                    var nodes = form.getElementsByTagName('*');
+    
+                    // filter
+                    var els = [];
+                    for (var j=0, len=nodes.length; j<len; j++) {
+                        var node = nodes[j];
+                        var isInput = node.name && !node.disabled &&
+                              (node.checked || rselectTextarea.test(node.nodeName) ||
+                               rinput.test(node.type));
+                        if (isInput) {
+                            els.push(node);
+                        }
+                    };
+    
+                    // map
+                    var result = [];
+                    $(els).each(function(k, el) {
+                        array.push({name: el.name, value: $(el).val()}); 
+                    });
+                    
+                    // only do a single form now
+                    return true;
+                });
+
+                return encodeArray(array);
+            };
+            
             $.jQTouch = function(options) {
                 options.framework = $;
+
+                options.serialize = serialize;
+
                 var core = jQTouchCore(options);
                 return core;
             };

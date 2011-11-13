@@ -153,6 +153,11 @@
         };
 
         options.framework = $;
+
+        options.serialize = function($form) {
+            return $form.serialize();
+        };
+
         var core = jQTouchCore(options);
         return core;
     };
