@@ -745,7 +745,7 @@
             if ($.support.transform3d) {
                 $body.addClass('supports3d');
             }
-            if (jQTSettings.fullScreenClass && window.navigator.standalone == true) {
+            if (jQTSettings.fullScreenClass && window.navigator.standalone === true) {
                 $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
             }
             if (window.navigator.userAgent.match(/Android/ig)) { // Grr... added to postion checkbox labels. Lame. I know. - js
