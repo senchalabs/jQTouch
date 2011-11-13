@@ -32,7 +32,7 @@ Credits
 
 Created by [David Kaneda](http://www.davidkaneda.com).
 
-Maintained by [Jonathan Stark](http://jonathanstark.com/).
+Maintained by [Thomas @ BeeDesk] (http://www.linkedin.com/in/thomasyip), [Jonathan Stark](http://jonathanstark.com/).
 
 Special thanks to [pinch/zoom](http://www.pinchzoom.com/).
 

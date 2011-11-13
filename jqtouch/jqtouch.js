@@ -52,6 +52,7 @@
                 cacheGetRequests: true,
                 debug: true,
                 fallback2dAnimation: 'fade',
+                defaultAnimation: 'slideleft',
                 fixedViewport: true,
                 formSelector: 'form',
                 fullScreen: true,
@@ -159,7 +160,7 @@
             _debug();
 
             // Error check for target page
-            if (toPage.length === 0) {
+            if (toPage == undefined || toPage.length === 0) {
                 $.fn.unselect();
                 _debug('Target element is missing.');
                 return false;
@@ -585,7 +586,7 @@
 
             // Init some vars
             var target = $el.attr('target'),
-                hash = $el.attr('hash'),
+                hash = $el.attr('hash') || ($el.prop && $el.prop('hash')), // jQuery 1.6+ attr vs. prop
                 animation = null;
 
             if ($el.isExternalLink()) {
@@ -621,8 +622,8 @@
                 };
 
                 if (!animation) {
-                    _log('Animation could not be found. Using slideleft.');
-                    animation = 'slideleft';
+                    _log('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
+                    animation = jQTSettings.defaultAnimation;
                 }
 
                 if (hash && hash !== '#') {
@@ -655,7 +656,7 @@
                         $.support.touch = true;
                     } else{
                         _log('This device does not support touch events');
-                    };
+                    }
                 } else {
                     $.support.touch = false;
                 }
@@ -686,17 +687,17 @@
             $.fn.isExternalLink = function() {
                 var $el = $(this);
                 return ($el.attr('target') == '_blank' || $el.attr('rel') == 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
-            }
+            };
             $.fn.makeActive = function() {
                 return $(this).addClass('active');
-            }
+            };
             $.fn.unselect = function(obj) {
                 if (obj) {
                     obj.removeClass('active');
                 } else {
                     $('.active').removeClass('active');
                 }
-            }
+            };
 
             // Add extensions
             for (var i=0, max=extensions.length; i < max; i++) {
@@ -841,7 +842,7 @@
                         if (isInput) {
                             els.push(node);
                         }
-                    };
+                    }
     
                     // map
                     var result = [];
@@ -852,9 +853,8 @@
                     // only do a single form now
                     return true;
                 });
-
                 return encodeArray(array);
-            };
+            }
             
             $.jQTouch = function(options) {
                 options.framework = $;
