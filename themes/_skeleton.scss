@@ -1,0 +1,71 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+body {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+}
+
+#jqt {
+
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
+    font-family: "Helvetica Neue", Helvetica;
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    .selectable, input, textarea {
+        -webkit-user-select: auto;
+    }
+
+    &.notransform {
+        -webkit-transform: none !important;
+    }
+
+    // Card style
+    > * {
+        -webkit-box-sizing: border-box;
+        display: none;
+        left: 0;
+        min-height: 100%;
+        overflow-x: hidden;
+        position: absolute;
+        width: 100%;
+        z-index: 0;
+    }
+
+    > .current {
+        display: block !important;
+        z-index: 10;
+    }
+    .in, .out {
+        -webkit-animation-duration: 250ms;
+        -webkit-animation-fill-mode: both;
+        -webkit-animation-timing-function: ease-in-out;
+    }
+
+    .in {
+        z-index: 10;
+    }
+    .out {
+        z-index: 0 !important;
+    }
+
+    &.supports3d {
+        -webkit-perspective: 800;
+        -webkit-transform-style: preserve-3d;
+
+        & > * {
+            -webkit-transform: translate3d(0,0,0) rotate(0) scale(1);
+        }
+    }
+}
