@@ -91,7 +91,7 @@
             }; // end defaults
 
         function _debug(message) {
-            var now = (new Date).getTime();
+            var now = new Date().getTime();
             var delta = now - lastTime;
             lastTime = now;
             if (jQTSettings.debug) {
@@ -160,7 +160,7 @@
             _debug();
 
             // Error check for target page
-            if (toPage == undefined || toPage.length === 0) {
+            if (toPage === undefined || toPage.length === 0) {
                 $.fn.unselect();
                 _debug('Target element is missing.');
                 return false;
@@ -347,7 +347,7 @@
             if (jQTSettings.preloadImages) {
                 for (var i = jQTSettings.preloadImages.length - 1; i >= 0; i--) {
                     (new Image()).src = jQTSettings.preloadImages[i];
-                };
+                }
             }
 
             // Set appropriate icon (retina display available in iOS 4.2 and later.)
@@ -429,11 +429,10 @@
             _debug();
 
             // Trim leading # if need be
-            hash = hash.replace(/^#/, ''),
+            hash = hash.replace(/^#/, '');
 
             // Change hash
             location.hash = '#' + hash;
-
         }
         function showPageByHref(href, options) {
             _debug();
@@ -532,7 +531,7 @@
             } else {
                 return false;
             }
-        };
+        }
         function supportForTransform3d() {
             _debug();
 
@@ -561,7 +560,7 @@
             // Pass back result
             // _debug('Support for 3d transforms: ' + result);
             return result;
-        };
+        }
         function tapHandler(e){
             _debug();
 
@@ -765,7 +764,7 @@
 
             // Determine what the "current" (initial) panel should be
 
-            if ($('#jqt > .current').length == 0) {
+            if ($('#jqt > .current').length === 0) {
                 $currentPage = $('#jqt > *:first-child');
             } else {
                 $currentPage = $('#jqt > .current');
