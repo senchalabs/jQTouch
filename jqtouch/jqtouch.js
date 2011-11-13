@@ -574,7 +574,7 @@
 
             // Find the nearest tappable ancestor
             if (!$el.is(touchSelectors.join(', '))) {
-                var $el = $(e.target).closest(touchSelectors.join(', '));
+                $el = $(e.target).closest(touchSelectors.join(', '));
             }
 
             // Make sure we have a tappable element
@@ -618,7 +618,7 @@
                         animation = animations[i];
                         break;
                     }
-                };
+                }
 
                 if (!animation) {
                     _log('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
@@ -707,20 +707,20 @@
             }
 
             // Set up animations array
-            if (jQTSettings['cubeSelector']) {
+            if (jQTSettings.cubeSelector) {
                 _log('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
-                jQTSettings['cubeleftSelector'] = jQTSettings['cubeSelector'];
+                jQTSettings.cubeSelector = jQTSettings.cubeSelector;
             }
-            if (jQTSettings['flipSelector']) {
+            if (jQTSettings.flipSelector) {
                 _log('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
-                jQTSettings['flipleftSelector'] = jQTSettings['flipSelector'];
+                jQTSettings.flipSelector = jQTSettings.flipSelector;
             }
-            if (jQTSettings['slideSelector']) {
+            if (jQTSettings.slideSelector) {
                 _log('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
-                jQTSettings['slideleftSelector'] = jQTSettings['slideSelector'];
+                jQTSettings.slideleftSelector = jQTSettings.slideSelector;
             }
-            for (var i=0, max=defaults.animations.length; i < max; i++) {
-                var animation = defaults.animations[i];
+            for (var j=0, max_anims=defaults.animations.length; j < max_anims; j++) {
+                var animation = defaults.animations[j];
                 if(jQTSettings[animation.name + 'Selector'] !== undefined){
                     animation.selector = jQTSettings[animation.name + 'Selector'];
                 }
