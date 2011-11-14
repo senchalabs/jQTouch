@@ -100,6 +100,7 @@ body {
     display: block;
     font-size: 20px;
     font-weight: bold;
+    margin: 0 10px;
     padding: 10px;
     text-align: center;
     text-decoration: inherit;
