@@ -1,6 +1,10 @@
+$base-color: #444;
+$highlight-color: #DAD085;
+
 @import 'compass/css3';
-@import '../../skeleton';
+@import '../../base';
 @import '../../animations';
+@import '../../accessories/stylesheets/accessories';
 
 body {
     background: #000;
@@ -9,7 +13,9 @@ body {
 
 #jqt {
     & > * {
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#5e5e65));
+        // @include background-gradient($highlight-color, glossy);
+
+        // background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#5e5e65));
     }
     
     h1, h2 {
@@ -22,6 +28,7 @@ body {
     .toolbar {
         @include box-sizing(border-box);
         border-bottom: 1px solid #000;
+        @include background-pattern-carbonfiber;
         padding: 10px;
         height: 45px;
         position: relative;
