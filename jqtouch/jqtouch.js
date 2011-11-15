@@ -70,6 +70,7 @@
                 useAnimations: true,
                 useFastTouch: true, // experimental
                 useTouchScroll: true,
+                workaroundFlexboxJump: true,
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},
@@ -911,7 +912,34 @@
                 $body.addClass('android');
             }
             if (!$.support.touchScroll || !jQTSettings.useTouchScroll) {
-              $body.addClass('unfixed');
+                $body.addClass('unfixed');
+            } else if (jQTSettings.workaroundFlexboxJump) {
+                // workaround flexible-box jump issue: 
+                // https://bugs.webkit.org/show_bug.cgi?id=46657
+                var afjTimer;
+
+                function resumeFlex($page) {
+                  clearTimeout(afjTimer); 
+                  $page.find('.view').each(function (i, view) {
+                      $(view).css({'height': undefined});
+                  });
+                  afjTimer = setTimeout(function() {
+                      $page.find('.view').each(function (i, view) {
+                          var height = $(view).height(); 
+                          $(view).css({'height': ($(view).height() + 'px')});
+                      });                  
+                  }, 75);
+                }
+                $("#jqt").delegate('#jqt > *', 'pageAnimationEnd', function(event, info) {
+                    if (info.direction == 'in') {
+                        resumeFlex($(this));
+                    }
+                });
+                $(window).resize(function() {
+                    $('#jqt > .current').each(function(i, one) {
+                        resumeFlex($(one));
+                    });
+                });
             }
 
             // Bind events
