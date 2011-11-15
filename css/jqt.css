@@ -1,0 +1,272 @@
+* {
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+body { -webkit-text-stroke:1px transparent; }
+@media only screen and (max-device-width:480px) {body{-webkit-text-stroke:0 black;}}
+
+body {
+	color: #666;
+	background: #101112 url(../img/bg_page.gif) 0 0 repeat-x;
+	text-shadow: rgba(0,0,0,.8) 0 -1px 0;
+	text-align: center;
+	font: 16px/24px "Helvetica Neue", HelveticaNeue, Helvetica, arial, sans;
+}
+
+.fusion {
+	margin-top: 40px;
+	width: 200px;
+	font-size: 11px;
+	line-height: 16px;
+	padding: 20px 0;
+}
+
+.fusion a {
+	border: 0;
+}
+
+a {
+	color: #ccc;
+	text-decoration: none;
+	border-bottom: 1px solid #333;
+}
+
+a:hover {
+	color: #56b80e;
+}
+h2 {
+	border-bottom: 1px solid #333;
+	padding-bottom: 12px;
+}
+h2 strong {
+	display: block;
+	color: #ddd;
+}
+h2, h3 {
+	font-size: 1em;
+	margin-top: 12px;
+}
+
+h3 {
+	font-size: 18px;
+	margin-top: 45px;
+}
+
+h2 a {
+	color: #999;
+}
+
+h3 a {
+	font-weight: bold;
+}
+
+.center {
+	width: 500px;
+	text-align: left;
+	margin: 0 auto;
+	padding-left: 300px;
+	position: relative;
+}
+
+#top {
+	border-bottom: 1px solid rgba(0, 0, 0, .5);
+	padding: 70px 0 10px 0px;
+	color: #aaa;
+}
+
+#top h1 {
+	margin-bottom: 9px;
+}
+
+#band {
+	background: url(../img/bg_band.gif) 0 0 repeat;
+	height: 100px;
+	border-top: 1px solid rgba(255, 255, 255, .1);
+	border-bottom: 1px solid rgba(0, 0, 0, .5);
+}
+
+#bot {
+ 	padding: 20px 0;
+	background-color: #1d1e20;
+	border-top: 1px solid rgba(255, 255, 255, .1);
+	min-height: 550px;
+}
+
+#dl {
+	display: block;
+	background: url(../img/btn_dl_all.png) 0 0 no-repeat;
+	width: 100px;
+	color: #fff;
+	font-size: 18px;
+	font-weight: bold;
+	text-shadow: rgba(0,0,0,.4) 0 1px 1px;
+	text-decoration: none;
+	line-height: 16px;
+	padding: 8px 4px 4px 38px;
+	min-height: 30px;
+	position: absolute;
+	top: 30px;
+	left: 300px;
+	border: 0;
+}
+
+#dl:hover {
+	background-position: 0 -45px;
+}
+
+#dl:active {
+	background-position: 0 -90px;
+}
+
+#dl span {
+	font-size: 11px;
+	color: #56b80e;
+	font-weight: normal;
+	display: block;
+}
+
+#dl:hover span {
+	color: #63d610;
+}
+
+.preview {
+	position: absolute;
+	left: 460px;
+	top: 40px;
+	font-size: 13px;
+	line-height: 18px;
+	height: 22px;
+	background: url(../img/bg_preview.png) 0 0 no-repeat;
+	padding-left: 33px;
+	width: 270px;
+}
+
+#pre {
+	font-weight: bold;
+}
+
+#vid {
+	width: 278px;
+	height: 486px;
+	position: absolute;
+	left: 0;
+	top: -40px;
+	padding-top: 73px;
+	padding-left: 45px;
+	background: url(../img/iphone.png) 0 0 no-repeat;
+}
+
+.tweet ul {
+	list-style-type: none;
+}
+
+.tweet li {
+	padding: 6px 0;
+	font-size: 14px;
+	line-height: 18px;
+}
+
+/* @group Sidebar */
+
+#side {
+	position: absolute;
+	top: 160px;
+	left: 0;
+	padding-left: 40px;
+}
+
+#donate, #share {
+	width: 195px;
+	overflow: hidden;
+	height: 0;
+	display: block;
+	margin: 5px 0;
+	border: 0;
+}
+
+#donate {
+	background: url(../img/btn_donate.png) 0 0 no-repeat;
+	padding-top: 45px;
+
+}
+
+#donate:hover {
+	background-position: 0 -45px;
+}
+
+#donate:active {
+	background-position: 0 -90px;
+}
+
+#share {
+	background: url(../img/btn_share.png) 0 0 no-repeat;
+	padding-top: 30px;
+	margin-top: 70px;
+}
+
+#share:hover {
+	background-position: 0 -30px;
+}
+
+#share:active {
+	background-position: 0 -60px;
+}
+
+
+/* @end */
+
+#ftr {
+	padding: 20px 0 30px;
+	color: #555;
+	line-height: 15px;
+	font-size: 11px;
+	border-top: 1px solid #272829;
+	background-color: #020203;
+	-webkit-text-stroke:0 black;
+}
+
+
+
+#side form input[type=text] {
+	width: 120px;
+	background: transparent url(../img/input.png) 0 0 no-repeat;
+	height: 45px;
+	line-height: 0px;
+	color: #2ca9f3;
+	border: 0;
+	font-size: 13px;
+	padding: 0 6px;
+}
+
+#side form input.sample {
+	color: #2997d8;
+}
+
+#side form input.signup {
+	position: absolute;
+	top: 0px;
+	right: 0;
+}
+
+#side form {
+	position: absolute;
+	left: 40px;
+	top: 30px;
+	width: 195px;
+	
+}
+
+#at15s {
+	background-color: #fff !important;
+	border: 0 !important;
+}
+
+#at15s, #at16pm {
+	text-shadow: none;
+}
+
+#at16pf {
+	display: none !important;
+}

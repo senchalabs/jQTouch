@@ -1,0 +1,216 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+
+    <style type="text/css" media="screen">
+        * { margin: 0; padding: 0;}
+        body, #jqt-main {
+            color: #666;
+        	background: #1d1e20 url(img/pagebg.gif) 0 0 repeat-x;
+        	text-shadow: rgba(0,0,0,.8) 0 -1px 0;
+        	text-align: center;
+        	font: 17px/22px "Helvetica Neue", HelveticaNeue, Helvetica, arial, sans;
+        }
+        .jqt-center {
+            padding: 0 20px;
+            width: 500px;
+        	text-align: left;
+        	margin: 0 auto;
+        	position: relative;
+        	text-align: left;
+        }
+        
+        #jqt-logo {
+            padding: 20px 0 20px;
+        }
+        
+        #jqt-browser {
+            position: absolute;
+            right: 20px;
+            top: 35px;
+            font-size: 13px;
+            line-height: 17px;
+        }
+        #jqt-band {
+            margin: 20px 0;
+            background: url(img/bg_band.gif) 0 0 repeat;
+        	height: 80px;
+        	border-top: 1px solid rgba(255, 255, 255, .1);
+        	border-bottom: 1px solid rgba(0, 0, 0, .5);
+
+        }
+        #jqt-band .jqt-center {
+        	text-align: center;
+        }
+        #jqt-dl {
+            position: relative;
+            top: 15px;
+        }
+        #jqt-vid {
+            position: relative;
+            top: 5px;
+            left: 10px;
+        }
+        
+        #jqt-main h2, #jqt-main h3 {
+            font-size: 1em;
+            font-weight: normal;
+            text-align: center;
+        }
+        #jqt-main h3 {
+            text-align: left;
+            margin-bottom: 5px;
+        }
+        #jqt-main a {
+            color: #d2d2d2;
+            text-decoration: none;
+        }
+        #jqt-main a:hover {
+            text-decoration: underline;
+        }
+        #jqt-main h3 strong {
+            font-weight: normal;
+            color: #64c212;
+        }
+        
+        #jqt-bot p {
+            font-size: 13px;
+            line-height: 17px;
+            color: #999;
+        }
+        #jqt-bot p strong {
+            color: #ccc;
+            font-weight: normal;
+        }
+        
+
+        #jqt-donate {
+            float: right;
+            margin-bottom: 30px;
+            margin-left: 20px;
+        }
+        #jqt-extra {
+            background-color: #151617;
+            padding: 20px 0;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        #jqt-extra .jqt-col {
+            float: left;
+            width: 115px;
+            padding-right: 10px;
+            font-size: 13px;
+            line-height: 17px;
+        }
+        #jqt-extra h4 {
+            font-weight: normal;
+        }
+        #jqt-extra a {
+            color: #aaa;
+        }
+        
+        #jqt-ftr {
+            padding: 20px 0 30px;
+        	color: #555;
+        	line-height: 15px;
+        	font-size: 11px;
+        	border-top: 1px solid #272829;
+        	background-color: #020203;
+        }
+        #jqt-ftr a {
+            color: #999;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="jqt-main">
+        <div id="top">
+            <div class="jqt-center">
+                <h1 id="jqt-logo"><a href="http://www.jqtouch.com/"><img src="img/logo.png" width="216" height="53" alt="jQTouch beta" /></a></h1>
+                <div id="jqt-browser">
+                    Trouble viewing this email?<br />
+                    <a href="http://www.jqtouch.com/eblasts/beta/">Open in your browser &raquo;</a>
+                </div>
+                <div style="margin: 0 15px;"><a href="http://www.jqtouch.com/"><img src="img/iphones.png" alt="" /></a></div>
+                <h2><a href="http://code.google.com/p/jqtouch/wiki/GettingStarted">Easy Setup</a> &middot; Full Screen Apps &middot; History Management<br />
+                    Swipe Detection &middot; <a href="http://code.google.com/p/jqtouch/wiki/CallbackEvents">Callback Events</a> &middot; Orientation Detection<br />
+                    Startup Screens &middot; Native Animations &middot; <a href="http://code.google.com/p/jqtouch/wiki/ThemingStyling">Custom Themes</a>
+                </h2>
+            </div>
+        </div>
+        <div id="jqt-band">
+            <div class="jqt-center">
+                <a id="jqt-dl" href="http://jqtouch.googlecode.com/files/jqtouch-1.0-beta.zip"><img src="img/download.png" /></a>
+                <a id="jqt-vid" href="http://www.jqtouch.com/"><img src="img/viewavideo.png" /></a>
+            </div>
+        </div>
+        <div id="jqt-bot">
+            <div class="jqt-center">
+                <div id="side">
+                    <h3><a href="http://bit.ly/support-jqt">Support jQTouch</a> for a chance to <br />receive a <strong>free iPod Touch!</strong></h3>
+                    <a href="http://bit.ly/support-jqt"><img src="img/donate.png" id="jqt-donate" alt="Donate via PayPal" /></a>
+                    <p>The person who donates the most over the next two weeks will receive a <strong>brand new iPod Touch,</strong> generously donated by jQTouch committer, <a href="http://jonathanstark.com/">Jonathan Stark</a>. jQTouch is offered freely as open source software, so every donation helps!</p>
+                </div>
+                
+            </div>
+        </div>
+        <div id="jqt-extra">
+            <div class="jqt-center">
+                <div class="jqt-col">
+                    <h4>Demos</h4>
+                    <p><a href="http://www.jqtouch.com/preview/demos/main/">Main features</a><br />
+                    <a href="http://www.jqtouch.com/preview/demos/todo/">To-do list</a><br />
+                    <a href="http://www.jqtouch.com/preview/demos/clock/">Clock</a>
+                    </p>
+                </div>
+                <div class="jqt-col">
+                    <h4>In the Wild</h4>
+                    <p><a href="http://www.youtube.com/watch?v=xWjmgKWUzn4">PrankDial</a><br />
+                        <a href="http://www.azcentral.com/iphone/">AZCentral</a><br />
+                    <a href="http://www.jbmarchitect.com/m/">JBM Architect</a><br />
+                    <a href="http://iphone2vlc.com/#">iPhone2VLC</a><br />
+                    </p>
+                </div>
+                <div class="jqt-col">
+                    <h4>Keep Up</h4>
+                    <p><a href="http://twitter.com/jqtouch">On Twitter</a><br />
+                    <a href="http://code.google.com/p/jqtouch/source/checkout">Via SVN</a><br />
+                    </p>
+                </div>
+                <div class="jqt-col">
+                    <h4>Help out</h4>
+                    <p><a href="http://code.google.com/p/jqtouch/issues/list">Submit tickets</a><br />
+                    <a href="http://www.addthis.com/bookmark.php?v=250&amp;pub=morfunk&amp;url=http%3A%2F%2Fwww.jqtouch.com%2F&amp;title=jQTouch">Share this</a><br />
+                    <a href="http://bit.ly/support-jqt">Donate</a><br />
+                    <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#100;&#097;&#118;&#105;&#100;&#064;&#112;&#105;&#110;&#099;&#104;&#122;&#111;&#111;&#109;&#046;&#099;&#111;&#109;">Give feedback</a><br />
+                    </p>
+                </div>
+
+
+            </div>
+        </div>
+        <div id="jqt-ftr">
+            <div class="jqt-center">
+
+                <div class="info">
+                    <p>
+                    For custom applications, consulting, and support, please email <a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#100;&#097;&#118;&#105;&#100;&#064;&#112;&#105;&#110;&#099;&#104;&#122;&#111;&#111;&#109;&#046;&#099;&#111;&#109;">&#100;&#097;&#118;&#105;&#100;&#064;&#112;&#105;&#110;&#099;&#104;&#122;&#111;&#111;&#109;&#046;&#099;&#111;&#109;</a><br />
+                    A special thanks to <a href="http://jonathanstark.com/">Jonathan Stark</a>, <a href="http://twitter.com/dkords">David Kordsmeier</a>, <a href="http://www.ryanscherf.net/">Ryan Scherf</a>, and <a href="http://www.pinchzoom.com">pinch/zoom</a>.<br /><br />
+                    You may also enjoy <a href="http://www.webkitbits.com/">WebKitBits, a microblog about all things WebKit</a>.<br />
+
+                    &copy; 2009 <a href="http://www.davidkaneda.com">David Kaneda</a>. Built with HTML5, CSS, and jQuery.<br />
+                    <unsubscribe>Unsubscribe</unsubscribe> &middot; <forwardtoafriend>Forward to a friend</forwardtoafriend>
+                    
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+</body>
+</html>
