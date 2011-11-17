@@ -174,12 +174,34 @@ body { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-touch-callout: non
 @-webkit-keyframes cubeRightOut { 0% { -webkit-transform: rotateY(0deg) translateX(0) scale(1); opacity: 1; }
   100% { -webkit-transform: rotateY(90deg) translateZ(100%) scale(0.5); opacity: .5; } }
 
+/** @class Functions */
+/** Returns the minimum value of two specfied values @param {measurement} $a The first value @param {measurement} $b The second value */
+/** Returns the maximum value of two specfied values @param {measurement} $a The first value @param {measurement} $b The second value */
+/** @class Color */
+/** Returns the brightness (out of 100) of a specified color. @todo explain why this is useful @param {color} $color The color you want the brightness value of @return {measurement} */
+/** Returns the luminosity for a specified color @todo explain why this is useful @param {color} The color to check @return {measurement} */
+/** @class Pictos More information on the Pictos icon set can be found [here](http://pictos.drewwilson.com/)  @todo add information about licencing */
+/** @cfg {color} $pictos-default-background The default color of pictos icons when using the {@link #pictos} mixin.  Defaults to `white`. */
+/** @cfg {color} $pictos-default-border The default color to use on the border of pictos icons, when using the {@link #pictos} mixin.  Defaults to `null`. */
+/** @cfg {string} $pictos-default-gradient The default gradient to use when using the {@link #pictos} mixin.  Defaults to `matte`. */
+/** Includes a pictos icon into the specified selector, using the pictos font.  @include pictos('a');  @param {color} $color The color of the icon. Defaults to {@link #$pictos-default-background $pictos-default-background}.  @param {measurement} $size The size of the icon  @param {color} $border-color The color of the border. Defautls to {@link #$pictos-default-border $pictos-default-border}.  @param {boolean} $include-staes True to include states for hover and active. Defaults to `true`. */
+.base-pictos { font-family: Pictos; color: transparent; -moz-background-clip: text; -webkit-background-clip: text; -o-background-clip: text; -ms-background-clip: text; -khtml-background-clip: text; background-clip: text; position: absolute; top: 0; left: 0; }
+
+/** @class Background */
+/** Addes a background gradient into a specified selector.  @include background-gradient(#444, 'glossy');  You can also use color-stops if you want full control of the gradient:  @include background-gradient(#444, color-stops(#333, #222, #111));  @param {color} $bg-color The base color of the gradient.  @param {string/list} $type The style of the gradient, one of five pre-defined options: matte, bevel, glossy, recessed, or linear:  @include background-gradient(red, 'glossy');  It can also accept a list of color-stop values:;  @include background-gradient(black, color-stops(#333, #111, #000));  @param {string} $direction The direction of the gradient. */
+/** Addes an emboss effect onto the specified selector  @include emboss;  You can also specify the settings for the shadow and highlight:;  @include emboss(red 0 0 5px, blue 0 1px 1px);  @param {color/list} $shadow The color and settings for the shadow (color xoffsetpx yoffsetpx blurpx) @param {color/list} $highlight The color and settings for the highlight (color xoffsetpx yoffsetpx blurpx inset) */
+/** Addes a blueprint effect pattern to the specified selector. Special thanks to Lea Verou http://leaverou.me/css3patterns/  @param {color} $bgcolor @param {color} $majorcolor @param {color} $minorcolor @param {measurement} $majorsteps @param {measurement} $minorsteps @param {measurement} $majorwidth @param {measurement} $minorwidth */
+/** Addes a stripe effect pattern to the specified selector. Special thanks to Lea Verou http://leaverou.me/css3patterns/  @param {color} $bgcolor @param {color} $stripe-color @param {measurement} $majorsize @param {measurement} $minorsize @param {measurement} $angle */
+/** Addes a carbon fiber effect pattern to the specified selector. Special thanks to Lea Verou http://leaverou.me/css3patterns/  @param {color} $bgcolor @param {color} $dotcolor @param {color} $highlightcolor @param {measurement} $spacing-size @param {measurement} $dotsize */
+/** @class Shapes A bunch of Sass mixins which allow you to create various different shapes  using only CSS. */
+/** Creates a triangle shape, using only CSS. @param {string} $direction The direction of the triangle @param {measurement} $size The size of the triangle @param {color} $color The color of the triangle */
+.base-shape { display: block; content: ''; }
+
 body { background: #000; color: #ddd; }
 
 #jqt { /* Lists */ }
-#jqt > * { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333333), to(#5e5e65)); }
 #jqt h1, #jqt h2 { font: bold 18px "Helvetica Neue", Helvetica; text-shadow: rgba(255, 255, 255, 0.2) 0 1px 1px; color: #000; margin: 10px 20px 5px; }
-#jqt .toolbar { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; border-bottom: 1px solid #000; padding: 10px; height: 45px; position: relative; }
+#jqt .toolbar { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; border-bottom: 1px solid #000; background: -webkit-radial-gradient(#2b2b2b 20%, rgba(255, 255, 255, 0) 21%) 0 0, -webkit-radial-gradient(#2b2b2b 20%, rgba(255, 255, 255, 0) 21%) 10px 10px, -webkit-radial-gradient(rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0) 24%) 0 1px, -webkit-radial-gradient(rgba(255, 255, 255, 0.1) 20%, rgba(255, 255, 255, 0) 24%) 10px 11px; background-color: #444444; background-size: 20px 20px; padding: 10px; height: 45px; position: relative; }
 #jqt .toolbar > h1 { position: absolute; overflow: hidden; left: 50%; top: 10px; line-height: 1em; margin: 1px 0 0 -75px; height: 40px; font-size: 20px; width: 150px; font-weight: bold; text-shadow: black 0 -1px 1px; text-align: center; text-overflow: ellipsis; white-space: nowrap; color: #fff; }
 #jqt.landscape .toolbar > h1 { margin-left: -125px; width: 250px; }
 #jqt .black-translucent .toolbar { margin-top: 20px; }

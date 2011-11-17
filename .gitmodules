@@ -1,0 +1,3 @@
+[submodule "themes/accessories"]
+	path = themes/accessories
+	url = git@github.com:senchalabs/Accessories.git
