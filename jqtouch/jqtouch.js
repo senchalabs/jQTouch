@@ -69,7 +69,7 @@
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
                 useAnimations: true,
-                useFastTouch: true, // experimental
+                useFastTouch: false, // experimental
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},
@@ -528,7 +528,7 @@
             */
 
             // Dev must want touch, so check for support
-            if (typeof TouchEvent != 'undefined') {
+            if (typeof window.TouchEvent != 'undefined') {
                 if (window.navigator.userAgent.indexOf('Mobile') > -1) { // Grrrr...
                     return true;
                 } else {
@@ -677,8 +677,8 @@
 
             // Store some properties in a support object
             $.support = {};
-            $.support.animationEvents = (typeof WebKitAnimationEvent != 'undefined');
-            $.support.touch = (typeof TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
+            $.support.animationEvents = (typeof window.WebKitAnimationEvent != 'undefined');
+            $.support.touch = (typeof window.TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
 
             if (!$.support.touch) {
@@ -814,7 +814,7 @@
 
     // If Zepto exists, jQTouch will use Zepto. Otherwise, a bridge should initialize
     // jQTouch. See jqtouch-jquery.js.
-    if (!!Zepto) {
+    if (!!window.Zepto) {
         (function($) {
             var 
                 rselectTextarea = /select|textarea/i,
