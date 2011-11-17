@@ -66,7 +66,7 @@
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
                 useAnimations: true,
-                useFastTouch: false, // experimental
+                useFastTouch: true,
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},

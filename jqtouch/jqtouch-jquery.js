@@ -32,6 +32,7 @@
     var lastTime = 0;
     var tapReady = true;
     var jQTSettings = {
+          useFastTouch: true, // experimental
           debug: true,
           moveThreshold: 10,
           hoverDelay: 50,
@@ -119,7 +120,7 @@
             if (Math.abs(deltaX) < jQTSettings.moveThreshold && Math.abs(deltaY) < jQTSettings.moveThreshold && deltaT < jQTSettings.pressDelay) {
                 // e.preventDefault();
                 // e.stopImmediatePropagation();
-                if (SUPPORT_TOUCH) {
+                if (SUPPORT_TOUCH && jQTSettings.useFastTouch) {
                     $el.trigger('tap', e);
                 }
             } else {
