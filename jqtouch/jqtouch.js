@@ -390,7 +390,13 @@
             _debug();
 
             var targetPage = null;
-            $(nodes).each(function(index, node) {
+
+            // Call dom.createElement element directly instead of relying on $(nodes),
+            // to work around: https://github.com/madrobby/zepto/issues/312
+            var div = document.createElement('div');
+            div.innerHTML = nodes;
+
+            $(div).children().each(function(index, node) {
                 var $node = $(this);
                 if (!$node.attr('id')) {
                     $node.attr('id', 'page-' + (++newPageCount));
