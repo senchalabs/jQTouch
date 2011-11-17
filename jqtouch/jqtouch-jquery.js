@@ -119,7 +119,9 @@
             if (Math.abs(deltaX) < jQTSettings.moveThreshold && Math.abs(deltaY) < jQTSettings.moveThreshold && deltaT < jQTSettings.pressDelay) {
                 // e.preventDefault();
                 // e.stopImmediatePropagation();
-                $el.trigger('tap', e);
+                if (SUPPORT_TOUCH) {
+                    $el.trigger('tap', e);
+                }
             } else {
                 $el.unselect();
             }
@@ -171,6 +173,10 @@
         }
 
         function unbindEvents($el) {
+            if (!$el) {
+                return;
+            }
+
             $el.unbind(MOVE_EVENT, touchMoveHandler).unbind(END_EVENT, touchEndHandler);
             if (SUPPORT_TOUCH) {
                 $el.unbind(CANCEL_EVENT, touchCancelHandler);
