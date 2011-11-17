@@ -37,9 +37,9 @@
             $(function(){
                 // Show a swipe event on swipe test
                 $('#swipeme').swipe(function(evt, data) {
-                    $(this).html('You swiped <strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!');
+                    var details = !data? '': '<strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!';
+                    $(this).html('You swiped ' + details );
                     $(this).parent().after('<li>swiped!</li>')
-
                 });
                 $('#tapme').tap(function(){
                     $(this).parent().after('<li>tapped!</li>')
