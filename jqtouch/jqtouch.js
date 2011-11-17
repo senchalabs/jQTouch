@@ -57,13 +57,10 @@
                 formSelector: 'form',
                 fullScreen: true,
                 fullScreenClass: 'fullscreen',
-                hoverDelay: 50,
                 icon: null,
                 iconPad: null, // available in iOS 4.2 and later. 
                 icon4: null, // available in iOS 4.2 and later.
-                moveThreshold: 10,
                 preloadImages: false,
-                pressDelay: 1000,
                 startupScreen: null,
                 statusBar: 'default', // other options: black-translucent, black
                 submitSelector: '.submit',
