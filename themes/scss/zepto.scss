@@ -16,7 +16,7 @@ body {
     & > * {
         // @include background-gradient($highlight-color, glossy);
 
-        // background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#5e5e65));
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#5e5e65));
     }
     
     h1, h2 {
@@ -37,23 +37,23 @@ body {
     .button, .back, .cancel, .add {
         color: #fff;
         text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
-        -webkit-border-image: url(img/button.png) 0 5 0 5;
+        -webkit-border-image: url(../img/jqt/button.png) 0 5 0 5;
     }
 
     .button.active, .cancel.active, .add.active {
-        -webkit-border-image: url(img/button_clicked.png) 0 5 0 5;
+        -webkit-border-image: url(../img/jqt/button_clicked.png) 0 5 0 5;
     }
 
     .back {
-        -webkit-border-image: url(img/back_button.png) 0 8 0 14;
+        -webkit-border-image: url(../img/jqt/back_button.png) 0 8 0 14;
 
         &.active {
-            -webkit-border-image: url(img/back_button_clicked.png) 0 8 0 14;
+            -webkit-border-image: url(../img/jqt/back_button_clicked.png) 0 8 0 14;
         }
     }
 
     .blueButton {
-        -webkit-border-image: url(img/blueButton.png) 0 5 0 5;
+        -webkit-border-image: url(../img/jqt/blueButton.png) 0 5 0 5;
     }
 
     .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
@@ -68,25 +68,25 @@ body {
         text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 
         &.active, &:active {
-            -webkit-border-image: url(img/activeButton.png) 0 12 0 12;
+            -webkit-border-image: url(../img/jqt/activeButton.png) 0 12 0 12;
             color: #000 !important;
         }
     }
 
     .whiteButton {
-        -webkit-border-image: url(img/whiteButton.png) 0 12 0 12;
+        -webkit-border-image: url(../img/jqt/whiteButton.png) 0 12 0 12;
     }
     .grayButton {
-        -webkit-border-image: url(img/grayButton.png) 0 12 0 12;
+        -webkit-border-image: url(../img/jqt/grayButton.png) 0 12 0 12;
         color: #fff;
     }
 
     .redButton {
-        -webkit-border-image: url(img/redButton.png) 0 12 0 12;
+        -webkit-border-image: url(../img/jqt/redButton.png) 0 12 0 12;
     }
 
     .greenButton {
-        -webkit-border-image: url(img/greenButton.png) 0 12 0 12;
+        -webkit-border-image: url(../img/jqt/greenButton.png) 0 12 0 12;
     }
 
 
@@ -121,12 +121,12 @@ body {
             }
             
             &.forward {
-                background-image: url(img/chevron_circle.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
+                background-image: url(../img/jqt/chevron_circle.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
                 background-position: right center;
                 background-repeat: no-repeat;
                 
                 a.active {
-                    background-image: url(img/chevron_circle.png);
+                    background-image: url(../img/jqt/chevron_circle.png);
                     background-position: right center;
                     background-repeat: no-repeat;
                 }
@@ -135,13 +135,13 @@ body {
 
             &.arrow {
                 background-color: #4c4d4e !important;
-                background-image: url(img/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
+                background-image: url(../img/jqt/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
                 background-position: right center !important;
                 background-repeat: no-repeat !important;
 
                 a {                    
                     &.active {
-                        background-image: url(img/chevron.png);
+                        background-image: url(../img/jqt/chevron.png);
                         background-position: right center;
                         background-repeat: no-repeat;
                     }
@@ -149,7 +149,7 @@ body {
             }
             
             a.active.loading {
-                background-image: url(img/loading.gif);
+                background-image: url(../img/jqt/loading.gif);
                 background-position: 95% center;
                 background-repeat: no-repeat;
             }
@@ -185,7 +185,7 @@ body {
                 }
 
                 select {
-                    background: transparent url(img/chevron.png) no-repeat right center;
+                    background: transparent url(../img/jqt/chevron.png) no-repeat right center;
                 }
                 input[type="checkbox"], input[type="radio"] {
                     margin: 0;
@@ -256,7 +256,7 @@ body {
                 -webkit-tap-highlight-color: rgba(0,0,0,0);
                 -webkit-transition: background-position .15s;
                 background-color: transparent;
-                background: #fff url(img/on_off.png) -55px 0 no-repeat;
+                background: #fff url(../img/jqt/on_off.png) -55px 0 no-repeat;
                 border: 0;
                 height: 27px;
                 margin: 0;
@@ -298,7 +298,7 @@ body {
                 &.arrow {
                     background-position: right center;
                     background-repeat: no-repeat;
-                    background-image: url(img/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+                    background-image: url(../img/jqt/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
                 }
             }
         } // ul.metal
@@ -313,7 +313,7 @@ body {
                 
                 &.arrow {
                     background-color: #404142 !important;
-                    background-image: url(img/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1e1f21), to(#272729));
+                    background-image: url(../img/jqt/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1e1f21), to(#272729));
                     background-position: right center;
                     background-repeat: no-repeat;
                 }
@@ -338,17 +338,17 @@ body {
                 color: #666;
                 
                 a.active.loading {
-                    background-image: url(img/loading.gif);
+                    background-image: url(../img/jqt/loading.gif);
                     background-position: 95% center;
                     background-repeat: no-repeat;
                 }
                 &.arrow, &.arrow a.active {
-                    background-image: url(img/chevron.png);
+                    background-image: url(../img/jqt/chevron.png);
                     background-position: right center;
                     background-repeat: no-repeat;
                 }
                 &.forward, &.forward a.active {
-                    background-image: url(img/chevron_circle.png);
+                    background-image: url(../img/jqt/chevron_circle.png);
                     background-position: right center;
                     background-repeat: no-repeat;
                 }
