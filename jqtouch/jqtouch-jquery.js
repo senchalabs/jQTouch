@@ -20,20 +20,20 @@
 */
 
 (function($) {
-    var SUPPORT_TOUCH = (!!window.Touch);
-    var START_EVENT = SUPPORT_TOUCH? 'touchstart' : 'mousedown';
-    var MOVE_EVENT = SUPPORT_TOUCH? 'touchmove' : 'mousemove';
-    var END_EVENT = SUPPORT_TOUCH? 'touchend' : 'mouseup';
-    var CANCEL_EVENT = SUPPORT_TOUCH? 'touchcancel' : 'mouseout'; // mouseout on document
-    var lastTime = 0;
-    var tapReady = true;
-    var jQTSettings = {
+    var SUPPORT_TOUCH = (!!window.Touch),
+        START_EVENT = SUPPORT_TOUCH? 'touchstart' : 'mousedown',
+        MOVE_EVENT = SUPPORT_TOUCH? 'touchmove' : 'mousemove',
+        END_EVENT = SUPPORT_TOUCH? 'touchend' : 'mouseup',
+        CANCEL_EVENT = SUPPORT_TOUCH? 'touchcancel' : 'mouseout', // mouseout on document
+        lastTime = 0,
+        tapReady = true,
+        jQTSettings = {
           useFastTouch: true, // experimental
           debug: true,
           moveThreshold: 10,
           hoverDelay: 50,
           pressDelay: 1000
-    };
+        };
 
     function _debug(message) {
         var now = new Date().getTime();
@@ -130,7 +130,7 @@
             var absX = Math.abs(deltaX);
             var absY = Math.abs(deltaY);
             var direction;
-            if (absX > absY && (absX > 35) && deltaT < 1000) {
+            if (absX > absY && (absX > 30) && deltaT < 1000) {
                 if (deltaX < 0) {
                     direction = 'left';
                 } else {
@@ -165,9 +165,7 @@
         }
 
         function unbindEvents($el) {
-            if (!$el) {
-                return;
-            }
+            if (!$el) return;
 
             $el.unbind(MOVE_EVENT, touchMoveHandler).unbind(END_EVENT, touchEndHandler);
             if (SUPPORT_TOUCH) {
