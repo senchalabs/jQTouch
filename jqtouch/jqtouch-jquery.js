@@ -17,10 +17,6 @@
     (c) 2009-2011 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: $
-    $Date: $
-    $LastChangedBy: $
-
 */
 
 (function($) {
@@ -75,7 +71,7 @@
             return;
         }
 
-        var startTime = (new Date).getTime(),
+        var startTime = new Date().getTime(),
             hoverTimeout = null,
             pressTimeout = null,
             touch,
@@ -150,17 +146,12 @@
             }
         }
 
-        function touchCancelHandler(e) {
-            if ($el) $el.removeClass('active');
-            unbindEvents();
-        };
-
         function updateChanges() {
             // _debug();
             var firstFinger = SUPPORT_TOUCH? event.changedTouches[0]: event; 
             deltaX = firstFinger.pageX - startX;
             deltaY = firstFinger.pageY - startY;
-            deltaT = (new Date).getTime() - startTime;
+            deltaT = new Date().getTime() - startTime;
             // _debug('deltaX:'+deltaX+';deltaY:'+deltaY+';');
         }
 
@@ -190,7 +181,9 @@
     $.jQTouch = function(options) {
 
         // take in options
-        for (i in options) jQTSettings[i] = options[i];
+        for (var i in options) {
+            jQTSettings[i] = options[i];
+        }
         
         $(document).bind('ready', function() {
             $('#jqt').bind(START_EVENT, touchStartHandler);  
