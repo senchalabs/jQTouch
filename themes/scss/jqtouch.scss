@@ -33,7 +33,7 @@ body {
         );
 
         & > h1 {
-            @include color-by-background($toolbar-background-color, $contrast);
+            @include color-by-background($toolbar-background-color);
         }
     }
 
