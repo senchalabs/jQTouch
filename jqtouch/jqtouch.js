@@ -17,12 +17,7 @@
     (c) 2009-2011 by jQTouch project members.
     See LICENSE.txt for license.
 
-    $Revision: 166 $
-    $Date: Tue Mar 29 01:24:46 EDT 2011 $
-    $LastChangedBy: jonathanstark $
-
 */
-
 (function() {
 
     jQTouchCore = function(options) {
@@ -50,7 +45,7 @@
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                debug: true,
+                debug: false,
                 fallback2dAnimation: 'fade',
                 defaultAnimation: 'slideleft',
                 fixedViewport: true,
@@ -206,7 +201,7 @@
                     finalAnimationName = animation.name;
                 }
 
-                // _debug('finalAnimationName is ' + finalAnimationName);
+                _debug('finalAnimationName is ' + finalAnimationName);
 
                 // Bind internal "cleanup" callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);

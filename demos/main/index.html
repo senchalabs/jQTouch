@@ -3,13 +3,16 @@
     <head>
         <meta charset="UTF-8" />
         <title>jQTouch &beta;</title>
-        <style type="text/css" media="screen">@import "../../themes/zepto/css/zepto.css";</style>
-        
+
+        <style type="text/css" media="screen">@import "../../themes/css/zepto.css";</style>
+
         <script src="../../jqtouch/zepto/dist/zepto.js" type="text/javascript" charset="utf-8"></script>
-        <!-- Uncomment the following line (and comment out Zepto) to use jQuery instead of Zepto. -->
+        <!-- Uncomment the following two lines (and comment out Zepto) to use jQuery instead of Zepto. -->
         <!-- <script src="../../jqtouch/jquery-1.7.js" type="application/x-javascript" charset="utf-8"></script> -->
-        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
         <!-- <script src="../../jqtouch/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> -->
+
+        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
                 icon: 'jqtouch.png',
@@ -34,15 +37,20 @@
             
             // Some sample Javascript functions:
             $(function(){
+
                 // Show a swipe event on swipe test
                 $('#swipeme').swipe(function(evt, data) {
-                    var details = !data? '': '<strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!';
+                    console.log(arguments);
+
+                    var details = !data ? '': '<strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!';
                     $(this).html('You swiped ' + details );
                     $(this).parent().after('<li>swiped!</li>')
                 });
+
                 $('#tapme').tap(function(){
                     $(this).parent().after('<li>tapped!</li>')
-                })
+                });
+
                 $('a[target="_blank"]').bind('click', function() {
                     if (confirm('This link opens in a new window.')) {
                         return true;
@@ -50,6 +58,7 @@
                         return false;
                     }
                 });
+
                 // Page animation callback events
                 $('#pageevents').
                     bind('pageAnimationStart', function(e, info){ 
@@ -58,6 +67,7 @@
                     bind('pageAnimationEnd', function(e, info){
                         $(this).find('.info').append(' finished animating ' + info.direction + '.<br /><br />');
                     });
+                
                 // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
                 $('#callback').bind('pageAnimationEnd', function(e, info){
                     // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
