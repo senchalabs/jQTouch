@@ -153,6 +153,43 @@ $default-border-radius: 8px;
                 }
             }
 
+            input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
+                background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+                border: 0;
+                font: normal 17px "Helvetica Neue", Helvetica;
+                padding: 0;
+                display: inline-block;
+                margin-left: 0px;
+                width: 100%;
+                -webkit-appearance: textarea;
+            }
+
+            textarea {
+                height: 120px;
+                padding: 0;
+                text-indent: -2px;
+            }
+
+            select {
+                text-indent: 0px;
+                -webkit-appearance: textfield;
+                margin-left: -6px;
+                width: 104%;
+            }
+            input[type="checkbox"], input[type="radio"] {
+                margin: 0;
+                padding: 10px 10px;
+            }
+            input[type="checkbox"]:after, input[type="radio"]:after {
+                content: attr(title);
+                font: 17px "Helvetica Neue", Helvetica;
+                display: block;
+                width: 246px;
+                color: #777;
+                margin: -12px 0 0 17px;
+            }
+
+
             &.arrow {
                 small {
                     padding: 0 15px;
@@ -189,42 +226,6 @@ $default-border-radius: 8px;
                 &.error + &.error {
                     border-top: 0;
                 }
-
-                input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
-                    background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
-                    border: 0;
-                    font: normal 17px "Helvetica Neue", Helvetica;
-                    padding: 0;
-                    display: inline-block;
-                    margin-left: 0px;
-                    width: 100%;
-                    -webkit-appearance: textarea;
-                }
-
-                textarea {
-                    height: 120px;
-                    padding: 0;
-                    text-indent: -2px;
-                }
-
-                select {
-                     text-indent: 0px;
-                     -webkit-appearance: textfield;
-                     margin-left: -6px;
-                     width: 104%;
-                 }
-                 input[type="checkbox"], input[type="radio"] {
-                     margin: 0;
-                     padding: 10px 10px;
-                 }
-                 input[type="checkbox"]:after, input[type="radio"]:after {
-                     content: attr(title);
-                     font: 17px "Helvetica Neue", Helvetica;
-                     display: block;
-                     width: 246px;
-                     color: #777;
-                     margin: -12px 0 0 17px;
-                 }
 
                 // #jqt.android ul li input[type="checkbox"]:after, #jqt.android ul li input[type="radio"]:after {
                 //     margin: 3px 0 0 24px;
