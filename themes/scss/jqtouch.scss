@@ -1,6 +1,8 @@
 $base-color: #444;
 $highlight-color: #DAD085;
 
+$toolbar-background-color: darken($base-color, 15%) !default;
+
 @import 'compass';
 @import 'accessories';
 @import 'include/base';
@@ -14,9 +16,7 @@ body {
 
 #jqt {
     & > * {
-        // @include background-gradient($highlight-color, glossy);
-
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#333), to(#5e5e65));
+        @include background-gradient($base-color, linear);
     }
     
     h1, h2 {
@@ -26,11 +26,14 @@ body {
 
     .toolbar {
         border-bottom: 1px solid #000;
-        @include background-pattern-carbonfiber;
+        @include background-pattern-carbonfiber(
+            $spacing-size: 9px,
+            $dotsize: 20%,
+            $bgcolor: $toolbar-background-color
+        );
 
         & > h1 {
-            text-shadow: rgba(0,0,0,1) 0 -1px 1px;
-            color: #fff;
+            @include color-by-background($toolbar-background-color, $contrast);
         }
     }
 
