@@ -1,0 +1,404 @@
+// Typography and layout sizing/measurements
+
+$default-border-radius: 8px;
+
+#jqt {
+
+    h1, h2 {
+        font: bold 18px "Helvetica Neue", Helvetica;
+        margin: 10px 20px 6px;
+    }
+
+    .toolbar {
+        @include box-sizing(border-box);
+        position: relative;
+        padding: 10px;
+        height: 45px;
+
+        & > h1 {
+            position: absolute;
+            overflow: hidden;
+            left: 50%;
+            top: 10px;
+            margin: 1px 0 0 -75px;
+            height: 40px;
+            width: 150px;
+
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1em;
+
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+    .black-translucent .toolbar {
+        margin-top: 20px;
+    }
+
+    &.landscape .toolbar > h1 {
+        margin-left: -125px;
+        width: 250px;
+    }
+
+    .button, .back, .cancel, .add {
+
+        position: absolute;
+        overflow: hidden;
+        width: auto;
+        height: 30px;
+
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 30px;
+        text-overflow: ellipsis;
+        text-decoration: none;
+        white-space: nowrap;
+        background: none;
+
+        top: 8px;
+        right: 10px;
+        margin: 0;
+        border-width: 0 5px;
+        padding: 0 3px;
+    }
+
+    .back {
+        left: 6px;
+        right: auto;
+        padding: 0;
+        max-width: 55px;
+        border-width: 0 8px 0 14px;
+    }
+
+    .blueButton {
+        border-width: 0 5px;
+    }
+
+    .leftButton, .cancel {
+        left: 6px;
+        right: auto;
+    }
+
+    .add {
+        font-size: 24px;
+        line-height: 24px;
+        font-weight: bold;
+    }
+
+    // Lists
+    h1, h2, h3, h4, h5, h6 {
+        & + ul {
+            margin-top: 0;
+        }
+    }
+
+    ul {
+        font: bold 18px "Helvetica Neue", Helvetica;
+        padding: 0;
+        margin: 15px 10px 17px 10px;
+
+        li {
+            list-style-type: none;
+            overflow: hidden;
+            padding: 10px;
+
+            a + a,
+            a + a + a,
+            &.img a + a + a + a,
+            &.img a + small + a + a + a {
+                font: 13px "Helvetica Neue", Helvetica;
+                margin: 0;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                display: block;
+                padding: 0;
+            }
+            a + a {
+                font-size: 14px;
+            }
+            a, &.img a + a {
+                text-decoration: none;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                display: block;
+                padding: 12px 10px 12px 10px;
+                margin: -10px;
+            }
+
+            small {
+                font: 17px "Helvetica Neue", Helvetica;
+                text-align: right;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                display: block;
+                width: 23%;
+                float: right;
+                padding: 0;
+
+                &.counter {
+                    font-size: 17px;
+                    line-height: 13px;
+                    font-weight: bold;
+                    @include border-radius; // Previously 11px
+                    padding: 4px 10px 5px 10px;
+                    display: block;
+                    width: auto;
+                    margin-top: -22px;
+                }
+            }
+
+            &.arrow {
+                small {
+                    padding: 0 15px;
+
+                    &.counter {
+                        margin-right: 15px;
+                    }
+                }
+                a { 
+                    padding: 12px 22px 12px 10px;
+                }
+            }
+        }
+
+        &.rounded {
+            @include border-radius;
+
+            li:first-child, li:first-child a {
+                border-top: 0;
+                @include border-top-radius;
+            }
+            li:last-child, li:last-child a {
+                @include border-bottom-radius;
+            }
+        }
+
+        &.form {
+            li {
+                padding: 7px 10px;
+
+                &.error {
+                    border: 2px solid red;
+                }
+                &.error + &.error {
+                    border-top: 0;
+                }
+
+                input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
+                    background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+                    border: 0;
+                    font: normal 17px "Helvetica Neue", Helvetica;
+                    padding: 0;
+                    display: inline-block;
+                    margin-left: 0px;
+                    width: 100%;
+                    -webkit-appearance: textarea;
+                }
+
+                textarea {
+                    height: 120px;
+                    padding: 0;
+                    text-indent: -2px;
+                }
+
+                select {
+                     text-indent: 0px;
+                     -webkit-appearance: textfield;
+                     margin-left: -6px;
+                     width: 104%;
+                 }
+                 input[type="checkbox"], input[type="radio"] {
+                     margin: 0;
+                     padding: 10px 10px;
+                 }
+                 input[type="checkbox"]:after, input[type="radio"]:after {
+                     content: attr(title);
+                     font: 17px "Helvetica Neue", Helvetica;
+                     display: block;
+                     width: 246px;
+                     color: #777;
+                     margin: -12px 0 0 17px;
+                 }
+
+                // #jqt.android ul li input[type="checkbox"]:after, #jqt.android ul li input[type="radio"]:after {
+                //     margin: 3px 0 0 24px;
+                // }
+            }
+        }
+
+        &.metal {
+            border-bottom: 0;
+            border-left: 0;
+            border-right: 0;
+            border-top: 0;
+            margin: 0;
+
+            li {
+                background-image: none;
+                border-top: 1px solid #fff;
+                border-bottom: 1px solid #666;
+                font-size: 26px;
+                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+
+                a {
+                    line-height: 26px;
+                    margin: 0;
+                    padding: 13px 0;
+                }
+
+                em {
+                    display: block;
+                    font-size: 14px;
+                    font-style: normal;
+                    width: 50%;
+                    line-height: 14px;
+                }
+
+                small {
+                    float: right;
+                    position: relative;
+                    margin-top: 10px;
+                    font-weight: bold;
+                }
+
+                &.arrow small {
+                    padding-right: 15px;
+                    line-height: 17px;
+                }
+            }
+        } // ul.metal
+
+        &.edgetoedge {
+            border-width: 1px 0;
+            margin: 0;
+            padding: 0;
+
+            li {
+                font-size: 20px;
+                margin-bottom: -1px;
+
+                &.sep {
+                    font-size: 16px;
+                    margin: 1px 0 0 0;
+                    padding: 2px 10px;
+                }
+
+                em {
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            }
+        } // ul.edgetoedge
+
+        &.plastic {
+            font: bold 18px "Helvetica Neue", Helvetica;
+            margin: 0;
+            padding: 0;
+            border-width: 0 0 1px 0;
+            
+            li {
+                border-width: 1px 0;
+                border-style: solid;
+                list-style-type: none;
+                overflow: hidden;
+                // padding: 10px 10px 10px 10px; Default?
+                
+                a.active.loading {
+                    background-image: url(img/loading.gif);
+                    background-position: 95% center;
+                    background-repeat: no-repeat;
+                }
+                small {
+                    color: #888;
+                    font-size: 13px;
+                    font-weight: bold;
+                    line-height: 24px;
+                    text-transform: uppercase;
+                }
+                &.arrow, &.arrow a.active {
+                    background-image: url(img/chevron.png);
+                    background-position: right center;
+                    background-repeat: no-repeat;
+                }
+                &.forward, &.forward a.active {
+                    background-image: url(img/chevron_circle.png);
+                    background-position: right center;
+                    background-repeat: no-repeat;
+                }
+            }
+        } // ul.plastic
+
+
+        ul.individual {
+            border: 0;
+            background: none;
+            clear: both;
+            overflow: hidden;
+
+            li {
+                font-size: 14px;
+                text-align: center;
+                @include border-radius;
+                @include box-sizing(border-box);
+                width: 48%;
+                float: left;
+                display: block;
+                padding: 11px 10px 14px 10px;
+
+                & + li {
+                    float: right;
+                }
+            }
+
+            a {
+                line-height: 16px;
+                margin: -11px -10px -14px -10px;
+                padding: 11px 10px 14px 10px;
+                @include border-radius;
+            }
+        }
+    }
+
+    .toggle {
+        width: 94px;
+        position: relative;
+        height: 27px;
+        display: block;
+        overflow: hidden;
+        float: right;
+
+        input[type="checkbox"] {
+            margin: 0;
+            @include border-radius(5px);
+            height: 27px;
+            overflow: hidden;
+            width: 149px;
+            border: 0;
+            @include transition(left .15s ease-in-out);
+            position: absolute;
+            top: 0;
+            left: -55px;
+            -webkit-appearance: textarea;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+            &:checked {
+                left: 0px;
+            }
+        }
+    }
+
+    .info {
+        font-size: 12px;
+        line-height: 16px;
+        text-align: center;
+        color: #444;
+        padding: 15px;
+        font-weight: bold;
+    }
+}

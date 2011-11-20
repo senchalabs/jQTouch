@@ -1,0 +1,560 @@
+$base-color: #444;
+$highlight-color: #DAD085;
+
+@import 'compass';
+@import 'accessories';
+@import 'include/base';
+@import 'include/animations';
+@import 'include/skeleton';
+
+@import 'compass';
+
+body {
+    background: rgb(0,0,0);
+}
+
+#jqt {
+    & > * {
+        background: rgb(197,204,211) url(../img/apple/pinstripes.png);
+    }
+
+    // Toolbar
+    h1, h2 {
+        font: bold 18px "Helvetica Neue", Helvetica;
+        text-shadow: rgba(255,255,255,.2) 0 1px 1px;
+        color: rgb(76, 86, 108);
+        margin: 10px 20px 6px;
+    }
+
+    .toolbar {
+        border-bottom: 1px solid #2d3642;
+        background: url(../img/apple/toolbar.png) #6d84a2 repeat-x;
+
+        &  > h1 {
+            text-shadow: rgba(#000, 0.4) 0px -1px 0;
+            color: #fff;
+        }
+    }
+
+    .button, .back, .cancel, .add {
+        color: #fff;
+        text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
+        -webkit-border-image: url(../img/apple/toolButton.png) 0 5 0 5;
+    }
+
+    .button.active, .cancel.active, .add.active {
+        -webkit-border-image: url(../img/apple/toolButton.png) 0 5 0 5;  
+    }
+
+    .blueButton {
+        -webkit-border-image: url(../img/apple/activeButton.png) 0 5 0 5;
+    }
+
+    .back {
+        -webkit-border-image: url(../img/apple/backButton.png) 0 8 0 14;
+    }
+
+    .back.active {
+        -webkit-border-image: url(../img/apple/backButton.png) 0 8 0 14;
+    }
+
+    .leftButton, .cancel {
+        left: 6px;
+        right: auto;
+    }
+
+    .add {
+        font-size: 24px;
+        line-height: 24px;
+        font-weight: bold;
+    }
+
+    .whiteButton,
+    .grayButton, .redButton, .blueButton, .greenButton {
+        display: block;
+        border-width: 0 12px;
+        padding: 10px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: inherit;
+        color: inherit;
+    }
+
+    .whiteButton.active, .grayButton.active, .redButton.active, .blueButton.active, .greenButton.active,
+    .whiteButton:active, .grayButton:active, .redButton:active, .blueButton:active, .greenButton:active {
+        -webkit-border-image: url(../img/apple/activeButton.png) 0 12 0 12;
+    }
+
+    .whiteButton {
+        -webkit-border-image: url(../img/apple/whiteButton.png) 0 12 0 12;
+        text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+    }
+
+    .grayButton {
+        -webkit-border-image: url(../img/apple/grayButton.png) 0 12 0 12;
+        color: #fff;
+    }
+
+    .redButton {
+        -webkit-border-image: url(../img/apple/redButton.png) 0 12 0 12;
+        color: #fff;
+    }
+
+    .greenButton {
+        -webkit-border-image: url(../img/apple/greenButton.png) 0 12 0 12;
+        color: #fff;
+    }
+
+    // Lists
+    // Hrm.
+    // nest(headings(), '+ ul') {
+    //     margin-top: 0;
+    // }
+
+    ul {
+        color: black;
+        background: #fff;
+        border: 1px solid #B4B4B4;
+        @include border-radius;
+
+        li {
+            color: #666;
+            border-top: 1px solid #B4B4B4;
+
+            &:first-child, &:first-child a {
+                border-top: 0;
+                @include border-top-radius(8px);
+            }
+
+            li:last-child, li:last-child a {
+                @include border-bottom-radius(8px);
+            }
+
+            &.arrow {
+                background-image: url(../img/apple/chevron.png);
+                background-position: right center;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+
+    ul.plastic li.arrow, ul.metal li.arrow {
+        background-image: url(../img/apple/chevron.png);
+        background-position: right center;
+        background-repeat: no-repeat;
+    }
+
+    /* universal links on list */
+
+    ul li a, li.img a + a {
+        color: #000;
+        text-decoration: none;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        padding: 12px 10px 12px 10px;
+        margin: -10px;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+    }
+
+    ul li a.active {
+        background-color: #194fdb;
+        color: #fff;
+    }
+    ul li.arrow a.active {
+        background-image: url(../img/apple/listArrowSel.png);
+        background-position: right center;
+        background-repeat: no-repeat;
+    }
+
+    ul li a.button {
+        background-color: #194fdb;
+        color: #fff;
+    }
+
+    ul li.img a + a {
+        margin: -10px 10px -20px -5px;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    ul li.img a + a + a {
+        font-size: 14px;
+        font-weight: normal;
+        margin-left: -10px;
+        margin-bottom: -10px;
+        margin-top: 0;
+    }
+
+    ul li.img a + small + a {
+        margin-left: -5px;
+    }
+
+    ul li.img a + small + a + a {
+        margin-left: -10px;
+        margin-top: -20px;
+        margin-bottom: -10px;
+        font-size: 14px;
+        font-weight: normal;
+    }
+
+    ul li.img a + small + a + a + a {
+        margin-left: 0px !important;
+        margin-bottom: 0;
+    }
+
+    ul li a + a {
+        color: #000;
+        font: 14px "Helvetica Neue", Helvetica;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        margin: 0;
+        padding: 0;
+    }
+
+    ul li a + a + a, ul li.img a + a + a + a, ul li.img a + small + a + a + a {
+        color: #666;
+        font: 13px "Helvetica Neue", Helvetica;
+        margin: 0;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+        padding: 0;
+    }
+
+    // Forms
+
+    ul.form li:hover {
+        background: #fff;
+    }
+
+    ul li {
+        input[type="text"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="number"],
+        input[type="search"],
+        input[type="email"],
+        input[type="url"],
+        textarea,
+        select {
+            color: #777;
+            background: #fff url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+            border: 0;
+            font: normal 17px "Helvetica Neue", Helvetica;
+            padding: 0;
+            display: inline-block;
+            margin-left: 0px;
+            width: 100%;
+            -webkit-appearance: textarea; // Why do we use textarea? Someone doc...
+        }
+
+        textarea {
+            height: 120px;
+            padding: 0;
+            text-indent: -2px;
+        }
+
+        select {
+            text-indent: 0px;
+            background: transparent url(../img/apple/chevron.png) no-repeat 103% 3px;
+            -webkit-appearance: textfield;
+            margin-left: -6px;
+            width: 104%;
+        }
+
+        input[type="checkbox"], input[type="radio"] {
+            margin: 0;
+            color: rgb(50,79,133);
+            padding: 10px 10px;
+
+            & {
+                content: attr(title);
+                font: 17px "Helvetica Neue", Helvetica;
+                display: block;
+                width: 246px;
+                margin: -12px 0 0 17px;
+            }
+        }
+    }
+
+    // Edge to edge
+
+    ul.edgetoedge, ul.edgetoedge * {
+        -webkit-border-radius: 0 !important; // @todo: Is important required?
+        @include border-radius(0);
+    }
+        
+    ul.edgetoedge li.sep {
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(139, 159, 171, 1)), to(rgba(181, 193, 201, 1.0)));
+        border-bottom: 1px solid #b5c1c9;
+        border-top: 1px solid #b5c1c9;
+        color: #fff;
+        font-size: 16px;
+        margin: 1px 0 0 0;
+        padding: 2px 10px;
+        text-shadow: #636a6f 0 1px 0;
+    }
+
+    ul.edgetoedge h4 {
+        color: #fff;
+        background: rgb(154,159,170) url(../img/apple/listGroup.png) top left repeat-x;
+        border-top: 1px solid rgb(165,177,186);
+        text-shadow: #666 0 1px 0;
+        margin: 0;
+        padding: 2px 10px;
+    }
+
+    .edgetoedge, .metal {
+        margin: 0;
+        padding: 0;
+        background-color: rgb(255,255,255);
+    }
+
+    ul.edgetoedge, ul.metal, ul.plastic {
+        @include border-radius(0);
+        margin: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+    }
+
+    ul.metal {
+        border-top: 0;
+        border-bottom: 0;
+        background: rgb(180,180,180);
+    }
+
+    ul.edgetoedge li:first-child,
+    ul.edgetoedge li:first-child a,
+    ul.edgetoedge li:last-child,
+    ul.edgetoedge li:last-child a,
+    ul.metal li:first-child a,
+    ul.metal li:last-child a {
+        @include border-radius(0);
+    }
+
+    ul.edgetoedge li small {
+        font-size: 16px;
+        line-height: 28px;
+    }
+
+    ul.edgetoedge li, .metal li {
+        @include border-radius(0);
+    }
+
+    ul.edgetoedge li em {
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    ul.edgetoedge h4 + ul {
+        border-top: 1px solid rgb(152,158,164);
+        border-bottom: 1px solid rgb(113,125,133);
+    }
+
+    ul li small {
+        color: #369;
+        &.counter {
+            background: rgb(154,159,170);
+            color: #fff;
+        }
+    }
+
+    #plastic ul li.arrow, #metal ul li.arrow {
+        background-image: url(../img/apple/chevron.png);
+        background-position: right center;
+        background-repeat: no-repeat;
+    }
+
+    ul.edgetoedge, ul.metal, ul.plastic {
+        @include border-radius(0);
+        margin: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+    }
+
+    ul.metal li {
+        border-top: 1px solid rgb(238,238,238);
+        border-bottom: 1px solid rgb(156,158,165);
+        font-size: 26px;
+        text-shadow: #fff 0 1px 0;
+
+        a {
+            &:hover {
+                color: #000;
+                small {
+                    color: inherit;
+                }
+            }
+        }
+        em {
+            color: #444;
+        }
+
+        &.arrow {
+            background:  url(../img/apple/chevron.png) right center no-repeat;
+        }
+    }
+
+
+    // Do we need both?
+
+    .plastic {
+        margin: 0;
+        padding: 0;
+        background: rgb(173,173,173);
+    }
+
+    ul.plastic {
+        @include border-radius(0);
+        margin: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+        background-color: rgb(173,173,173);
+    }
+
+    ul.plastic li {
+        @include border-radius(0);
+        border-top: 1px solid rgb(191,191,191);
+        border-bottom: 1px solid rgb(157,157,157);
+
+        &:nth-child(odd) {
+            background-color: rgb(152,152,152);
+            border-top: 1px solid rgb(181,181,181);
+            border-bottom: 1px solid rgb(138,138,138);
+        }
+    }
+
+    ul.plastic + p {
+        font-size: 11px;
+        color: #2f3237;
+        text-shadow: none;
+        padding: 10px 10px;
+
+        strong {
+            font-size: 14px;
+            line-height: 18px;
+            text-shadow: #fff 0 1px 0;
+        }
+    }
+
+    ul.plastic li a {
+        text-shadow: rgb(211,211,211) 0 1px 0;
+    }
+
+    ul.plastic li:nth-child(odd) a {
+        text-shadow: rgb(191,191,191) 0 1px 0;
+    }
+
+    ul.plastic li small {
+        color: #3C3C3C;
+        text-shadow: rgb(211,211,211) 0 1px 0;
+        font-size: 13px;
+        font-weight: bold;
+        text-transform: uppercase;
+        line-height: 24px;
+    }
+
+    #plastic ul.minibanner, #plastic ul.bigbanner {
+        margin: 10px;
+        border: 0;
+        height: 81px;
+        clear: both;
+    }
+
+    #plastic ul.bigbanner {
+        height: 140px !important;
+    }
+
+    #plastic ul.minibanner li {
+        border: 1px solid rgb(138,138,138);
+        background-color: rgb(152,152,152);
+        width: 145px;
+        height: 81px;
+        float: left;
+        @include border-radius(5px);
+        padding: 0;
+    }
+
+    #plastic ul.bigbanner li {
+        border: 1px solid rgb(138,138,138);
+        background-color: rgb(152,152,152);
+        width: 296px;
+        height: 140px;
+        float: left;
+        @include border-radius(5px);
+        padding: 0;
+        margin-bottom: 4px;
+    }
+
+    #plastic ul.minibanner li:first-child {
+        margin-right: 6px;
+    }
+
+    #plastic ul.minibanner li a {
+        color: transparent;
+        text-shadow: none;
+        display: block;
+        width: 145px;
+        height: 81px;
+    }
+
+    #plastic ul.bigbanner li a {
+        color: transparent;
+        text-shadow: none;
+        display: block;
+        width: 296px;
+        height: 145px;
+    }
+
+    // Individual (needs a better name?)
+
+    ul.individual {
+        li {
+            color: rgb(183,190,205);
+            background: white;
+            border: 1px solid rgb(180,180,180);
+        }
+
+        a {
+            color: rgb(50,79,133);
+
+            &:hover {
+                color: #fff;
+                background: #36c;
+            }
+        }
+    }
+
+    // Toggle
+
+    .toggle input[type="checkbox"] {
+        background: #fff url(../img/apple/on_off.png) 0 0 no-repeat;
+        background-color: transparent;
+    }
+
+    .info {
+        background: #dce1eb;
+        text-shadow: rgba(255,255,255,.8) 0 1px 0;
+        color: rgb(76, 86, 108);
+        border-top: 1px solid rgba(76, 86, 108, .3);
+    }
+
+    input[type='submit'] {
+        @include border-radius(4px);
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+        border: 1px outset #aaa;
+        display: block;
+        font-size: inherit;
+        font-weight: inherit;
+        padding: 10px;
+    }
+}
