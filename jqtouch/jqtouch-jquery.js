@@ -225,6 +225,13 @@
         };
 
         var core = jQTouchCore(options);
+        
         return core;
     };
+    
+    // Extensions directly manipulate the jQTouch object, before it's initialized.
+    $.jQTouch.addExtension = function(extension) {
+        jQTouchCore.prototype.extensions.push(extension);
+    };
+
 })(jQuery);

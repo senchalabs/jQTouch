@@ -7,8 +7,7 @@
         
         <script src="../../jqtouch/zepto/dist/zepto.js" type="text/javascript" charset="utf-8"></script>
         <!-- Uncomment the following line (and comment out Zepto) to use jQuery instead of Zepto. -->
-        <!-- <script src="../../jqtouch/jquery-1.4.2.js" type="application/x-javascript" charset="utf-8"></script>  -->
-
+        <!-- <script src="../../jqtouch/jquery-1.7.js" type="application/x-javascript" charset="utf-8"></script> -->
         <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
         <!-- <script src="../../jqtouch/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> -->
         <script type="text/javascript" charset="utf-8">
@@ -109,6 +108,11 @@
                 color: #fff;
                 font-weight: bold;
                 text-decoration: none;
+            }
+            
+            ul li, ul li a {
+                -webkit-user-select: none; user-select: none;
+                -webkit-user-drag: none;
             }
         </style>
     </head>
@@ -249,10 +253,10 @@
                     These apps open in a new window. Don&#8217;t forget to save them to your home screen to enable full-screen mode.
                 </div>
                 <ul class="rounded">
-                    <li class="forward"><a target="_blank" href="../ext_location/">Geo Location</a></li>
-                    <li class="forward"><a target="_blank" href="../ext_offline/">Offline Utility</a></li>
-                    <li class="forward"><a target="_blank" href="../ext_floaty/">Floaty Bar</a></li>
-                    <li class="forward"><a target="_blank" href="../ext_autotitles/">Auto Titles</a></li>
+                    <li class="forward"><a target="_blank" href="../ext_location/index.html">Geo Location</a></li>
+                    <li class="forward"><a target="_blank" href="../ext_offline/index.html">Offline Utility</a></li>
+                    <li class="forward"><a target="_blank" href="../ext_floaty/index.html">Floaty Bar</a></li>
+                    <li class="forward"><a target="_blank" href="../ext_autotitles/index.html">Auto Titles</a></li>
                 </ul>
             </div>
             <div id="forms">

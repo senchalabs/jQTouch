@@ -802,12 +802,7 @@
         };
         return publicObj;
     };
-
-    // Extensions directly manipulate the jQTouch object, before it's initialized.
     jQTouchCore.prototype.extensions = [];
-    jQTouchCore.addExtension = function(extension) {
-      jQTouchCore.prototype.extensions.push(extension);
-    };
 
     // If Zepto exists, jQTouch will use Zepto. Otherwise, a bridge should initialize
     // jQTouch. See jqtouch-jquery.js.
@@ -857,7 +852,7 @@
                 });
                 return encodeArray(array);
             }
-            
+
             $.jQTouch = function(options) {
                 options.framework = $;
 
@@ -865,6 +860,11 @@
 
                 var core = jQTouchCore(options);
                 return core;
+            };
+            
+            // Extensions directly manipulate the jQTouch object, before it's initialized.
+            $.jQTouch.addExtension = function(extension) {
+                jQTouchCore.prototype.extensions.push(extension);
             };
         })(Zepto);
     }
