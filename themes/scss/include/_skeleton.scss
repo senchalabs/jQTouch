@@ -335,7 +335,7 @@ $default-border-radius: 8px;
         } // ul.plastic
 
 
-        ul.individual {
+        &.individual {
             border: 0;
             background: none;
             clear: both;
