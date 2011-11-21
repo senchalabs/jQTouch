@@ -186,27 +186,29 @@
 
                 tapReady = false;
 
+                var initialAnimationName = animation.name;
+
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
-                    animation.name = jQTSettings.fallback2dAnimation;
+                    initialAnimationName = jQTSettings.fallback2dAnimation;
                 }
 
                 // Reverse animation if need be
                 var finalAnimationName;
                 if (goingBack) {
-                    if (animation.name.indexOf('left') > 0) {
-                        finalAnimationName = animation.name.replace(/left/, 'right');
-                    } else if (animation.name.indexOf('right') > 0) {
-                        finalAnimationName = animation.name.replace(/right/, 'left');
-                    } else if (animation.name.indexOf('up') > 0) {
-                        finalAnimationName = animation.name.replace(/up/, 'down');
-                    } else if (animation.name.indexOf('down') > 0) {
-                        finalAnimationName = animation.name.replace(/down/, 'up');
+                    if (initialAnimationName.indexOf('left') > 0) {
+                        finalAnimationName = initialAnimationName.replace(/left/, 'right');
+                    } else if (initialAnimationName.indexOf('right') > 0) {
+                        finalAnimationName = initialAnimationName.replace(/right/, 'left');
+                    } else if (initialAnimationName.indexOf('up') > 0) {
+                        finalAnimationName = initialAnimationName.replace(/up/, 'down');
+                    } else if (initialAnimationName.indexOf('down') > 0) {
+                        finalAnimationName = initialAnimationName.replace(/down/, 'up');
                     } else {
-                        finalAnimationName = animation.name;
+                        finalAnimationName = initialAnimationName;
                     }
                 } else {
-                    finalAnimationName = animation.name;
+                    finalAnimationName = initialAnimationName;
                 }
 
                 // _debug('finalAnimationName is ' + finalAnimationName);
