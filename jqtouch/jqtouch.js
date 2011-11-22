@@ -539,7 +539,7 @@
             body = document.body;
 
             style = document.createElement('style');
-            style.textContent = '@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-ms-transform-3d),(-webkit-transform-3d),(modernizr){#jqtTestFor3dSupport{height:3px}}';
+            style.textContent = '@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-ms-transform-3d),(-webkit-transform-3d){#jqtTestFor3dSupport{height:3px}}';
 
             div = document.createElement('div');
             div.id = 'jqtTestFor3dSupport';
@@ -607,7 +607,6 @@
                 // Allow tap on item with no href
                 $el.unselect();
                 return true;
-
             } else {
 
                 // Figure out the animation to use
@@ -853,8 +852,7 @@
 
                 options.serialize = serialize;
 
-                var core = jQTouchCore(options);
-                return core;
+                return jQTouchCore(options);
             };
             
             // Extensions directly manipulate the jQTouch object, before it's initialized.
@@ -863,4 +861,4 @@
             };
         })(Zepto);
     }
-})();
+})(); // Double closure, ALL THE WAY ACROSS THE SKY
