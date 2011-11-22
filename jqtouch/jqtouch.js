@@ -265,6 +265,7 @@
 
             if (hist.length === 1 ) {
                 _debug('You are on the first panel.');
+                history.go(-1);
             }
 
             var from = hist[0], to = hist[1];
