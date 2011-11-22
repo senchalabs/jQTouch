@@ -145,7 +145,7 @@ $default-border-radius: 8px;
                     font-size: 17px;
                     line-height: 13px;
                     font-weight: bold;
-                    @include border-radius; // Previously 11px
+                    @include border-radius(4px);
                     padding: 4px 10px 5px 10px;
                     display: block;
                     width: auto;
