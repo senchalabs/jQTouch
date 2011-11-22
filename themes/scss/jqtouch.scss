@@ -145,11 +145,6 @@
             }
         } // /li
 
-        &.rounded, &.individual li {
-            @include box-shadow(rgba(#fff,.15) 0 1px 0);
-            border: 1px solid darken($base-color, 15);
-        }
-
         &.metal {
             li {
                 background-image: none;

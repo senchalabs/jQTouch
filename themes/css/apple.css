@@ -950,6 +950,11 @@ body {
   color: white;
   text-shadow: #2952a3 0 -1px 0;
 }
+#jqt ul.rounded, #jqt ul.individual li {
+  -webkit-box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0;
+  box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0;
+  border: 1px solid #52657f;
+}
 #jqt ul.rounded {
   -webkit-border-radius: 8px;
   border-radius: 8px;
@@ -1194,10 +1199,6 @@ body {
   background-image: url(../img/apple/listArrowSel.png);
   background-position: right center;
   background-repeat: no-repeat;
-}
-#jqt ul.edgetoedge li, #jqt .metal li {
-  -webkit-border-radius: 0;
-  border-radius: 0;
 }
 #jqt ul.edgetoedge li em {
   font-weight: normal;
