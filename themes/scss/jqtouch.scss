@@ -1,7 +1,27 @@
-$base-color: #444;
-$highlight-color: #DAD085;
+$experimental-support-for-mozilla: false;
+$experimental-support-for-opera: false;
+$experimental-support-for-microsoft: false;
+$experimental-support-for-khtml: false;
 
+$toolbar-background-color: #f90;
+// $base-color: #F0F0F0;
+
+$highlight-color: #0175C4;
+
+// Default colors
+$base-color: #444648 !default;
+$highlight-color: #53b401 !default; // bright green
 $toolbar-background-color: darken($base-color, 15%) !default;
+
+// Optimization variables
+$include-metal-lists: true;
+$include-plastic-lists: true;
+$include-forms: true;
+$include-edge-lists: true;
+
+
+$include-animations: true;
+$include-3d-animations: true;
 
 @import 'compass';
 @import 'accessories';
@@ -16,12 +36,13 @@ body {
 
 #jqt {
     & > * {
-        @include background-gradient($base-color, linear);
+        @include background-image(
+            matte-gradient($base-color)
+        );
     }
     
     h1, h2 {
-        text-shadow: rgba(255,255,255,.2) 0 1px 1px;
-        color: #000;
+        @include color-by-background($base-color, 20%);
     }
 
     .toolbar {
@@ -38,13 +59,21 @@ body {
     }
 
     .button, .back, .cancel, .add {
-        color: #fff;
-        text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
-        -webkit-border-image: url(../img/jqt/button.png) 0 5 0 5;
+        padding: 0 10px;
+        @include color-by-background($toolbar-background-color);
+        @include box-shadow(rgba(#fff, .2) 0 1px 0);
+        border: 1px solid darken($toolbar-background-color, 20);
+        @include border-radius(5px);
+        @include background-gradient($toolbar-background-color, glossy);
     }
 
     .button.active, .cancel.active, .add.active {
-        -webkit-border-image: url(../img/jqt/button_clicked.png) 0 5 0 5;
+        // -webkit-border-image: url(../img/jqt/button_clicked.png) 0 5 0 5;
+        @include color-by-background($highlight-color);
+        @include box-shadow(rgba(#fff, .2) 0 1px 0);
+        border: 1px solid darken($highlight-color, 20);
+        @include border-radius(5px);
+        @include background-gradient($highlight-color, glossy);
     }
 
     .back {
@@ -97,50 +126,106 @@ body {
 
     ul {
         color: #aaa;
-        border: 1px solid #333333;
+        border: 1px solid darken($base-color, 20%);
+        @include color-by-background($base-color);
 
         li {
-            color: #666;
-            border-top: 1px solid #333;
-            border-bottom: #555858;
-            background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
-            
-            a + a, a + a + a, ul li.img a + a + a + a, ul li.img a + small + a + a + a {
-                color: #666;
+            border-top: 1px solid darken($base-color, 5);
+            @include background-gradient(rgba($base-color, .2), bevel);
+
+            a {
+                @include color-by-background($base-color);
+                
             }
+
+            // a + a, a + a + a, ul li.img a + a + a + a, ul li.img a + small + a + a + a {
+            //     color: #666;
+            // }
             
-             a + a {
-                color: #000;
+            // a + a {
+            //     color: #000;
+            // }
+            
+            // a, &.img a + a {
+            //     color: #fff;
+            //     text-shadow: rgba(0,0,0,.2) 0 1px 1px;
+            // }
+            
+            ::-webkit-input-placeholder {
+                @include color-by-background($base-color, 25%);
             }
-            
-            a, &.img a + a {
-                color: #fff;
-                text-shadow: rgba(0,0,0,.2) 0 1px 1px;
+
+            input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
+                @include color-by-background($base-color);
             }
-            
+
+            select {
+                background: transparent url(../img/jqt/chevron.png) no-repeat right center;
+            }
+            input[type="checkbox"], input[type="radio"] {
+                margin: 0;
+                padding: 10px 10px;
+            }
+            input[type="checkbox"]:after, input[type="radio"]:after {
+                content: attr(title);
+                font: 17px "Helvetica Neue", Helvetica;
+                display: block;
+                width: 246px;
+                color: #777;
+                margin: -12px 0 0 17px;
+            }
+
+            .toggle {
+
+                input[type="checkbox"] {
+                    @include border-radius(5px);
+                    background: #fff url(../img/jqt/on_off.png) 0 0 no-repeat;
+                }
+            }
+
+            input[type='submit'] {
+                @include border-radius(4px);
+                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+                border: 1px outset black;
+                display: block;
+                font-size: inherit;
+                font-weight: inherit;
+                padding: 10px;
+            }
+
             a.active, a.button {
-                background-color: #53b401;
-                color: #fff;
+                @include background-gradient($highlight-color);
+                @include color-by-background($highlight-color);
             }
             
             &.forward {
-                background-image: url(../img/jqt/chevron_circle.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
-                background-position: right center;
-                background-repeat: no-repeat;
-                
-                a.active {
+                position: relative;
+                &:after {
+                    content: '';
                     background-image: url(../img/jqt/chevron_circle.png);
                     background-position: right center;
                     background-repeat: no-repeat;
-                }
-                
+                    width: 40px;
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }                
             }
 
             &.arrow {
-                background-color: #4c4d4e !important;
-                background-image: url(../img/jqt/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
-                background-position: right center !important;
-                background-repeat: no-repeat !important;
+                position: relative;
+                &:after {
+                    content: '';
+                    background-image: url(../img/jqt/chevron.png);
+                    background-position: right center;
+                    background-repeat: no-repeat;
+                    width: 40px;
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
 
                 a {                    
                     &.active {
@@ -156,7 +241,9 @@ body {
                 background-position: 95% center;
                 background-repeat: no-repeat;
             }
-
+            &.arrow small {
+                padding: 0 15px;
+            }
             small {
                 color: #64c114;
 
@@ -169,9 +256,7 @@ body {
                     @include box-shadow(rgba(#fff,.1) 0 1px 0)
                 }
             }
-            &.arrow small {
-                padding: 0 15px;
-            }
+
             li.arrow small.counter {
                 margin-right: 15px;
             }
@@ -180,105 +265,7 @@ body {
         &.rounded {
             @include box-shadow(rgba(#000,.3) 1px 1px 3px);
         }
-        
-        &.form {
-            li {
-                input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
-                    color: #777;
-                }
 
-                select {
-                    background: transparent url(../img/jqt/chevron.png) no-repeat right center;
-                }
-                input[type="checkbox"], input[type="radio"] {
-                    margin: 0;
-                    padding: 10px 10px;
-                }
-                input[type="checkbox"]:after, input[type="radio"]:after {
-                    content: attr(title);
-                    font: 17px "Helvetica Neue", Helvetica;
-                    display: block;
-                    width: 246px;
-                    color: #777;
-                    margin: -12px 0 0 17px;
-                }
-            }
-
-            // #jqt.android ul li input[type="checkbox"]:after, #jqt.android ul li input[type="radio"]:after {
-            //     margin: 3px 0 0 24px;
-            // }
-
-            #jqt ul.individual {
-                border: 0;
-                background: none;
-                clear: both;
-                overflow: hidden;
-                padding-bottom: 3px;
-                -webkit-box-shadow: none;
-            }
-            #jqt ul.individual li {
-                background: #4c4d4e;
-                border: 1px solid #333;
-                font-size: 14px;
-                text-align: center;
-                -webkit-border-radius: 8px;
-                -webkit-box-sizing: border-box;
-                width: 48%;
-                float: left;
-                display: block;
-                padding: 11px 10px 14px 10px;
-                -webkit-box-shadow: rgba(0,0,0,.2) 1px 1px 3px;
-                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#4c4d4e), to(#404142));
-            }
-            #jqt ul.individual li + li {
-                float: right;
-            }
-            #jqt ul.individual li a {
-                color: #fff;
-                line-height: 16px;
-                margin: -11px -10px -14px -10px;
-                padding: 11px 10px 14px 10px;
-                -webkit-border-radius: 8px;
-            }
-            /* @end */
-            /* @group Toggle */
-            #jqt .toggle {
-                width: 94px;
-                position: relative;
-                height: 27px;
-                display: block;
-                overflow: hidden;
-                float: right;
-            }
-            #jqt .toggle input[type="checkbox"]:checked {
-                background-position: 0 0;
-            }
-            #jqt .toggle input[type="checkbox"] {
-                -webkit-appearance: textarea;
-                -webkit-border-radius: 5px;
-                -webkit-tap-highlight-color: rgba(0,0,0,0);
-                -webkit-transition: background-position .15s;
-                background-color: transparent;
-                background: #fff url(../img/jqt/on_off.png) -55px 0 no-repeat;
-                border: 0;
-                height: 27px;
-                margin: 0;
-                overflow: hidden;
-                position: absolute;
-                width: 94px;
-            }
-
-            input[type='submit'] {
-                -webkit-border-radius: 4px;
-                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
-                border: 1px outset black;
-                display: block;
-                font-size: inherit;
-                font-weight: inherit;
-                padding: 10px;
-            }
-        }
-        
         &.metal {
             li {
                 background-image: none;
@@ -306,60 +293,45 @@ body {
             }
         } // ul.metal
         
-        &.edgetoedge {
-            
-            li {
-                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1e1f21), to(#272729));
-                border-bottom: 2px solid #000;
-                border-top: 1px solid #4a4b4d;
+        &.edgetoedge li {
+            @include background-gradient(darken($base-color, 10), color-stops(darken($base-color, 20), darken($base-color, 15)));
+            border-bottom: 1px solid darken($base-color, 22);
+            border-top: 1px solid darken($base-color, 13);
 
-                
-                &.arrow {
-                    background-color: #404142 !important;
-                    background-image: url(../img/jqt/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(#1e1f21), to(#272729));
-                    background-position: right center;
-                    background-repeat: no-repeat;
-                }
-                
-                &.sep {
-                    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,0,0)), to(rgba(0,0,0,.5)));
-                    border-bottom: 1px solid #111113;
-                    border-top: 1px solid #666;
-                    color: #3e9ac3;
-                    text-shadow: #000 0 1px 0;
-                }
+            &.sep {
+                @include background-gradient(rgba(#000, .3), bevel);
+                color: #3e9ac3;
+                // text-shadow: #000 0 1px 0;
             }
         }
         
-        &.plastic {
-            background: #17181a;
-            color: #aaa;
-            
+        &.plastic li {
+            @include background-gradient(darken($base-color, 17));
+            border-top-color: darken($base-color, 15);                
+            border-bottom-color: darken($base-color, 20);
+
+            &:nth-child(odd) {
+                @include background-gradient(darken($base-color, 15));
+            }
+                           
+            a.active.loading {
+                background-image: url(../img/jqt/loading.gif);
+                background-position: 95% center;
+                background-repeat: no-repeat;
+            }
+        }
+
+        &.individual {
+            @include box-shadow(none);
+
             li {
-                border-top-color: #222;
-                border-bottom-color: #000;
-                color: #666;
-                
-                a.active.loading {
-                    background-image: url(../img/jqt/loading.gif);
-                    background-position: 95% center;
-                    background-repeat: no-repeat;
-                }
-                &.arrow, &.arrow a.active {
-                    background-image: url(../img/jqt/chevron.png);
-                    background-position: right center;
-                    background-repeat: no-repeat;
-                }
-                &.forward, &.forward a.active {
-                    background-image: url(../img/jqt/chevron_circle.png);
-                    background-position: right center;
-                    background-repeat: no-repeat;
-                }
+                @include box-shadow(rgba(0,0,0,.2) 1px 1px 3px);
+                border: 1px solid darken($base-color, 15);
             }
         }
         
         /* Rows with image thumbnail */
-        &.img a {
+        li.img a {
             & + a {
                 margin: -10px 10px -20px -5px;
                 font-size: 17px;

@@ -153,41 +153,42 @@ $default-border-radius: 8px;
                 }
             }
 
-            input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
-                background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
-                border: 0;
-                font: normal 17px "Helvetica Neue", Helvetica;
-                padding: 0;
-                display: inline-block;
-                margin-left: 0px;
-                width: 100%;
-                -webkit-appearance: textarea;
+            @if $include-forms {
+                input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
+                    background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+                    border: 0;
+                    font: normal 17px "Helvetica Neue", Helvetica;
+                    padding: 0;
+                    display: inline-block;
+                    margin-left: 0px;
+                    width: 100%;
+                    -webkit-appearance: textarea;
+                }
+                textarea {
+                    height: 120px;
+                    padding: 0;
+                    text-indent: -2px;
+                }
+                select {
+                    text-indent: 0px;
+                    -webkit-appearance: textarea;
+                    margin-left: -6px;
+                    width: 104%;
+                }
+                input[type="checkbox"], input[type="radio"] {
+                    margin: 0;
+                    padding: 10px 10px;
+                }
+                input[type="checkbox"]:after, input[type="radio"]:after {
+                    content: attr(title);
+                    font: 17px "Helvetica Neue", Helvetica;
+                    display: block;
+                    width: 246px;
+                    color: #777;
+                    margin: -12px 0 0 17px;
+                }
             }
 
-            textarea {
-                height: 120px;
-                padding: 0;
-                text-indent: -2px;
-            }
-
-            select {
-                text-indent: 0px;
-                -webkit-appearance: textfield;
-                margin-left: -6px;
-                width: 104%;
-            }
-            input[type="checkbox"], input[type="radio"] {
-                margin: 0;
-                padding: 10px 10px;
-            }
-            input[type="checkbox"]:after, input[type="radio"]:after {
-                content: attr(title);
-                font: 17px "Helvetica Neue", Helvetica;
-                display: block;
-                width: 246px;
-                color: #777;
-                margin: -12px 0 0 17px;
-            }
 
 
             &.arrow {
@@ -234,10 +235,7 @@ $default-border-radius: 8px;
         }
 
         &.metal {
-            border-bottom: 0;
-            border-left: 0;
-            border-right: 0;
-            border-top: 0;
+            border: 0;
             margin: 0;
 
             li {
@@ -245,7 +243,7 @@ $default-border-radius: 8px;
                 border-top: 1px solid #fff;
                 border-bottom: 1px solid #666;
                 font-size: 26px;
-                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+                // background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
 
                 a {
                     line-height: 26px;
@@ -270,71 +268,58 @@ $default-border-radius: 8px;
 
                 &.arrow small {
                     padding-right: 15px;
-                    line-height: 17px;
                 }
             }
         } // ul.metal
 
-        &.edgetoedge {
-            border-width: 1px 0;
-            margin: 0;
-            padding: 0;
+        @if $include-edge-lists {
+            &.edgetoedge {
+                margin: 0;
+                padding: 0;
 
-            li {
-                font-size: 20px;
-                margin-bottom: -1px;
+                li {
+                    font-size: 20px;
 
-                &.sep {
-                    font-size: 16px;
-                    margin: 1px 0 0 0;
-                    padding: 2px 10px;
+                    &.sep {
+                        font-size: 16px;
+                        padding: 2px 10px;
+                    }
+
+                    em {
+                        font-weight: normal;
+                        font-style: normal;
+                    }
                 }
+            } // ul.edgetoedge
+        }
 
-                em {
-                    font-weight: normal;
-                    font-style: normal;
-                }
-            }
-        } // ul.edgetoedge
-
-        &.plastic {
-            font: bold 18px "Helvetica Neue", Helvetica;
-            margin: 0;
-            padding: 0;
-            border-width: 0 0 1px 0;
-            
-            li {
-                border-width: 1px 0;
-                border-style: solid;
-                list-style-type: none;
-                overflow: hidden;
-                // padding: 10px 10px 10px 10px; Default?
+        @if $include-plastic-lists {
+            &.plastic {
+                font-size: 18px;
+                margin: 0;
+                padding: 0;
                 
-                a.active.loading {
-                    background-image: url(img/loading.gif);
-                    background-position: 95% center;
-                    background-repeat: no-repeat;
-                }
-                small {
-                    color: #888;
-                    font-size: 13px;
-                    font-weight: bold;
-                    line-height: 24px;
-                    text-transform: uppercase;
-                }
-                &.arrow, &.arrow a.active {
-                    background-image: url(img/chevron.png);
-                    background-position: right center;
-                    background-repeat: no-repeat;
-                }
-                &.forward, &.forward a.active {
-                    background-image: url(img/chevron_circle.png);
-                    background-position: right center;
-                    background-repeat: no-repeat;
+                li {
+                    border-width: 1px 0;
+                    border-style: solid;
+                    list-style-type: none;
+                    overflow: hidden;
+                    
+                    a.active.loading {
+                        background-image: url(img/loading.gif);
+                        background-position: 95% center;
+                        background-repeat: no-repeat;
+                    }
+                    small {
+                        color: #888;
+                        font-size: 13px;
+                        font-weight: bold;
+                        line-height: 24px;
+                        text-transform: uppercase;
+                    }
                 }
             }
-        } // ul.plastic
-
+        }
 
         &.individual {
             border: 0;

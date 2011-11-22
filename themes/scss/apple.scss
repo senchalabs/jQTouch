@@ -1,6 +1,14 @@
 $base-color: #444;
 $highlight-color: #DAD085;
 
+$include-metal-lists: true;
+$include-plastic-lists: true;
+$include-edge-lists: true;
+$include-forms: true;
+
+$include-animations: true;
+$include-3d-animations: true;
+
 @import 'compass';
 @import 'accessories';
 @import 'include/base';
