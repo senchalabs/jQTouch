@@ -786,6 +786,8 @@
         };
         return publicObj;
     };
+    
+    jQTouchCore.prototype.corepath = $("script").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/'; 
     jQTouchCore.prototype.extensions = [];
 
     // If Zepto exists, jQTouch will use Zepto. Otherwise, a bridge should initialize
