@@ -23,7 +23,6 @@
     jQTouchCore = function(options) {
         // Initialize internal jQT variables
         var $ = options.framework,
-            serialize = options.serialize, 
             $body,
             $head=$('head'),
             hist=[],
@@ -260,7 +259,7 @@
         function goTo(toPage, animation, reverse) {
 
             if (reverse) {
-                _log('The reverse parameter of the goTo() function has been deprecated.');
+                _warn('The reverse parameter of the goTo() function has been deprecated.');
             }
 
             var fromPage = hist[0].page;
@@ -452,7 +451,7 @@
 
             if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
                 showPageByHref($form.attr('action'), {
-                    data: serialize($form),
+                    data: $form.serialize(),
                     method: $form.attr('method') || "POST",
                     animation: animations[0] || null,
                     callback: callback
@@ -579,7 +578,7 @@
                 }
 
                 if (!animation) {
-                    _log('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
+                    _warn('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
                     animation = jQTSettings.defaultAnimation;
                 }
 
@@ -611,7 +610,7 @@
                     if (supportForTouchEvents()) {
                         $.support.touch = true;
                     } else{
-                        _log('This device does not support touch events');
+                        _warn('This device does not support touch events');
                     }
                 } else {
                     $.support.touch = false;
@@ -633,10 +632,10 @@
             $.support.transform3d = supportForTransform3d();
 
             if (!$.support.touch) {
-                _log('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
+                _warn('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
             }
             if (!$.support.transform3d) {
-                _log('This device does not support 3d animation. 2d animations will be used instead.');
+                _warn('This device does not support 3d animation. 2d animations will be used instead.');
             }
 
             // Define public jQuery functions
@@ -665,15 +664,15 @@
 
             // Set up animations array
             if (jQTSettings.cubeSelector) {
-                _log('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
+                _warn('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
                 jQTSettings.cubeSelector = jQTSettings.cubeSelector;
             }
             if (jQTSettings.flipSelector) {
-                _log('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
+                _warn('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
                 jQTSettings.flipSelector = jQTSettings.flipSelector;
             }
             if (jQTSettings.slideSelector) {
-                _log('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
+                _warn('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
                 jQTSettings.slideleftSelector = jQTSettings.slideSelector;
             }
             for (var j=0, max_anims=defaults.animations.length; j < max_anims; j++) {
@@ -694,7 +693,7 @@
             // Make sure we have a jqt element
             $body = $('#jqt');
             if ($body.length === 0) {
-                _log('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
+                _warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
                 $body = $('body').attr('id', 'jqt');
             }
 
@@ -758,56 +757,8 @@
     // jQTouch. See jqtouch-jquery.js.
     if (!!window.Zepto) {
         (function($) {
-            var 
-                rselectTextarea = /select|textarea/i,
-                rinput = /color|date|datetime|email|hidden|month|number|password|range|search|tel|text|time|url|week/i;
-
-            function encodeArray(array) {
-                var result = '';
-                for (var i=0, len=array.length; i<len; i++) {
-                    if (i > 0) {
-                         result += '&';
-                    }
-                    result += (encodeURIComponent(array[i].name) + "=" + encodeURIComponent(array[i].value));
-                }
-                return result;
-            }
-            function serialize($forms) {                
-                var array = [];
-
-                $forms.each(function(i, form) {
-                    // map
-                    var nodes = form.getElementsByTagName('*');
-    
-                    // filter
-                    var els = [];
-                    for (var j=0, len=nodes.length; j<len; j++) {
-                        var node = nodes[j];
-                        var isInput = node.name && !node.disabled &&
-                              (node.checked || rselectTextarea.test(node.nodeName) ||
-                               rinput.test(node.type));
-                        if (isInput) {
-                            els.push(node);
-                        }
-                    }
-    
-                    // map
-                    var result = [];
-                    $(els).each(function(k, el) {
-                        array.push({name: el.name, value: $(el).val()}); 
-                    });
-                    
-                    // only do a single form now
-                    return true;
-                });
-                return encodeArray(array);
-            }
-
             $.jQTouch = function(options) {
                 options.framework = $;
-
-                options.serialize = serialize;
-
                 return jQTouchCore(options);
             };
             
