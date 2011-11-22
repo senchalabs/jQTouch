@@ -70,11 +70,7 @@
 .base-pictos {
   font-family: Pictos;
   color: transparent;
-  -moz-background-clip: text;
   -webkit-background-clip: text;
-  -o-background-clip: text;
-  -ms-background-clip: text;
-  -khtml-background-clip: text;
   background-clip: text;
   position: absolute;
   top: 0;
@@ -684,14 +680,18 @@ body {
   }
 }
 
+body {
+  background: black;
+}
+
 #jqt h1, #jqt h2 {
   font: bold 18px "Helvetica Neue", Helvetica;
   margin: 10px 20px 6px;
+  color: #5c6d7b;
+  text-shadow: #e8ebee 0 1px 0;
 }
 #jqt .toolbar {
-  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  -ms-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
   padding: 10px;
@@ -711,6 +711,8 @@ body {
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
+  color: white;
+  text-shadow: #52657f 0 -1px 0;
 }
 #jqt .black-translucent .toolbar {
   margin-top: 20px;
@@ -732,23 +734,78 @@ body {
   text-decoration: none;
   white-space: nowrap;
   background: none;
-  top: 8px;
+  top: 6px;
   right: 10px;
   margin: 0;
   border-width: 0 5px;
-  padding: 0 3px;
+  padding: 0 10px;
+  color: white;
+  text-shadow: #52657f 0 -1px 0;
+  -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset;
+  box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset;
+  border: 1px solid #3e4c60;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  background-image: none;
+  background-color: #667e9d;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
+  background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+}
+#jqt .button.active, #jqt .back.active, #jqt .cancel.active, #jqt .add.active {
+  border: 1px solid #344050;
+  background-image: none;
+  background-color: #5c718e;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
+  background-image: -webkit-linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
+  background-image: linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
+  color: white;
+  text-shadow: #48596f 0 -1px 0;
 }
 #jqt .back {
-  left: 6px;
-  right: auto;
-  padding: 0;
   max-width: 55px;
-  border-width: 0 8px 0 14px;
+  margin-left: 15px;
+  overflow: visible;
+  padding-left: 5px;
+}
+#jqt .back:after, #jqt .back:before {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 1px;
+  left: 1px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  background-image: -webkit-gradient(linear, -45deg, -45deg, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
+  background-image: -webkit-linear-gradient(-45deg, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  background-image: linear-gradient(-45deg, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  -webkit-border-radius: 0 0 0 5px;
+  border-radius: 0 0 0 5px;
+  -webkit-mask-image: -webkit-linear-gradient(45deg, black, black 15px, rgba(0, 0, 0, 0) 15px);
+}
+#jqt .back:after {
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 1px 0 1px inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 0 1px inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset;
+}
+#jqt .back:before {
+  left: -0.5px;
+  background: #344050 none;
+}
+#jqt .back.active:after {
+  background-image: -webkit-gradient(linear, -45deg, -45deg, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
+  background-image: -webkit-linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
+  background-image: linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
+}
+#jqt .back.active:before {
+  background-color: #344050;
 }
 #jqt .blueButton {
   border-width: 0 5px;
 }
-#jqt .leftButton, #jqt .cancel {
+#jqt .leftButton, #jqt .cancel, #jqt .back {
   left: 6px;
   right: auto;
 }
@@ -761,29 +818,21 @@ body {
   margin-top: 0;
 }
 #jqt ul {
+  background-color: white;
+  color: #666666;
+  text-shadow: white 0 1px 0;
+  border: 1px solid #d9d9d9;
   font: bold 18px "Helvetica Neue", Helvetica;
   padding: 0;
   margin: 15px 10px 17px 10px;
 }
 #jqt ul li {
+  border-top: 1px solid #f2f2f2;
   list-style-type: none;
   overflow: hidden;
   padding: 10px;
 }
-#jqt ul li a + a,
-#jqt ul li a + a + a, #jqt ul li.img a + a + a + a, #jqt ul li.img a + small + a + a + a {
-  font: 13px "Helvetica Neue", Helvetica;
-  margin: 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  display: block;
-  padding: 0;
-}
-#jqt ul li a + a {
-  font-size: 14px;
-}
-#jqt ul li a, #jqt ul li.img a + a {
+#jqt ul li a {
   text-decoration: none;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -791,8 +840,25 @@ body {
   display: block;
   padding: 12px 10px 12px 10px;
   margin: -10px;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  color: #262626;
+  text-shadow: white 0 1px 0;
+}
+#jqt ul li a * {
+  pointer-events: none;
+}
+#jqt ul li a.active, #jqt ul li a.button {
+  background-image: none;
+  background-color: #3366cc;
+  color: white;
+  text-shadow: #2952a3 0 -1px 0;
+}
+#jqt ul li a.active + small, #jqt ul li a.button + small {
+  color: #adc2eb;
+  text-shadow: #0a1429 0 -1px 0;
 }
 #jqt ul li small {
+  color: #3366cc;
   font: 17px "Helvetica Neue", Helvetica;
   text-align: right;
   text-overflow: ellipsis;
@@ -804,21 +870,33 @@ body {
   padding: 0;
 }
 #jqt ul li small.counter {
+  background: #cccccc;
+  color: #333333;
+  text-shadow: #e6e6e6 0 1px 0;
   font-size: 17px;
   line-height: 13px;
   font-weight: bold;
-  -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
-  -o-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -khtml-border-radius: 4px;
   border-radius: 4px;
   padding: 4px 10px 5px 10px;
   display: block;
   width: auto;
   margin-top: -22px;
 }
-#jqt ul li input[type="text"], #jqt ul li input[type="password"], #jqt ul li input[type="tel"], #jqt ul li input[type="number"], #jqt ul li input[type="search"], #jqt ul li input[type="email"], #jqt ul li input[type="url"], #jqt ul li textarea, #jqt ul li select {
+#jqt ul li ::-webkit-input-placeholder {
+  color: #8293a1;
+  text-shadow: #e8ebee 0 1px 0;
+}
+#jqt ul li input[type="text"],
+#jqt ul li input[type="password"],
+#jqt ul li input[type="tel"],
+#jqt ul li input[type="number"],
+#jqt ul li input[type="search"],
+#jqt ul li input[type="email"],
+#jqt ul li input[type="url"],
+#jqt ul li textarea, #jqt ul li select {
+  color: black;
+  text-shadow: #e8ebee 0 1px 0;
   background: transparent url("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
   border: 0;
   font: normal 17px "Helvetica Neue", Helvetica;
@@ -835,66 +913,58 @@ body {
 }
 #jqt ul li select {
   text-indent: 0px;
-  -webkit-appearance: textarea;
   margin-left: -6px;
   width: 104%;
 }
 #jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
   margin: 0;
-  padding: 10px 10px;
+  padding: 10px;
 }
 #jqt ul li input[type="checkbox"]:after, #jqt ul li input[type="radio"]:after {
   content: attr(title);
   font: 17px "Helvetica Neue", Helvetica;
   display: block;
   width: 246px;
-  color: #777;
   margin: -12px 0 0 17px;
 }
-#jqt ul li.arrow small {
-  padding: 0 15px;
+#jqt ul li input[type='submit'] {
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#9c9ea0));
+  border: 1px outset #aaa;
+  display: block;
+  font-size: inherit;
+  font-weight: inherit;
+  padding: 10px;
 }
-#jqt ul li.arrow small.counter {
+#jqt ul li.arrow small {
   margin-right: 15px;
+  padding: 0 15px;
 }
 #jqt ul li.arrow a {
   padding: 12px 22px 12px 10px;
 }
+#jqt ul li a.active, #jqt ul li a.button {
+  background-image: none;
+  background-color: #3366cc;
+  color: white;
+  text-shadow: #2952a3 0 -1px 0;
+}
 #jqt ul.rounded {
-  -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-  -o-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -khtml-border-radius: 8px;
   border-radius: 8px;
 }
 #jqt ul.rounded li:first-child, #jqt ul.rounded li:first-child a {
   border-top: 0;
-  -moz-border-radius-topleft: 8px;
   -webkit-border-top-left-radius: 8px;
-  -o-border-top-left-radius: 8px;
-  -ms-border-top-left-radius: 8px;
-  -khtml-border-top-left-radius: 8px;
   border-top-left-radius: 8px;
-  -moz-border-radius-topright: 8px;
   -webkit-border-top-right-radius: 8px;
-  -o-border-top-right-radius: 8px;
-  -ms-border-top-right-radius: 8px;
-  -khtml-border-top-right-radius: 8px;
   border-top-right-radius: 8px;
 }
 #jqt ul.rounded li:last-child, #jqt ul.rounded li:last-child a {
-  -moz-border-radius-bottomleft: 8px;
   -webkit-border-bottom-left-radius: 8px;
-  -o-border-bottom-left-radius: 8px;
-  -ms-border-bottom-left-radius: 8px;
-  -khtml-border-bottom-left-radius: 8px;
   border-bottom-left-radius: 8px;
-  -moz-border-radius-bottomright: 8px;
   -webkit-border-bottom-right-radius: 8px;
-  -o-border-bottom-right-radius: 8px;
-  -ms-border-bottom-right-radius: 8px;
-  -khtml-border-bottom-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
 #jqt ul.form li {
@@ -960,8 +1030,14 @@ body {
 #jqt ul.plastic li {
   border-width: 1px 0;
   border-style: solid;
-  list-style-type: none;
-  overflow: hidden;
+  background-image: none;
+  background-color: #d4d4d4;
+  border-top-color: #d9d9d9;
+  border-bottom-color: #cccccc;
+}
+#jqt ul.plastic li:nth-child(odd) {
+  background-image: none;
+  background-color: #d9d9d9;
 }
 #jqt ul.plastic li a.active.loading {
   background-image: url(img/loading.gif);
@@ -984,15 +1060,9 @@ body {
 #jqt ul.individual li {
   font-size: 14px;
   text-align: center;
-  -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-  -o-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -khtml-border-radius: 8px;
   border-radius: 8px;
-  -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  -ms-box-sizing: border-box;
   box-sizing: border-box;
   width: 48%;
   float: left;
@@ -1006,11 +1076,7 @@ body {
   line-height: 16px;
   margin: -11px -10px -14px -10px;
   padding: 11px 10px 14px 10px;
-  -moz-border-radius: 8px;
   -webkit-border-radius: 8px;
-  -o-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -khtml-border-radius: 8px;
   border-radius: 8px;
 }
 #jqt .toggle {
@@ -1023,19 +1089,13 @@ body {
 }
 #jqt .toggle input[type="checkbox"] {
   margin: 0;
-  -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -khtml-border-radius: 5px;
   border-radius: 5px;
   height: 27px;
   overflow: hidden;
   width: 149px;
   border: 0;
-  -moz-transition: left 0.15s ease-in-out;
   -webkit-transition: left 0.15s ease-in-out;
-  -o-transition: left 0.15s ease-in-out;
   transition: left 0.15s ease-in-out;
   position: absolute;
   top: 0;
@@ -1055,55 +1115,20 @@ body {
   font-weight: bold;
 }
 
-body {
-  background: black;
-}
-
-#jqt {
-  /* universal links on list */
-}
 #jqt > * {
-  background: #c5ccd3 url(../img/apple/pinstripes.png);
-}
-#jqt h1, #jqt h2 {
-  font: bold 18px "Helvetica Neue", Helvetica;
-  text-shadow: rgba(255, 255, 255, 0.2) 0 1px 1px;
-  color: #4c566c;
-  margin: 10px 20px 6px;
+  background-color: #cbd2d8;
+  background-image: -webkit-repeating-linear-gradient(left, transparent, transparent 1px, #c5cdd4 1px, #c5cdd4 7px);
 }
 #jqt .toolbar {
   border-bottom: 1px solid #2d3642;
-  background: url(../img/apple/toolbar.png) #6d84a2 repeat-x;
-}
-#jqt .toolbar > h1 {
-  text-shadow: rgba(0, 0, 0, 0.4) 0px -1px 0;
-  color: #fff;
-}
-#jqt .button, #jqt .back, #jqt .cancel, #jqt .add {
-  color: #fff;
-  text-shadow: rgba(0, 0, 0, 0.5) 0px -1px 0;
-  -webkit-border-image: url(../img/apple/toolButton.png) 0 5 0 5;
-}
-#jqt .button.active, #jqt .cancel.active, #jqt .add.active {
-  -webkit-border-image: url(../img/apple/toolButton.png) 0 5 0 5;
+  background-image: none;
+  background-color: #667e9d;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
+  background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
 }
 #jqt .blueButton {
   -webkit-border-image: url(../img/apple/activeButton.png) 0 5 0 5;
-}
-#jqt .back {
-  -webkit-border-image: url(../img/apple/backButton.png) 0 8 0 14;
-}
-#jqt .back.active {
-  -webkit-border-image: url(../img/apple/backButton.png) 0 8 0 14;
-}
-#jqt .leftButton, #jqt .cancel {
-  left: 6px;
-  right: auto;
-}
-#jqt .add {
-  font-size: 24px;
-  line-height: 24px;
-  font-weight: bold;
 }
 #jqt .whiteButton,
 #jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
@@ -1136,276 +1161,50 @@ body {
   -webkit-border-image: url(../img/apple/greenButton.png) 0 12 0 12;
   color: #fff;
 }
-#jqt ul {
-  color: black;
-  background: #fff;
-  border: 1px solid #B4B4B4;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  -o-border-radius: 8px;
-  -ms-border-radius: 8px;
-  -khtml-border-radius: 8px;
-  border-radius: 8px;
+#jqt ul li select {
+  background: transparent url(../img/apple/chevron.png) no-repeat 103% 3px;
 }
-#jqt ul li {
-  color: #666;
-  border-top: 1px solid #B4B4B4;
-}
-#jqt ul li:first-child, #jqt ul li:first-child a {
-  border-top: 0;
-  -moz-border-radius-topleft: 8px;
-  -webkit-border-top-left-radius: 8px;
-  -o-border-top-left-radius: 8px;
-  -ms-border-top-left-radius: 8px;
-  -khtml-border-top-left-radius: 8px;
-  border-top-left-radius: 8px;
-  -moz-border-radius-topright: 8px;
-  -webkit-border-top-right-radius: 8px;
-  -o-border-top-right-radius: 8px;
-  -ms-border-top-right-radius: 8px;
-  -khtml-border-top-right-radius: 8px;
-  border-top-right-radius: 8px;
-}
-#jqt ul li li:last-child, #jqt ul li li:last-child a {
-  -moz-border-radius-bottomleft: 8px;
-  -webkit-border-bottom-left-radius: 8px;
-  -o-border-bottom-left-radius: 8px;
-  -ms-border-bottom-left-radius: 8px;
-  -khtml-border-bottom-left-radius: 8px;
-  border-bottom-left-radius: 8px;
-  -moz-border-radius-bottomright: 8px;
-  -webkit-border-bottom-right-radius: 8px;
-  -o-border-bottom-right-radius: 8px;
-  -ms-border-bottom-right-radius: 8px;
-  -khtml-border-bottom-right-radius: 8px;
-  border-bottom-right-radius: 8px;
+#jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
+  color: #324f85;
 }
 #jqt ul li.arrow {
   background-image: url(../img/apple/chevron.png);
   background-position: right center;
   background-repeat: no-repeat;
 }
-#jqt ul.plastic li.arrow, #jqt ul.metal li.arrow {
-  background-image: url(../img/apple/chevron.png);
-  background-position: right center;
-  background-repeat: no-repeat;
+#jqt ul .toggle input[type="checkbox"] {
+  background: transparent url(../img/apple/on_off.png) 0 0 no-repeat;
 }
-#jqt ul li a, #jqt li.img a + a {
-  color: #000;
-  text-decoration: none;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  display: block;
-  padding: 12px 10px 12px 10px;
-  margin: -10px;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+#jqt ul input[type='submit'] {
+  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#9c9ea0));
+  border: 1px outset #aaa;
 }
-#jqt ul li a.active {
-  background-color: #194fdb;
-  color: #fff;
+#jqt ul.edgetoedge li.sep {
+  background-image: none;
+  background-color: #cbd2d8;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #aeb9c2), color-stop(10%, #bcc5cd), color-stop(65%, #cbd2d8), color-stop(100%, #ccd3d9));
+  background-image: -webkit-linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9);
+  background-image: linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9);
+  color: black;
+  text-shadow: #e8ebee 0 1px 0;
+  border-bottom: 1px solid #b5c1c9;
+  border-top: 1px solid #b5c1c9;
 }
 #jqt ul li.arrow a.active {
   background-image: url(../img/apple/listArrowSel.png);
   background-position: right center;
   background-repeat: no-repeat;
 }
-#jqt ul li a.button {
-  background-color: #194fdb;
-  color: #fff;
-}
-#jqt ul li.img a + a {
-  margin: -10px 10px -20px -5px;
-  font-size: 17px;
-  font-weight: bold;
-}
-#jqt ul li.img a + a + a {
-  font-size: 14px;
-  font-weight: normal;
-  margin-left: -10px;
-  margin-bottom: -10px;
-  margin-top: 0;
-}
-#jqt ul li.img a + small + a {
-  margin-left: -5px;
-}
-#jqt ul li.img a + small + a + a {
-  margin-left: -10px;
-  margin-top: -20px;
-  margin-bottom: -10px;
-  font-size: 14px;
-  font-weight: normal;
-}
-#jqt ul li.img a + small + a + a + a {
-  margin-left: 0px !important;
-  margin-bottom: 0;
-}
-#jqt ul li a + a {
-  color: #000;
-  font: 14px "Helvetica Neue", Helvetica;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-#jqt ul li a + a + a, #jqt ul li.img a + a + a + a, #jqt ul li.img a + small + a + a + a {
-  color: #666;
-  font: 13px "Helvetica Neue", Helvetica;
-  margin: 0;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  display: block;
-  padding: 0;
-}
-#jqt ul.form li:hover {
-  background: #fff;
-}
-#jqt ul li input[type="text"],
-#jqt ul li input[type="password"],
-#jqt ul li input[type="tel"],
-#jqt ul li input[type="number"],
-#jqt ul li input[type="search"],
-#jqt ul li input[type="email"],
-#jqt ul li input[type="url"],
-#jqt ul li textarea,
-#jqt ul li select {
-  color: #777;
-  background: white url("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==");
-  border: 0;
-  font: normal 17px "Helvetica Neue", Helvetica;
-  padding: 0;
-  display: inline-block;
-  margin-left: 0px;
-  width: 100%;
-  -webkit-appearance: textarea;
-}
-#jqt ul li textarea {
-  height: 120px;
-  padding: 0;
-  text-indent: -2px;
-}
-#jqt ul li select {
-  text-indent: 0px;
-  background: transparent url(../img/apple/chevron.png) no-repeat 103% 3px;
-  -webkit-appearance: textfield;
-  margin-left: -6px;
-  width: 104%;
-}
-#jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
-  margin: 0;
-  color: #324f85;
-  padding: 10px 10px;
-}
-#jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
-  content: attr(title);
-  font: 17px "Helvetica Neue", Helvetica;
-  display: block;
-  width: 246px;
-  margin: -12px 0 0 17px;
-}
-#jqt ul.edgetoedge, #jqt ul.edgetoedge * {
-  -webkit-border-radius: 0 !important;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  -o-border-radius: 0;
-  -ms-border-radius: 0;
-  -khtml-border-radius: 0;
-  border-radius: 0;
-}
-#jqt ul.edgetoedge li.sep {
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#8b9fab), to(#b5c1c9));
-  border-bottom: 1px solid #b5c1c9;
-  border-top: 1px solid #b5c1c9;
-  color: #fff;
-  font-size: 16px;
-  margin: 1px 0 0 0;
-  padding: 2px 10px;
-  text-shadow: #636a6f 0 1px 0;
-}
-#jqt ul.edgetoedge h4 {
-  color: #fff;
-  background: #9a9faa url(../img/apple/listGroup.png) top left repeat-x;
-  border-top: 1px solid #a5b1ba;
-  text-shadow: #666 0 1px 0;
-  margin: 0;
-  padding: 2px 10px;
-}
-#jqt .edgetoedge, #jqt .metal {
-  margin: 0;
-  padding: 0;
-  background-color: white;
-}
-#jqt ul.edgetoedge, #jqt ul.metal, #jqt ul.plastic {
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  -o-border-radius: 0;
-  -ms-border-radius: 0;
-  -khtml-border-radius: 0;
-  border-radius: 0;
-  margin: 0;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
-}
-#jqt ul.metal {
-  border-top: 0;
-  border-bottom: 0;
-  background: #b4b4b4;
-}
-#jqt ul.edgetoedge li:first-child,
-#jqt ul.edgetoedge li:first-child a,
-#jqt ul.edgetoedge li:last-child,
-#jqt ul.edgetoedge li:last-child a,
-#jqt ul.metal li:first-child a,
-#jqt ul.metal li:last-child a {
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  -o-border-radius: 0;
-  -ms-border-radius: 0;
-  -khtml-border-radius: 0;
-  border-radius: 0;
-}
-#jqt ul.edgetoedge li small {
-  font-size: 16px;
-  line-height: 28px;
-}
 #jqt ul.edgetoedge li, #jqt .metal li {
-  -moz-border-radius: 0;
   -webkit-border-radius: 0;
-  -o-border-radius: 0;
-  -ms-border-radius: 0;
-  -khtml-border-radius: 0;
   border-radius: 0;
 }
 #jqt ul.edgetoedge li em {
   font-weight: normal;
   font-style: normal;
 }
-#jqt ul.edgetoedge h4 + ul {
-  border-top: 1px solid #989ea4;
-  border-bottom: 1px solid #717d85;
-}
-#jqt ul li small {
-  color: #369;
-}
-#jqt ul li small.counter {
-  background: #9a9faa;
-  color: #fff;
-}
-#jqt #plastic ul li.arrow, #jqt #metal ul li.arrow {
-  background-image: url(../img/apple/chevron.png);
-  background-position: right center;
-  background-repeat: no-repeat;
-}
 #jqt ul.edgetoedge, #jqt ul.metal, #jqt ul.plastic {
-  -moz-border-radius: 0;
   -webkit-border-radius: 0;
-  -o-border-radius: 0;
-  -ms-border-radius: 0;
-  -khtml-border-radius: 0;
   border-radius: 0;
   margin: 0;
   border-left: 0;
@@ -1430,119 +1229,6 @@ body {
 #jqt ul.metal li.arrow {
   background: url(../img/apple/chevron.png) right center no-repeat;
 }
-#jqt .plastic {
-  margin: 0;
-  padding: 0;
-  background: #adadad;
-}
-#jqt ul.plastic {
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  -o-border-radius: 0;
-  -ms-border-radius: 0;
-  -khtml-border-radius: 0;
-  border-radius: 0;
-  margin: 0;
-  border-left: 0;
-  border-right: 0;
-  border-top: 0;
-  background-color: #adadad;
-}
-#jqt ul.plastic li {
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-  -o-border-radius: 0;
-  -ms-border-radius: 0;
-  -khtml-border-radius: 0;
-  border-radius: 0;
-  border-top: 1px solid #bfbfbf;
-  border-bottom: 1px solid #9d9d9d;
-}
-#jqt ul.plastic li:nth-child(odd) {
-  background-color: #989898;
-  border-top: 1px solid #b5b5b5;
-  border-bottom: 1px solid #8a8a8a;
-}
-#jqt ul.plastic + p {
-  font-size: 11px;
-  color: #2f3237;
-  text-shadow: none;
-  padding: 10px 10px;
-}
-#jqt ul.plastic + p strong {
-  font-size: 14px;
-  line-height: 18px;
-  text-shadow: #fff 0 1px 0;
-}
-#jqt ul.plastic li a {
-  text-shadow: #d3d3d3 0 1px 0;
-}
-#jqt ul.plastic li:nth-child(odd) a {
-  text-shadow: #bfbfbf 0 1px 0;
-}
-#jqt ul.plastic li small {
-  color: #3C3C3C;
-  text-shadow: #d3d3d3 0 1px 0;
-  font-size: 13px;
-  font-weight: bold;
-  text-transform: uppercase;
-  line-height: 24px;
-}
-#jqt #plastic ul.minibanner, #jqt #plastic ul.bigbanner {
-  margin: 10px;
-  border: 0;
-  height: 81px;
-  clear: both;
-}
-#jqt #plastic ul.bigbanner {
-  height: 140px !important;
-}
-#jqt #plastic ul.minibanner li {
-  border: 1px solid #8a8a8a;
-  background-color: #989898;
-  width: 145px;
-  height: 81px;
-  float: left;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  border-radius: 5px;
-  padding: 0;
-}
-#jqt #plastic ul.bigbanner li {
-  border: 1px solid #8a8a8a;
-  background-color: #989898;
-  width: 296px;
-  height: 140px;
-  float: left;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -o-border-radius: 5px;
-  -ms-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  border-radius: 5px;
-  padding: 0;
-  margin-bottom: 4px;
-}
-#jqt #plastic ul.minibanner li:first-child {
-  margin-right: 6px;
-}
-#jqt #plastic ul.minibanner li a {
-  color: transparent;
-  text-shadow: none;
-  display: block;
-  width: 145px;
-  height: 81px;
-}
-#jqt #plastic ul.bigbanner li a {
-  color: transparent;
-  text-shadow: none;
-  display: block;
-  width: 296px;
-  height: 145px;
-}
 #jqt ul.individual li {
   color: #b7becd;
   background: white;
@@ -1551,31 +1237,13 @@ body {
 #jqt ul.individual a {
   color: #324f85;
 }
-#jqt ul.individual a:hover {
+#jqt ul.individual a:hover, #jqt ul.individual a.active {
   color: #fff;
   background: #36c;
-}
-#jqt .toggle input[type="checkbox"] {
-  background: white url(../img/apple/on_off.png) 0 0 no-repeat;
-  background-color: transparent;
 }
 #jqt .info {
   background: #dce1eb;
   text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;
   color: #4c566c;
   border-top: 1px solid rgba(76, 86, 108, 0.3);
-}
-#jqt input[type='submit'] {
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  -o-border-radius: 4px;
-  -ms-border-radius: 4px;
-  -khtml-border-radius: 4px;
-  border-radius: 4px;
-  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#9c9ea0));
-  border: 1px outset #aaa;
-  display: block;
-  font-size: inherit;
-  font-weight: inherit;
-  padding: 10px;
 }

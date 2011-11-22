@@ -1,0 +1,37 @@
+$include-metal-lists: true;
+$include-plastic-lists: true;
+$include-edge-lists: true;
+$include-forms: true;
+
+$include-animations: true;
+$include-3d-animations: true;
+
+// Disable everything but WebKit
+$experimental-support-for-mozilla: false;
+$experimental-support-for-opera: false;
+$experimental-support-for-microsoft: false;
+$experimental-support-for-khtml: false;
+
+// Color tests
+
+// Default colors
+$base-color: #444648 !default;
+$highlight-color: #53b401 !default; // bright green
+$toolbar-background-color: darken($base-color, 15%) !default;
+$page-background-color: $base-color !default;
+$list-background-color: $page-background-color !default;
+$toolbar-button-active-color: darken($toolbar-background-color, 5) !default;
+
+// Optimization variables
+$include-metal-lists: true !default;
+$include-plastic-lists: true !default;
+$include-forms: true !default;
+$include-edge-lists: true !default;
+$include-animations: true !default;
+$include-3d-animations: true !default;
+
+@import 'compass';
+@import 'accessories';
+@import 'include/base';
+@import 'include/animations';
+@import 'include/skeleton';

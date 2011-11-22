@@ -2,11 +2,16 @@
 
 $default-border-radius: 8px;
 
+body {
+    background: rgb(0,0,0);
+}
+
 #jqt {
 
     h1, h2 {
         font: bold 18px "Helvetica Neue", Helvetica;
         margin: 10px 20px 6px;
+        @include color-by-background($page-background-color, 40);
     }
 
     .toolbar {
@@ -31,19 +36,19 @@ $default-border-radius: 8px;
             text-align: center;
             text-overflow: ellipsis;
             white-space: nowrap;
+
+            @include color-by-background($toolbar-background-color);
         }
     }
     .black-translucent .toolbar {
         margin-top: 20px;
     }
-
     &.landscape .toolbar > h1 {
         margin-left: -125px;
         width: 250px;
     }
 
     .button, .back, .cancel, .add {
-
         position: absolute;
         overflow: hidden;
         width: auto;
@@ -58,26 +63,71 @@ $default-border-radius: 8px;
         white-space: nowrap;
         background: none;
 
-        top: 8px;
+        top: 6px;
         right: 10px;
         margin: 0;
         border-width: 0 5px;
-        padding: 0 3px;
+        // padding: 0 3px;
+
+        padding: 0 10px;
+        @include color-by-background($toolbar-background-color);
+        @include box-shadow(rgba(#fff, .2) 0 1px 0, rgba(#000, .2) 0 1px 2px inset);
+        border: 1px solid darken($toolbar-background-color, 20);
+        @include border-radius(5px);
+        @include background-gradient($toolbar-background-color, glossy);
+
+        &.active {
+            border: 1px solid darken($toolbar-button-active-color, 20);
+            @include background-gradient($toolbar-button-active-color, glossy);
+            @include color-by-background($toolbar-button-active-color);
+        }
     }
 
     .back {
-        left: 6px;
-        right: auto;
-        padding: 0;
         max-width: 55px;
-        border-width: 0 8px 0 14px;
+        margin-left: 15px;
+        overflow: visible;
+        padding-left: 5px;
+
+        &:after, &:before {
+            content:'';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 1px;
+            left: 1px;
+            @include rotate(45deg);
+            @include transform-origin(0,0);
+            @include background-image(glossy-gradient($toolbar-background-color, -45deg));
+            @include border-radius(0 0 0 5px);
+
+
+            -webkit-mask-image: -webkit-linear-gradient(45deg, rgba(0,0,0,1), rgba(0,0,0,1) 15px, rgba(0,0,0,0) 15px);
+        }
+        &:after {
+            @include box-shadow(rgba(#000, .2) 1px 0 1px inset, rgba(#000, .2) 0 -1px 0 inset);
+        }
+        &:before {
+            left: -.5px;
+            background: darken($toolbar-button-active-color, 20) none;
+        }
+        &.active {
+            &:after {
+                @include background-image(
+                    glossy-gradient($toolbar-button-active-color, -45deg)
+                );
+            }
+            &:before {
+                background-color: darken($toolbar-button-active-color, 20);
+            }
+        }
     }
 
     .blueButton {
         border-width: 0 5px;
     }
 
-    .leftButton, .cancel {
+    .leftButton, .cancel, .back {
         left: 6px;
         right: auto;
     }
@@ -96,31 +146,21 @@ $default-border-radius: 8px;
     }
 
     ul {
+        background-color: $list-background-color;
+        @include color-by-background($list-background-color, 60);
+        border: 1px solid darken($list-background-color, 15%);
+
         font: bold 18px "Helvetica Neue", Helvetica;
         padding: 0;
         margin: 15px 10px 17px 10px;
 
         li {
+            border-top: 1px solid darken($list-background-color, 5);
             list-style-type: none;
             overflow: hidden;
             padding: 10px;
 
-            a + a,
-            a + a + a,
-            &.img a + a + a + a,
-            &.img a + small + a + a + a {
-                font: 13px "Helvetica Neue", Helvetica;
-                margin: 0;
-                text-overflow: ellipsis;
-                white-space: nowrap;
-                overflow: hidden;
-                display: block;
-                padding: 0;
-            }
-            a + a {
-                font-size: 14px;
-            }
-            a, &.img a + a {
+            a {
                 text-decoration: none;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -128,9 +168,52 @@ $default-border-radius: 8px;
                 display: block;
                 padding: 12px 10px 12px 10px;
                 margin: -10px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+                @include color-by-background($list-background-color);
             }
 
+            a * {
+                // em/small/etc are stealing the tap event...
+                pointer-events: none;
+            }
+
+            a.active, a.button {
+                @include background-gradient($highlight-color);
+                @include color-by-background($highlight-color);
+
+                + small {
+                    @include color-by-background(darken($highlight-color, 30), 60);
+                }
+            }
+
+            // a + a,
+            // a + a + a,
+            // &.img a + a + a + a,
+            // &.img a + small + a + a + a {
+            //     font: 13px "Helvetica Neue", Helvetica;
+            //     margin: 0;
+            //     text-overflow: ellipsis;
+            //     white-space: nowrap;
+            //     overflow: hidden;
+            //     display: block;
+            //     padding: 0;
+            // }
+            // a + a {
+            //     font-size: 14px;
+            // }
+            // a, &.img a + a {
+            //     text-decoration: none;
+            //     text-overflow: ellipsis;
+            //     white-space: nowrap;
+            //     overflow: hidden;
+            //     display: block;
+            //     padding: 12px 10px 12px 10px;
+            //     margin: -10px;
+            // }
+
             small {
+                color: $highlight-color;
                 font: 17px "Helvetica Neue", Helvetica;
                 text-align: right;
                 text-overflow: ellipsis;
@@ -142,6 +225,9 @@ $default-border-radius: 8px;
                 padding: 0;
 
                 &.counter {
+                    background: darken($list-background-color, 20);
+                    @include color-by-background(darken($list-background-color, 20), 60);
+
                     font-size: 17px;
                     line-height: 13px;
                     font-weight: bold;
@@ -154,7 +240,20 @@ $default-border-radius: 8px;
             }
 
             @if $include-forms {
-                input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
+
+                ::-webkit-input-placeholder {
+                    @include color-by-background($page-background-color, 25%);
+                }
+
+                input[type="text"],
+                input[type="password"],
+                input[type="tel"],
+                input[type="number"],
+                input[type="search"],
+                input[type="email"],
+                input[type="url"],
+                textarea, select {
+                    @include color-by-background($page-background-color);
                     background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
                     border: 0;
                     font: normal 17px "Helvetica Neue", Helvetica;
@@ -171,39 +270,48 @@ $default-border-radius: 8px;
                 }
                 select {
                     text-indent: 0px;
-                    -webkit-appearance: textarea;
                     margin-left: -6px;
                     width: 104%;
                 }
                 input[type="checkbox"], input[type="radio"] {
                     margin: 0;
-                    padding: 10px 10px;
+                    padding: 10px;
+
+                    &:after {
+                        content: attr(title);
+                        font: 17px "Helvetica Neue", Helvetica;
+                        display: block;
+                        width: 246px;
+                        margin: -12px 0 0 17px;
+                    }
                 }
-                input[type="checkbox"]:after, input[type="radio"]:after {
-                    content: attr(title);
-                    font: 17px "Helvetica Neue", Helvetica;
+
+                input[type='submit'] {
+                    @include border-radius(4px);
+                    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+                    border: 1px outset #aaa;
                     display: block;
-                    width: 246px;
-                    color: #777;
-                    margin: -12px 0 0 17px;
+                    font-size: inherit;
+                    font-weight: inherit;
+                    padding: 10px;
                 }
             }
 
-
-
             &.arrow {
                 small {
+                    margin-right: 15px;
                     padding: 0 15px;
-
-                    &.counter {
-                        margin-right: 15px;
-                    }
                 }
                 a { 
                     padding: 12px 22px 12px 10px;
                 }
             }
-        }
+
+            a.active, a.button {
+                @include background-gradient($highlight-color);
+                @include color-by-background($highlight-color);
+            }
+        } // /li
 
         &.rounded {
             @include border-radius;
@@ -234,43 +342,45 @@ $default-border-radius: 8px;
             }
         }
 
-        &.metal {
-            border: 0;
-            margin: 0;
+        @if $include-metal-lists {
+            &.metal {
+                border: 0;
+                margin: 0;
 
-            li {
-                background-image: none;
-                border-top: 1px solid #fff;
-                border-bottom: 1px solid #666;
-                font-size: 26px;
-                // background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+                li {
+                    background-image: none;
+                    border-top: 1px solid #fff;
+                    border-bottom: 1px solid #666;
+                    font-size: 26px;
+                    // background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
 
-                a {
-                    line-height: 26px;
-                    margin: 0;
-                    padding: 13px 0;
+                    a {
+                        line-height: 26px;
+                        margin: 0;
+                        padding: 13px 0;
+                    }
+
+                    em {
+                        display: block;
+                        font-size: 14px;
+                        font-style: normal;
+                        width: 50%;
+                        line-height: 14px;
+                    }
+
+                    small {
+                        float: right;
+                        position: relative;
+                        margin-top: 10px;
+                        font-weight: bold;
+                    }
+
+                    &.arrow small {
+                        padding-right: 15px;
+                    }
                 }
-
-                em {
-                    display: block;
-                    font-size: 14px;
-                    font-style: normal;
-                    width: 50%;
-                    line-height: 14px;
-                }
-
-                small {
-                    float: right;
-                    position: relative;
-                    margin-top: 10px;
-                    font-weight: bold;
-                }
-
-                &.arrow small {
-                    padding-right: 15px;
-                }
-            }
-        } // ul.metal
+            } // ul.metal
+        }
 
         @if $include-edge-lists {
             &.edgetoedge {
@@ -302,8 +412,14 @@ $default-border-radius: 8px;
                 li {
                     border-width: 1px 0;
                     border-style: solid;
-                    list-style-type: none;
-                    overflow: hidden;
+
+                    @include background-gradient(darken($list-background-color, 17));
+                    border-top-color: darken($list-background-color, 15);                
+                    border-bottom-color: darken($list-background-color, 20);
+
+                    &:nth-child(odd) {
+                        @include background-gradient(darken($list-background-color, 15));
+                    }
                     
                     a.active.loading {
                         background-image: url(img/loading.gif);
@@ -387,4 +503,3 @@ $default-border-radius: 8px;
         padding: 15px;
         font-weight: bold;
     }
-}

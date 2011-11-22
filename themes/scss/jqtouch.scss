@@ -1,49 +1,21 @@
-$experimental-support-for-mozilla: false;
-$experimental-support-for-opera: false;
-$experimental-support-for-microsoft: false;
-$experimental-support-for-khtml: false;
-
 // $toolbar-background-color: #485021;
 // $base-color: #485021; // Army green
 // $base-color: #3387CC; // Sky blue
 // $highlight-color: #CFD085; // Yellow
 // $highlight-color: #0175C4;
+// $toolbar-background-color: #FF2900;
+// $base-color: #D9D9D9;
+// $highlight-color: #000;
 
-// Default colors
-$base-color: #444648 !default;
-$highlight-color: #53b401 !default; // bright green
-$toolbar-background-color: darken($base-color, 15%) !default;
 
-// Optimization variables
-$include-metal-lists: true;
-$include-plastic-lists: true;
-$include-forms: true;
-$include-edge-lists: true;
-
-$include-animations: true;
-$include-3d-animations: true;
-
-@import 'compass';
-@import 'accessories';
-@import 'include/base';
-@import 'include/animations';
-@import 'include/skeleton';
-
-body {
-    background: #000;
-    color: #ddd;
-}
+@import 'include/core';
 
 #jqt {
-    & > * {
+    > * {
         @include background-image(
             background_noise(),
             bevel-gradient($base-color)
         );
-    }
-    
-    h1, h2 {
-        @include color-by-background($base-color, 35%);
     }
 
     .toolbar {
@@ -53,61 +25,6 @@ body {
             $dotsize: 20%,
             $bgcolor: $toolbar-background-color
         );
-
-        & > h1 {
-            @include color-by-background($toolbar-background-color);
-        }
-    }
-
-    .button, .back, .cancel, .add {
-        padding: 0 10px;
-        @include color-by-background($toolbar-background-color);
-        @include box-shadow(rgba(#fff, .2) 0 1px 0);
-        border: 1px solid darken($toolbar-background-color, 20);
-        @include border-radius(5px);
-        @include background-gradient($toolbar-background-color, glossy);
-    }
-
-    .button.active, .cancel.active, .add.active, .back.active {
-        @include box-shadow(rgba(#fff, .2) 0 1px 0);
-        border: 1px solid darken($highlight-color, 20);
-        @include border-radius(5px);
-        @include background-gradient($highlight-color, glossy);
-        @include color-by-background($highlight-color);
-    }
-
-    .back {
-        margin-left: 15px;
-        overflow: visible;
-        padding-left: 5px;
-
-        &:after, &:before {
-            content:'';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            top: 1px;
-            left: 1px;
-            @include rotate(45deg);
-            @include transform-origin(0,0);
-            @include background-image(glossy-gradient($toolbar-background-color, -45deg));
-            @include border-radius(0 0 0 5px);
-            @include box-shadow(darken($toolbar-background-color, 20) -2px 1px 0);
-
-            -webkit-mask-image: -webkit-linear-gradient(45deg, rgba(0,0,0,1), rgba(0,0,0,1) 15px, rgba(0,0,0,0) 15px);
-        }
-        &:before {
-            left: -.5px;
-            background: darken($toolbar-background-color, 20) none;
-        }
-        &.active {
-            &:after {
-                @include background-image(glossy-gradient($highlight-color, -45deg));
-            }
-            &:before {
-                background-color: darken($highlight-color, 20);
-            }
-        }
     }
 
     .blueButton {
@@ -151,81 +68,26 @@ body {
     /* Lists */
 
     ul {
-        color: #aaa;
-        border: 1px solid darken($base-color, 15%);
-        @include color-by-background($base-color);
-
         li {
             border-top: 1px solid darken($base-color, 5);
             @include background-gradient(rgba($base-color, .2), matte);
 
             a {
                 @include color-by-background($base-color);
-
-                // em/small/etc are stealing the tap event...
-                * {
-                    pointer-events: none;
-                }
-            }
-
-            // a + a, a + a + a, ul li.img a + a + a + a, ul li.img a + small + a + a + a {
-            //     color: #666;
-            // }
-            
-            // a + a {
-            //     color: #000;
-            // }
-            
-            // a, &.img a + a {
-            //     color: #fff;
-            //     text-shadow: rgba(0,0,0,.2) 0 1px 1px;
-            // }
-            
-            ::-webkit-input-placeholder {
-                @include color-by-background($base-color, 25%);
-            }
-
-            input[type="text"], input[type="password"], input[type="tel"], input[type="number"], input[type="search"], input[type="email"], input[type="url"], textarea, select {
-                @include color-by-background($base-color);
             }
 
             select {
                 background: transparent url(../img/jqt/chevron.png) no-repeat right center;
             }
-            input[type="checkbox"], input[type="radio"] {
-                margin: 0;
-                padding: 10px 10px;
-            }
-            input[type="checkbox"]:after, input[type="radio"]:after {
-                content: attr(title);
-                font: 17px "Helvetica Neue", Helvetica;
-                display: block;
-                width: 246px;
-                color: #777;
-                margin: -12px 0 0 17px;
-            }
 
-            .toggle {
-
-                input[type="checkbox"] {
-                    @include border-radius(5px);
-                    background: #fff url(../img/jqt/on_off.png) 0 0 no-repeat;
-                }
+            .toggle input[type="checkbox"] {
+                @include border-radius(5px);
+                background: #fff url(../img/jqt/on_off.png) 0 0 no-repeat;
             }
 
             input[type='submit'] {
-                @include border-radius(4px);
                 background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
                 border: 1px outset black;
-                display: block;
-                font-size: inherit;
-                font-weight: inherit;
-                padding: 10px;
-            }
-
-            a.active, a.button {
-                @include background-gradient($highlight-color);
-                @include color-by-background($highlight-color);
             }
             
             &.forward {
@@ -257,12 +119,10 @@ body {
                     top: 0;
                 }
 
-                a {                    
-                    &.active {
-                        background-image: url(../img/jqt/chevron.png);
-                        background-position: right center;
-                        background-repeat: no-repeat;
-                    }
+                a.active {
+                    background-image: url(../img/jqt/chevron.png);
+                    background-position: right center;
+                    background-repeat: no-repeat;
                 }
             }
             
@@ -271,33 +131,23 @@ body {
                 background-position: 95% center;
                 background-repeat: no-repeat;
             }
-            &.arrow small {
-                padding: 0 15px;
-            }
-            small {
-                color: #64c114;
 
-                &.counter {
-                    background: rgba(0,0,0,.3);
-                    @include color-by-background(darken($base-color, 30), 60);
-                    padding: 4px 10px 5px 10px;
-                    display: block;
-                    width: auto;
-                    @include box-shadow(rgba(#fff,.1) 0 1px 0)
-                }
-            }
+            // &.arrow small {
+            //     padding: 0 15px;
+            // }
 
-            a.active + small {
-                @include color-by-background(darken($highlight-color, 30), 60);
+            small.counter {
+                @include box-shadow(rgba(#fff,.1) 0 1px 0);
             }
 
             li.arrow small.counter {
                 margin-right: 15px;
             }
-        }
+        } // /li
 
-        &.rounded {
+        &.rounded, &.individual li {
             @include box-shadow(rgba(#fff,.15) 0 1px 0);
+            border: 1px solid darken($base-color, 15);
         }
 
         &.metal {
@@ -309,10 +159,7 @@ body {
 
                 a {
                     text-shadow: #fff 0 1px 0;
-
-                    &.active {
-                        color: #000;
-                    }
+                    &.active { color: #000; }
                 }
 
                 em {
@@ -334,67 +181,15 @@ body {
 
             &.sep {
                 @include background-gradient(rgba(#000, .3), bevel);
-                color: #3e9ac3;
-                // text-shadow: #000 0 1px 0;
+                @include color-by-background(darken($base-color, 25), 50);
             }
         }
         
         &.plastic li {
-            @include background-gradient(darken($base-color, 17));
-            border-top-color: darken($base-color, 15);                
-            border-bottom-color: darken($base-color, 20);
-
-            &:nth-child(odd) {
-                @include background-gradient(darken($base-color, 15));
-            }
-                           
             a.active.loading {
                 background-image: url(../img/jqt/loading.gif);
                 background-position: 95% center;
                 background-repeat: no-repeat;
-            }
-        }
-
-        &.individual {
-            @include box-shadow(none);
-
-            li {
-                @include box-shadow(rgba(0,0,0,.2) 1px 1px 3px);
-                border: 1px solid darken($base-color, 15);
-            }
-        }
-        
-        /* Rows with image thumbnail */
-        li.img a {
-            & + a {
-                margin: -10px 10px -20px -5px;
-                font-size: 17px;
-                font-weight: bold;
-                
-                & + a {
-                    font-size: 14px;
-                    font-weight: normal;
-                    margin-left: -10px;
-                    margin-bottom: -10px;
-                    margin-top: 0;
-                }
-            }
-            
-            & + small + a {
-                margin-left: -5px;
-                
-                & + a {
-                    margin-left: -10px;
-                    margin-top: -20px;
-                    margin-bottom: -10px;
-                    font-size: 14px;
-                    font-weight: normal;
-                    
-                    & + a {
-                        margin-left: 0px !important;
-                        margin-bottom: 0;
-                    }
-                }
             }
         }
     }
