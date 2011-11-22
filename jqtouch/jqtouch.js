@@ -26,11 +26,10 @@
             serialize = options.serialize, 
             $body,
             $head=$('head'),
-            initialPageId='',
             hist=[],
             newPageCount=0,
             jQTSettings={},
-            currentPage='',
+            $currentPage='',
             orientation='portrait',
             tapReady=true,
             lastTime=0,
@@ -53,7 +52,6 @@
                 fullScreen: true,
                 fullScreenClass: 'fullscreen',
                 icon: null,
-                iconPad: null, // available in iOS 4.2 and later. 
                 icon4: null, // available in iOS 4.2 and later.
                 preloadImages: false,
                 startupScreen: null,
@@ -221,7 +219,6 @@
             function navigationEndHandler(event) {
                 _debug();
 
-
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
                     fromPage.unbind('webkitTransitionEnd', navigationEndHandler);
@@ -234,22 +231,21 @@
                 }
 
                 // Housekeeping
-                currentPage = toPage;
+                $currentPage = toPage;
                 if (goingBack) {
                     hist.shift();
                 } else {
-                    addPageToHistory(currentPage, animation);
+                    addPageToHistory($currentPage, animation);
                 }
 
                 fromPage.unselect();
                 lastAnimationTime = (new Date()).getTime();
-                setHash(currentPage.attr('id'));
+                setHash($currentPage.attr('id'));
                 tapReady = true;
 
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
                 fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
-
             }
 
             // We's out
@@ -346,9 +342,6 @@
             var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
             if (jQTSettings.icon) {
                 hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
-            }
-            if (jQTSettings.iconPad) {
-                hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" sizes="72x72" href="' + jQTSettings.iconPad + '" />';
             }
             if (jQTSettings.icon4) {
                 hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" sizes="114x114" href="' + jQTSettings.icon4 + '" />';
@@ -450,7 +443,7 @@
                     url: href,
                     data: settings.data,
                     type: settings.method,
-                    success: function (data, textStatus) {
+                    success: function (data) {
                         var firstPage = insertPages(data, settings.animation);
                         if (firstPage) {
                             if (settings.method == 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
@@ -664,7 +657,7 @@
         init(options);
 
         // Document ready stuff
-        $(document).ready(function() {
+        $(document).ready(function RUMBLE() {
 
             // Store some properties in a support object
             $.support = {};
@@ -725,7 +718,7 @@
             }
 
             // Create an array of stuff that needs touch event handling
-            touchSelectors.push('input'); // TODO: Ask DK why inputs are considered touch selectors
+            // touchSelectors.push('input');
             touchSelectors.push(jQTSettings.touchSelector);
             touchSelectors.push(jQTSettings.backSelector);
             touchSelectors.push(jQTSettings.submitSelector);
@@ -745,7 +738,7 @@
             if (jQTSettings.fullScreenClass && window.navigator.standalone === true) {
                 $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
             }
-            if (window.navigator.userAgent.match(/Android/ig)) { // Grr... added to postion checkbox labels. Lame. I know. - js
+            if (window.navigator.userAgent.match(/Android/ig)) {
                 $body.addClass('android');
             }
 
@@ -762,17 +755,13 @@
             // Determine what the "current" (initial) panel should be
 
             if ($('#jqt > .current').length === 0) {
-                $currentPage = $('#jqt > *:first-child');
+                $currentPage = $('#jqt > *:first-child').addClass('current');
             } else {
                 $currentPage = $('#jqt > .current');
-                $('#jqt > .current').removeClass('current');
             }
+            
+            setHash($currentPage.attr('id'));
 
-            // Go to the top of the "current" page
-            $currentPage.addClass('current');
-            initialPageId = $currentPage.attr('id');
-
-            setHash(initialPageId);
             addPageToHistory($currentPage);
             scrollTo(0,0);
 
