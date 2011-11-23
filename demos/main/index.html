@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <title>jQTouch &beta;</title>
 
-        <style type="text/css" media="screen">@import "../../themes/css/jqtouch.css";</style>
+        <link rel="stylesheet" href="../../themes/css/jqtouch.css" title="jQTouch">
 
         <script src="../../jqtouch/zepto/dist/zepto.js" type="text/javascript" charset="utf-8"></script>
         <!-- Uncomment the following two lines (and comment out Zepto) to use jQuery instead of Zepto. -->
@@ -12,6 +12,7 @@
         <!-- <script src="../../jqtouch/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> -->
 
         <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.themeswitcher.js" type="application/x-javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
@@ -20,6 +21,7 @@
                 addGlossToIcon: false,
                 startupScreen: 'jqt_startup.png',
                 statusBar: 'black',
+                themeSelectionSelector: '#jqt #themes ul',
                 preloadImages: [
                     '../../themes/jqt/img/activeButton.png',
                     '../../themes/jqt/img/back_button.png',
@@ -34,7 +36,7 @@
                     '../../themes/jqt/img/loading.gif'
                     ]
             });
-            
+
             // Some sample Javascript functions:
             $(function(){
 
@@ -254,6 +256,14 @@
                     <li><a href="#">Rubble, <em>Betty</em></a></li>
                 </ul>
             </div>
+            <div id="themes">
+                <div class="toolbar">
+                    <h1>Themes</h1>
+                    <a href="#" class="back">Back</a>
+                </div>
+                <ul class="rounded">
+                </ul>
+            </div>
             <div id="extensions">
                 <div class="toolbar">
                     <h1>Extensions</h1>
@@ -316,7 +326,8 @@
                     <li class="arrow"><a href="#callbacks">Events</a> <small class="counter">3</small></li>
                     <li class="arrow"><a href="#extensions">Extensions</a> <small class="counter">4</small></li>
                     <li class="arrow"><a href="#video">Video</a></li>
-                    <li class="arrow"><a href="#demos">Demos</a> <small class="counter">2</small></li>
+                    <li class="arrow"><a href="#demos">Demos</a><small class="counter">2</small></li>
+                    <li class="arrow"><a href="#themes">Themes</a><small class="counter">2</small></li>
                 </ul>
                 <h2>External Links</h2>
                 <ul class="rounded">
