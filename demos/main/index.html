@@ -240,18 +240,18 @@
                 </div>
                 <ul class="edgetoedge">
                     <li class="sep">F</li>
-                    <li><a href="#">Flintstone, <em>Fred</em></a></li>
-                    <li><a href="#">Flintstone, <em>Pebble</em></a></li>
+                    <li><a href="#">Flintstone, <em>Fred</em> </a> <small>Label</small></li>
+                    <li><a href="#">Flintstone, <em>Pebble</em></a><small class="counter">23</small></li>
                     <li><a href="#">Flintstone, <em>Wilma</em></a></li>
                     <li class="sep">J</li>
-                    <li><a href="#">Jetson, <em>Elroy</em></a></li>
-                    <li><a href="#">Jetson, <em>George</em></a></li>
-                    <li><a href="#">Jetson, <em>Jane</em></a></li>
-                    <li><a href="#">Jetson, <em>Judy</em></a></li>
+                    <li class="arrow"><a href="#">Jetson, <em>Elroy</em></a></li>
+                    <li class="arrow"><a href="#">Jetson, <em>George</em></a></li>
+                    <li class="arrow"><a href="#">Jetson, <em>Jane</em></a></li>
+                    <li class="arrow"><a href="#">Jetson, <em>Judy</em></a></li>
                     <li class="sep">R</li>
-                    <li><a href="#">Rubble, <em>Bambam</em></a></li>
-                    <li><a href="#">Rubble, <em>Barney</em></a></li>
-                    <li><a href="#">Rubble, <em>Betty</em></a></li>
+                    <li class="forward"><a href="#">Rubble, <em>Bambam</em></a></li>
+                    <li class="forward"><a href="#">Rubble, <em>Barney</em></a></li>
+                    <li class="forward"><a href="#">Rubble, <em>Betty</em></a></li>
                 </ul>
             </div>
             <div id="extensions">
@@ -359,10 +359,10 @@
                     <a href="#" class="back">Back</a>
                 </div>
                 <ul class="plastic">
-                    <li class="arrow"><a href="#">Simple list</a></li>
-                    <li class="arrow"><a href="#">Contact list</a></li>
-                    <li class="arrow"><a href="#">Content List</a></li>
-                    <li class="arrow"><a href="#">Metal list</a></li>
+                    <li class="arrow"><a href="#">Simple list <small>Label</small></a></li>
+                    <li class="arrow"><a href="#">Contact list</a> <small class="counter">42</small></li>
+                    <li class="forward"><a href="#">Content List</a></li>
+                    <li><a href="#">Metal list</a></li>
                 </ul>
                 <div class="info">
                     <p><strong>Best enjoyed on a real iPhone</strong></p>
@@ -405,6 +405,12 @@
                 </div>
                 <ul class="rounded">
                     <li><input type="text" name="zip" value="" placeholder="Zip Code" /></li>
+                </ul>
+                <h2>Favorite color?</h2>
+                <ul class="rounded">
+                    <li><input type="radio" name="color" value="green" title="Green" /></li>
+                    <li><input type="radio" name="color" value="blue" title="Blue" /></li>
+                    <li><input type="radio" name="color" value="red" title="Red" /></li>
                 </ul>
                 <a style="margin:0 10px;color:rgba(0,0,0,.9)" href="#" class="submit whiteButton">Submit</a>
             </form>
