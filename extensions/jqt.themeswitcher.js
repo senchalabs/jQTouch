@@ -46,7 +46,7 @@
                 }
             };
 
-            function initializeStyle(item, title) {
+            function initializeStyleState(item, title) {
               // and, workaround for WebKit by initializing the 'disabled' attribute
               if (!current) {
                   current = title;
@@ -66,9 +66,10 @@
             $(options.themeStyleSelector).each(function(i, item) {
                 var $item = $(item);
                 var title = $item.attr('title');
-                titles[title] = {title: title, href: $item.attr('href')};
 
-                initializeStyle(item, title);
+                titles[title] = true;
+
+                initializeStyleState(item, title);
             });
 
             // add included theme
@@ -80,7 +81,7 @@
 
                     titles[hash.title] = true;
 
-                    initializeStyle(link, hash.title);
+                    initializeStyleState(link, hash.title);
                 }
             }
 
