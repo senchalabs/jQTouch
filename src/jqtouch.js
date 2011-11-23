@@ -79,7 +79,7 @@
                 ]
             }; // end defaults
 
-        function _warn(message) {
+        function warn(message) {
             if (window.console !== undefined && jQTSettings.debug === true) {
                 console.warn(message);
             }
@@ -100,7 +100,7 @@
         function clickHandler(e) {
 
             if (!tapReady) {
-                _warn('ClickHandler handler aborted because tap is not ready');
+                warn('ClickHandler handler aborted because tap is not ready');
                 e.preventDefault();
                 return false;
             }
@@ -115,17 +115,17 @@
 
             // Prevent default if we found an internal link (relative or absolute)
             if ($el && $el.attr('href') && !$el.isExternalLink()) {
-                _warn('Need to prevent default click behavior');
+                warn('Need to prevent default click behavior');
                 e.preventDefault();
             } else {
-                _warn('No need to prevent default click behavior');
+                warn('No need to prevent default click behavior');
             }
 
             // Trigger a tap event if touchstart is not on the job
             if ($.support.touch) {
-                _warn('Not converting click to a tap event because touch handler is on the job');
+                warn('Not converting click to a tap event because touch handler is on the job');
             } else {
-                _warn('Converting click event to a tap event because touch handlers are not present or off');
+                warn('Converting click event to a tap event because touch handlers are not present or off');
                 $(e.target).trigger('tap', e);
             }
 
@@ -135,14 +135,14 @@
             // Error check for target page
             if (toPage === undefined || toPage.length === 0) {
                 $.fn.unselect();
-                _warn('Target element is missing.');
+                warn('Target element is missing.');
                 return false;
             }
 
             // Error check for fromPage===toPage
             if (toPage.hasClass('current')) {
                 $.fn.unselect();
-                _warn('You are already on the page you are trying to navigate to.');
+                warn('You are already on the page you are trying to navigate to.');
                 return false;
             }
 
@@ -182,7 +182,7 @@
                     finalAnimationName = animation.name;
                 }
 
-                _warn('finalAnimationName is ' + finalAnimationName);
+                warn('finalAnimationName is ' + finalAnimationName);
 
                 // Bind internal "cleanup" callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
@@ -239,11 +239,11 @@
 
             // Error checking
             if (hist.length < 1 ) {
-                _warn('History is empty.');
+                warn('History is empty.');
             }
 
             if (hist.length === 1 ) {
-                _warn('You are on the first panel.');
+                warn('You are on the first panel.');
                 history.go(-1);
             }
 
@@ -252,7 +252,7 @@
             if (doNavigation(from.page, to.page, from.animation, true)) {
                 return publicObj;
             } else {
-                _warn('Could not go back.');
+                warn('Could not go back.');
                 return false;
             }
 
@@ -260,7 +260,7 @@
         function goTo(toPage, animation, reverse) {
 
             if (reverse) {
-                _warn('The reverse parameter of the goTo() function has been deprecated.');
+                warn('The reverse parameter of the goTo() function has been deprecated.');
             }
 
             var fromPage = hist[0].page;
@@ -289,19 +289,19 @@
             if (doNavigation(fromPage, toPage, animation)) {
                 return publicObj;
             } else {
-                _warn('Could not animate pages.');
+                warn('Could not animate pages.');
                 return false;
             }
         }
         function hashChangeHandler(e) {
             if (location.hash === hist[0].hash) {
-                _warn('We are on the right panel');
+                warn('We are on the right panel');
             } else {
-                _warn('We are not on the right panel');
+                warn('We are not on the right panel');
                 if(location.hash === hist[1].hash) {
                     goBack();
                 } else {
-                    _warn(location.hash + ' !== ' + hist[1].hash);
+                    warn(location.hash + ' !== ' + hist[1].hash);
                 }
             }
         }
@@ -448,7 +448,7 @@
 
             var $form = (typeof(e)==='string') ? $(e).eq(0) : (e.target ? $(e.target) : $(e));
 
-            _warn($form.attr('action'));
+            warn($form.attr('action'));
 
             if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
                 showPageByHref($form.attr('action'), {
@@ -465,9 +465,9 @@
 
             var $form = $el.closest('form');
             if ($form.length === 0) {
-                _warn('No parent form found');
+                warn('No parent form found');
             } else {
-                _warn('About to submit parent form');
+                warn('About to submit parent form');
                 $form.trigger('submit');
                 return false;
             }
@@ -518,13 +518,13 @@
             div.parentNode.removeChild(div);
 
             // Pass back result
-            // _warn('Support for 3d transforms: ' + result);
+            // warn('Support for 3d transforms: ' + result);
             return result;
         }
         function tapHandler(e){
 
             if (!tapReady) {
-                _warn('Tap is not ready');
+                warn('Tap is not ready');
                 return false;
             }
 
@@ -538,7 +538,7 @@
 
             // Make sure we have a tappable element
             if (!$el.length || !$el.attr('href')) {
-                _warn('Could not find a link related to tapped element');
+                warn('Could not find a link related to tapped element');
                 return false;
             }
 
@@ -579,7 +579,7 @@
                 }
 
                 if (!animation) {
-                    _warn('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
+                    warn('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
                     animation = jQTSettings.defaultAnimation;
                 }
 
@@ -611,7 +611,7 @@
                     if (supportForTouchEvents()) {
                         $.support.touch = true;
                     } else{
-                        _warn('This device does not support touch events');
+                        warn('This device does not support touch events');
                     }
                 } else {
                     $.support.touch = false;
@@ -633,10 +633,10 @@
             $.support.transform3d = supportForTransform3d();
 
             if (!$.support.touch) {
-                _warn('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
+                warn('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
             }
             if (!$.support.transform3d) {
-                _warn('This device does not support 3d animation. 2d animations will be used instead.');
+                warn('This device does not support 3d animation. 2d animations will be used instead.');
             }
 
             // Define public jQuery functions
@@ -665,15 +665,15 @@
 
             // Set up animations array
             if (jQTSettings.cubeSelector) {
-                _warn('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
+                warn('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
                 jQTSettings.cubeSelector = jQTSettings.cubeSelector;
             }
             if (jQTSettings.flipSelector) {
-                _warn('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
+                warn('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
                 jQTSettings.flipSelector = jQTSettings.flipSelector;
             }
             if (jQTSettings.slideSelector) {
-                _warn('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
+                warn('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
                 jQTSettings.slideleftSelector = jQTSettings.slideSelector;
             }
             for (var j=0, max_anims=defaults.animations.length; j < max_anims; j++) {
@@ -694,7 +694,7 @@
             // Make sure we have a jqt element
             $body = $('#jqt');
             if ($body.length === 0) {
-                _warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
+                warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
                 $body = $('body').attr('id', 'jqt');
             }
 

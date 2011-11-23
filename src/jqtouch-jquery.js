@@ -1,12 +1,7 @@
 /*
 
-            _/    _/_/    _/_/_/_/_/                              _/
-               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
-          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
-         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
-        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
-       _/
-    _/
+    jQuery Bridge for jQTouch
+    (adds events which Zepto includes by default)
 
     Created by David Kaneda <http://www.davidkaneda.com>
     Maintained by Jonathan Stark <http://jonathanstark.com/>
@@ -35,30 +30,16 @@
           pressDelay: 1000
         };
 
-    function _debug(message) {
-        var now = new Date().getTime();
-        var delta = now - lastTime;
-        lastTime = now;
-        if (jQTSettings.debug) {
-            if (message) {
-                _log(delta + ': ' + message);
-            } else {
-                _log(delta + ': ' + 'Called ' + arguments.callee.caller.name);
-            }
-        }
-    }
-
-    function _log(message) {
+    function warn(message) {
         if (window.console !== undefined) {
             console.log(message);
         }
     }
 
     function touchStartHandler(e) {
-        _debug();
 
         if (!tapReady) {
-            _debug('TouchStart handler aborted because tap is not ready');
+            warn('TouchStart handler aborted because tap is not ready');
             e.preventDefault();
             return false;
         }
@@ -67,7 +48,7 @@
 
         // Error check
         if (!$el.length) {
-            _debug('Could not find target of touchstart event.');
+            warn('Could not find target of touchstart event.');
             return;
         }
 
@@ -101,14 +82,12 @@
 
         // Private touch functions
         function touchCancelHandler(e) {
-            _debug();
             clearTimeout(hoverTimeout);
             $el.unselect();
             unbindEvents($el);
         }
 
         function touchEndHandler(e) {
-            _debug();
             // updateChanges();
             unbindEvents($el);
             clearTimeout(hoverTimeout);
@@ -125,7 +104,6 @@
         }
 
         function touchMoveHandler(e) {
-            // _debug();
             updateChanges();
             var absX = Math.abs(deltaX);
             var absY = Math.abs(deltaY);
@@ -147,12 +125,10 @@
         }
 
         function updateChanges() {
-            // _debug();
             var firstFinger = SUPPORT_TOUCH? event.changedTouches[0]: event; 
             deltaX = firstFinger.pageX - startX;
             deltaY = firstFinger.pageY - startY;
             deltaT = new Date().getTime() - startTime;
-            // _debug('deltaX:'+deltaX+';deltaY:'+deltaY+';');
         }
 
         function bindEvents($el) {
@@ -210,10 +186,6 @@
         };
 
         options.framework = $;
-
-        options.serialize = function($form) {
-            return $form.serialize();
-        };
 
         var core = jQTouchCore(options);
         
