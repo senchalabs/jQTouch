@@ -42,6 +42,7 @@
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
+                scriptpath: jQTouchCore.prototype.scriptpath,
                 debug: false,
                 fallback2dAnimation: 'fade',
                 defaultAnimation: 'slideleft',
@@ -751,6 +752,8 @@
         };
         return publicObj;
     };
+    
+    jQTouchCore.prototype.scriptpath = $("script").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/'; 
     jQTouchCore.prototype.extensions = [];
 
     // If Zepto exists, jQTouch will use Zepto. Otherwise, a bridge should initialize
