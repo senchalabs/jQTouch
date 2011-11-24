@@ -59,6 +59,8 @@
                 touchSelector: 'a, .touch',
                 useAnimations: true,
                 useFastTouch: true,
+                useTouchScroll: true,
+                workaroundFlexboxJump: true,
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},
@@ -473,6 +475,28 @@
             }
             return true;
         }
+        function parseVersionString(str, delimit) {
+            if (typeof(str) != 'string') {
+              return {major: 0, minor: 0, patch: 0};
+            }
+            delimit = delimit || '.';
+            var x = str.split(delimit);
+            // parse from string or default to 0 if can't parse
+            var maj = parseInt(x[0]) || 0;
+            var min = parseInt(x[1]) || 0;
+            var pat = parseInt(x[2]) || 0;
+            return {major: maj, minor: min, patch: pat};
+        };
+        function supportForAnimationEvents() {
+            _debug();
+
+            return (typeof WebKitAnimationEvent != 'undefined');
+        }
+        function supportForCssMatrix() {
+            _debug();
+
+            return (typeof WebKitCSSMatrix != 'undefined');
+        }
         function supportForTouchEvents() {
 
             /*
@@ -493,6 +517,18 @@
                 return false;
             }
         }
+        function supportForTouchScroll() {
+            var reg = /OS (5(_\d+)*) like Mac OS X/i;
+            
+            var arrays, version;
+            
+            version = {major: 0, minor: 0, patch: 0};
+            arrays = reg.exec(navigator.userAgent);
+            if (arrays && arrays.length > 1) {
+                version = parseVersionString(arrays[1], '_');
+            }
+            return version.major >= 5;
+        };
         function supportForTransform3d() {
 
             var head, body, style, div, result;
@@ -631,6 +667,7 @@
             $.support.animationEvents = (typeof window.WebKitAnimationEvent != 'undefined');
             $.support.touch = (typeof window.TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
+            $.support.touchScroll =  supportForTouchScroll();
 
             if (!$.support.touch) {
                 warn('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
@@ -708,6 +745,36 @@
             if (window.navigator.userAgent.match(/Android/ig)) {
                 $body.addClass('android');
             }
+            if (!$.support.touchScroll || !jQTSettings.useTouchScroll) {
+                $body.addClass('unfixed');
+            } else if (jQTSettings.workaroundFlexboxJump) {
+                // workaround flexible-box jump issue: 
+                // https://bugs.webkit.org/show_bug.cgi?id=46657
+                var afjTimer;
+
+                function resumeFlex($page) {
+                  clearTimeout(afjTimer); 
+                  $page.find('.view').each(function (i, view) {
+                      $(view).css({'height': undefined});
+                  });
+                  afjTimer = setTimeout(function() {
+                      $page.find('.view').each(function (i, view) {
+                          var height = $(view).height(); 
+                          $(view).css({'height': ($(view).height() + 'px')});
+                      });                  
+                  }, 75);
+                }
+                $("#jqt").delegate('#jqt > *', 'pageAnimationEnd', function(event, info) {
+                    if (info.direction == 'in') {
+                        resumeFlex($(this));
+                    }
+                });
+                $(window).resize(function() {
+                    $('#jqt > .current').each(function(i, one) {
+                        resumeFlex($(one));
+                    });
+                });
+            }
 
             // Bind events
             $(window).bind('hashchange', hashChangeHandler);
@@ -733,8 +800,9 @@
             scrollTo(0,0);
 
             // Make sure none of the panels yank the location bar into view
-            $('#jqt > *').css('minHeight', window.innerHeight);
-
+            if ($body.hasClass('unfixed')) {
+              $('#jqt > *').css('minHeight', window.innerHeight);
+            }
         });
 
         // Expose public methods and properties

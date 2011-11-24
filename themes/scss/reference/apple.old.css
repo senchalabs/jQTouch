@@ -111,6 +111,7 @@ body {
 #jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
     display: block;
     border-width: 0 12px;
+    margin: 0 10px;
     padding: 10px;
     text-align: center;
     font-size: 20px;
