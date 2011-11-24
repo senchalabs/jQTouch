@@ -225,8 +225,7 @@ body {
 #jqt:not(.unfixed) > :not(.unfixed):not(.current) {
   display: none;
 }
-#jqt #jqt:not(.unfixed) > :not(.unfixed) > .view,
-#jqt #jqt:not(.unfixed) > :not(.unfixed) > :only-child {
+#jqt:not(.unfixed) > :not(.unfixed) > .view, #jqt:not(.unfixed) > :not(.unfixed) > :only-child {
   position: relative;
   display: -webkit-box;
   display: -moz-box;

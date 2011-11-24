@@ -67,8 +67,8 @@ body {
         display: none;
     }
     
-    #jqt:not(.unfixed) > :not(.unfixed) > .view,
-    #jqt:not(.unfixed) > :not(.unfixed) > :only-child {
+    &:not(.unfixed) > :not(.unfixed) > .view,
+    &:not(.unfixed) > :not(.unfixed) > :only-child {
         position: relative;
         display: -webkit-box; display: -moz-box; display: box;
         -webkit-box-orient: vertical; -moz-box-orient: vertical; box-orient: vertical;
