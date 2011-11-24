@@ -159,6 +159,7 @@ body {
             list-style-type: none;
             overflow: hidden;
             padding: 10px;
+            -webkit-transform: translate3d(0,0,0); /* expensive way to avoid flickr */
 
             a {
                 text-decoration: none;

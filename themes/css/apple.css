@@ -196,7 +196,7 @@ body {
 }
 #jqt > * {
   -webkit-box-sizing: border-box;
-  display: none;
+  display: block;
   left: 0;
   min-height: 100%;
   overflow-x: hidden;
@@ -872,6 +872,8 @@ body {
   list-style-type: none;
   overflow: hidden;
   padding: 10px;
+  -webkit-transform: translate3d(0, 0, 0);
+  /* expensive way to avoid flickr */
 }
 #jqt ul li a {
   text-decoration: none;
