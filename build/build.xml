@@ -144,6 +144,11 @@
         </replaceregexp>
     </target>
 
-    <target name="test" depends="-intro, -clean, -copy, -minify, -usemin, concat-jquery" />
+    <target name="make-htaccess" depends="-copy">
+        <echo message="Creating an .htaccess file from sample.htaccess" />
+        <copy file="./${dir.publish}/sample.htaccess" tofile="./${dir.publish}/.htaccess" />
+    </target>
+
+    <target name="test" depends="make-htaccess" />
 
 </project>
