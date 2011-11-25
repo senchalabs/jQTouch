@@ -58,7 +58,7 @@
                 fullScreenClass: 'fullscreen',
                 hoverDelay: 50,
                 icon: null,
-                iconPad: null, // available in iOS 4.2 and later. 
+                iconPad: null, // available in iOS 4.2 and later.
                 icon4: null, // available in iOS 4.2 and later.
                 moveThreshold: 10,
                 preloadImages: false,
@@ -178,7 +178,7 @@
 
             // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
             // toPage.css('top', window.pageYOffset);
-            
+
             fromPage.trigger('pageAnimationStart', { direction: 'out' });
             toPage.trigger('pageAnimationStart', { direction: 'in' });
 
@@ -228,7 +228,7 @@
             // Define private navigationEnd callback
             function navigationEndHandler(event) {
                 _debug();
-                
+
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
                     fromPage.unbind('webkitTransitionEnd', navigationEndHandler);
@@ -335,7 +335,7 @@
                     goBack();
                 } else {
                     _debug(location.hash + ' !== ' + hist[1].hash);
-                } 
+                }
             }
         }
         function init(options) {
@@ -368,7 +368,7 @@
 
             // Set viewport
             if (jQTSettings.fixedViewport) {
-                hairExtensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>';
+                hairExtensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>';
             }
 
             // Set full-screen
@@ -557,9 +557,9 @@
         };
         function supportForTouchScroll() {
             var reg = /OS (5(_\d+)*) like Mac OS X/i;
-            
+
             var arrays, version;
-            
+
             version = {major: 0, minor: 0, patch: 0};
             arrays = reg.exec(navigator.userAgent);
             if (arrays && arrays.length > 1) {
@@ -611,7 +611,7 @@
             if (!$el.is(touchSelectors.join(', '))) {
                 var $el = $(e.target).closest(touchSelectors.join(', '));
             }
-            
+
             // Make sure we have a tappable element
             if (!$el.length || !$el.attr('href')) {
                 _debug('Could not find a link related to tapped element');
@@ -683,7 +683,7 @@
         }
         function touchStartHandler(e) {
             _debug();
-            
+
             if (!tapReady) {
                 _debug('TouchStart handler aborted because tap is not ready');
                 e.preventDefault();
@@ -923,8 +923,8 @@
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
                 .trigger('orientationchange');
-            
-            
+
+
             // Determine what the "current" (initial) panel should be
             if ($('#jqt > .current').length == 0) {
                 currentPage = $('#jqt > *:first');
@@ -939,7 +939,7 @@
             setHash(initialPageId);
             addPageToHistory(currentPage);
             scrollTo(0, 0);
-            
+
             // Make sure none of the panels yank the location bar into view
             if ($body.hasClass('unfixed')) {
               $('#jqt > *').css('minHeight', window.innerHeight);
@@ -969,3 +969,4 @@
     }
 
 })(jQuery);
+
