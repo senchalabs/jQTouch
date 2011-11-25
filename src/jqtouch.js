@@ -333,7 +333,7 @@
 
             // Set viewport
             if (jQTSettings.fixedViewport) {
-                hairExtensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;"/>';
+                hairExtensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"/>';
             }
 
             // Set full-screen
