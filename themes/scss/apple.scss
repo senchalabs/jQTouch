@@ -32,6 +32,7 @@ $toolbar-background-color: darken($base-color, 5);
     .grayButton, .redButton, .blueButton, .greenButton {
         display: block;
         border-width: 0 12px;
+        margin: 0 10px;
         padding: 10px;
         text-align: center;
         font-size: 20px;
