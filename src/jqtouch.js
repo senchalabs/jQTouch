@@ -486,15 +486,11 @@
             var min = parseInt(x[1]) || 0;
             var pat = parseInt(x[2]) || 0;
             return {major: maj, minor: min, patch: pat};
-        };
+        }
         function supportForAnimationEvents() {
-            _debug();
-
             return (typeof WebKitAnimationEvent != 'undefined');
         }
         function supportForCssMatrix() {
-            _debug();
-
             return (typeof WebKitCSSMatrix != 'undefined');
         }
         function supportForTouchEvents() {
@@ -528,7 +524,7 @@
                 version = parseVersionString(arrays[1], '_');
             }
             return version.major >= 5;
-        };
+        }
         function supportForTransform3d() {
 
             var head, body, style, div, result;
@@ -691,6 +687,21 @@
                     $('.active').removeClass('active');
                 }
             };
+            $.fn.resumeFlex = function() {
+                clearTimeout(afjTimer);
+
+                var $el = $(this),
+                    $views = $el.find('.view');
+
+                $views.css({'height': undefined});
+
+                afjTimer = setTimeout(function() {
+                    $views.each(function (i, view) {
+                        var height = $(view).height(); 
+                        $(view).css({'height': ($(view).height() + 'px')});
+                    });                  
+                }, 75);
+            };
 
             // Add extensions
             for (var i=0, max=extensions.length; i < max; i++) {
@@ -752,26 +763,14 @@
                 // https://bugs.webkit.org/show_bug.cgi?id=46657
                 var afjTimer;
 
-                function resumeFlex($page) {
-                  clearTimeout(afjTimer); 
-                  $page.find('.view').each(function (i, view) {
-                      $(view).css({'height': undefined});
-                  });
-                  afjTimer = setTimeout(function() {
-                      $page.find('.view').each(function (i, view) {
-                          var height = $(view).height(); 
-                          $(view).css({'height': ($(view).height() + 'px')});
-                      });                  
-                  }, 75);
-                }
                 $("#jqt").delegate('#jqt > *', 'pageAnimationEnd', function(event, info) {
                     if (info.direction == 'in') {
-                        resumeFlex($(this));
+                        $(this).resumeFlex();
                     }
                 });
                 $(window).resize(function() {
                     $('#jqt > .current').each(function(i, one) {
-                        resumeFlex($(one));
+                        $(one).resumeFlex();
                     });
                 });
             }
