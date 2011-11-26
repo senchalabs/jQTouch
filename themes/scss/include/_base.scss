@@ -30,7 +30,7 @@ body {
         -webkit-transform: none !important;
     }
 
-    // Card style
+    // "Views"
     > * {
         -webkit-box-sizing: border-box;
         display: block;
@@ -40,9 +40,11 @@ body {
         position: absolute;
         width: 100%;
         z-index: 0;
-        -webkit-box-orient: vertical;
-        -webkit-box-pack: start;
-        -webkit-box-align: stretch;
+        @include display-box;
+        @include box-orient(vertical);
+        // -webkit-box-orient: vertical;
+        // -webkit-box-pack: start;
+        // -webkit-box-align: stretch;
     }
 
     > .current {
@@ -60,7 +62,7 @@ body {
     }
     
     &:not(.unfixed) > :not(.unfixed) {
-        display: -webkit-box; display: box;
+        @include display-box;
     }
     
     &:not(.unfixed) > :not(.unfixed):not(.current) {
@@ -70,12 +72,12 @@ body {
     &:not(.unfixed) > :not(.unfixed) > .view,
     &:not(.unfixed) > :not(.unfixed) > :only-child {
         position: relative;
-        display: -webkit-box; display: -moz-box; display: box;
-        -webkit-box-orient: vertical; -moz-box-orient: vertical; box-orient: vertical;
-        -webkit-box-pack: start; -moz-box-pack: start; box-pack: start;
-        -webkit-box-align: stretch; -moz-box-align: stretch; box-align: stretch;
-        -webkit-box-flex: 10; -moz-box-flex: 10; box-flex: 10;
-        bottom: 0; left: 0; right: 0;
+        @include display-box;
+        @include box-orient(vertical);
+        @include box-pack(start);
+        @include box-align(stretch);
+        @include box-flex(1);
+        // bottom: 0; left: 0; right: 0;
         overflow-x: hidden;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
