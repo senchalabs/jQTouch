@@ -12,7 +12,7 @@
         </classpath>
     </taskdef>
 
-    <target name="-intro">
+    <target name="intro">
 
         <echo message="====================================================================="/>
         <echo message="We are going to build a jQTouch release!"/>
@@ -23,9 +23,9 @@
 
     </target>
 
-    <target name="-clean" description="(PRIVATE) Wipe the previous build (Deletes the dir.publish directory">
+    <target name="clean-start">
     <!-- This is a private target -->
-        <echo message="Cleaning up previous build directory..."/>
+        <echo message="Removing previous build directory..."/>
         <delete dir="./${dir.publish}/"/>
     </target>
 
@@ -79,7 +79,7 @@
         <echo>CSSLint Successful</echo>
     </target>
   
-    <target name="-copy" depends="-clean">
+    <target name="copy-files" depends="clean-start">
       <if>
           <or>
             <equals arg1="${dir.publish}" arg2="."/>
@@ -89,23 +89,20 @@
             <equals arg1="${dir.publish}" arg2="../"/>
           </or>
           <then>
-            <fail message="Your dir.publish folder is set to ${dir.publish} which is your current jQTouch install. To avoid overwriting important files, set this to a new folder name."/>
+            <fail message="Your dir.publish folder, ${dir.publish}, appears to be your jQTouch install. To avoid overwriting important files, set this to a new folder name."/>
           </then>
           <else>
             <echo message="Creating directory structure... ${dir.publish}"/>
-
             <mkdir dir="${dir.publish}"/>
             <copy todir="${dir.publish}" includeEmptyDirs="true">
-                <fileset dir="${dir.root}/" excludes="${file.default.exclude}, ${file.exclude}">
-                    <!-- <type type="dir"/> -->
-                </fileset>
+                <fileset dir="${dir.root}/" excludes="${file.default.exclude}, ${file.exclude}" />
             </copy>
           </else>
       </if>
     </target>
 
-    <target name="-minify" depends="-copy" description="Minifies jQTouch source files.">
-        <apply executable="java" parallel="false">
+    <target name="minify-js" depends="copy-files">
+        <apply executable="java">
             <fileset dir="${dir.publish}/" >
                 <include name="${dir.src}/**/*.js"/>
                 <include name="${dir.extensions}/**/*.js"/>
@@ -125,7 +122,20 @@
         </apply>
     </target>
 
-    <!-- Merge jQTouch and the jQuery Bridge -->
+    <target name="minify-css" depends="copy-files">
+        <apply executable="java">
+            <fileset dir="${dir.publish}/${dir.css}">
+                <exclude name="**/*.min.css"/>
+            </fileset>
+            <arg line="-jar"/>
+            <arg path="${dir.build.tools}/${tool.yuicompressor}"/>
+            <srcfile/>
+            <arg line="-o"/>
+            <mapper type="glob" from="*.css" to="${basedir}/${dir.publish}/${dir.css}/*.min.css"/>
+            <targetfile/>
+        </apply>
+    </target>
+
     <target name="concat-jquery">
         <echo message="Concatenating jQTouch with jQuery bridge file."/>
         <concat destfile="./${dir.publish}/${dir.src}/jqtouch-jquery.full.min.js" overwrite="yes">
@@ -136,7 +146,7 @@
         </concat>
     </target>
 
-    <target name="-usemin">
+    <target name="switch-to-minified">
         <replaceregexp match="jqtouch\.js" replace="jqtouch.min.js" flags="g">
             <fileset dir="./${dir.publish}">
                 <include name="**/*.html"/>
@@ -144,11 +154,29 @@
         </replaceregexp>
     </target>
 
-    <target name="make-htaccess" depends="-copy">
+    <target name="make-htaccess" depends="copy-files">
         <echo message="Creating an .htaccess file from sample.htaccess" />
         <copy file="./${dir.publish}/sample.htaccess" tofile="./${dir.publish}/.htaccess" />
     </target>
 
-    <target name="test" depends="make-htaccess" />
+    <target name="strip-warnings" depends="copy-files">
+        <echo>Stripping warnings out of production scripts.</echo>
+        <replaceregexp match="\n\s*warn\(.*" replace="" file="${dir.publish}/${dir.src}/jqtouch.js" flags="g">
+
+        </replaceregexp>
+    </target>
+
+    <target name="build" depends="
+        intro,
+        copy-files,
+        make-htaccess,
+        strip-warnings,
+        concat-jquery,
+        minify-js,
+        minify-css,
+        switch-to-minified
+        " description="Build a jQTouch release." />
+
+    <target name="review" depends="jslint, csslint" description="Runs CSSLint and JSLint on core jQTouch files." />
 
 </project>
