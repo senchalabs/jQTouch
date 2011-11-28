@@ -66,12 +66,11 @@ body {
             @include box-flex(1);
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
-
-            // Ensure margins don't collapse
-            &:after {
-                display: block;
-            }
         }
+    }
+    // Ensure margins don't collapse
+    .scroll {
+        -webkit-margin-collapse: separate;
     }
 
     .in, .out {

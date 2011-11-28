@@ -229,8 +229,8 @@ body {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
-#jqt.ios5 .scroll:after {
-  display: block;
+#jqt .scroll {
+  -webkit-margin-collapse: separate;
 }
 #jqt .in, #jqt .out {
   -webkit-animation-duration: 250ms;
