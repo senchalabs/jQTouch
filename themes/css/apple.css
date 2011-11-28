@@ -169,10 +169,6 @@
   padding: 0;
 }
 
-a {
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
 body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   -webkit-touch-callout: none;
@@ -187,6 +183,10 @@ body {
   top: 0;
   left: 0;
   bottom: 0;
+}
+#jqt a {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-user-drag: none;
 }
 #jqt .selectable, #jqt input, #jqt textarea {
   -webkit-user-select: auto;
@@ -228,6 +228,9 @@ body {
   box-flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
+}
+#jqt.ios5 .scroll:after {
+  display: block;
 }
 #jqt .in, #jqt .out {
   -webkit-animation-duration: 250ms;

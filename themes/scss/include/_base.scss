@@ -3,10 +3,6 @@
     padding: 0;
 }
 
-a {
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-}
-
 body {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
     -webkit-touch-callout: none;
@@ -21,6 +17,11 @@ body {
     top: 0;
     left: 0;
     bottom: 0;
+
+    a {
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-user-drag: none;
+    }
 
     .selectable, input, textarea {
         -webkit-user-select: auto;
@@ -65,6 +66,11 @@ body {
             @include box-flex(1);
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
+
+            // Ensure margins don't collapse
+            &:after {
+                display: block;
+            }
         }
     }
 

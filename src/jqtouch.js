@@ -392,6 +392,11 @@
         }
         function orientationChangeHandler() {
 
+            $body.css('minHeight', 1000);
+            scrollTo(0,0);
+            var bodyHeight = window.innerHeight;
+            $body.css('minHeight', bodyHeight);
+
             orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
@@ -670,12 +675,6 @@
                 $body = $('body').attr('id', 'jqt');
             }
 
-            // Figure out the window height
-            $body.css('minHeight', 1000);
-            scrollTo(0,0);
-            var bodyHeight = window.innerHeight;
-            $body.css('minHeight', bodyHeight);
-
             // Add some specific css if need be
             if ($.support.transform3d) {
                 $body.addClass('supports3d');
@@ -719,8 +718,7 @@
             goTo: goTo,
             hist: hist,
             settings: jQTSettings,
-            submitForm: submitHandler,
-            support: $.support
+            submitForm: submitHandler
         };
         return publicObj;
     };
