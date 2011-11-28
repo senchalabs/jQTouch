@@ -761,7 +761,6 @@ body {
   top: 6px;
   right: 10px;
   margin: 0;
-  border-width: 0 5px;
   padding: 0 10px;
   color: white;
   text-shadow: #52657f 0 -1px 0;
@@ -776,8 +775,8 @@ body {
   background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
   background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
 }
-#jqt .button.active, #jqt .back.active, #jqt .cancel.active, #jqt .add.active {
-  border: 1px solid #344050;
+#jqt .button.active, #jqt .button:hover, #jqt .back.active, #jqt .back:hover, #jqt .cancel.active, #jqt .cancel:hover, #jqt .add.active, #jqt .add:hover {
+  border-color: #344050;
   background-image: none;
   background-color: #5c718e;
   background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
@@ -799,31 +798,34 @@ body {
   height: 20px;
   top: 1px;
   left: 1px;
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg) translate3d(0.2px, 0, 0);
+  transform: rotate(45deg) translate3d(0.2px, 0, 0);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  background-image: -webkit-gradient(linear, -45deg, -45deg, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
-  background-image: -webkit-linear-gradient(-45deg, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
-  background-image: linear-gradient(-45deg, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
+  background-image: -webkit-linear-gradient(top left, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  background-image: linear-gradient(top left, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
   -webkit-border-radius: 0 0 0 5px;
   border-radius: 0 0 0 5px;
   -webkit-mask-image: -webkit-linear-gradient(45deg, black, black 15px, rgba(0, 0, 0, 0) 15px);
+  -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(black), color-stop(50%, black), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
+  -webkit-mask-clip: border-box;
+  -webkit-background-clip: content-box;
 }
 #jqt .back:after {
-  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 1px 0 1px inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset;
-  box-shadow: rgba(0, 0, 0, 0.2) 1px 0 1px inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.2) 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset;
 }
 #jqt .back:before {
-  left: -0.5px;
+  margin-left: -1px;
   background: #344050 none;
 }
-#jqt .back.active:after {
+#jqt .back.active:after, #jqt .back:hover:after {
   background-image: -webkit-gradient(linear, -45deg, -45deg, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
   background-image: -webkit-linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
   background-image: linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
 }
-#jqt .back.active:before {
+#jqt .back.active:before, #jqt .back:hover:before {
   background-color: #344050;
 }
 #jqt .blueButton {
