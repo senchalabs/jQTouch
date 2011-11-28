@@ -60,7 +60,6 @@
                 useAnimations: true,
                 useFastTouch: true,
                 useTouchScroll: true,
-                workaroundFlexboxJump: true,
                 animations: [ // highest to lowest priority
                     {selector:'.cube', name:'cubeleft', is3d:true},
                     {selector:'.cubeleft', name:'cubeleft', is3d:true},
@@ -99,6 +98,9 @@
                 id: page.attr('id')
             });
         }
+
+        // Unfortunately, we can not assume the "tap" event
+        // is being used for links, forms, etc.
         function clickHandler(e) {
 
             if (!tapReady) {
@@ -475,56 +477,6 @@
             }
             return true;
         }
-        function parseVersionString(str, delimit) {
-            if (typeof(str) != 'string') {
-              return {major: 0, minor: 0, patch: 0};
-            }
-            delimit = delimit || '.';
-            var x = str.split(delimit);
-            // parse from string or default to 0 if can't parse
-            var maj = parseInt(x[0]) || 0;
-            var min = parseInt(x[1]) || 0;
-            var pat = parseInt(x[2]) || 0;
-            return {major: maj, minor: min, patch: pat};
-        }
-        function supportForAnimationEvents() {
-            return (typeof WebKitAnimationEvent != 'undefined');
-        }
-        function supportForCssMatrix() {
-            return (typeof WebKitCSSMatrix != 'undefined');
-        }
-        function supportForTouchEvents() {
-
-            /*
-            // If dev wants fast touch off, shut off touch whether device supports it or not
-            if (!jQTSettings.useFastTouch) {
-                return false
-            }
-            */
-
-            // Dev must want touch, so check for support
-            if (typeof window.TouchEvent != 'undefined') {
-                if (window.navigator.userAgent.indexOf('Mobile') > -1) { // Grrrr...
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-        function supportForTouchScroll() {
-            var reg = /OS (5(_\d+)*) like Mac OS X/i;
-            
-            var arrays, version;
-            
-            version = {major: 0, minor: 0, patch: 0};
-            arrays = reg.exec(navigator.userAgent);
-            if (arrays && arrays.length > 1) {
-                version = parseVersionString(arrays[1], '_');
-            }
-            return version.major >= 5;
-        }
         function supportForTransform3d() {
 
             var head, body, style, div, result;
@@ -636,21 +588,6 @@
                 }
             }
         }
-        function useFastTouch(setting) {
-
-            if (setting !== undefined) {
-                if (setting === true) {
-                    if (supportForTouchEvents()) {
-                        $.support.touch = true;
-                    } else{
-                        warn('This device does not support touch events');
-                    }
-                } else {
-                    $.support.touch = false;
-                }
-            }
-            return $.support.touch;
-        }
 
         // Get the party started
         init(options);
@@ -663,7 +600,7 @@
             $.support.animationEvents = (typeof window.WebKitAnimationEvent != 'undefined');
             $.support.touch = (typeof window.TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
-            $.support.touchScroll =  supportForTouchScroll();
+            $.support.ios5 = /OS (5(_\d+)*) like Mac OS X/i.test(window.navigator.userAgent);
 
             if (!$.support.touch) {
                 warn('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
@@ -686,21 +623,6 @@
                 } else {
                     $('.active').removeClass('active');
                 }
-            };
-            $.fn.resumeFlex = function() {
-                clearTimeout(afjTimer);
-
-                var $el = $(this),
-                    $views = $el.find('.view');
-
-                $views.css({'height': undefined});
-
-                afjTimer = setTimeout(function() {
-                    $views.each(function (i, view) {
-                        var height = $(view).height(); 
-                        $(view).css({'height': ($(view).height() + 'px')});
-                    });                  
-                }, 75);
             };
 
             // Add extensions
@@ -740,39 +662,29 @@
             $(touchSelectors.join(', ')).css('-webkit-touch-callout', 'none');
 
             // Make sure we have a jqt element
+
             $body = $('#jqt');
+
             if ($body.length === 0) {
                 warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
                 $body = $('body').attr('id', 'jqt');
             }
 
+            // Figure out the window height
+            $body.css('minHeight', 1000);
+            scrollTo(0,0);
+            var bodyHeight = window.innerHeight;
+            $body.css('minHeight', bodyHeight);
+
             // Add some specific css if need be
             if ($.support.transform3d) {
                 $body.addClass('supports3d');
             }
+            if ($.support.ios5) {
+                $body.addClass('ios5');
+            }
             if (jQTSettings.fullScreenClass && window.navigator.standalone === true) {
                 $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
-            }
-            if (window.navigator.userAgent.match(/Android/ig)) {
-                $body.addClass('android');
-            }
-            if (!$.support.touchScroll || !jQTSettings.useTouchScroll) {
-                $body.addClass('unfixed');
-            } else if (jQTSettings.workaroundFlexboxJump) {
-                // workaround flexible-box jump issue: 
-                // https://bugs.webkit.org/show_bug.cgi?id=46657
-                var afjTimer;
-
-                $("#jqt").delegate('#jqt > *', 'pageAnimationEnd', function(event, info) {
-                    if (info.direction == 'in') {
-                        $(this).resumeFlex();
-                    }
-                });
-                $(window).resize(function() {
-                    $('#jqt > .current').each(function(i, one) {
-                        $(one).resumeFlex();
-                    });
-                });
             }
 
             // Bind events
@@ -796,12 +708,6 @@
             setHash($currentPage.attr('id'));
 
             addPageToHistory($currentPage);
-            scrollTo(0,0);
-
-            // Make sure none of the panels yank the location bar into view
-            if ($body.hasClass('unfixed')) {
-              $('#jqt > *').css('minHeight', window.innerHeight);
-            }
         });
 
         // Expose public methods and properties
@@ -814,13 +720,12 @@
             hist: hist,
             settings: jQTSettings,
             submitForm: submitHandler,
-            support: $.support,
-            useFastTouch: useFastTouch
+            support: $.support
         };
         return publicObj;
     };
     
-    jQTouchCore.prototype.scriptpath = $("script").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/'; 
+    // jQTouchCore.prototype.scriptpath = $("script").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/'; 
     jQTouchCore.prototype.extensions = [];
 
     // If Zepto exists, jQTouch will use Zepto. Otherwise, a bridge should initialize

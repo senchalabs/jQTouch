@@ -121,10 +121,11 @@
                 text-decoration: none;
             }
             
-            ul li, ul li a {
-                -webkit-user-select: none; user-select: none;
+/*            ul li, ul li a {
+                -webkit-user-select: none;
+                user-select: none;
                 -webkit-user-drag: none;
-            }
+            }*/
         </style>
     </head>
     <body>
@@ -144,7 +145,7 @@
                     <h1>AJAX</h1>
                     <a class="back" href="#home">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
                         <li class="arrow"><a href="#ajax_post">POST Form Example</a></li>
                         <li class="arrow"><a href="ajax.html">GET Example</a></li>
@@ -158,7 +159,7 @@
                     <h1>Animations</h1>
                     <a class="back" href="#">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
                         <li><a href="#animdemo" class="slideleft">Slide Left</a></li>
                         <li><a href="#animdemo" class="slideright">Slide Right</a></li>
@@ -177,7 +178,7 @@
                     <h1>Animations</h1>
                     <a href="#" class="back">Animations</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
                         <li><a href="#animdemo" class="cubeleft">Cube Left</a></li>
                         <li><a href="#animdemo" class="cuberight">Cube Right</a></li>
@@ -199,7 +200,7 @@
                     <h1>Buttons!</h1>
                     <a href="#" class="back">Home</a>
                 </div>
-                <div style="margin-top: 10px;" class="view">
+                <div style="margin-top: 10px;" class="scroll">
                     <a href="#" class="whiteButton">White</a>
                     <br />
                     <a href="#" class="grayButton">Gray</a>
@@ -220,7 +221,7 @@
                     <h1>Events</h1>
                     <a class="back" href="#home">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
                         <li id="orient">Orientation: <strong>profile</strong></li>
                         <li><a href="#pageevents">Page events</a></li>
@@ -234,7 +235,7 @@
                     <h1>Demos</h1>
                     <a class="back" href="#home">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <div class="info">
                         These apps open in a new window. Don&#8217;t forget to save them to your home screen to enable full-screen mode.
                     </div>
@@ -244,12 +245,12 @@
                     </ul>
                 </div>
             </div>
-            <div id="edge" class="unfixed">
+            <div id="edge">
                 <div class="toolbar">
                     <h1>Edge to Edge</h1>
                     <a href="#" class="back">Back</a>
                 </div>
-                <ul class="edgetoedge view">
+                <ul class="edgetoedge scroll">
                     <li class="sep">F</li>
                     <li><a href="#">Flintstone, <em>Fred</em> </a> <small>Label</small></li>
                     <li><a href="#">Flintstone, <em>Pebble</em></a><small class="counter">23</small></li>
@@ -278,7 +279,7 @@
                     <h1>Extensions</h1>
                     <a class="back" href="#home">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <div class="info">
                         These apps open in a new window. Don&#8217;t forget to save them to your home screen to enable full-screen mode.
                     </div>
@@ -295,7 +296,7 @@
                     <h1>Forms</h1>
                     <a href="#" class="back">Back</a>
                 </div>
-                <form class="view">
+                <form class="scroll">
                     <ul class="edit rounded">
                         <li><input type="text" name="name" placeholder="Text" id="some_name" /></li>
                         <li><input type="search" name="search" placeholder="Search" id="some_name" /></li>
@@ -330,7 +331,7 @@
                     <h1>jQTouch</h1>
                     <a class="button slideup" id="infoButton" href="#about">About</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
                         <li class="arrow"><a href="#ui">User Interface</a> <small class="counter">4</small></li>
                         <li class="arrow"><a href="#animations">Animations</a> <small class="counter">8</small></li>
@@ -361,7 +362,7 @@
                     <h1>Metal Lists</h1>
                     <a href="#" class="back">Back</a>
                 </div>
-                <ul class="metal view">
+                <ul class="metal scroll">
                     <li class="arrow"><a href="#"><small>AM</small> 9:40 <em>Buenos Aires</em></a></li>
                     <li class="arrow"><a href="#"><small>PM</small> 19:40 <em>Singapur</em></a></li>
                     <li class="arrow"><a href="#"><small>PM</small> 22:40 <em>Japan</em></a></li>
@@ -374,7 +375,7 @@
                     <h1>Page Events</h1>
                     <a class="back" href="#">Events</a>
                 </div>
-                <div class="info view" style="font-weight: normal;">
+                <div class="info scroll" style="font-weight: normal;">
                 </div>
             </div>
             <div id="plastic">
@@ -382,7 +383,7 @@
                     <h1>Plastic Lists</h1>
                     <a href="#" class="back">Back</a>
                 </div>
-                <ul class="plastic view">
+                <ul class="plastic scroll">
                     <li class="arrow"><a href="#">Simple list <small>Label</small></a></li>
                     <li class="arrow"><a href="#">Contact list</a> <small class="counter">42</small></li>
                     <li class="forward"><a href="#">Content List</a></li>
@@ -397,7 +398,7 @@
                     <h1>UI Demos</h1>
                     <a class="back" href="#">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <h2>Lists</h2>
                     <ul class="rounded">
                         <li class="arrow"><a href="#edge">Edge to Edge</a></li>
@@ -419,7 +420,7 @@
                     <h1>Video</h1>
                     <a class="back" href="#">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <video id="movie" src="http://jqtouch.googlecode.com/svn-history/r143/trunk/demos/main/video/fireworks-iPhone.m4v" poster="video/fireworks.jpg" width="320" height="426" controls></video>
                     
                     <a href="#" id="play_movie" style="margin-top: 10px; margin-bottom: 10px;" class="whiteButton">Play Movie</a>
@@ -430,7 +431,7 @@
                     <h1>Post Demo</h1>
                     <a class="back" href="#">Ajax</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
                         <li><input type="text" name="zip" value="" placeholder="Zip Code" /></li>
                     </ul>

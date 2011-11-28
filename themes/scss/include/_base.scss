@@ -32,19 +32,16 @@ body {
 
     // "Views"
     > * {
-        -webkit-box-sizing: border-box;
         display: block;
         left: 0;
         min-height: 100%;
+        width: 100%;
         overflow-x: hidden;
         position: absolute;
-        width: 100%;
         z-index: 0;
         @include display-box;
         @include box-orient(vertical);
-        // -webkit-box-orient: vertical;
-        // -webkit-box-pack: start;
-        // -webkit-box-align: stretch;
+        @include box-flex(1);
     }
 
     > .current {
@@ -55,32 +52,20 @@ body {
         display: none;
     }
 
-    &:not(.unfixed) > :not(.unfixed) {
-        min-height: 100%;
-        height: 100%;
-        overflow-y: hidden;
-    }
-    
-    &:not(.unfixed) > :not(.unfixed) {
-        @include display-box;
-    }
-    
-    &:not(.unfixed) > :not(.unfixed):not(.current) {
-        display: none;
-    }
-    
-    &:not(.unfixed) > :not(.unfixed) > .view,
-    &:not(.unfixed) > :not(.unfixed) > :only-child {
-        position: relative;
-        @include display-box;
-        @include box-orient(vertical);
-        @include box-pack(start);
-        @include box-align(stretch);
-        @include box-flex(1);
-        // bottom: 0; left: 0; right: 0;
-        overflow-x: hidden;
+    &.ios5 {
+
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
+
+        > * {
+            height: 100%;
+        }
+        .scroll {
+            position: relative;
+            @include box-flex(1);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
     }
 
     .in, .out {

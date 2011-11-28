@@ -195,18 +195,19 @@ body {
   -webkit-transform: none !important;
 }
 #jqt > * {
-  -webkit-box-sizing: border-box;
   display: block;
   left: 0;
   min-height: 100%;
+  width: 100%;
   overflow-x: hidden;
   position: absolute;
-  width: 100%;
   z-index: 0;
   display: -webkit-box;
   display: box;
   -webkit-box-orient: vertical;
   box-orient: vertical;
+  -webkit-box-flex: 1;
+  box-flex: 1;
 }
 #jqt > .current {
   z-index: 10;
@@ -214,31 +215,17 @@ body {
 #jqt > :not(.current) {
   display: none;
 }
-#jqt:not(.unfixed) > :not(.unfixed) {
-  min-height: 100%;
+#jqt.ios5 {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+#jqt.ios5 > * {
   height: 100%;
-  overflow-y: hidden;
 }
-#jqt:not(.unfixed) > :not(.unfixed) {
-  display: -webkit-box;
-  display: box;
-}
-#jqt:not(.unfixed) > :not(.unfixed):not(.current) {
-  display: none;
-}
-#jqt:not(.unfixed) > :not(.unfixed) > .view, #jqt:not(.unfixed) > :not(.unfixed) > :only-child {
+#jqt.ios5 .scroll {
   position: relative;
-  display: -webkit-box;
-  display: box;
-  -webkit-box-orient: vertical;
-  box-orient: vertical;
-  -webkit-box-pack: start;
-  box-pack: start;
-  -webkit-box-align: stretch;
-  box-align: stretch;
   -webkit-box-flex: 1;
   box-flex: 1;
-  overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
@@ -782,6 +769,7 @@ body {
   border-radius: 5px;
   background-image: none;
   background-color: #667e9d;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
   background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
   background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
 }
@@ -789,6 +777,7 @@ body {
   border: 1px solid #344050;
   background-image: none;
   background-color: #5c718e;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
   background-image: -webkit-linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
   background-image: linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
   color: white;
@@ -811,6 +800,7 @@ body {
   transform: rotate(45deg);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
+  background-image: -webkit-gradient(linear, -45deg, -45deg, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
   background-image: -webkit-linear-gradient(-45deg, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
   background-image: linear-gradient(-45deg, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
   -webkit-border-radius: 0 0 0 5px;
@@ -826,6 +816,7 @@ body {
   background: #344050 none;
 }
 #jqt .back.active:after {
+  background-image: -webkit-gradient(linear, -45deg, -45deg, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
   background-image: -webkit-linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
   background-image: linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
 }
@@ -1160,6 +1151,7 @@ body {
   border-bottom: 1px solid #2d3642;
   background-image: none;
   background-color: #667e9d;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
   background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
   background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
 }
@@ -1219,6 +1211,7 @@ body {
 #jqt ul.edgetoedge li.sep {
   background-image: none;
   background-color: #cbd2d8;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #aeb9c2), color-stop(10%, #bcc5cd), color-stop(65%, #cbd2d8), color-stop(100%, #ccd3d9));
   background-image: -webkit-linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9);
   background-image: linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9);
   color: black;
