@@ -102,7 +102,7 @@
     </target>
 
     <target name="minify-js" depends="copy-files">
-        <apply executable="java">
+        <apply executable="java" parallel="false">
             <fileset dir="${dir.publish}/" >
                 <include name="${dir.src}/**/*.js"/>
                 <include name="${dir.extensions}/**/*.js"/>
@@ -123,7 +123,7 @@
     </target>
 
     <target name="minify-css" depends="copy-files">
-        <apply executable="java">
+        <apply executable="java" parallel="false">
             <fileset dir="${dir.publish}/${dir.css}">
                 <exclude name="**/*.min.css"/>
             </fileset>
