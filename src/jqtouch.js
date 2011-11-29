@@ -9,13 +9,14 @@
     _/
 
     Created by David Kaneda <http://www.davidkaneda.com>
-    Maintained by Jonathan Stark <http://jonathanstark.com/>
+    Maintained by Thomas Yip <http://beedesk.com/>
     Sponsored by Sencha Labs <http://www.sencha.com/>
+    Special thanks to Jonathan Stark <http://www.jonathanstark.com/>
 
-    Documentation and issue tracking on GitHub <http://wiki.github.com/senchalabs/jQTouch/>
+    Documentation and issue tracking on GitHub <http://github.com/senchalabs/jQTouch/>
 
-    (c) 2009-2011 by jQTouch project members.
-    See LICENSE.txt for license.
+    (c) 2009-2011 Sencha Labs
+    jQTouch may be freely distributed under the MIT license.
 
 */
 (function() {
@@ -25,7 +26,7 @@
         var $ = options.framework,
             $body,
             $head=$('head'),
-            hist=[],
+            history=[],
             newPageCount=0,
             jQTSettings={},
             $currentPage='',
@@ -85,7 +86,7 @@
             }
         }
         function addPageToHistory(page, animation) {
-            hist.unshift({
+            history.unshift({
                 page: page,
                 animation: animation,
                 hash: '#' + page.attr('id'),
@@ -98,7 +99,7 @@
         function clickHandler(e) {
 
             if (!tapReady) {
-                warn('ClickHandler handler aborted because tap is not ready');
+                warn('ClickHandler handler aborted because tap is not ready (probably still animating).');
                 e.preventDefault();
                 return false;
             }
@@ -185,7 +186,7 @@
                 navigationEndHandler();
             }
 
-            // Define private navigationEnd callback
+            // Private navigationEnd callback
             function navigationEndHandler(event) {
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
@@ -200,7 +201,7 @@
                 // Housekeeping
                 $currentPage = toPage;
                 if (goingBack) {
-                    hist.shift();
+                    history.shift();
                 } else {
                     addPageToHistory($currentPage, animation);
                 }
@@ -215,7 +216,6 @@
                 fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
             }
 
-            // We's out
             return true;
         }
         function reverseAnimation(animation) {
@@ -236,16 +236,17 @@
         function goBack() {
 
             // Error checking
-            if (hist.length < 1 ) {
+            if (history.length < 1 ) {
                 warn('History is empty.');
             }
 
-            if (hist.length === 1 ) {
+            if (history.length === 1 ) {
                 warn('You are on the first panel.');
-                history.go(-1);
+                window.history.go(-1);
             }
 
-            var from = hist[0], to = hist[1];
+            var from = history[0],
+                to = history[1];
 
             if (doNavigation(from.page, to.page, from.animation, true)) {
                 return publicObj;
@@ -261,7 +262,7 @@
                 warn('The reverse parameter of the goTo() function has been deprecated.');
             }
 
-            var fromPage = hist[0].page;
+            var fromPage = history[0].page;
 
             if (typeof animation === 'string') {
                 for (var i=0, max=animations.length; i < max; i++) {
@@ -292,14 +293,28 @@
             }
         }
         function hashChangeHandler(e) {
-            if (location.hash === hist[0].hash) {
+            if (location.hash === history[0].hash) {
                 warn('We are on the right panel');
+            } else if (location.hash === '') {
+                goBack();
             } else {
-                warn('We are not on the right panel');
-                if(location.hash === hist[1].hash) {
+
+                // TODO: Check for forward here!
+                if( (history[1] && location.hash === history[1].hash) || history.length === 1 ) {
                     goBack();
                 } else {
-                    warn(location.hash + ' !== ' + hist[1].hash);
+                    for (var i = history.length - 1; i >= 0; i--) {
+                        if (location.hash === history[i].hash) {
+                            warn('Forward ho');
+                            history.splice(i, 1);
+                            doNavigation($currentPage, history[i].page, history[i].animation, true);
+                            return;
+                        }
+                    }
+
+                    // Lastly, just try going to the ID...
+                    warn('Could not find ID in history, just forwarding to DOM element.');
+                    goTo($(location.hash), jQTSettings.defaultAnimation);
                 }
             }
         }
@@ -321,7 +336,6 @@
             if (jQTSettings.icon4) {
                 hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" sizes="114x114" href="' + jQTSettings.icon4 + '" />';
             }
-
             // Set startup screen
             if (jQTSettings.startupScreen) {
                 hairExtensions += '<link rel="apple-touch-startup-image" href="' + jQTSettings.startupScreen + '" />';
@@ -517,7 +531,7 @@
                 $el.addClass('active');
             }
 
-            $el.on('touchmove', function(){
+            $el.on($.support.touch ? 'touchmove' : 'mousemove', function(){
                 $el.removeClass('active');
             });
         }
@@ -610,7 +624,7 @@
         $(document).ready(function RUMBLE() {
 
             // Store some properties in a support object
-            $.support = {};
+            if (!$.support) $.support = {};
             $.support.animationEvents = (typeof window.WebKitAnimationEvent != 'undefined');
             $.support.touch = (typeof window.TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
@@ -648,6 +662,7 @@
                 }
             }
 
+            // Add animations
             for (var j=0, max_anims=defaults.animations.length; j < max_anims; j++) {
                 var animation = defaults.animations[j];
                 if(jQTSettings[animation.name + 'Selector'] !== undefined){
@@ -690,7 +705,7 @@
                 .bind('orientationchange', orientationChangeHandler)
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
-                .bind('touchstart', touchStartHandler)
+                .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
 
             // Determine what the "current" (initial) panel should be
@@ -713,7 +728,7 @@
             getOrientation: getOrientation,
             goBack: goBack,
             goTo: goTo,
-            hist: hist,
+            history: history,
             settings: jQTSettings,
             submitForm: submitHandler
         };
