@@ -147,7 +147,7 @@
     </target>
 
     <target name="switch-to-minified">
-        <replaceregexp match="jqtouch\.js" replace="jqtouch.min.js" flags="g">
+        <replaceregexp match="([\w-]*)(?&lt;!\.min)\.(js|css)" replace="\1.min.\2" flags="g">
             <fileset dir="./${dir.publish}">
                 <include name="**/*.html"/>
             </fileset>
