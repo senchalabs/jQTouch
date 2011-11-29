@@ -1,8 +1,8 @@
 jQTouch
 =======
 
-Create powerful mobile apps with just HTML, CSS, and jQuery.
-------------------------------------------------------------
+Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
+--------------------------------------------------------------------------
 
 jQTouch is a jQuery plugin with native animations, automatic navigation, and themes for mobile WebKit browsers like iPhone, Nexus One, and Palm Pre.
 
@@ -10,7 +10,7 @@ jQTouch is a jQuery plugin with native animations, automatic navigation, and the
 - [Entirely customizable](http://wiki.github.com/senchalabs/jQTouch/initoptions) with selector options
 - [Theme support](http://wiki.github.com/senchalabs/jQTouch/themingstyling), including default Apple and jQTouch custom themes
 - [Callback functions](http://wiki.github.com/senchalabs/jQTouch/callbackevents) throughout, including swipe and orientation change detection
-- Page history management and CSS3 page transitions, including 3D flip
+- Page history management and CSS3 page transitions, including 3D flip, cube, and swap
 - Failover to 2D animations for devices that don't support 3D
 - Easily allow apps to run in fullscreen mode with custom icons and startup screens
 - The power of jQuery to build AJAX applications
@@ -32,10 +32,11 @@ Credits
 
 Created by [David Kaneda](http://www.davidkaneda.com).
 
-Maintained by [Thomas @ BeeDesk] (http://www.linkedin.com/in/thomasyip), [Jonathan Stark](http://jonathanstark.com/).
+Maintained by [Thomas Yip](http://www.linkedin.com/in/thomasyip).
 
-Special thanks to [pinch/zoom](http://www.pinchzoom.com/).
+Special thanks to [pinch/zoom](http://www.pinchzoom.com/) and [Jonathan Stark](http://jonathanstark.com/).
 
-(c) 2009-2011 by jQTouch project members.
+(c) 2009-2011 Sencha Labs.
+
+jQTouch may be freely distributed under the MIT license.
 See LICENSE.txt for license.
-
