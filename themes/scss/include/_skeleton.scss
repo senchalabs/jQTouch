@@ -82,7 +82,7 @@ body {
     }
 
     .back {
-        max-width: 55px;
+        max-width: 60px;
         margin-left: 15px;
         overflow: visible;
         padding-left: 5px;
@@ -96,8 +96,8 @@ body {
             left: 1px;
             
             // The .2px gets rid of a blurry artifact from
-            // combining the mask and rotate properties
-            @include transform(rotate(45deg) translate3d(.2px,0,0));
+            // combining the mask and rotate properties.
+            @include transform(rotate(45deg) translate3d(.2px,0,0)); // Just be glad you didn't have to find it.
 
             @include transform-origin(0,0);
             @include background-image(

@@ -257,6 +257,7 @@ body {
 }
 
 #jqt .fade.out {
+  z-index: 10;
   -webkit-animation-name: fadeOut;
 }
 
@@ -276,7 +277,7 @@ body {
   }
 
   100% {
-    opacity: 0;
+    opacity: 1;
   }
 }
 
@@ -783,7 +784,7 @@ body {
   text-shadow: #48596f 0 -1px 0;
 }
 #jqt .back {
-  max-width: 55px;
+  max-width: 60px;
   margin-left: 15px;
   overflow: visible;
   padding-left: 5px;
