@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8" />
         <title>jQTouch &beta;</title>
-
         <link rel="stylesheet" href="../../themes/css/jqtouch.css" title="jQTouch">
 
         <script src="../../src/lib/zepto.js" type="text/javascript" charset="utf-8"></script>
@@ -21,19 +20,7 @@
                 startupScreen: 'jqt_startup.png',
                 statusBar: 'black',
                 themeSelectionSelector: '#jqt #themes ul',
-                preloadImages: [
-                    '../../themes/jqt/img/activeButton.png',
-                    '../../themes/jqt/img/back_button.png',
-                    '../../themes/jqt/img/back_button_clicked.png',
-                    '../../themes/jqt/img/blueButton.png',
-                    '../../themes/jqt/img/button.png',
-                    '../../themes/jqt/img/button_clicked.png',
-                    '../../themes/jqt/img/grayButton.png',
-                    '../../themes/jqt/img/greenButton.png',
-                    '../../themes/jqt/img/redButton.png',
-                    '../../themes/jqt/img/whiteButton.png',
-                    '../../themes/jqt/img/loading.gif'
-                    ]
+                preloadImages: []
             });
 
             // Some sample Javascript functions:
@@ -41,8 +28,6 @@
 
                 // Show a swipe event on swipe test
                 $('#swipeme').swipe(function(evt, data) {
-                    console.log(arguments);
-
                     var details = !data ? '': '<strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!';
                     $(this).html('You swiped ' + details );
                     $(this).parent().after('<li>swiped!</li>')
