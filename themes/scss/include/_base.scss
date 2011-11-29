@@ -87,10 +87,10 @@ body {
     }
 
     &.supports3d {
-        -webkit-perspective: 800;
+        -webkit-perspective: 1000;
         -webkit-transform-style: preserve-3d;
 
-        & > * {
+        > * {
             -webkit-transform: translate3d(0,0,0) rotate(0) scale(1);
         }
     }

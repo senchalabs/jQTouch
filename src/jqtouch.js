@@ -42,8 +42,7 @@
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
                 cacheGetRequests: true,
-                debug: false,
-                fallback2dAnimation: 'fade',
+                debug: true,
                 defaultAnimation: 'slideleft',
                 fixedViewport: true,
                 formSelector: 'form',
@@ -60,22 +59,18 @@
                 useFastTouch: true,
                 useTouchScroll: true,
                 animations: [ // highest to lowest priority
-                    {selector:'.cube', name:'cubeleft', is3d:true},
-                    {selector:'.cubeleft', name:'cubeleft', is3d:true},
-                    {selector:'.cuberight', name:'cuberight', is3d:true},
-                    {selector:'.dissolve', name:'dissolve', is3d:false},
-                    {selector:'.fade', name:'fade', is3d:false},
-                    {selector:'.flip', name:'flipleft', is3d:true},
-                    {selector:'.flipleft', name:'flipleft', is3d:true},
-                    {selector:'.flipright', name:'flipright', is3d:true},
-                    {selector:'.pop', name:'pop', is3d:true},
-                    {selector:'.slide', name:'slideleft', is3d:false},
-                    {selector:'.slidedown', name:'slidedown', is3d:false},
-                    {selector:'.slideleft', name:'slideleft', is3d:false},
-                    {selector:'.slideright', name:'slideright', is3d:false},
-                    {selector:'.slideup', name:'slideup', is3d:false},
-                    {selector:'.swap', name:'swapleft', is3d:true},
-                    {selector:'#jqt > * > ul li a', name:'slideleft', is3d:false}
+                    {selector:'.cubeleft, .cube', name:'cubeleft', is3d: true},
+                    {selector:'.cuberight', name:'cuberight', is3d: true},
+                    {selector:'.dissolve', name:'dissolve'},
+                    {selector:'.fade', name:'fade'},
+                    {selector:'.flipleft, .flip', name:'flipleft', is3d: true},
+                    {selector:'.flipright', name:'flipright', is3d: true},
+                    {selector:'.pop', name:'pop', is3d: true},
+                    {selector:'.slidedown', name:'slidedown'},
+                    {selector:'.slideleft, .slide, #jqt > * > ul li a', name:'slideleft'},
+                    {selector:'.slideright', name:'slideright'},
+                    {selector:'.slideup', name:'slideup'},
+                    {selector:'.swap', name:'swapleft', is3d: true}
                 ]
             }; // end defaults
 
@@ -164,25 +159,15 @@
 
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
-                    animation.name = jQTSettings.fallback2dAnimation;
+                    warn('Did not detect support for 3d animations, falling back to ' + jQTSettings.defaultAnimation);
+                    animation.name = jQTSettings.defaultAnimation;
                 }
 
                 // Reverse animation if need be
-                var finalAnimationName;
+                var finalAnimationName = animation.name;
+
                 if (goingBack) {
-                    if (animation.name.indexOf('left') > 0) {
-                        finalAnimationName = animation.name.replace(/left/, 'right');
-                    } else if (animation.name.indexOf('right') > 0) {
-                        finalAnimationName = animation.name.replace(/right/, 'left');
-                    } else if (animation.name.indexOf('up') > 0) {
-                        finalAnimationName = animation.name.replace(/up/, 'down');
-                    } else if (animation.name.indexOf('down') > 0) {
-                        finalAnimationName = animation.name.replace(/down/, 'up');
-                    } else {
-                        finalAnimationName = animation.name;
-                    }
-                } else {
-                    finalAnimationName = animation.name;
+                    finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation );
                 }
 
                 warn('finalAnimationName is ' + finalAnimationName);
@@ -200,6 +185,8 @@
                 toPage.addClass('current');
                 navigationEndHandler();
             }
+
+
 
             // Define private navigationEnd callback
             function navigationEndHandler(event) {
@@ -234,6 +221,18 @@
 
             // We's out
             return true;
+        }
+        function reverseAnimation(animation) {
+            var opposites={
+                'up' : 'down',
+                'down' : 'up',
+                'left' : 'right',
+                'right' : 'left',
+                'in' : 'out',
+                'out' : 'in'
+            };
+
+            return opposites[animation] || animation;
         }
         function getOrientation() {
             return orientation;
@@ -489,7 +488,7 @@
             body = document.body;
 
             style = document.createElement('style');
-            style.textContent = '@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-ms-transform-3d),(-webkit-transform-3d){#jqtTestFor3dSupport{height:3px}}';
+            style.textContent = '@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-webkit-transform-3d){#jqtTestFor3dSupport{height:3px}}';
 
             div = document.createElement('div');
             div.id = 'jqtTestFor3dSupport';
@@ -506,7 +505,7 @@
             div.parentNode.removeChild(div);
 
             // Pass back result
-            // warn('Support for 3d transforms: ' + result);
+            warn('Support for 3d transforms: ' + result);
             return result;
         }
         function tapHandler(e){
@@ -557,7 +556,6 @@
                 $el.unselect();
                 return true;
             } else {
-
                 // Figure out the animation to use
                 for (var i=0, max=animations.length; i < max; i++) {
                     if ($el.is(animations[i].selector)) {
@@ -604,6 +602,7 @@
             $.support.animationEvents = (typeof window.WebKitAnimationEvent != 'undefined');
             $.support.touch = (typeof window.TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
+
             $.support.ios5 = /OS (5(_\d+)*) like Mac OS X/i.test(window.navigator.userAgent);
 
             if (!$.support.touch) {
@@ -637,19 +636,6 @@
                 }
             }
 
-            // Set up animations array
-            if (jQTSettings.cubeSelector) {
-                warn('NOTE: cubeSelector has been deprecated. Please use cubeleftSelector instead.');
-                jQTSettings.cubeSelector = jQTSettings.cubeSelector;
-            }
-            if (jQTSettings.flipSelector) {
-                warn('NOTE: flipSelector has been deprecated. Please use flipleftSelector instead.');
-                jQTSettings.flipSelector = jQTSettings.flipSelector;
-            }
-            if (jQTSettings.slideSelector) {
-                warn('NOTE: slideSelector has been deprecated. Please use slideleftSelector instead.');
-                jQTSettings.slideleftSelector = jQTSettings.slideSelector;
-            }
             for (var j=0, max_anims=defaults.animations.length; j < max_anims; j++) {
                 var animation = defaults.animations[j];
                 if(jQTSettings[animation.name + 'Selector'] !== undefined){
@@ -666,7 +652,6 @@
             $(touchSelectors.join(', ')).css('-webkit-touch-callout', 'none');
 
             // Make sure we have a jqt element
-
             $body = $('#jqt');
 
             if ($body.length === 0) {
