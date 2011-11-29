@@ -1430,9 +1430,10 @@ window.Zepto = Zepto;
           $(touch.target).trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)));
         touch.x1 = touch.x2 = touch.y1 = touch.y2 = touch.last = 0;
       } else if ('last' in touch) {
+        $(touch.target).trigger('tap');
         touchTimeout = setTimeout(function(){
           touchTimeout = null;
-          $(touch.target).trigger('tap')
+          $(touch.target).trigger('delayedtap')
           touch = {};
         }, 250);
       }
