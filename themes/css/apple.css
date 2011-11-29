@@ -772,7 +772,7 @@ body {
   background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
   background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
 }
-#jqt .button.active, #jqt .button:hover, #jqt .back.active, #jqt .back:hover, #jqt .cancel.active, #jqt .cancel:hover, #jqt .add.active, #jqt .add:hover {
+#jqt .button.active, #jqt .back.active, #jqt .cancel.active, #jqt .add.active {
   border-color: #344050;
   background-image: none;
   background-color: #5c718e;
@@ -817,12 +817,12 @@ body {
   margin-left: -1px;
   background: #344050 none;
 }
-#jqt .back.active:after, #jqt .back:hover:after {
+#jqt .back.active:after {
   background-image: -webkit-gradient(linear, -45deg, -45deg, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
   background-image: -webkit-linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
   background-image: linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
 }
-#jqt .back.active:before, #jqt .back:hover:before {
+#jqt .back.active:before {
   background-color: #344050;
 }
 #jqt .blueButton {
@@ -866,19 +866,20 @@ body {
   padding: 12px 10px 12px 10px;
   margin: -10px;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-transform: translateZ(0);
   color: #262626;
   text-shadow: white 0 1px 0;
 }
 #jqt ul li a * {
   pointer-events: none;
 }
-#jqt ul li a.active, #jqt ul li a:hover, #jqt ul li a.button {
+#jqt ul li a.active, #jqt ul li a.button {
   background-image: none;
   background-color: #3366cc;
   color: white;
   text-shadow: #2952a3 0 -1px 0;
 }
-#jqt ul li a.active + small, #jqt ul li a:hover + small, #jqt ul li a.button + small {
+#jqt ul li a.active + small, #jqt ul li a.button + small {
   color: #adc2eb;
   text-shadow: #0a1429 0 -1px 0;
 }

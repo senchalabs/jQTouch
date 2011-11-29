@@ -174,7 +174,6 @@
 
                 // Bind internal "cleanup" callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
-                fromPage.bind('webkitTransitionEnd', navigationEndHandler);
 
                 // Trigger animations
                 scrollTo(0, 0);
@@ -186,13 +185,10 @@
                 navigationEndHandler();
             }
 
-
-
             // Define private navigationEnd callback
             function navigationEndHandler(event) {
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
-                    fromPage.unbind('webkitTransitionEnd', navigationEndHandler);
                     fromPage.removeClass('current ' + finalAnimationName + ' out');
                     toPage.removeClass(finalAnimationName + ' in');
                     // scrollTo(0, 0);
@@ -488,10 +484,10 @@
             body = document.body;
 
             style = document.createElement('style');
-            style.textContent = '@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-webkit-transform-3d){#jqtTestFor3dSupport{height:3px}}';
+            style.textContent = '@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-webkit-transform-3d){#jqt-3dtest{height:3px}}';
 
             div = document.createElement('div');
-            div.id = 'jqtTestFor3dSupport';
+            div.id = 'jqt-3dtest';
 
             // Add to the page
             head.appendChild(style);
@@ -507,6 +503,23 @@
             // Pass back result
             warn('Support for 3d transforms: ' + result);
             return result;
+        }
+        function touchStartHandler(e){
+            var $el = $(e.target);
+
+            // Find the nearest tappable ancestor
+            if (!$el.is(touchSelectors.join(', '))) {
+                $el = $(e.target).closest(touchSelectors.join(', '));
+            }
+
+            // Make sure we have a tappable element
+            if ($el.length && $el.attr('href')) {
+                $el.addClass('active');
+            }
+
+            $el.on('touchmove', function(){
+                $el.removeClass('active');
+            });
         }
         function tapHandler(e){
 
@@ -531,7 +544,7 @@
 
             // Init some vars
             var target = $el.attr('target'),
-                hash = $el.attr('hash') || ($el.prop && $el.prop('hash')), // jQuery 1.6+ attr vs. prop
+                hash = $el.attr('hash'),
                 animation = null;
 
             if ($el.isExternalLink()) {
@@ -574,7 +587,6 @@
                     $el.addClass('active');
                     goTo($(hash).data('referrer', $el), animation, $el.hasClass('reverse'));
                     return false;
-
                 } else {
                     // External href
                     $el.addClass('loading active');
@@ -678,6 +690,7 @@
                 .bind('orientationchange', orientationChangeHandler)
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
+                .bind('touchstart', touchStartHandler)
                 .trigger('orientationchange');
 
             // Determine what the "current" (initial) panel should be

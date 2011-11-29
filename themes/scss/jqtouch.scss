@@ -132,10 +132,6 @@
                 background-repeat: no-repeat;
             }
 
-            // &.arrow small {
-            //     padding: 0 15px;
-            // }
-
             small.counter {
                 @include box-shadow(rgba(#fff,.1) 0 1px 0);
             }

@@ -74,7 +74,7 @@ body {
         @include border-radius(5px);
         @include background-gradient($toolbar-background-color, glossy);
 
-        &.active, &:hover {
+        &.active {
             border-color: darken($toolbar-button-active-color, 20);
             @include background-gradient($toolbar-button-active-color, glossy);
             @include color-by-background($toolbar-button-active-color);
@@ -124,7 +124,7 @@ body {
             margin-left: -1px;
             background: darken($toolbar-button-active-color, 20) none;
         }
-        &.active, &:hover {
+        &.active {
             &:after {
                 @include background-image(
                     glossy-gradient($toolbar-button-active-color, -45deg)
@@ -183,6 +183,7 @@ body {
                 padding: 12px 10px 12px 10px;
                 margin: -10px;
                 -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-transform: translateZ(0);
 
                 @include color-by-background($list-background-color);
             }
@@ -192,7 +193,7 @@ body {
                 pointer-events: none;
             }
 
-            a.active, a:hover, a.button {
+            a.active, a.button {
                 @include background-gradient($highlight-color);
                 @include color-by-background($highlight-color);
 

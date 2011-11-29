@@ -16,10 +16,10 @@
 
 (function($) {
     var SUPPORT_TOUCH = (!!window.Touch),
-        START_EVENT = SUPPORT_TOUCH? 'touchstart' : 'mousedown',
-        MOVE_EVENT = SUPPORT_TOUCH? 'touchmove' : 'mousemove',
-        END_EVENT = SUPPORT_TOUCH? 'touchend' : 'mouseup',
-        CANCEL_EVENT = SUPPORT_TOUCH? 'touchcancel' : 'mouseout', // mouseout on document
+        START_EVENT = SUPPORT_TOUCH ? 'touchstart' : 'mousedown',
+        MOVE_EVENT = SUPPORT_TOUCH ? 'touchmove' : 'mousemove',
+        END_EVENT = SUPPORT_TOUCH ? 'touchend' : 'mouseup',
+        CANCEL_EVENT = SUPPORT_TOUCH ? 'touchcancel' : 'mouseout', // mouseout on document
         lastTime = 0,
         tapReady = true,
         jQTSettings = {
