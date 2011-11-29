@@ -872,13 +872,13 @@ body {
 #jqt ul li a * {
   pointer-events: none;
 }
-#jqt ul li a.active, #jqt ul li a.button {
+#jqt ul li a.active, #jqt ul li a:hover, #jqt ul li a.button {
   background-image: none;
   background-color: #3366cc;
   color: white;
   text-shadow: #2952a3 0 -1px 0;
 }
-#jqt ul li a.active + small, #jqt ul li a.button + small {
+#jqt ul li a.active + small, #jqt ul li a:hover + small, #jqt ul li a.button + small {
   color: #adc2eb;
   text-shadow: #0a1429 0 -1px 0;
 }
@@ -895,7 +895,7 @@ body {
   padding: 0;
 }
 #jqt ul li small.counter {
-  background: #cccccc;
+  background: rgba(0, 0, 0, 0.5);
   color: #333333;
   text-shadow: #e6e6e6 0 1px 0;
   font-size: 17px;
@@ -906,7 +906,7 @@ body {
   padding: 4px 10px 5px 10px;
   display: block;
   width: auto;
-  margin-top: -22px;
+  margin-top: -24px;
 }
 #jqt ul li ::-webkit-input-placeholder {
   color: #8293a1;
@@ -936,11 +936,6 @@ body {
   padding: 0;
   text-indent: -2px;
 }
-#jqt ul li select {
-  text-indent: 0px;
-  margin-left: -6px;
-  width: 104%;
-}
 #jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
   margin: 0;
   padding: 10px;
@@ -951,6 +946,8 @@ body {
   display: block;
   width: 246px;
   margin: -12px 0 0 17px;
+  color: black;
+  text-shadow: #e8ebee 0 1px 0;
 }
 #jqt ul li input[type='submit'] {
   -webkit-border-radius: 4px;
@@ -964,7 +961,6 @@ body {
 }
 #jqt ul li.arrow small {
   margin-right: 15px;
-  padding: 0 15px;
 }
 #jqt ul li.arrow a {
   padding: 12px 22px 12px 10px;
@@ -1033,9 +1029,6 @@ body {
   position: relative;
   margin-top: 10px;
   font-weight: bold;
-}
-#jqt ul.metal li.arrow small {
-  padding-right: 15px;
 }
 #jqt ul.edgetoedge {
   margin: 0;

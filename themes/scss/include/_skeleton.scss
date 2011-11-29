@@ -192,7 +192,7 @@ body {
                 pointer-events: none;
             }
 
-            a.active, a.button {
+            a.active, a:hover, a.button {
                 @include background-gradient($highlight-color);
                 @include color-by-background($highlight-color);
 
@@ -200,31 +200,6 @@ body {
                     @include color-by-background(darken($highlight-color, 30), 60);
                 }
             }
-
-            // a + a,
-            // a + a + a,
-            // &.img a + a + a + a,
-            // &.img a + small + a + a + a {
-            //     font: 13px "Helvetica Neue", Helvetica;
-            //     margin: 0;
-            //     text-overflow: ellipsis;
-            //     white-space: nowrap;
-            //     overflow: hidden;
-            //     display: block;
-            //     padding: 0;
-            // }
-            // a + a {
-            //     font-size: 14px;
-            // }
-            // a, &.img a + a {
-            //     text-decoration: none;
-            //     text-overflow: ellipsis;
-            //     white-space: nowrap;
-            //     overflow: hidden;
-            //     display: block;
-            //     padding: 12px 10px 12px 10px;
-            //     margin: -10px;
-            // }
 
             small {
                 color: $highlight-color;
@@ -239,7 +214,7 @@ body {
                 padding: 0;
 
                 &.counter {
-                    background: darken($list-background-color, 20);
+                    background: rgba(0,0,0,.5);
                     @include color-by-background(darken($list-background-color, 20), 60);
 
                     font-size: 17px;
@@ -249,7 +224,7 @@ body {
                     padding: 4px 10px 5px 10px;
                     display: block;
                     width: auto;
-                    margin-top: -22px;
+                    margin-top: -24px;
                 }
             }
 
@@ -282,11 +257,6 @@ body {
                     padding: 0;
                     text-indent: -2px;
                 }
-                select {
-                    text-indent: 0px;
-                    margin-left: -6px;
-                    width: 104%;
-                }
                 input[type="checkbox"], input[type="radio"] {
                     margin: 0;
                     padding: 10px;
@@ -297,6 +267,7 @@ body {
                         display: block;
                         width: 246px;
                         margin: -12px 0 0 17px;
+                        @include color-by-background($page-background-color);
                     }
                 }
 
@@ -314,7 +285,6 @@ body {
             &.arrow {
                 small {
                     margin-right: 15px;
-                    padding: 0 15px;
                 }
                 a { 
                     padding: 12px 22px 12px 10px;
@@ -392,10 +362,6 @@ body {
                         position: relative;
                         margin-top: 10px;
                         font-weight: bold;
-                    }
-
-                    &.arrow small {
-                        padding-right: 15px;
                     }
                 }
             } // ul.metal
