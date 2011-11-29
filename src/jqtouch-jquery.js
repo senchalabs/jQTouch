@@ -27,7 +27,7 @@
           debug: true,
           moveThreshold: 10,
           hoverDelay: 50,
-          pressDelay: 1000
+          pressDelay: 750
         };
 
     function warn(message) {
