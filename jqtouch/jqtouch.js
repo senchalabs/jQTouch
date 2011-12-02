@@ -113,13 +113,14 @@
                 animations.push(animation);
             }
         }
-        function addPageToHistory(page, animation) {
+        function addPageToHistory(page, animation, topPos) {
             _debug();
             hist.unshift({
                 page: page,
                 animation: animation,
                 hash: '#' + page.attr('id'),
-                id: page.attr('id')
+                id: page.attr('id'),
+		topPosition: topPos
             });
         }
         function clickHandler(e) {
@@ -156,8 +157,12 @@
             }
 
         }
-        function doNavigation(fromPage, toPage, animation, goingBack) {
+        function doNavigation(fromPage, toPage, animation, topPosition, goingBack) {
             _debug();
+
+	    //Default top position 
+	    if((typeof topPosition=="undefined") || (topPosition==null))
+		    topPosition=0;
 
             // Error check for target page
             if (toPage == undefined || toPage.length === 0) {
@@ -172,6 +177,9 @@
                 _debug('You are already on the page you are trying to navigate to.');
                 return false;
             }
+
+	    //keep track of the current position if it has the tracking class
+	    var oldTopPosition = fromPage.hasClass("trackPosition") ? $(window).scrollTop() : 0;
 
             // Collapse the keyboard
             $(':focus').blur();
@@ -216,7 +224,7 @@
                 fromPage.bind('webkitTransitionEnd', navigationEndHandler);
 
                 // Trigger animations
-                scrollTo(0, 0);
+                scrollTo(0, topPosition); 
                 toPage.addClass(finalAnimationName + ' in current');
                 fromPage.addClass(finalAnimationName + ' out');
 
@@ -245,7 +253,7 @@
                 if (goingBack) {
                     hist.shift();
                 } else {
-                    addPageToHistory(currentPage, animation);
+                    addPageToHistory(currentPage, animation, oldTopPosition);
                 }
 
                 fromPage.unselect();
@@ -256,6 +264,8 @@
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
                 fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
+
+		scrollTo(0,topPosition);
 
             }
 
@@ -280,7 +290,7 @@
 
             var from = hist[0], to = hist[1];
 
-            if (doNavigation(from.page, to.page, from.animation, true)) {
+            if (doNavigation(from.page, to.page, from.animation, from.topPosition, true)) {
                 return publicObj;
             } else {
                 _debug('Could not go back.');
