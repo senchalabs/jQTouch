@@ -241,6 +241,7 @@ body {
 }
 
 #jqt .slideright.out {
+    z-index: 11 !important;
     -webkit-animation-name: slideRightOut;
 }
 
