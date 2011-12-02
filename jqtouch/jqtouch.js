@@ -45,6 +45,7 @@
             extensions=$.jQTouch.prototype.extensions,
             animations=[],
             hairExtensions='',
+            navigationQueue=[],
             defaults = {
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
@@ -157,6 +158,8 @@
 
         }
         function doNavigation(fromPage, toPage, animation, goingBack) {
+            var data = { goingBack: goingBack, fromPage: fromPage, toPage: toPage, animation: animation };
+            
             _debug();
 
             // Error check for target page
@@ -179,8 +182,8 @@
             // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
             // toPage.css('top', window.pageYOffset);
             
-            fromPage.trigger('pageAnimationStart', { direction: 'out' });
-            toPage.trigger('pageAnimationStart', { direction: 'in' });
+            fromPage.trigger('pageAnimationStart', { direction: 'out', goingBack: goingBack });
+            toPage.trigger('pageAnimationStart', { direction: 'in', goingBack: goingBack });
 
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
 
@@ -209,11 +212,22 @@
                     finalAnimationName = animation.name;
                 }
 
+                data.finalAnimationName = finalAnimationName;
+
                 // _debug('finalAnimationName is ' + finalAnimationName);
 
                 // Bind internal "cleanup" callback
-                fromPage.bind('webkitAnimationEnd', navigationEndHandler);
-                fromPage.bind('webkitTransitionEnd', navigationEndHandler);
+                fromPage.bind(
+                    'webkitAnimationEnd',
+                    data,
+                    navigationEndHandler
+                );
+
+                fromPage.bind(
+                    'webkitTransitionEnd',
+                    data,
+                    navigationEndHandler
+                );
 
                 // Trigger animations
                 scrollTo(0, 0);
@@ -222,11 +236,23 @@
 
             } else {
                 toPage.addClass('current');
-                navigationEndHandler();
+                navigationEndHandler({ data: data });
             }
 
+            // We's out
+            return true;
+        }
             // Define private navigationEnd callback
             function navigationEndHandler(event) {
+            var data = event.data,
+                fromPage = data.fromPage,
+                toPage = data.toPage,
+                goingBack = data.goingBack,
+                animation = data.animation,
+                finalAnimationName = data.finalAnimationName,
+                // Variables we'll initialize if we have enqueued navigations to execute
+                nextNav, nnToPage, nnIsGoBack, nnAnimation;
+
                 _debug();
                 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
@@ -254,20 +280,32 @@
                 tapReady = true;
 
                 // Trigger custom events
-                toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
-                fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
+            toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation, goingBack:goingBack});
+            fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation, goingBack:goingBack});
 
-            }
+            if (navigationQueue.length) {
+                nextNav = navigationQueue.shift();
+                nnToPage = nextNav.toPage; nnIsGoBack = nextNav.isGoBack; nnAnimation = nextNav.animation;
 
-            // We's out
-            return true;
+                _debug('Dequeueing navigation: toPage = ' + nnToPage + ', isGoBack = ' + nnIsGoBack);
+                if (nnIsGoBack) { goBack(); }
+                else { goTo(nnToPage, nnAnimation); }
         }
+      }
         function getOrientation() {
             _debug();
             return orientation;
         }
         function goBack() {
             _debug();
+
+            if (!tapReady) {
+                _debug('Enqueueing back-navigation');
+                navigationQueue.push({ isGoBack: true, toPage: null });
+
+                // Wait until the current animation finishes and navigationEndHandler runs before proceeding
+                return publicObj;
+            }
 
             // Error checking
             if (hist.length < 1 ) {
@@ -295,6 +333,18 @@
                 _log('The reverse parameter of the goTo() function has been deprecated.');
             }
 
+            if (!tapReady) {
+                _debug('Enqueueing navigation to ' + toPage);
+                navigationQueue.push({
+                    toPage: toPage,
+                    animation: animation,
+                    isGoBack: false
+                });
+
+                // Wait until the current animation finishes and navigationEndHandler runs before proceeding
+                return publicObj;
+            }
+
             var fromPage = hist[0].page;
 
             if (typeof animation === 'string') {
@@ -318,7 +368,7 @@
                 }
 
             }
-            if (doNavigation(fromPage, toPage, animation)) {
+            if (doNavigation(fromPage, toPage, animation, false)) {
                 return publicObj;
             } else {
                 _debug('Could not animate pages.');
