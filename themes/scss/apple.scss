@@ -20,7 +20,6 @@ $toolbar-background-color: darken($base-color, 5);
     }
 
     .toolbar {
-        border-bottom: 1px solid #2d3642;
         @include background-gradient($toolbar-background-color, glossy);
     }
 
@@ -144,23 +143,6 @@ $toolbar-background-color: darken($base-color, 5);
 
         &.arrow {
             background:  url(../img/apple/chevron.png) right center no-repeat;
-        }
-    }
-
-    ul.individual {
-        li {
-            color: rgb(183,190,205);
-            background: white;
-            border: 1px solid rgb(180,180,180);
-        }
-
-        a {
-            color: rgb(50,79,133);
-
-            &:hover, &.active {
-                color: #fff;
-                background: #36c;
-            }
         }
     }
 

@@ -3,5 +3,7 @@ require File.join(File.dirname(__FILE__), '..', 'accessories', 'lib', 'accessori
 sass_path = File.dirname(__FILE__)
 css_path = File.join(sass_path, "..", "css")
 
-output_style = :compact # nested/expanded/compact/compressed
+output_style = :expanded # nested/expanded/compact/compressed
 environment = :development # development/production
+
+# Rebuilt autotically with production settings in Ant build

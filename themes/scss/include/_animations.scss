@@ -97,10 +97,22 @@
 
 #jqt .slideleft.in {
     -webkit-animation-name: slideLeftIn;
+
+    .toolbar * {
+        @include opacity(0);
+        -webkit-animation-name: dissolveIn;
+        -webkit-animation-duration: 250ms;
+    }
 }
 
 #jqt .slideleft.out {
     -webkit-animation-name: slideLeftOut;
+     
+    .toolbar * {
+        @include opacity(1);
+        -webkit-animation-name: dissolveOut;
+        -webkit-animation-duration: 250ms;
+    }
 }
 
 @-webkit-keyframes slideLeftIn {

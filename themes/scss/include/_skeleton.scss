@@ -16,6 +16,8 @@ body {
 
     .toolbar {
         @include box-sizing(border-box);
+        border-bottom: 1px solid darken($base-color, 35%);
+
         position: relative;
         padding: 10px;
         height: 45px;
@@ -87,6 +89,7 @@ body {
         overflow: visible;
         padding-left: 5px;
 
+        // THE HOLY GRAIL (ish)
         &:after, &:before {
             content:'';
             position: absolute;
@@ -103,7 +106,7 @@ body {
             @include background-image(
                 glossy-gradient($toolbar-background-color, top left)
             );
-
+            background-size: 100% 98%;
             @include border-radius(0 0 0 5px);
 
             // New gradient syntax
@@ -127,7 +130,7 @@ body {
         &.active {
             &:after {
                 @include background-image(
-                    glossy-gradient($toolbar-button-active-color, -45deg)
+                    glossy-gradient($toolbar-button-active-color, left top)
                 );
             }
             &:before {
@@ -159,11 +162,14 @@ body {
     }
 
     ul {
-        background-color: $list-background-color;
-        @include color-by-background($list-background-color, 60);
-        border: 1px solid darken($list-background-color, 15%);
 
-        font: bold 18px "Helvetica Neue", Helvetica;
+        &, &.individual li {
+            background-color: $list-background-color;
+            @include color-by-background($list-background-color, 50);
+            border: 1px solid darken($list-background-color, 15%);
+            font: bold 18px "Helvetica Neue", Helvetica;
+        }
+        
         padding: 0;
         margin: 15px 10px 17px 10px;
 
@@ -184,21 +190,20 @@ body {
                 margin: -10px;
                 -webkit-tap-highlight-color: rgba(0,0,0,0);
                 -webkit-transform: translateZ(0);
-
                 @include color-by-background($list-background-color);
-            }
 
-            a * {
-                // em/small/etc are stealing the tap event...
-                pointer-events: none;
-            }
+                &.active {
+                    @include background-gradient($highlight-color);
+                    @include box-shadow(lighten($highlight-color, 4) 0 1px 0px inset);
+                    @include color-by-background($highlight-color);
 
-            a.active, a.button {
-                @include background-gradient($highlight-color);
-                @include color-by-background($highlight-color);
-
-                + small {
-                    @include color-by-background(darken($highlight-color, 30), 60);
+                    small {
+                        &.counter {
+                            background-color: darken($highlight-color, 15);
+                        }
+                        
+                        @include color-by-background(darken($highlight-color, 30), 60);
+                    }
                 }
             }
 
@@ -211,21 +216,23 @@ body {
                 overflow: hidden;
                 display: block;
                 width: 23%;
+                position: relative;
+                z-index: 20;
                 float: right;
                 padding: 0;
 
                 &.counter {
-                    background: rgba(0,0,0,.5);
-                    @include color-by-background(darken($list-background-color, 20), 60);
+                    background: darken($list-background-color, 15);
 
-                    font-size: 17px;
-                    line-height: 13px;
+                    @include color-by-background(darken($list-background-color, 20), 45);
+                    z-index: 10;
+                    font-size: 16px;
+                    line-height: 16px;
                     font-weight: bold;
                     @include border-radius(4px);
                     padding: 4px 10px 5px 10px;
                     display: block;
                     width: auto;
-                    margin-top: -24px;
                 }
             }
 
@@ -264,10 +271,12 @@ body {
 
                     &:after {
                         content: attr(title);
-                        font: 17px "Helvetica Neue", Helvetica;
+                        font-size: 17px;
+                        vertical-align: middle;
+                        line-height: 1em;
                         display: block;
                         width: 246px;
-                        margin: -12px 0 0 17px;
+                        margin: 0 0 0 17px;
                         @include color-by-background($page-background-color);
                     }
                 }
@@ -281,7 +290,7 @@ body {
                     font-weight: inherit;
                     padding: 10px;
                 }
-            }
+            } // forms
 
             &.arrow {
                 small {
@@ -292,10 +301,7 @@ body {
                 }
             }
 
-            a.active, a.button {
-                @include background-gradient($highlight-color);
-                @include color-by-background($highlight-color);
-            }
+
         } // /li
 
         &.rounded, &.individual li {
@@ -325,10 +331,6 @@ body {
                 &.error + &.error {
                     border-top: 0;
                 }
-
-                // #jqt.android ul li input[type="checkbox"]:after, #jqt.android ul li input[type="radio"]:after {
-                //     margin: 3px 0 0 24px;
-                // }
             }
         }
 
@@ -375,6 +377,10 @@ body {
 
                 li {
                     font-size: 20px;
+
+                    &:first-child {
+                        border-top: 0;
+                    }
 
                     &.sep {
                         font-size: 16px;

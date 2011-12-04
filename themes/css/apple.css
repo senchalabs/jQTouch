@@ -116,194 +116,198 @@ body { -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-touch-callout: non
 /* Slide Left */
 /* line 98, ../scss/include/_animations.scss */
 #jqt .slideleft.in { -webkit-animation-name: slideLeftIn; }
+/* line 101, ../scss/include/_animations.scss */
+#jqt .slideleft.in .toolbar * { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0); opacity: 0; -webkit-animation-name: dissolveIn; -webkit-animation-duration: 250ms; }
 
-/* line 102, ../scss/include/_animations.scss */
+/* line 108, ../scss/include/_animations.scss */
 #jqt .slideleft.out { -webkit-animation-name: slideLeftOut; }
+/* line 111, ../scss/include/_animations.scss */
+#jqt .slideleft.out .toolbar * { filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100); opacity: 1; -webkit-animation-name: dissolveOut; -webkit-animation-duration: 250ms; }
 
-@-webkit-keyframes slideLeftIn { /* line 107, ../scss/include/_animations.scss */
+@-webkit-keyframes slideLeftIn { /* line 119, ../scss/include/_animations.scss */
   0% { -webkit-transform: translateX(100%); }
-  /* line 110, ../scss/include/_animations.scss */
+  /* line 122, ../scss/include/_animations.scss */
   100% { -webkit-transform: translateX(0); } }
 
-@-webkit-keyframes slideLeftOut { /* line 116, ../scss/include/_animations.scss */
+@-webkit-keyframes slideLeftOut { /* line 128, ../scss/include/_animations.scss */
   0% { -webkit-transform: translateX(0px); }
-  /* line 119, ../scss/include/_animations.scss */
+  /* line 131, ../scss/include/_animations.scss */
   100% { -webkit-transform: translateX(-100%); } }
 
 /* Slide Right */
-/* line 128, ../scss/include/_animations.scss */
+/* line 140, ../scss/include/_animations.scss */
 #jqt .slideright.in { -webkit-animation-name: slideRightIn; }
 
-/* line 132, ../scss/include/_animations.scss */
+/* line 144, ../scss/include/_animations.scss */
 #jqt .slideright.out { -webkit-animation-name: slideRightOut; }
 
-@-webkit-keyframes slideRightIn { /* line 137, ../scss/include/_animations.scss */
+@-webkit-keyframes slideRightIn { /* line 149, ../scss/include/_animations.scss */
   0% { -webkit-transform: translateX(-100%); }
-  /* line 140, ../scss/include/_animations.scss */
+  /* line 152, ../scss/include/_animations.scss */
   100% { -webkit-transform: translateX(0); } }
 
-@-webkit-keyframes slideRightOut { /* line 146, ../scss/include/_animations.scss */
+@-webkit-keyframes slideRightOut { /* line 158, ../scss/include/_animations.scss */
   0% { -webkit-transform: translateX(0); }
-  /* line 149, ../scss/include/_animations.scss */
+  /* line 161, ../scss/include/_animations.scss */
   100% { -webkit-transform: translateX(100%); } }
 
 /* Slide Up */
-/* line 158, ../scss/include/_animations.scss */
+/* line 170, ../scss/include/_animations.scss */
 #jqt .slideup.in { z-index: 10; -webkit-animation-name: slideUpIn; }
 
-/* line 162, ../scss/include/_animations.scss */
+/* line 174, ../scss/include/_animations.scss */
 #jqt .slideup.out { z-index: 0; -webkit-animation-name: slideUpOut; }
 
-@-webkit-keyframes slideUpIn { /* line 168, ../scss/include/_animations.scss */
+@-webkit-keyframes slideUpIn { /* line 180, ../scss/include/_animations.scss */
   0% { -webkit-transform: translateY(100%); }
-  /* line 171, ../scss/include/_animations.scss */
+  /* line 183, ../scss/include/_animations.scss */
   100% { -webkit-transform: translateY(0); } }
 
-@-webkit-keyframes slideUpOut { /* line 177, ../scss/include/_animations.scss */
+@-webkit-keyframes slideUpOut { /* line 189, ../scss/include/_animations.scss */
   0% { -webkit-transform: translateY(0); }
-  /* line 180, ../scss/include/_animations.scss */
+  /* line 192, ../scss/include/_animations.scss */
   100% { -webkit-transform: translateY(0); } }
 
 /* Slide Down */
-/* line 189, ../scss/include/_animations.scss */
+/* line 201, ../scss/include/_animations.scss */
 #jqt .slidedown.in { z-index: 0; -webkit-animation-name: slideDownIn; }
 
-/* line 193, ../scss/include/_animations.scss */
+/* line 205, ../scss/include/_animations.scss */
 #jqt .slidedown.out { z-index: 10; -webkit-animation-name: slideDownOut; }
 
-@-webkit-keyframes slideDownIn { /* line 199, ../scss/include/_animations.scss */
+@-webkit-keyframes slideDownIn { /* line 211, ../scss/include/_animations.scss */
   0% { -webkit-transform: translateY(0); }
-  /* line 202, ../scss/include/_animations.scss */
+  /* line 214, ../scss/include/_animations.scss */
   100% { -webkit-transform: translateY(0); } }
 
-@-webkit-keyframes slideDownOut { /* line 208, ../scss/include/_animations.scss */
+@-webkit-keyframes slideDownOut { /* line 220, ../scss/include/_animations.scss */
   0% { -webkit-transform: translateY(0); }
-  /* line 211, ../scss/include/_animations.scss */
+  /* line 223, ../scss/include/_animations.scss */
   100% { -webkit-transform: translateY(100%); } }
 
 /* Flip Left */
-/* line 220, ../scss/include/_animations.scss */
+/* line 232, ../scss/include/_animations.scss */
 #jqt .flipleft { -webkit-backface-visibility: hidden; }
 
-/* line 224, ../scss/include/_animations.scss */
+/* line 236, ../scss/include/_animations.scss */
 #jqt .flipleft.in { -webkit-animation-name: flipLeftIn; }
 
-/* line 228, ../scss/include/_animations.scss */
+/* line 240, ../scss/include/_animations.scss */
 #jqt .flipleft.out { -webkit-animation-name: flipLeftOut; }
 
-@-webkit-keyframes flipLeftIn { /* line 233, ../scss/include/_animations.scss */
+@-webkit-keyframes flipLeftIn { /* line 245, ../scss/include/_animations.scss */
   0% { -webkit-transform: rotateY(180deg) scale(0.8); }
-  /* line 236, ../scss/include/_animations.scss */
+  /* line 248, ../scss/include/_animations.scss */
   100% { -webkit-transform: rotateY(0deg) scale(1); } }
 
-@-webkit-keyframes flipLeftOut { /* line 242, ../scss/include/_animations.scss */
+@-webkit-keyframes flipLeftOut { /* line 254, ../scss/include/_animations.scss */
   0% { -webkit-transform: rotateY(0deg) scale(1); }
-  /* line 245, ../scss/include/_animations.scss */
+  /* line 257, ../scss/include/_animations.scss */
   100% { -webkit-transform: rotateY(-180deg) scale(0.8); } }
 
 /* Flip Right */
-/* line 254, ../scss/include/_animations.scss */
+/* line 266, ../scss/include/_animations.scss */
 #jqt .flipright { -webkit-backface-visibility: hidden; }
 
-/* line 258, ../scss/include/_animations.scss */
+/* line 270, ../scss/include/_animations.scss */
 #jqt .flipright.in { -webkit-animation-name: flipRightIn; }
 
-/* line 262, ../scss/include/_animations.scss */
+/* line 274, ../scss/include/_animations.scss */
 #jqt .flipright.out { -webkit-animation-name: flipRightOut; }
 
-@-webkit-keyframes flipRightIn { /* line 267, ../scss/include/_animations.scss */
+@-webkit-keyframes flipRightIn { /* line 279, ../scss/include/_animations.scss */
   0% { -webkit-transform: rotateY(-180deg) scale(0.8); }
-  /* line 270, ../scss/include/_animations.scss */
+  /* line 282, ../scss/include/_animations.scss */
   100% { -webkit-transform: rotateY(0deg) scale(1); } }
 
-@-webkit-keyframes flipRightOut { /* line 276, ../scss/include/_animations.scss */
+@-webkit-keyframes flipRightOut { /* line 288, ../scss/include/_animations.scss */
   0% { -webkit-transform: rotateY(0deg) scale(1); }
-  /* line 279, ../scss/include/_animations.scss */
+  /* line 291, ../scss/include/_animations.scss */
   100% { -webkit-transform: rotateY(180deg) scale(0.8); } }
 
 /* Swap Right */
-/* line 288, ../scss/include/_animations.scss */
+/* line 300, ../scss/include/_animations.scss */
 #jqt .swapright { -webkit-animation-duration: .7s; -webkit-transform: perspective(800); -webkit-animation-timing-function: ease-out; }
 
-/* line 293, ../scss/include/_animations.scss */
+/* line 305, ../scss/include/_animations.scss */
 #jqt .swapright.in { -webkit-animation-name: swapRightIn; }
 
-/* line 296, ../scss/include/_animations.scss */
+/* line 308, ../scss/include/_animations.scss */
 #jqt .swapright.out { -webkit-animation-name: swapRightOut; }
 
-@-webkit-keyframes swapRightIn { /* line 301, ../scss/include/_animations.scss */
+@-webkit-keyframes swapRightIn { /* line 313, ../scss/include/_animations.scss */
   0% { -webkit-transform: translate3d(0px, 0px, -800px) rotateY(70deg); opacity: 0; }
-  /* line 305, ../scss/include/_animations.scss */
+  /* line 317, ../scss/include/_animations.scss */
   35% { -webkit-transform: translate3d(-180px, 0px, -400px) rotateY(20deg); opacity: 1; }
-  /* line 309, ../scss/include/_animations.scss */
+  /* line 321, ../scss/include/_animations.scss */
   100% { -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg); opacity: 1; } }
 
-@-webkit-keyframes swapRightOut { /* line 316, ../scss/include/_animations.scss */
+@-webkit-keyframes swapRightOut { /* line 328, ../scss/include/_animations.scss */
   0% { -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg); opacity: 1; }
-  /* line 320, ../scss/include/_animations.scss */
+  /* line 332, ../scss/include/_animations.scss */
   35% { -webkit-transform: translate3d(180px, 0px, -400px) rotateY(-20deg); opacity: .5; }
-  /* line 324, ../scss/include/_animations.scss */
+  /* line 336, ../scss/include/_animations.scss */
   100% { -webkit-transform: translate3d(0px, 0px, -800px) rotateY(-70deg); opacity: 0; } }
 
 /* Swap Left */
-/* line 332, ../scss/include/_animations.scss */
+/* line 344, ../scss/include/_animations.scss */
 #jqt .swapleft { -webkit-animation-duration: .7s; -webkit-transform: perspective(800); -webkit-animation-timing-function: ease-out; }
 
-/* line 337, ../scss/include/_animations.scss */
+/* line 349, ../scss/include/_animations.scss */
 #jqt .swapleft.in { -webkit-animation-name: swapLeftIn; }
 
-/* line 340, ../scss/include/_animations.scss */
+/* line 352, ../scss/include/_animations.scss */
 #jqt .swapleft.out { -webkit-animation-name: swapLeftOut; }
 
-@-webkit-keyframes swapLeftIn { /* line 345, ../scss/include/_animations.scss */
+@-webkit-keyframes swapLeftIn { /* line 357, ../scss/include/_animations.scss */
   0% { -webkit-transform: translate3d(0px, 0px, -800px) rotateY(-70deg); opacity: 0; }
-  /* line 349, ../scss/include/_animations.scss */
+  /* line 361, ../scss/include/_animations.scss */
   35% { -webkit-transform: translate3d(180px, 0px, -400px) rotateY(-20deg); opacity: 1; }
-  /* line 353, ../scss/include/_animations.scss */
+  /* line 365, ../scss/include/_animations.scss */
   100% { opacity: 1; -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg); } }
 
-@-webkit-keyframes swapLeftOut { /* line 360, ../scss/include/_animations.scss */
+@-webkit-keyframes swapLeftOut { /* line 372, ../scss/include/_animations.scss */
   0% { -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg); opacity: 1; }
-  /* line 364, ../scss/include/_animations.scss */
+  /* line 376, ../scss/include/_animations.scss */
   35% { -webkit-transform: translate3d(-180px, 0px, -400px) rotateY(20deg); opacity: .5; }
-  /* line 368, ../scss/include/_animations.scss */
+  /* line 380, ../scss/include/_animations.scss */
   100% { -webkit-transform: translate3d(0px, 0px, -800px) rotateY(70deg); opacity: 0; } }
 
 /* Cube Left */
-/* line 382, ../scss/include/_animations.scss */
+/* line 394, ../scss/include/_animations.scss */
 #jqt .cubeleft.in, #jqt .cubeleft.out, #jqt .cuberight.in, #jqt .cuberight.out { -webkit-animation-duration: .6s; -webkit-transform: perspective(800); }
 
-/* line 389, ../scss/include/_animations.scss */
+/* line 401, ../scss/include/_animations.scss */
 #jqt .cubeleft.in { -webkit-transform-origin: 0% 50%; -webkit-animation-name: cubeLeftIn; }
 
-/* line 394, ../scss/include/_animations.scss */
+/* line 406, ../scss/include/_animations.scss */
 #jqt .cubeleft.out { -webkit-transform-origin: 100% 50%; -webkit-animation-name: cubeLeftOut; }
 
-@-webkit-keyframes cubeLeftIn { /* line 400, ../scss/include/_animations.scss */
+@-webkit-keyframes cubeLeftIn { /* line 412, ../scss/include/_animations.scss */
   0% { -webkit-transform: rotateY(90deg) translateZ(320px); opacity: .5; }
-  /* line 404, ../scss/include/_animations.scss */
+  /* line 416, ../scss/include/_animations.scss */
   100% { -webkit-transform: rotateY(0deg) translateZ(0) translateX(0); opacity: 1; } }
 
-@-webkit-keyframes cubeLeftOut { /* line 411, ../scss/include/_animations.scss */
+@-webkit-keyframes cubeLeftOut { /* line 423, ../scss/include/_animations.scss */
   0% { -webkit-transform: rotateY(0deg) translateZ(0) translateX(0); opacity: 1; }
-  /* line 415, ../scss/include/_animations.scss */
+  /* line 427, ../scss/include/_animations.scss */
   100% { -webkit-transform: rotateY(-90deg) translateZ(320px); opacity: .5; } }
 
 /* Cube Right */
-/* line 423, ../scss/include/_animations.scss */
+/* line 435, ../scss/include/_animations.scss */
 #jqt .cuberight.in { -webkit-transform-origin: 100% 50%; -webkit-animation-name: cubeRightIn; }
 
-/* line 428, ../scss/include/_animations.scss */
+/* line 440, ../scss/include/_animations.scss */
 #jqt .cuberight.out { -webkit-transform-origin: 0% 50%; -webkit-animation-name: cubeRightOut; }
 
-@-webkit-keyframes cubeRightIn { /* line 434, ../scss/include/_animations.scss */
+@-webkit-keyframes cubeRightIn { /* line 446, ../scss/include/_animations.scss */
   0% { -webkit-transform: rotateY(-90deg) translateZ(320px); opacity: .5; }
-  /* line 438, ../scss/include/_animations.scss */
+  /* line 450, ../scss/include/_animations.scss */
   100% { -webkit-transform: rotateY(0deg) translateZ(0) translateX(0); opacity: 1; } }
 
-@-webkit-keyframes cubeRightOut { /* line 445, ../scss/include/_animations.scss */
+@-webkit-keyframes cubeRightOut { /* line 457, ../scss/include/_animations.scss */
   0% { -webkit-transform: rotateY(0deg) translateZ(0) translateX(0); opacity: 1; }
-  /* line 449, ../scss/include/_animations.scss */
+  /* line 461, ../scss/include/_animations.scss */
   100% { -webkit-transform: rotateY(90deg) translateZ(320px); opacity: .5; } }
 
 /* line 5, ../scss/include/_skeleton.scss */
@@ -312,183 +316,179 @@ body { background: black; }
 /* line 11, ../scss/include/_skeleton.scss */
 #jqt h1, #jqt h2 { font: bold 18px "Helvetica Neue", Helvetica; margin: 10px 20px 6px; color: #5c6d7b; text-shadow: #e8ebee 0 1px 0; }
 /* line 17, ../scss/include/_skeleton.scss */
-#jqt .toolbar { -webkit-box-sizing: border-box; box-sizing: border-box; position: relative; padding: 10px; height: 45px; }
-/* line 23, ../scss/include/_skeleton.scss */
+#jqt .toolbar { -webkit-box-sizing: border-box; box-sizing: border-box; border-bottom: 1px solid #2a3441; position: relative; padding: 10px; height: 45px; }
+/* line 25, ../scss/include/_skeleton.scss */
 #jqt .toolbar > h1 { position: absolute; overflow: hidden; left: 50%; top: 10px; margin: 1px 0 0 -75px; height: 40px; width: 150px; font-size: 20px; font-weight: bold; line-height: 1em; text-align: center; text-overflow: ellipsis; white-space: nowrap; color: white; text-shadow: #52657f 0 -1px 0; }
-/* line 43, ../scss/include/_skeleton.scss */
+/* line 45, ../scss/include/_skeleton.scss */
 #jqt .black-translucent .toolbar { margin-top: 20px; }
-/* line 46, ../scss/include/_skeleton.scss */
+/* line 48, ../scss/include/_skeleton.scss */
 #jqt.landscape .toolbar > h1 { margin-left: -125px; width: 250px; }
-/* line 51, ../scss/include/_skeleton.scss */
-#jqt .button, #jqt .back, #jqt .cancel, #jqt .add { position: absolute; overflow: hidden; width: auto; height: 30px; font-family: inherit; font-size: 12px; font-weight: bold; line-height: 30px; text-overflow: ellipsis; text-decoration: none; white-space: nowrap; background: none; top: 6px; right: 10px; margin: 0; padding: 0 10px; color: white; text-shadow: #52657f 0 -1px 0; -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset; box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset; border: 1px solid #3e4c60; -webkit-border-radius: 5px; border-radius: 5px; background-image: none; background-color: #667e9d; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e)); background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); }
-/* line 77, ../scss/include/_skeleton.scss */
-#jqt .button.active, #jqt .back.active, #jqt .cancel.active, #jqt .add.active { border-color: #344050; background-image: none; background-color: #5c718e; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f)); background-image: -webkit-linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f); background-image: linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f); color: white; text-shadow: #48596f 0 -1px 0; }
-/* line 84, ../scss/include/_skeleton.scss */
+/* line 53, ../scss/include/_skeleton.scss */
+#jqt .button, #jqt .back, #jqt .cancel, #jqt .add { position: absolute; overflow: hidden; width: auto; height: 30px; font-family: inherit; font-size: 12px; font-weight: bold; line-height: 30px; text-overflow: ellipsis; text-decoration: none; white-space: nowrap; background: none; top: 6px; right: 10px; margin: 0; padding: 0 10px; color: white; text-shadow: #52657f 0 -1px 0; -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset; box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset; border: 1px solid #3e4c60; -webkit-border-radius: 5px; border-radius: 5px; background-color: #667e9d; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e)); background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); }
+/* line 79, ../scss/include/_skeleton.scss */
+#jqt .button.active, #jqt .back.active, #jqt .cancel.active, #jqt .add.active { border-color: #344050; background-color: #5c718e; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f)); background-image: -webkit-linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f); background-image: linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f); color: white; text-shadow: #48596f 0 -1px 0; }
+/* line 86, ../scss/include/_skeleton.scss */
 #jqt .back { max-width: 60px; margin-left: 15px; overflow: visible; padding-left: 5px; }
-/* line 90, ../scss/include/_skeleton.scss */
-#jqt .back:after, #jqt .back:before { content: ''; position: absolute; width: 20px; height: 20px; top: 1px; left: 1px; -webkit-transform: rotate(45deg) translate3d(0.2px, 0, 0); transform: rotate(45deg) translate3d(0.2px, 0, 0); -webkit-transform-origin: 0 0; transform-origin: 0 0; background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e)); background-image: -webkit-linear-gradient(top left, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); background-image: linear-gradient(top left, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); -webkit-border-radius: 0 0 0 5px; border-radius: 0 0 0 5px; -webkit-mask-image: -webkit-linear-gradient(45deg, black, black 15px, rgba(0, 0, 0, 0) 15px); -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(black), color-stop(50%, black), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0))); -webkit-mask-clip: border-box; -webkit-background-clip: content-box; }
-/* line 120, ../scss/include/_skeleton.scss */
-#jqt .back:after { -webkit-box-shadow: rgba(0, 0, 0, 0.2) 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset; box-shadow: rgba(0, 0, 0, 0.2) 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset; }
+/* line 93, ../scss/include/_skeleton.scss */
+#jqt .back:after, #jqt .back:before { content: ''; position: absolute; width: 20px; height: 20px; top: 1px; left: 1px; -webkit-transform: rotate(45deg) translate3d(0.2px, 0, 0); transform: rotate(45deg) translate3d(0.2px, 0, 0); -webkit-transform-origin: 0 0; transform-origin: 0 0; background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e)); background-image: -webkit-linear-gradient(top left, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); background-image: linear-gradient(top left, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); background-size: 100% 98%; -webkit-border-radius: 0 0 0 5px; border-radius: 0 0 0 5px; -webkit-mask-image: -webkit-linear-gradient(45deg, black, black 15px, rgba(0, 0, 0, 0) 15px); -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(black), color-stop(50%, black), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0))); -webkit-mask-clip: border-box; -webkit-background-clip: content-box; }
 /* line 123, ../scss/include/_skeleton.scss */
+#jqt .back:after { -webkit-box-shadow: rgba(0, 0, 0, 0.2) 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset; box-shadow: rgba(0, 0, 0, 0.2) 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset; }
+/* line 126, ../scss/include/_skeleton.scss */
 #jqt .back:before { margin-left: -1px; background: #344050 none; }
-/* line 128, ../scss/include/_skeleton.scss */
-#jqt .back.active:after { background-image: -webkit-gradient(linear, -45deg, -45deg, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f)); background-image: -webkit-linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f); background-image: linear-gradient(-45deg, #8698b1, #667e9d 50%, #5c718e 51%, #52657f); }
-/* line 133, ../scss/include/_skeleton.scss */
+/* line 131, ../scss/include/_skeleton.scss */
+#jqt .back.active:after { background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f)); background-image: -webkit-linear-gradient(left top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f); background-image: linear-gradient(left top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f); }
+/* line 136, ../scss/include/_skeleton.scss */
 #jqt .back.active:before { background-color: #344050; }
-/* line 139, ../scss/include/_skeleton.scss */
+/* line 142, ../scss/include/_skeleton.scss */
 #jqt .blueButton { border-width: 0 5px; }
-/* line 143, ../scss/include/_skeleton.scss */
+/* line 146, ../scss/include/_skeleton.scss */
 #jqt .leftButton, #jqt .cancel, #jqt .back { left: 6px; right: auto; }
-/* line 148, ../scss/include/_skeleton.scss */
+/* line 151, ../scss/include/_skeleton.scss */
 #jqt .add { font-size: 24px; line-height: 24px; font-weight: bold; }
-/* line 156, ../scss/include/_skeleton.scss */
+/* line 159, ../scss/include/_skeleton.scss */
 #jqt h1 + ul, #jqt h2 + ul, #jqt h3 + ul, #jqt h4 + ul, #jqt h5 + ul, #jqt h6 + ul { margin-top: 0; }
-/* line 161, ../scss/include/_skeleton.scss */
-#jqt ul { background-color: white; color: #666666; text-shadow: white 0 1px 0; border: 1px solid #d9d9d9; font: bold 18px "Helvetica Neue", Helvetica; padding: 0; margin: 15px 10px 17px 10px; }
-/* line 170, ../scss/include/_skeleton.scss */
+/* line 164, ../scss/include/_skeleton.scss */
+#jqt ul { padding: 0; margin: 15px 10px 17px 10px; }
+/* line 166, ../scss/include/_skeleton.scss */
+#jqt ul, #jqt ul.individual li { background-color: white; color: gray; text-shadow: white 0 1px 0; border: 1px solid #d9d9d9; font: bold 18px "Helvetica Neue", Helvetica; }
+/* line 176, ../scss/include/_skeleton.scss */
 #jqt ul li { border-top: 1px solid #f2f2f2; list-style-type: none; overflow: hidden; padding: 10px; -webkit-transform: translate3d(0, 0, 0); /* expensive way to avoid flickr */ }
-/* line 177, ../scss/include/_skeleton.scss */
+/* line 183, ../scss/include/_skeleton.scss */
 #jqt ul li a { text-decoration: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block; padding: 12px 10px 12px 10px; margin: -10px; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); -webkit-transform: translateZ(0); color: #262626; text-shadow: white 0 1px 0; }
-/* line 191, ../scss/include/_skeleton.scss */
-#jqt ul li a * { pointer-events: none; }
-/* line 196, ../scss/include/_skeleton.scss */
-#jqt ul li a.active, #jqt ul li a.button { background-image: none; background-color: #3366cc; color: white; text-shadow: #2952a3 0 -1px 0; }
+/* line 195, ../scss/include/_skeleton.scss */
+#jqt ul li a.active { background-color: #3366cc; -webkit-box-shadow: #4372d0 0 1px 0px inset; box-shadow: #4372d0 0 1px 0px inset; color: white; text-shadow: #2952a3 0 -1px 0; }
 /* line 200, ../scss/include/_skeleton.scss */
-#jqt ul li a.active + small, #jqt ul li a.button + small { color: #adc2eb; text-shadow: #0a1429 0 -1px 0; }
-/* line 205, ../scss/include/_skeleton.scss */
-#jqt ul li small { color: #3366cc; font: 17px "Helvetica Neue", Helvetica; text-align: right; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block; width: 23%; float: right; padding: 0; }
-/* line 217, ../scss/include/_skeleton.scss */
-#jqt ul li small.counter { background: rgba(0, 0, 0, 0.5); color: #333333; text-shadow: #e6e6e6 0 1px 0; font-size: 17px; line-height: 13px; font-weight: bold; -webkit-border-radius: 4px; border-radius: 4px; padding: 4px 10px 5px 10px; display: block; width: auto; margin-top: -24px; }
-/* line 234, ../scss/include/_skeleton.scss */
+#jqt ul li a.active small { color: #adc2eb; text-shadow: #0a1429 0 -1px 0; }
+/* line 201, ../scss/include/_skeleton.scss */
+#jqt ul li a.active small.counter { background-color: #24478f; }
+/* line 210, ../scss/include/_skeleton.scss */
+#jqt ul li small { color: #3366cc; font: 17px "Helvetica Neue", Helvetica; text-align: right; text-overflow: ellipsis; white-space: nowrap; overflow: hidden; display: block; width: 23%; position: relative; z-index: 20; float: right; padding: 0; }
+/* line 224, ../scss/include/_skeleton.scss */
+#jqt ul li small.counter { background: #d9d9d9; color: #595959; text-shadow: #e6e6e6 0 1px 0; z-index: 10; font-size: 16px; line-height: 16px; font-weight: bold; -webkit-border-radius: 4px; border-radius: 4px; padding: 4px 10px 5px 10px; display: block; width: auto; }
+/* line 241, ../scss/include/_skeleton.scss */
 #jqt ul li ::-webkit-input-placeholder { color: #8293a1; text-shadow: #e8ebee 0 1px 0; }
-/* line 245, ../scss/include/_skeleton.scss */
+/* line 252, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="text"], #jqt ul li input[type="password"], #jqt ul li input[type="tel"], #jqt ul li input[type="number"], #jqt ul li input[type="search"], #jqt ul li input[type="email"], #jqt ul li input[type="url"], #jqt ul li textarea, #jqt ul li select { color: black; text-shadow: #e8ebee 0 1px 0; background: transparent url("data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="); border: 0; font: normal 17px "Helvetica Neue", Helvetica; padding: 0; display: inline-block; margin-left: 0px; width: 100%; -webkit-appearance: textarea; }
-/* line 256, ../scss/include/_skeleton.scss */
+/* line 263, ../scss/include/_skeleton.scss */
 #jqt ul li textarea { height: 120px; padding: 0; text-indent: -2px; }
-/* line 261, ../scss/include/_skeleton.scss */
+/* line 268, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] { margin: 0; padding: 10px; }
-/* line 265, ../scss/include/_skeleton.scss */
-#jqt ul li input[type="checkbox"]:after, #jqt ul li input[type="radio"]:after { content: attr(title); font: 17px "Helvetica Neue", Helvetica; display: block; width: 246px; margin: -12px 0 0 17px; color: black; text-shadow: #e8ebee 0 1px 0; }
-/* line 275, ../scss/include/_skeleton.scss */
+/* line 272, ../scss/include/_skeleton.scss */
+#jqt ul li input[type="checkbox"]:after, #jqt ul li input[type="radio"]:after { content: attr(title); font-size: 17px; vertical-align: middle; line-height: 1em; display: block; width: 246px; margin: 0 0 0 17px; color: black; text-shadow: #e8ebee 0 1px 0; }
+/* line 284, ../scss/include/_skeleton.scss */
 #jqt ul li input[type='submit'] { -webkit-border-radius: 4px; border-radius: 4px; background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#9c9ea0)); border: 1px outset #aaa; display: block; font-size: inherit; font-weight: inherit; padding: 10px; }
-/* line 287, ../scss/include/_skeleton.scss */
+/* line 296, ../scss/include/_skeleton.scss */
 #jqt ul li.arrow small { margin-right: 15px; }
-/* line 290, ../scss/include/_skeleton.scss */
+/* line 299, ../scss/include/_skeleton.scss */
 #jqt ul li.arrow a { padding: 12px 22px 12px 10px; }
-/* line 295, ../scss/include/_skeleton.scss */
-#jqt ul li a.active, #jqt ul li a.button { background-image: none; background-color: #3366cc; color: white; text-shadow: #2952a3 0 -1px 0; }
-/* line 301, ../scss/include/_skeleton.scss */
+/* line 307, ../scss/include/_skeleton.scss */
 #jqt ul.rounded, #jqt ul.individual li { -webkit-box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0; box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0; border: 1px solid #52657f; }
-/* line 306, ../scss/include/_skeleton.scss */
+/* line 312, ../scss/include/_skeleton.scss */
 #jqt ul.rounded { -webkit-border-radius: 8px; border-radius: 8px; }
-/* line 309, ../scss/include/_skeleton.scss */
+/* line 315, ../scss/include/_skeleton.scss */
 #jqt ul.rounded li:first-child, #jqt ul.rounded li:first-child a { border-top: 0; -webkit-border-top-left-radius: 8px; border-top-left-radius: 8px; -webkit-border-top-right-radius: 8px; border-top-right-radius: 8px; }
-/* line 313, ../scss/include/_skeleton.scss */
-#jqt ul.rounded li:last-child, #jqt ul.rounded li:last-child a { -webkit-border-bottom-left-radius: 8px; border-bottom-left-radius: 8px; -webkit-border-bottom-right-radius: 8px; border-bottom-right-radius: 8px; }
 /* line 319, ../scss/include/_skeleton.scss */
-#jqt ul.form li { padding: 7px 10px; }
-/* line 322, ../scss/include/_skeleton.scss */
-#jqt ul.form li.error { border: 2px solid red; }
+#jqt ul.rounded li:last-child, #jqt ul.rounded li:last-child a { -webkit-border-bottom-left-radius: 8px; border-bottom-left-radius: 8px; -webkit-border-bottom-right-radius: 8px; border-bottom-right-radius: 8px; }
 /* line 325, ../scss/include/_skeleton.scss */
+#jqt ul.form li { padding: 7px 10px; }
+/* line 328, ../scss/include/_skeleton.scss */
+#jqt ul.form li.error { border: 2px solid red; }
+/* line 331, ../scss/include/_skeleton.scss */
 #jqt ul.form li.error + #jqt ul.form li.error { border-top: 0; }
-/* line 336, ../scss/include/_skeleton.scss */
+/* line 338, ../scss/include/_skeleton.scss */
 #jqt ul.metal { border: 0; margin: 0; }
-/* line 340, ../scss/include/_skeleton.scss */
+/* line 342, ../scss/include/_skeleton.scss */
 #jqt ul.metal li { background-image: none; border-top: 1px solid #fff; border-bottom: 1px solid #666; font-size: 26px; }
-/* line 347, ../scss/include/_skeleton.scss */
+/* line 349, ../scss/include/_skeleton.scss */
 #jqt ul.metal li a { line-height: 26px; margin: 0; padding: 13px 0; }
-/* line 353, ../scss/include/_skeleton.scss */
+/* line 355, ../scss/include/_skeleton.scss */
 #jqt ul.metal li em { display: block; font-size: 14px; font-style: normal; width: 50%; line-height: 14px; }
-/* line 361, ../scss/include/_skeleton.scss */
+/* line 363, ../scss/include/_skeleton.scss */
 #jqt ul.metal li small { float: right; position: relative; margin-top: 10px; font-weight: bold; }
-/* line 372, ../scss/include/_skeleton.scss */
+/* line 374, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge { margin: 0; padding: 0; }
-/* line 376, ../scss/include/_skeleton.scss */
+/* line 378, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li { font-size: 20px; }
-/* line 379, ../scss/include/_skeleton.scss */
+/* line 381, ../scss/include/_skeleton.scss */
+#jqt ul.edgetoedge li:first-child { border-top: 0; }
+/* line 385, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li.sep { font-size: 16px; padding: 2px 10px; }
-/* line 384, ../scss/include/_skeleton.scss */
+/* line 390, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li em { font-weight: normal; font-style: normal; }
-/* line 393, ../scss/include/_skeleton.scss */
+/* line 399, ../scss/include/_skeleton.scss */
 #jqt ul.plastic { font-size: 18px; margin: 0; padding: 0; }
-/* line 398, ../scss/include/_skeleton.scss */
-#jqt ul.plastic li { border-width: 1px 0; border-style: solid; background-image: none; background-color: #d4d4d4; border-top-color: #d9d9d9; border-bottom-color: #cccccc; }
-/* line 406, ../scss/include/_skeleton.scss */
-#jqt ul.plastic li:nth-child(odd) { background-image: none; background-color: #d9d9d9; }
-/* line 410, ../scss/include/_skeleton.scss */
+/* line 404, ../scss/include/_skeleton.scss */
+#jqt ul.plastic li { border-width: 1px 0; border-style: solid; background-color: #d4d4d4; border-top-color: #d9d9d9; border-bottom-color: #cccccc; }
+/* line 412, ../scss/include/_skeleton.scss */
+#jqt ul.plastic li:nth-child(odd) { background-color: #d9d9d9; }
+/* line 416, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li a.active.loading { background-image: url(img/loading.gif); background-position: 95% center; background-repeat: no-repeat; }
-/* line 415, ../scss/include/_skeleton.scss */
+/* line 421, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li small { color: #888; font-size: 13px; font-weight: bold; line-height: 24px; text-transform: uppercase; }
-/* line 426, ../scss/include/_skeleton.scss */
-#jqt ul.individual { border: 0; background: none; clear: both; overflow: hidden; }
 /* line 432, ../scss/include/_skeleton.scss */
+#jqt ul.individual { border: 0; background: none; clear: both; overflow: hidden; }
+/* line 438, ../scss/include/_skeleton.scss */
 #jqt ul.individual li { font-size: 14px; text-align: center; -webkit-border-radius: 8px; border-radius: 8px; -webkit-box-sizing: border-box; box-sizing: border-box; width: 48%; float: left; display: block; padding: 11px 10px 14px 10px; }
-/* line 442, ../scss/include/_skeleton.scss */
+/* line 448, ../scss/include/_skeleton.scss */
 #jqt ul.individual li + li { float: right; }
-/* line 447, ../scss/include/_skeleton.scss */
+/* line 453, ../scss/include/_skeleton.scss */
 #jqt ul.individual a { line-height: 16px; margin: -11px -10px -14px -10px; padding: 11px 10px 14px 10px; -webkit-border-radius: 8px; border-radius: 8px; }
-/* line 456, ../scss/include/_skeleton.scss */
+/* line 462, ../scss/include/_skeleton.scss */
 #jqt .toggle { width: 94px; position: relative; height: 27px; display: block; overflow: hidden; float: right; }
-/* line 464, ../scss/include/_skeleton.scss */
+/* line 470, ../scss/include/_skeleton.scss */
 #jqt .toggle input[type="checkbox"] { margin: 0; -webkit-border-radius: 5px; border-radius: 5px; height: 27px; overflow: hidden; width: 149px; border: 0; -webkit-transition: left 0.15s ease-in-out; transition: left 0.15s ease-in-out; position: absolute; top: 0; left: -55px; -webkit-appearance: textarea; -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
-/* line 478, ../scss/include/_skeleton.scss */
-#jqt .toggle input[type="checkbox"]:checked { left: 0px; }
 /* line 484, ../scss/include/_skeleton.scss */
+#jqt .toggle input[type="checkbox"]:checked { left: 0px; }
+/* line 490, ../scss/include/_skeleton.scss */
 #jqt .info { font-size: 12px; line-height: 16px; text-align: center; color: #444; padding: 15px; font-weight: bold; }
 
 /* line 12, ../scss/apple.scss */
 #jqt > * { background-color: #cbd2d8; background-image: -webkit-repeating-linear-gradient(left, transparent, transparent 1px, #c5cdd4 1px, #c5cdd4 7px); }
 /* line 22, ../scss/apple.scss */
-#jqt .toolbar { border-bottom: 1px solid #2d3642; background-image: none; background-color: #667e9d; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e)); background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); }
-/* line 27, ../scss/apple.scss */
+#jqt .toolbar { background-color: #667e9d; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e)); background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e); }
+/* line 26, ../scss/apple.scss */
 #jqt .blueButton { -webkit-border-image: url(../img/apple/activeButton.png) 0 5 0 5; }
-/* line 32, ../scss/apple.scss */
+/* line 31, ../scss/apple.scss */
 #jqt .whiteButton, #jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton { display: block; border-width: 0 12px; margin: 0 10px; padding: 10px; text-align: center; font-size: 20px; font-weight: bold; text-decoration: inherit; color: inherit; }
-/* line 45, ../scss/apple.scss */
+/* line 44, ../scss/apple.scss */
 #jqt .whiteButton.active, #jqt .grayButton.active, #jqt .redButton.active, #jqt .blueButton.active, #jqt .greenButton.active, #jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active { -webkit-border-image: url(../img/apple/activeButton.png) 0 12 0 12; }
-/* line 49, ../scss/apple.scss */
+/* line 48, ../scss/apple.scss */
 #jqt .whiteButton { -webkit-border-image: url(../img/apple/whiteButton.png) 0 12 0 12; text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0; }
-/* line 54, ../scss/apple.scss */
+/* line 53, ../scss/apple.scss */
 #jqt .grayButton { -webkit-border-image: url(../img/apple/grayButton.png) 0 12 0 12; color: #fff; }
-/* line 59, ../scss/apple.scss */
+/* line 58, ../scss/apple.scss */
 #jqt .redButton { -webkit-border-image: url(../img/apple/redButton.png) 0 12 0 12; color: #fff; }
-/* line 64, ../scss/apple.scss */
+/* line 63, ../scss/apple.scss */
 #jqt .greenButton { -webkit-border-image: url(../img/apple/greenButton.png) 0 12 0 12; color: #fff; }
-/* line 73, ../scss/apple.scss */
+/* line 72, ../scss/apple.scss */
 #jqt ul li select { background: transparent url(../img/apple/chevron.png) no-repeat 103% 3px; }
-/* line 77, ../scss/apple.scss */
+/* line 76, ../scss/apple.scss */
 #jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] { color: #324f85; }
-/* line 81, ../scss/apple.scss */
+/* line 80, ../scss/apple.scss */
 #jqt ul li.arrow { background-image: url(../img/apple/chevron.png); background-position: right center; background-repeat: no-repeat; }
-/* line 88, ../scss/apple.scss */
+/* line 87, ../scss/apple.scss */
 #jqt ul .toggle input[type="checkbox"] { background: transparent url(../img/apple/on_off.png) 0 0 no-repeat; }
-/* line 92, ../scss/apple.scss */
+/* line 91, ../scss/apple.scss */
 #jqt ul input[type='submit'] { background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#9c9ea0)); border: 1px outset #aaa; }
-/* line 98, ../scss/apple.scss */
-#jqt ul.edgetoedge li.sep { background-image: none; background-color: #cbd2d8; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #aeb9c2), color-stop(10%, #bcc5cd), color-stop(65%, #cbd2d8), color-stop(100%, #ccd3d9)); background-image: -webkit-linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9); background-image: linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9); color: black; text-shadow: #e8ebee 0 1px 0; border-bottom: 1px solid #b5c1c9; border-top: 1px solid #b5c1c9; }
-/* line 106, ../scss/apple.scss */
+/* line 97, ../scss/apple.scss */
+#jqt ul.edgetoedge li.sep { background-color: #cbd2d8; background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #aeb9c2), color-stop(10%, #bcc5cd), color-stop(65%, #cbd2d8), color-stop(100%, #ccd3d9)); background-image: -webkit-linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9); background-image: linear-gradient(top, #aeb9c2, #bcc5cd 10%, #cbd2d8 65%, #ccd3d9); color: black; text-shadow: #e8ebee 0 1px 0; border-bottom: 1px solid #b5c1c9; border-top: 1px solid #b5c1c9; }
+/* line 105, ../scss/apple.scss */
 #jqt ul li.arrow a.active { background-image: url(../img/apple/listArrowSel.png); background-position: right center; background-repeat: no-repeat; }
-/* line 112, ../scss/apple.scss */
+/* line 111, ../scss/apple.scss */
 #jqt ul.edgetoedge li, #jqt .metal li { -webkit-border-radius: 0; border-radius: 0; }
-/* line 116, ../scss/apple.scss */
+/* line 115, ../scss/apple.scss */
 #jqt ul.edgetoedge li em { font-weight: normal; font-style: normal; }
-/* line 121, ../scss/apple.scss */
+/* line 120, ../scss/apple.scss */
 #jqt ul.edgetoedge, #jqt ul.metal, #jqt ul.plastic { -webkit-border-radius: 0; border-radius: 0; margin: 0; border-left: 0; border-right: 0; border-top: 0; }
-/* line 129, ../scss/apple.scss */
+/* line 128, ../scss/apple.scss */
 #jqt ul.metal li { border-top: 1px solid #eeeeee; border-bottom: 1px solid #9c9ea5; font-size: 26px; text-shadow: #fff 0 1px 0; }
-/* line 135, ../scss/apple.scss */
+/* line 134, ../scss/apple.scss */
 #jqt ul.metal li a:hover { color: #000; }
-/* line 137, ../scss/apple.scss */
+/* line 136, ../scss/apple.scss */
 #jqt ul.metal li a:hover small { color: inherit; }
-/* line 141, ../scss/apple.scss */
+/* line 140, ../scss/apple.scss */
 #jqt ul.metal li em { color: #444; }
-/* line 145, ../scss/apple.scss */
+/* line 144, ../scss/apple.scss */
 #jqt ul.metal li.arrow { background: url(../img/apple/chevron.png) right center no-repeat; }
-/* line 151, ../scss/apple.scss */
-#jqt ul.individual li { color: #b7becd; background: white; border: 1px solid #b4b4b4; }
-/* line 157, ../scss/apple.scss */
-#jqt ul.individual a { color: #324f85; }
-/* line 160, ../scss/apple.scss */
-#jqt ul.individual a:hover, #jqt ul.individual a.active { color: #fff; background: #36c; }
-/* line 167, ../scss/apple.scss */
+/* line 149, ../scss/apple.scss */
 #jqt .info { background: #dce1eb; text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0; color: #4c566c; border-top: 1px solid rgba(76, 86, 108, 0.3); }

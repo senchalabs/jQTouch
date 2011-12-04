@@ -8,7 +8,6 @@
         <script src="../../src/lib/zepto.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
         <!-- Uncomment the following two lines (and comment out Zepto) to use jQuery instead of Zepto. -->
-        <!-- <script src="../../jqtouch/jquery-1.7.js" type="application/x-javascript" charset="utf-8"></script> -->
         <!-- <script src="../../jqtouch/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> -->
         <script src="../../extensions/jqt.themeswitcher.js" type="application/x-javascript" charset="utf-8"></script>
 
@@ -139,13 +138,18 @@
                     <a class="back" href="#">Home</a>
                 </div>
                 <div class="scroll">
+                    <h2>Most Popular</h2>
                     <ul class="rounded">
-                        <li><a href="#animdemo" class="slideleft">Slide Left</a></li>
-                        <li><a href="#animdemo" class="slideright">Slide Right</a></li>
+                        <li><a href="#animdemo">Slide</a></li>
                         <li><a href="#animdemo" class="slideup">Slide Up</a></li>
-                        <li><a href="#animdemo" class="flipleft">Flip Left</a></li>
-                        <li><a href="#animdemo" class="flipright">Flip Right</a></li>
-                        <li><a href="#animations2" class="slideleft">More...</a></li>
+                        <li><a href="#animdemo" class="dissolve">Dissolve</a></li>
+                        <li><a href="#animdemo" class="pop">Pop</a></li>
+                    </ul>
+                    <h2>3d Transitions</h2>
+                    <ul class="rounded">
+                        <li><a href="#animdemo" class="flip">Flip</a></li>
+                        <li><a href="#animdemo" class="cube">Cube</a></li>
+                        <li><a href="#animdemo" class="swap">Swap</a></li>
                     </ul>
                 </div>
                 <div class="info">
@@ -159,12 +163,6 @@
                 </div>
                 <div class="scroll">
                     <ul class="rounded">
-                        <li><a href="#animdemo" class="cubeleft">Cube Left</a></li>
-                        <li><a href="#animdemo" class="cuberight">Cube Right</a></li>
-                        <li><a href="#animdemo" class="fade">Fade</a></li>
-                        <li><a href="#animdemo" class="dissolve">Dissolve</a></li>
-                        <li><a href="#animdemo" class="pop">Pop</a></li>
-                        <li><a href="#animdemo" class="swap">Swap</a></li>
                     </ul>
                 </div>
             </div>
@@ -215,14 +213,15 @@
                     <a class="back" href="#home">Home</a>
                 </div>
                 <div class="scroll">
-                    <div class="info">
-                        These apps open in a new window. Don&#8217;t forget to save them to your home screen to enable full-screen mode.
-                    </div>
+ 
                     <ul class="rounded">
                         <li class="forward"><a target="_blank" href="../todo/">To-Do app</a></li>
                         <li class="forward"><a target="_blank" href="../clock/">Clock app</a></li>
                     </ul>
                 </div>
+                <div class="info">
+                     These apps open in a new window. Don&#8217;t forget to save them to your home screen to enable full-screen mode.
+                 </div>
             </div>
             <div id="edge">
                 <div class="toolbar">
@@ -231,8 +230,8 @@
                 </div>
                 <ul class="edgetoedge scroll">
                     <li class="sep">F</li>
-                    <li><a href="#">Flintstone, <em>Fred</em> </a> <small>Label</small></li>
-                    <li><a href="#">Flintstone, <em>Pebble</em></a><small class="counter">23</small></li>
+                    <li><a href="#">Flintstone, <em>Fred</em> <small>Label</small></a></li>
+                    <li><a href="#">Flintstone, <em>Pebble</em> <small class="counter">23</small></a></li>
                     <li><a href="#">Flintstone, <em>Wilma</em></a></li>
                     <li class="sep">J</li>
                     <li class="arrow"><a href="#">Jetson, <em>Elroy</em></a></li>
@@ -312,14 +311,14 @@
                 </div>
                 <div class="scroll">
                     <ul class="rounded">
-                        <li class="arrow"><a href="#ui">User Interface</a> <small class="counter">4</small></li>
-                        <li class="arrow"><a href="#animations">Animations</a> <small class="counter">8</small></li>
-                        <li class="arrow"><a href="#ajax">AJAX</a> <small class="counter">3</small></li>
-                        <li class="arrow"><a href="#callbacks">Events</a> <small class="counter">3</small></li>
-                        <li class="arrow"><a href="#extensions">Extensions</a> <small class="counter">4</small></li>
-                        <li class="arrow"><a href="#video">Video</a></li>
-                        <li class="arrow"><a href="#demos">Demos</a> <small class="counter">2</small></li>
-                        <li class="arrow"><a href="#themes">Themes</a><small class="counter">2</small></li>
+                        <li class="arrow"><a href="#ui">User Interface <small class="counter">5</small></a> </li>
+                        <li class="arrow"><a href="#animations">Animations <small class="counter">7</small></a></li>
+                        <li class="arrow"><a href="#ajax">AJAX <small class="counter">4</small></a></li>
+                        <li class="arrow"><a href="#callbacks">Events <small class="counter">4</small></a></li>
+                        <li class="arrow"><a href="#extensions">Extensions <small class="counter">4</small></a> </li>
+                        <li class="arrow"><a href="#video">Video </a></li>
+                        <li class="arrow"><a href="#demos">Demos <small class="counter">2</small></a></li>
+                        <li class="arrow"><a href="#themes">Themes <small class="counter">2</small></a></li>
                     </ul>
                     <h2>External Links</h2>
                     <ul class="rounded">
@@ -364,13 +363,10 @@
                 </div>
                 <ul class="plastic scroll">
                     <li class="arrow"><a href="#">Simple list <small>Label</small></a></li>
-                    <li class="arrow"><a href="#">Contact list</a> <small class="counter">42</small></li>
+                    <li class="arrow"><a href="#">Contact list <small class="counter">42</small></a></li>
                     <li class="forward"><a href="#">Content List</a></li>
                     <li><a href="#">Metal list</a></li>
                 </ul>
-                <div class="info">
-                    <p><strong>Best enjoyed on a real iPhone</strong></p>
-                </div>
             </div>
             <div id="ui">
                 <div class="toolbar">
