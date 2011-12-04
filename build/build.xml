@@ -123,17 +123,10 @@
     </target>
 
     <target name="minify-css" depends="copy-files">
-        <apply executable="java" parallel="false">
-            <fileset dir="${dir.publish}/${dir.css}">
-                <exclude name="**/*.min.css"/>
-            </fileset>
-            <arg line="-jar"/>
-            <arg path="${dir.build.tools}/${tool.yuicompressor}"/>
-            <srcfile/>
-            <arg line="-o"/>
-            <mapper type="glob" from="*.css" to="${basedir}/${dir.publish}/${dir.css}/*.min.css"/>
-            <targetfile/>
-        </apply>
+        <echo message="Attempting to recompile Sass files with production seetings..."/>
+        <exec executable="compass">
+            <arg line="compile -l ./${dir.publish}/${dir.themes}/accessories/ --sass-dir ./${dir.publish}/${dir.themes}/scss --css-dir ./${dir.publish}/${dir.themes}/css --output-style compressed --environment production -q" />
+        </exec>
     </target>
 
     <target name="concat-jquery">
@@ -147,7 +140,7 @@
     </target>
 
     <target name="switch-to-minified">
-        <replaceregexp match="([\w-]*)(?&lt;!\.min)\.(js|css)" replace="\1.min.\2" flags="g">
+        <replaceregexp match="([\w-]*)(?&lt;!\.min)\.(js)" replace="\1.min.\2" flags="g">
             <fileset dir="./${dir.publish}">
                 <include name="**/*.html"/>
             </fileset>
@@ -162,7 +155,6 @@
     <target name="strip-warnings" depends="copy-files">
         <echo>Stripping warnings out of production scripts.</echo>
         <replaceregexp match="\n\s*warn\(.*" replace="" file="${dir.publish}/${dir.src}/jqtouch.js" flags="g">
-
         </replaceregexp>
     </target>
 
