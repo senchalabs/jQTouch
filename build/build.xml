@@ -1,0 +1,177 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+<project name="jQTouch Build" default="build" basedir="../">
+
+    <property file="build/config/project.properties"/>
+    <property file="build/config/default.properties"/>
+
+    <!-- Adds <if>, <or>, etc. -->
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+        <classpath>
+            <pathelement location="${basedir}/build/tools/ant-contrib-1.0b3.jar"/>
+        </classpath>
+    </taskdef>
+
+    <target name="intro">
+
+        <echo message="====================================================================="/>
+        <echo message="We are going to build a jQTouch release!"/>
+        <echo message=" "/>
+        <echo message="====================================================================="/>
+        <echo message=" "/>
+        <echo message=" "/>
+
+    </target>
+
+    <target name="clean-start">
+    <!-- This is a private target -->
+        <echo message="Removing previous build directory..."/>
+        <delete dir="./${dir.publish}/"/>
+    </target>
+
+    <!-- JSLint target, run separately -->
+    <target name="jslint" description="Run JSLint on jQTouch source files.">
+        <apply dir="${dir.root}/${dir.src}" executable="java" parallel="false" failonerror="true">
+            <fileset dir="./${dir.root}/">
+                <include name="**/${dir.src}/*.js"/>
+                <exclude name="**/*.min.js"/>
+                <exclude name="**/${dir.src.libs}/"/>
+            </fileset>
+            <arg value="-jar" />
+            <arg path="./${dir.build.tools}/${tool.rhino}" />
+            <arg path="./${dir.build.tools}/${tool.jslint}" />
+            <srcfile/>
+            <arg value="${tool.jslint.opts}" />
+        </apply>
+        <echo>JSLint Successful</echo>
+    </target>
+    
+    <!-- JSHint target, run separately -->
+    <target name="jshint" description="Run JSHint on jQTouch source files.">
+      <apply dir="${dir.root}/${dir.src}" executable="java" parallel="false" failonerror="true">
+            <fileset dir="./${dir.root}/">
+                <include name="**/${dir.src}/*.js"/>
+                <exclude name="**/*.min.js"/>
+                <exclude name="**/${dir.src.libs}/"/>
+            </fileset>
+            <arg value="-jar" />
+            <arg path="./${dir.build.tools}/${tool.rhino}" />
+            <arg path="./${dir.build.tools}/${tool.jshint}" />
+            <srcfile/>
+            <arg value="${tool.jshint.opts}" />
+        </apply>
+        <echo>JSHint Successful</echo>
+    </target>
+
+    <!-- CSSLint target, run separately -->
+    <target name="csslint" description="Run CSSLint on jQTouch theme files.">
+        <apply dir="${dir.root}/${dir.css}" executable="java" parallel="false" failonerror="true">
+            <fileset dir="./${dir.root}/">
+                <include name="**/${dir.css}/*.css"/>
+                <exclude name="**/*.min.css"/>
+            </fileset>
+            <arg value="-jar" />
+            <arg path="./${dir.build.tools}/${tool.rhino}" />
+            <arg path="./${dir.build.tools}/${tool.csslint}" />
+            <srcfile/>
+            <arg value="${tool.csslint.opts}" />
+        </apply>
+        <echo>CSSLint Successful</echo>
+    </target>
+  
+    <target name="copy-files" depends="clean-start">
+      <if>
+          <or>
+            <equals arg1="${dir.publish}" arg2="."/>
+            <equals arg1="${dir.publish}" arg2=".."/>
+            <equals arg1="${dir.publish}" arg2="/"/>
+            <equals arg1="${dir.publish}" arg2="./"/>
+            <equals arg1="${dir.publish}" arg2="../"/>
+          </or>
+          <then>
+            <fail message="Your dir.publish folder, ${dir.publish}, appears to be your jQTouch install. To avoid overwriting important files, set this to a new folder name."/>
+          </then>
+          <else>
+            <echo message="Creating directory structure... ${dir.publish}"/>
+            <mkdir dir="${dir.publish}"/>
+            <copy todir="${dir.publish}" includeEmptyDirs="true">
+                <fileset dir="${dir.root}/" excludes="${file.default.exclude}, ${file.exclude}" />
+            </copy>
+          </else>
+      </if>
+    </target>
+
+    <target name="minify-js" depends="copy-files">
+        <echo message="Minifying JS with Closure Compiler. Grab a cup of tea, this may take a minute..."/>
+
+        <apply executable="java" parallel="false">
+            <fileset dir="${dir.publish}/" >
+                <include name="${dir.src}/**/*.js"/>
+                <include name="${dir.extensions}/**/*.js"/>
+                <exclude name="${dir.src}/**/*.min.js"/>
+            </fileset>
+            <arg line="-jar"/>
+            <arg path="./${dir.build.tools}/compiler.jar"/>
+            <arg line="--js"/>
+            <srcfile/>
+            <arg line="--compilation_level" />
+            <arg value="${scripts.compilation.level}" />
+            <arg line="--warning_level" />
+            <arg value="${scripts.compilation.warninglevel}" />
+            <arg line="--js_output_file" />
+            <mapper type="glob" from="*.js" to="${basedir}/${dir.publish}/*.min.js"/>
+            <targetfile/>
+        </apply>
+    </target>
+
+    <target name="minify-css" depends="copy-files">
+        <echo message="Recompiling Sass stylesheets with production seetings..."/>
+        <exec executable="compass">
+            <arg line="compile -l ./${dir.publish}/${dir.themes}/compass-recipes/ --sass-dir ./${dir.publish}/${dir.themes}/scss --css-dir ./${dir.publish}/${dir.themes}/css --output-style compressed --environment production -q" />
+        </exec>
+    </target>
+
+    <target name="concat-jquery">
+        <echo message="Concatenating jQTouch with jQuery bridge file."/>
+        <concat destfile="./${dir.publish}/${dir.src}/jqtouch-jquery.full.min.js" overwrite="yes">
+            <fileset dir="./${dir.publish}/${dir.src}/">
+                <include name="jqtouch.min.js"/>
+                <include name="jqtouch-jquery.min.js"/>
+            </fileset>
+        </concat>
+    </target>
+
+    <target name="switch-to-minified">
+        <echo message="Switching script references to minified versions." />
+        <replaceregexp match="([\w-]*)(?&lt;!\.min)\.(js)" replace="\1.min.\2" flags="g">
+            <fileset dir="./${dir.publish}">
+                <include name="**/*.html"/>
+            </fileset>
+        </replaceregexp>
+    </target>
+
+    <target name="make-htaccess" depends="copy-files">
+        <echo message="Creating an .htaccess file from sample.htaccess" />
+        <copy file="./${dir.publish}/sample.htaccess" tofile="./${dir.publish}/.htaccess" />
+    </target>
+
+    <target name="strip-warnings" depends="copy-files">
+        <echo>Stripping warnings out of production scripts.</echo>
+        <replaceregexp match="\n\s*warn\(.*" replace="" file="${dir.publish}/${dir.src}/jqtouch.js" flags="g">
+        </replaceregexp>
+    </target>
+
+    <target name="build" depends="
+        intro,
+        copy-files,
+        make-htaccess,
+        strip-warnings,
+        concat-jquery,
+        minify-js,
+        minify-css,
+        switch-to-minified
+        " description="Build a jQTouch release." />
+
+    <target name="review" depends="jslint, csslint" description="Runs CSSLint and JSLint on core jQTouch files." />
+
+</project>

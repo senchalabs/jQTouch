@@ -1,0 +1,155 @@
+$base-color: #768BA7;
+$page-background-color: #CBD2D8;
+$highlight-color: #3366CC;
+
+$list-background-color: #fff;
+
+$toolbar-background-color: darken($base-color, 5);
+
+@import 'include/core';
+
+#jqt {
+    > * {
+        @include background-striped(
+            $angle: left,
+            $minorsize: 1px,
+            $majorsize: 7px,
+            $bgcolor: $page-background-color,
+            $stripe-color: darken($page-background-color, 2)
+        )
+    }
+
+    .toolbar {
+        @include background-gradient($toolbar-background-color, glossy);
+    }
+
+    .blueButton {
+        -webkit-border-image: url(../img/apple/activeButton.png) 0 5 0 5;
+    }
+
+    .whiteButton,
+    .grayButton, .redButton, .blueButton, .greenButton {
+        display: block;
+        border-width: 0 12px;
+        margin: 0 10px;
+        padding: 10px;
+        text-align: center;
+        font-size: 20px;
+        font-weight: bold;
+        text-decoration: inherit;
+        color: inherit;
+    }
+
+    .whiteButton.active, .grayButton.active, .redButton.active, .blueButton.active, .greenButton.active,
+    .whiteButton:active, .grayButton:active, .redButton:active, .blueButton:active, .greenButton:active {
+        -webkit-border-image: url(../img/apple/activeButton.png) 0 12 0 12;
+    }
+
+    .whiteButton {
+        -webkit-border-image: url(../img/apple/whiteButton.png) 0 12 0 12;
+        text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+    }
+
+    .grayButton {
+        -webkit-border-image: url(../img/apple/grayButton.png) 0 12 0 12;
+        color: #fff;
+    }
+
+    .redButton {
+        -webkit-border-image: url(../img/apple/redButton.png) 0 12 0 12;
+        color: #fff;
+    }
+
+    .greenButton {
+        -webkit-border-image: url(../img/apple/greenButton.png) 0 12 0 12;
+        color: #fff;
+    }
+
+    ul {
+
+        li {
+
+            select {
+                background: transparent url(../img/apple/chevron.png) no-repeat 103% 3px;
+            }
+
+            input[type="checkbox"], input[type="radio"] {
+                color: rgb(50,79,133);
+            }
+
+            &.arrow {
+                background-image: url(../img/apple/chevron.png);
+                background-position: right center;
+                background-repeat: no-repeat;
+            }
+        }
+
+        .toggle input[type="checkbox"] {
+            background: transparent url(../img/apple/on_off.png) 0 0 no-repeat;
+        }
+
+        input[type='submit'] {
+            background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+            border: 1px outset #aaa;
+        }
+
+        // Edge to edge
+        &.edgetoedge li.sep {
+            @include background-gradient($page-background-color, recessed);
+            @include color-by-background($page-background-color);
+            border-bottom: 1px solid #b5c1c9;
+            border-top: 1px solid #b5c1c9;
+        }
+    }
+
+    ul li.arrow a.active {
+        background-image: url(../img/apple/listArrowSel.png);
+        background-position: right center;
+        background-repeat: no-repeat;
+    }
+
+    ul.edgetoedge li, .metal li {
+        @include border-radius(0);
+    }
+
+    ul.edgetoedge li em {
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    ul.edgetoedge, ul.metal, ul.plastic {
+        @include border-radius(0);
+        margin: 0;
+        border-left: 0;
+        border-right: 0;
+        border-top: 0;
+    }
+
+    ul.metal li {
+        border-top: 1px solid rgb(238,238,238);
+        border-bottom: 1px solid rgb(156,158,165);
+        font-size: 26px;
+        text-shadow: #fff 0 1px 0;
+
+        a:hover {
+            color: #000;
+            small {
+                color: inherit;
+            }
+        }
+        em {
+            color: #444;
+        }
+
+        &.arrow {
+            background:  url(../img/apple/chevron.png) right center no-repeat;
+        }
+    }
+
+    .info {
+        background: #dce1eb;
+        text-shadow: rgba(255,255,255,.8) 0 1px 0;
+        color: rgb(76, 86, 108);
+        border-top: 1px solid rgba(76, 86, 108, .3);
+    }
+}

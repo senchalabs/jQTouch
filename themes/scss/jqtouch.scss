@@ -1,0 +1,183 @@
+// $toolbar-background-color: #485021;
+// $base-color: #485021; // Army green
+// $base-color: #3387CC; // Sky blue
+// $highlight-color: #CFD085; // Yellow
+// $highlight-color: #0175C4;
+// $toolbar-background-color: #3387CC;
+// $base-color: #D9D9D9;
+// $highlight-color: #000;
+
+@import 'include/core';
+
+#jqt {
+    > * {
+        @include background-image(
+            background_noise(),
+            bevel-gradient($base-color)
+        );
+    }
+
+    .toolbar {
+        @include background-carbon-fiber(
+            $background-color: $toolbar-background-color
+        );
+    }
+
+    .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
+        border-width: 0 12px;
+        color: #fff;
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0 10px;
+        padding: 10px;
+        text-align: center;
+        text-decoration: inherit;
+        text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+
+        &.active, &:active {
+            -webkit-border-image: url(../img/jqt/activeButton.png) 0 12 0 12;
+            color: #000 !important;
+        }
+    }
+    .blueButton {
+        -webkit-border-image: url(../img/jqt/blueButton.png) 0 5 0 5;
+    }
+    .whiteButton {
+        -webkit-border-image: url(../img/jqt/whiteButton.png) 0 12 0 12;
+    }
+    .grayButton {
+        -webkit-border-image: url(../img/jqt/grayButton.png) 0 12 0 12;
+        color: #fff;
+    }
+
+    .redButton {
+        -webkit-border-image: url(../img/jqt/redButton.png) 0 12 0 12;
+    }
+
+    .greenButton {
+        -webkit-border-image: url(../img/jqt/greenButton.png) 0 12 0 12;
+    }
+
+
+    /* Lists */
+
+    ul {
+        li {
+            border-top: 1px solid darken($base-color, 5);
+            @include background-gradient(rgba($base-color, .2), matte);
+
+            a {
+                @include color-by-background($base-color);
+            }
+
+            select {
+                background: transparent url(../img/jqt/chevron.png) no-repeat right center;
+            }
+
+            .toggle input[type="checkbox"] {
+                @include border-radius(5px);
+                background: #fff url(../img/jqt/on_off.png) 0 0 no-repeat;
+            }
+
+            input[type='submit'] {
+                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+                border: 1px outset black;
+            }
+            
+            &.forward {
+                position: relative;
+                &:after {
+                    content: '';
+                    background-image: url(../img/jqt/chevron_circle.png);
+                    background-position: right center;
+                    background-repeat: no-repeat;
+                    width: 40px;
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }                
+            }
+
+            &.arrow {
+                position: relative;
+                &:after {
+                    content: '';
+                    background-image: url(../img/jqt/chevron.png);
+                    background-position: right center;
+                    background-repeat: no-repeat;
+                    width: 40px;
+                    height: 100%;
+                    position: absolute;
+                    right: 0;
+                    top: 0;
+                }
+            }
+            
+            a.active.loading {
+                background-image: url(../img/jqt/loading.gif);
+                background-position: 95% center;
+                background-repeat: no-repeat;
+            }
+
+            small.counter {
+                @include box-shadow(rgba(#fff,.1) 0 1px 0);
+            }
+
+            li.arrow small.counter {
+                margin-right: 15px;
+            }
+        } // /li
+
+        &.metal {
+            li {
+                background-image: none;
+                border-top: 1px solid #fff;
+                border-bottom: 1px solid #666;
+                background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+
+                a {
+                    text-shadow: #fff 0 1px 0;
+                    &.active { color: #000; }
+                }
+
+                em {
+                    color: #444;
+                }
+
+                &.arrow {
+                    background-position: right center;
+                    background-repeat: no-repeat;
+                    background-image: url(../img/jqt/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+                }
+            }
+        } // ul.metal
+        
+        &.edgetoedge li {
+            @include background-gradient(darken($base-color, 10), color-stops(darken($base-color, 20), darken($base-color, 15)));
+            border-bottom: 1px solid darken($base-color, 22);
+            border-top: 1px solid darken($base-color, 13);
+
+            &.sep {
+                @include background-gradient(rgba(#000, .3), bevel);
+                @include color-by-background(darken($base-color, 25), 50);
+            }
+        }
+        
+        &.plastic li {
+            a.active.loading {
+                background-image: url(../img/jqt/loading.gif);
+                background-position: 95% center;
+                background-repeat: no-repeat;
+            }
+        }
+    }
+    
+    .info {
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#ccc), to(#aaa), color-stop(.6,#CCCCCC));
+        text-shadow: rgba(255,255,255,.8) 0 1px 0;
+        color: #444;
+        border-top: 1px solid rgba(255,255,255,.2);
+    }
+}
