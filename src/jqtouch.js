@@ -727,6 +727,7 @@
             animations: animations,
             getOrientation: getOrientation,
             goBack: goBack,
+            insertPages: insertPages,
             goTo: goTo,
             history: history,
             settings: jQTSettings,
