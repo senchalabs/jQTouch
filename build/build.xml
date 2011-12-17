@@ -102,6 +102,8 @@
     </target>
 
     <target name="minify-js" depends="copy-files">
+        <echo message="Minifying JS with Closure Compiler. Grab a cup of tea, this may take a minute..."/>
+
         <apply executable="java" parallel="false">
             <fileset dir="${dir.publish}/" >
                 <include name="${dir.src}/**/*.js"/>
@@ -123,9 +125,9 @@
     </target>
 
     <target name="minify-css" depends="copy-files">
-        <echo message="Attempting to recompile Sass files with production seetings..."/>
+        <echo message="Recompiling Sass stylesheets with production seetings..."/>
         <exec executable="compass">
-            <arg line="compile -l ./${dir.publish}/${dir.themes}/accessories/ --sass-dir ./${dir.publish}/${dir.themes}/scss --css-dir ./${dir.publish}/${dir.themes}/css --output-style compressed --environment production -q" />
+            <arg line="compile -l ./${dir.publish}/${dir.themes}/compass-recipes/ --sass-dir ./${dir.publish}/${dir.themes}/scss --css-dir ./${dir.publish}/${dir.themes}/css --output-style compressed --environment production -q" />
         </exec>
     </target>
 
@@ -140,6 +142,7 @@
     </target>
 
     <target name="switch-to-minified">
+        <echo message="Switching script references to minified versions." />
         <replaceregexp match="([\w-]*)(?&lt;!\.min)\.(js)" replace="\1.min.\2" flags="g">
             <fileset dir="./${dir.publish}">
                 <include name="**/*.html"/>
