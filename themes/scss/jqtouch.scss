@@ -18,10 +18,8 @@
     }
 
     .toolbar {
-        @include background-pattern-carbonfiber(
-            $spacing-size: 10px,
-            $dotsize: 22%,
-            $bgcolor: $toolbar-background-color
+        @include background-carbon-fiber(
+            $background-color: $toolbar-background-color
         );
     }
 

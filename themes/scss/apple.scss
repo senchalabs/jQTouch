@@ -10,7 +10,7 @@ $toolbar-background-color: darken($base-color, 5);
 
 #jqt {
     > * {
-        @include background-pattern-stripe(
+        @include background-striped(
             $angle: left,
             $minorsize: 1px,
             $majorsize: 7px,
