@@ -4,7 +4,7 @@ jQTouch
 Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
 --------------------------------------------------------------------------
 
-jQTouch is a jQuery plugin with native animations, automatic navigation, and themes for mobile WebKit browsers like iPhone, Nexus One, and Palm Pre.
+jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and comes with smooth animations, navigation, and themes for mobile WebKit browsers (as found in iOS, Android, BlackBerry, and WebOS).
 
 - [Easy to install](http://wiki.github.com/senchalabs/jQTouch/gettingstarted). Get up and running in a few minutes.
 - [Entirely customizable](http://wiki.github.com/senchalabs/jQTouch/initoptions) with selector options
@@ -15,6 +15,13 @@ jQTouch is a jQuery plugin with native animations, automatic navigation, and the
 - Easily allow apps to run in fullscreen mode with custom icons and startup screens
 - The power of jQuery to build AJAX applications
 - New demos: Clock and Todo
+
+## Upcoming Features
+*Note: Upcoming features are developed in the master branch, and are not to be considered stable. For official releases, please see the [version tags](https://github.com/senchalabs/jQTouch/tags).*
+
+- Zepto integration - Use with Zepto.js instead of jQuery to cut down on precious bandwidth. Zepto.js is very similar API to jQuery, but optimized for WebKit and thus about 20kb smaller.
+- Sass-based stylesheets, easily modified with variables, using 
+- Image-less stylesheets -- Using [Compass Recipes](https://github.com/senchalabs/compass-recipes), we have recreated all of the gradients and background patterns with CSS. This way, they are resolution independent, dynamically theme-able, and lower bandwidth.
 
 [Source code](http://github.com/senchalabs/jQTouch/archives/master), [issue tracking](http://github.com/senchalabs/jQTouch/issues), and [documentation](http://wiki.github.com/senchalabs/jQTouch/) are available on github.
 
@@ -30,7 +37,7 @@ Jonathan Stark has created an excellent introduction to jQTouch as part of his b
 Credits
 -------
 
-Created by [David Kaneda](http://www.davidkaneda.com).
+Created, and still occasionally maintained, by [David Kaneda](http://www.davidkaneda.com).
 
 Maintained by [Thomas Yip](http://www.linkedin.com/in/thomasyip).
 
