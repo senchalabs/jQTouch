@@ -60,18 +60,18 @@
                 useFastTouch: true,
                 useTouchScroll: true,
                 animations: [ // highest to lowest priority
-                    {selector:'.cubeleft, .cube', name:'cubeleft', is3d: true},
-                    {selector:'.cuberight', name:'cuberight', is3d: true},
-                    {selector:'.dissolve', name:'dissolve'},
-                    {selector:'.fade', name:'fade'},
-                    {selector:'.flipleft, .flip', name:'flipleft', is3d: true},
-                    {selector:'.flipright', name:'flipright', is3d: true},
-                    {selector:'.pop', name:'pop', is3d: true},
-                    {selector:'.slidedown', name:'slidedown'},
-                    {selector:'.slideleft, .slide, #jqt > * > ul li a', name:'slideleft'},
-                    {selector:'.slideright', name:'slideright'},
-                    {selector:'.slideup', name:'slideup'},
-                    {selector:'.swap', name:'swapleft', is3d: true}
+                    {name:'cubeleft', selector:'.cubeleft, .cube', is3d: true},
+                    {name:'cuberight', selector:'.cuberight', is3d: true},
+                    {name:'dissolve', selector:'.dissolve'},
+                    {name:'fade', selector:'.fade'},
+                    {name:'flipleft', selector:'.flipleft, .flip', is3d: true},
+                    {name:'flipright', selector:'.flipright', is3d: true},
+                    {name:'pop', selector:'.pop', is3d: true},
+                    {name:'swapleft', selector:'.swap', is3d: true},
+                    {name:'slidedown', selector:'.slidedown'},
+                    {name:'slideright', selector:'.slideright'},
+                    {name:'slideup', selector:'.slideup'},
+                    {name:'slideleft', selector:'.slideleft, .slide, #jqt > * > ul li a'}
                 ]
             }; // end defaults
 
