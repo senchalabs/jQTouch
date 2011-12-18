@@ -22,10 +22,13 @@
             $background-color: $toolbar-background-color
         );
     }
-
+    .blueButton {
+        @include background-image(#2F7CE3, glossy);
+        @include color-by-background(#2F7CE3);
+        
+        // -webkit-border-image: url(../img/jqt/blueButton.png) 0 5 0 5;
+    }
     .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
-        border-width: 0 12px;
-        color: #fff;
         display: block;
         font-size: 20px;
         font-weight: bold;
@@ -33,30 +36,35 @@
         padding: 10px;
         text-align: center;
         text-decoration: inherit;
-        text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
+        @include border-radius;
+        @include box-shadow(
+            rgba(#000, .8) 0 0 0 5px,
+            rgba(#fff, .3) 0 1px 0 5px
+        );
 
         &.active, &:active {
-            -webkit-border-image: url(../img/jqt/activeButton.png) 0 12 0 12;
-            color: #000 !important;
+            $active-color: darken($highlight-color, 10);
+            @include background-gradient($active-color, glossy);
+            @include color-by-background($active-color);
         }
     }
-    .blueButton {
-        -webkit-border-image: url(../img/jqt/blueButton.png) 0 5 0 5;
-    }
     .whiteButton {
-        -webkit-border-image: url(../img/jqt/whiteButton.png) 0 12 0 12;
+        @include background-gradient(#eee, glossy);
+        @include color-by-background(#eee);
     }
     .grayButton {
-        -webkit-border-image: url(../img/jqt/grayButton.png) 0 12 0 12;
-        color: #fff;
+        @include background-gradient($base-color, glossy);
+        @include color-by-background($base-color);
     }
 
     .redButton {
-        -webkit-border-image: url(../img/jqt/redButton.png) 0 12 0 12;
+        @include background-gradient(#D83B38, glossy);
+        @include color-by-background(#D83B38);
     }
 
     .greenButton {
-        -webkit-border-image: url(../img/jqt/greenButton.png) 0 12 0 12;
+        @include background-gradient($highlight-color, glossy);        
+        @include color-by-background($highlight-color);
     }
 
 
