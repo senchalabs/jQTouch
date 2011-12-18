@@ -49,10 +49,12 @@
                 // Page animation callback events
                 $('#pageevents').
                     bind('pageAnimationStart', function(e, info){ 
-                        $(this).find('.info').append('Started animating ' + info.direction + '&hellip; ');
+                        $(this).find('.info').append('Started animating ' + info.direction + '&hellip;  And the link ' +
+                            'had this custom data: ' + $(this).data('referrer').data('custom') + '<br>');
                     }).
                     bind('pageAnimationEnd', function(e, info){
-                        $(this).find('.info').append(' finished animating ' + info.direction + '.<br /><br />');
+                        $(this).find('.info').append('Finished animating ' + info.direction + '.<br><br>');
+
                     });
                 
                 // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
@@ -112,13 +114,13 @@
         <div id="jqt">
             <div id="about" class="selectable">
                     <p><img src="jqtouch.png" /></p>
-                    <p><strong>jQTouch</strong><br />Version 1.0 beta<br />
+                    <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
                         <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
-                    <p><em>Create powerful mobile apps with<br /> just HTML, CSS, and jQuery.</em></p>
+                    <p><em>Create powerful mobile apps with<br> just HTML, CSS, and jQuery.</em></p>
                     <p>
                         <a target="_blank" href="http://twitter.com/jqtouch">@jQTouch on Twitter</a>
                     </p>
-                    <p><br /><br /><a href="#" class="grayButton goback">Close</a></p>
+                    <p><br><br><a href="#" class="grayButton goback">Close</a></p>
             </div>
             <div id="ajax">
                 <div class="toolbar">
@@ -155,7 +157,7 @@
                     </ul>
                 </div>
                 <div class="info">
-                    Custom animations are also <a target="_blank" href="http://code.google.com/p/jqtouch/wiki/Animations">easy to write</a>. <br />View the source in <code>demos/customanimation</code> to see how.
+                    Custom animations are also <a target="_blank" href="http://code.google.com/p/jqtouch/wiki/Animations">easy to write</a>. <br>View the source in <code>demos/customanimation</code> to see how.
                 </div>
             </div>
             <div id="animations2">
@@ -181,11 +183,11 @@
                 </div>
                 <div style="margin-top: 10px;" class="scroll">
                     <a href="#" class="whiteButton">White</a>
-                    <br />
+                    <br>
                     <a href="#" class="grayButton">Gray</a>
-                    <br />
+                    <br>
                     <a href="#" class="redButton">Red</a>
-                    <br />
+                    <br>
                     <a href="#" class="greenButton">Green</a>
                 </div>
             </div>
@@ -203,7 +205,7 @@
                 <div class="scroll">
                     <ul class="rounded">
                         <li id="orient">Orientation: <strong>portrait</strong></li>
-                        <li><a href="#pageevents">Page events</a></li>
+                        <li><a href="#pageevents" data-custom="WOOT!">Page events</a></li>
                         <li><a href="#" id="swipeme">Swipe me!</a></li>
                         <li><a href="#" id="tapme">Tap me!</a></li>
                     </ul>
