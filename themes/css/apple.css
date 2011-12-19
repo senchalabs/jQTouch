@@ -1768,6 +1768,7 @@ body {
 /* line 12, ../scss/apple.scss */
 #jqt > * {
   background-color: #cbd2d8;
+  background-image: -webkit-repeating-linear-gradient(left, transparent, transparent 1px, #c5cdd4 1px, #c5cdd4 7px);
   background-image: repeating-linear-gradient(left, transparent, transparent 1px, #c5cdd4 1px, #c5cdd4 7px);
 }
 /* line 22, ../scss/apple.scss */

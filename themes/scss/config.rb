@@ -7,4 +7,8 @@ css_path = File.join(sass_path, "..", "css")
 output_style = :expanded # nested/expanded/compact/compressed
 environment = :development # development/production
 
-# Rebuilt autotically with production settings in Ant build
+# Rebuilt automatically with production settings in Ant build
+
+# for repeating-linear-gradient
+# https://github.com/chriseppstein/compass/issues/401
+Compass::BrowserSupport.add_support('repeating-linear-gradient', 'webkit', 'moz', 'o', 'ms')
