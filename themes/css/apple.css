@@ -1291,8 +1291,8 @@ body {
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: white;
-  text-shadow: #52657f 0 -1px 0;
+  color: black;
+  text-shadow: #9eadc1 0 1px 0;
 }
 /* line 45, ../scss/include/_skeleton.scss */
 #jqt .black-translucent .toolbar {
@@ -1322,37 +1322,37 @@ body {
   margin: 0;
   padding: 0 10px;
   color: white;
-  text-shadow: #52657f 0 -1px 0;
+  text-shadow: #3e5779 0 -1px 0;
   -webkit-box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset;
   box-shadow: rgba(255, 255, 255, 0.2) 0 1px 0, rgba(0, 0, 0, 0.2) 0 1px 2px inset;
-  border: 1px solid #3e4c60;
+  border: 1px solid #2d3f57;
   -webkit-border-radius: 5px;
   border-radius: 5px;
   background-image: none;
-  background-color: #667e9d;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
-  background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
-  background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  background-color: #50709a;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #7c97bb), color-stop(50%, #5a7caa), color-stop(51%, #50709a), color-stop(100%, #476489));
+  background-image: -webkit-linear-gradient(top, #7c97bb, #5a7caa 50%, #50709a 51%, #476489);
+  background-image: linear-gradient(top, #7c97bb, #5a7caa 50%, #50709a 51%, #476489);
 }
-/* line 79, ../scss/include/_skeleton.scss */
+/* line 80, ../scss/include/_skeleton.scss */
 #jqt .button.active, #jqt .back.active, #jqt .cancel.active, #jqt .add.active {
-  border-color: #344050;
+  border-color: #243346;
   background-image: none;
-  background-color: #5c718e;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
-  background-image: -webkit-linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
-  background-image: linear-gradient(top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
+  background-color: #476489;
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #6b89b2), color-stop(50%, #50709a), color-stop(51%, #476489), color-stop(100%, #3e5779));
+  background-image: -webkit-linear-gradient(top, #6b89b2, #50709a 50%, #476489 51%, #3e5779);
+  background-image: linear-gradient(top, #6b89b2, #50709a 50%, #476489 51%, #3e5779);
   color: white;
-  text-shadow: #48596f 0 -1px 0;
+  text-shadow: #364b68 0 -1px 0;
 }
-/* line 86, ../scss/include/_skeleton.scss */
+/* line 87, ../scss/include/_skeleton.scss */
 #jqt .back {
   max-width: 60px;
   margin-left: 15px;
   overflow: visible;
   padding-left: 5px;
 }
-/* line 93, ../scss/include/_skeleton.scss */
+/* line 94, ../scss/include/_skeleton.scss */
 #jqt .back:after, #jqt .back:before {
   content: '';
   position: absolute;
@@ -1364,12 +1364,12 @@ body {
   transform: rotate(45deg) translate3d(0.2px, 0, 0);
   -webkit-transform-origin: 0 0;
   transform-origin: 0 0;
-  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
-  background-image: -webkit-linear-gradient(top left, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
-  background-image: linear-gradient(top left, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #7c97bb), color-stop(50%, #5a7caa), color-stop(51%, #50709a), color-stop(100%, #476489));
+  background-image: -webkit-linear-gradient(top left, #7c97bb, #5a7caa 50%, #50709a 51%, #476489);
+  background-image: linear-gradient(top left, #7c97bb, #5a7caa 50%, #50709a 51%, #476489);
   background-size: 100% 98%;
-  -webkit-border-radius: 0 0 0 5px;
-  border-radius: 0 0 0 5px;
+  -webkit-border-radius: 0 0 0 2px;
+  border-radius: 0 0 0 2px;
   -webkit-mask-image: -webkit-linear-gradient(45deg, black, black 15px, rgba(0, 0, 0, 0) 15px);
   -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(black), color-stop(50%, black), color-stop(50%, rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0)));
   -webkit-mask-clip: border-box;
@@ -1383,17 +1383,17 @@ body {
 /* line 126, ../scss/include/_skeleton.scss */
 #jqt .back:before {
   margin-left: -1px;
-  background: #344050 none;
+  background: #243346 none;
 }
 /* line 131, ../scss/include/_skeleton.scss */
 #jqt .back.active:after {
-  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #8698b1), color-stop(50%, #667e9d), color-stop(51%, #5c718e), color-stop(100%, #52657f));
-  background-image: -webkit-linear-gradient(left top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
-  background-image: linear-gradient(left top, #8698b1, #667e9d 50%, #5c718e 51%, #52657f);
+  background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #6b89b2), color-stop(50%, #50709a), color-stop(51%, #476489), color-stop(100%, #3e5779));
+  background-image: -webkit-linear-gradient(left top, #6b89b2, #50709a 50%, #476489 51%, #3e5779);
+  background-image: linear-gradient(left top, #6b89b2, #50709a 50%, #476489 51%, #3e5779);
 }
 /* line 136, ../scss/include/_skeleton.scss */
 #jqt .back.active:before {
-  background-color: #344050;
+  background-color: #243346;
 }
 /* line 142, ../scss/include/_skeleton.scss */
 #jqt .blueButton {
@@ -1765,25 +1765,25 @@ body {
   font-weight: bold;
 }
 
-/* line 12, ../scss/apple.scss */
+/* line 13, ../scss/apple.scss */
 #jqt > * {
   background-color: #cbd2d8;
   background-image: -webkit-repeating-linear-gradient(left, transparent, transparent 1px, #c5cdd4 1px, #c5cdd4 7px);
   background-image: repeating-linear-gradient(left, transparent, transparent 1px, #c5cdd4 1px, #c5cdd4 7px);
 }
-/* line 22, ../scss/apple.scss */
+/* line 23, ../scss/apple.scss */
 #jqt .toolbar {
-  background-image: none;
-  background-color: #667e9d;
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #95a5bb), color-stop(50%, #768ba7), color-stop(51%, #667e9d), color-stop(100%, #5c718e));
-  background-image: -webkit-linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
-  background-image: linear-gradient(top, #95a5bb, #768ba7 50%, #667e9d 51%, #5c718e);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.15)), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9babbf), color-stop(50%, #899bb3), color-stop(51%, #7f93ad), color-stop(100%, #768ba7));
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)), -webkit-linear-gradient(top, #9babbf, #899bb3 50%, #7f93ad 51%, #768ba7);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)), linear-gradient(top, #9babbf, #899bb3 50%, #7f93ad 51%, #768ba7);
+  -webkit-box-shadow: rgba(255, 255, 255, 0.3) 0 1px 0 inset;
+  box-shadow: rgba(255, 255, 255, 0.3) 0 1px 0 inset;
 }
-/* line 26, ../scss/apple.scss */
+/* line 32, ../scss/apple.scss */
 #jqt .blueButton {
   -webkit-border-image: url(../img/apple/activeButton.png) 0 5 0 5;
 }
-/* line 31, ../scss/apple.scss */
+/* line 37, ../scss/apple.scss */
 #jqt .whiteButton,
 #jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
   display: block;
@@ -1796,55 +1796,55 @@ body {
   text-decoration: inherit;
   color: inherit;
 }
-/* line 44, ../scss/apple.scss */
+/* line 50, ../scss/apple.scss */
 #jqt .whiteButton.active, #jqt .grayButton.active, #jqt .redButton.active, #jqt .blueButton.active, #jqt .greenButton.active,
 #jqt .whiteButton:active, #jqt .grayButton:active, #jqt .redButton:active, #jqt .blueButton:active, #jqt .greenButton:active {
   -webkit-border-image: url(../img/apple/activeButton.png) 0 12 0 12;
 }
-/* line 48, ../scss/apple.scss */
+/* line 54, ../scss/apple.scss */
 #jqt .whiteButton {
   -webkit-border-image: url(../img/apple/whiteButton.png) 0 12 0 12;
   text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
 }
-/* line 53, ../scss/apple.scss */
+/* line 59, ../scss/apple.scss */
 #jqt .grayButton {
   -webkit-border-image: url(../img/apple/grayButton.png) 0 12 0 12;
   color: #fff;
 }
-/* line 58, ../scss/apple.scss */
+/* line 64, ../scss/apple.scss */
 #jqt .redButton {
   -webkit-border-image: url(../img/apple/redButton.png) 0 12 0 12;
   color: #fff;
 }
-/* line 63, ../scss/apple.scss */
+/* line 69, ../scss/apple.scss */
 #jqt .greenButton {
   -webkit-border-image: url(../img/apple/greenButton.png) 0 12 0 12;
   color: #fff;
 }
-/* line 72, ../scss/apple.scss */
+/* line 78, ../scss/apple.scss */
 #jqt ul li select {
   background: transparent url(../img/apple/chevron.png) no-repeat 103% 3px;
 }
-/* line 76, ../scss/apple.scss */
+/* line 82, ../scss/apple.scss */
 #jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
   color: #324f85;
 }
-/* line 80, ../scss/apple.scss */
+/* line 86, ../scss/apple.scss */
 #jqt ul li.arrow {
   background-image: url(../img/apple/chevron.png);
   background-position: right center;
   background-repeat: no-repeat;
 }
-/* line 87, ../scss/apple.scss */
+/* line 93, ../scss/apple.scss */
 #jqt ul .toggle input[type="checkbox"] {
   background: transparent url(../img/apple/on_off.png) 0 0 no-repeat;
 }
-/* line 91, ../scss/apple.scss */
+/* line 97, ../scss/apple.scss */
 #jqt ul input[type='submit'] {
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#9c9ea0));
   border: 1px outset #aaa;
 }
-/* line 97, ../scss/apple.scss */
+/* line 103, ../scss/apple.scss */
 #jqt ul.edgetoedge li.sep {
   background-image: none;
   background-color: #cbd2d8;
@@ -1856,23 +1856,23 @@ body {
   border-bottom: 1px solid #b5c1c9;
   border-top: 1px solid #b5c1c9;
 }
-/* line 105, ../scss/apple.scss */
+/* line 111, ../scss/apple.scss */
 #jqt ul li.arrow a.active {
   background-image: url(../img/apple/listArrowSel.png);
   background-position: right center;
   background-repeat: no-repeat;
 }
-/* line 111, ../scss/apple.scss */
+/* line 117, ../scss/apple.scss */
 #jqt ul.edgetoedge li, #jqt .metal li {
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-/* line 115, ../scss/apple.scss */
+/* line 121, ../scss/apple.scss */
 #jqt ul.edgetoedge li em {
   font-weight: normal;
   font-style: normal;
 }
-/* line 120, ../scss/apple.scss */
+/* line 126, ../scss/apple.scss */
 #jqt ul.edgetoedge, #jqt ul.metal, #jqt ul.plastic {
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -1881,30 +1881,30 @@ body {
   border-right: 0;
   border-top: 0;
 }
-/* line 128, ../scss/apple.scss */
+/* line 134, ../scss/apple.scss */
 #jqt ul.metal li {
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #9c9ea5;
   font-size: 26px;
   text-shadow: #fff 0 1px 0;
 }
-/* line 134, ../scss/apple.scss */
+/* line 140, ../scss/apple.scss */
 #jqt ul.metal li a:hover {
   color: #000;
 }
-/* line 136, ../scss/apple.scss */
+/* line 142, ../scss/apple.scss */
 #jqt ul.metal li a:hover small {
   color: inherit;
 }
-/* line 140, ../scss/apple.scss */
+/* line 146, ../scss/apple.scss */
 #jqt ul.metal li em {
   color: #444;
 }
-/* line 144, ../scss/apple.scss */
+/* line 150, ../scss/apple.scss */
 #jqt ul.metal li.arrow {
   background: url(../img/apple/chevron.png) right center no-repeat;
 }
-/* line 149, ../scss/apple.scss */
+/* line 155, ../scss/apple.scss */
 #jqt .info {
   background: #dce1eb;
   text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;

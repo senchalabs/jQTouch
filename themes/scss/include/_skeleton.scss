@@ -70,11 +70,12 @@ body {
         margin: 0;
         padding: 0 10px;
 
-        @include color-by-background($toolbar-background-color);
+        @include color-by-background($toolbar-button-color);
         @include box-shadow(rgba(#fff, .2) 0 1px 0, rgba(#000, .2) 0 1px 2px inset);
-        border: 1px solid darken($toolbar-background-color, 20);
+        border: 1px solid darken($toolbar-button-color, 20);
         @include border-radius(5px);
-        @include background-gradient($toolbar-background-color, glossy);
+
+        @include background-gradient($toolbar-button-color, glossy);
 
         &.active {
             border-color: darken($toolbar-button-active-color, 20);
@@ -101,13 +102,12 @@ body {
             // The .2px gets rid of a blurry artifact from
             // combining the mask and rotate properties.
             @include transform(rotate(45deg) translate3d(.2px,0,0)); // Just be glad you didn't have to find it.
-
             @include transform-origin(0,0);
             @include background-image(
-                glossy-gradient($toolbar-background-color, top left)
+                glossy-gradient($toolbar-button-color, top left)
             );
             background-size: 100% 98%;
-            @include border-radius(0 0 0 5px);
+            @include border-radius(0 0 0 2px);
 
             // New gradient syntax
             -webkit-mask-image: -webkit-linear-gradient(45deg, rgba(0,0,0,1), rgba(0,0,0,1) 15px, rgba(0,0,0,0) 15px);

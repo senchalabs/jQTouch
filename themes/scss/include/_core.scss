@@ -23,7 +23,8 @@ $highlight-color: #53b401 !default; // bright green
 $toolbar-background-color: darken($base-color, 15%) !default;
 $page-background-color: $base-color !default;
 $list-background-color: $page-background-color !default;
-$toolbar-button-active-color: darken($toolbar-background-color, 5) !default;
+$toolbar-button-color: darken($toolbar-background-color, 15%) !default;
+$toolbar-button-active-color: darken($toolbar-button-color, 5%) !default;
 
 // Optimization variables
 $include-metal-lists: true !default;
