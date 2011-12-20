@@ -10,7 +10,7 @@ body {
 
 #jqt {
     -webkit-text-size-adjust: none;
-    -webkit-user-select: none;
+    @include user-select(none);
     font-family: "Helvetica Neue", Helvetica;
     position: absolute;
     right: 0;
@@ -35,6 +35,7 @@ body {
     > * {
         display: block;
         left: 0;
+        top: 0;
         min-height: 100%;
         width: 100%;
         overflow-x: hidden;
@@ -53,8 +54,7 @@ body {
         display: none;
     }
 
-    &.ios5 {
-
+    &.ios5:not(.animating3d) {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
 
@@ -77,6 +77,9 @@ body {
         -webkit-animation-duration: 250ms;
         -webkit-animation-fill-mode: both;
         -webkit-animation-timing-function: ease-in-out;
+
+        height: 100%;
+        overflow: hidden;
     }
 
     .in {
@@ -97,7 +100,6 @@ body {
 
     &.supports3d {
         -webkit-perspective: 1000;
-        -webkit-transform-style: preserve-3d;
 
         > * {
             -webkit-transform: translate3d(0,0,0) rotate(0) scale(1);

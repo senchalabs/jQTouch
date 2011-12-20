@@ -218,6 +218,7 @@ body {
         
         padding: 0;
         margin: 15px 10px 17px 10px;
+        -webkit-margin-collapse: separate;
 
         li {
             border-top: 1px solid darken($list-background-color, 5);

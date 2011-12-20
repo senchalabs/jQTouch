@@ -148,7 +148,6 @@
 
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
 
-
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
                     warn('Did not detect support for 3d animations, falling back to ' + jQTSettings.defaultAnimation);
@@ -156,7 +155,8 @@
                 }
 
                 // Reverse animation if need be
-                var finalAnimationName = animation.name;
+                var finalAnimationName = animation.name,
+                    is3d = animation.is3d ? 'animating3d' : '';
 
                 if (goingBack) {
                     finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation );
@@ -169,9 +169,9 @@
 
                 // Trigger animations
                 scrollTo(0, 0);
+                $body.addClass('animating ' + is3d);
                 toPage.addClass(finalAnimationName + ' in current');
                 fromPage.addClass(finalAnimationName + ' out');
-
             } else {
                 toPage.addClass('current in');
                 navigationEndHandler();
@@ -187,6 +187,8 @@
                     fromPage.removeClass('current ' + finalAnimationName + ' out');
                     
                     toPage.removeClass(finalAnimationName);
+                    $body.removeClass('animating animating3d');
+
                     // scrollTo(0, 0);
                     // toPage.css('top', 0);
                 } else {
@@ -691,6 +693,7 @@
             if ($.support.ios5) {
                 $body.addClass('ios5');
             }
+
             if (jQTSettings.fullScreenClass && window.navigator.standalone === true) {
                 $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
             }
