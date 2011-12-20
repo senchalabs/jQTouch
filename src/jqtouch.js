@@ -493,7 +493,7 @@
                 });
                 return false;
             }
-            return false;
+            return true;
         }
         function submitParentForm($el) {
 
