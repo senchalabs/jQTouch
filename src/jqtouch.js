@@ -361,6 +361,24 @@
             }
 
         }
+
+        function getAnimation(el) {
+            var animation;
+
+            for (var i=0, max=animations.length; i < max; i++) {
+                if (el.is(animations[i].selector)) {
+                    animation = animations[i];
+                    break;
+                }
+            }
+
+            if (!animation) {
+                warn('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
+                animation = jQTSettings.defaultAnimation;
+            }
+            return animation;
+        }
+
         function insertPages(nodes, animation) {
 
             var targetPage = null;
@@ -396,6 +414,7 @@
         function mousedownHandler(e) {
             var timeDiff = (new Date()).getTime() - lastAnimationTime;
             if (timeDiff < tapBuffer) {
+                e.preventDefault();
                 return false;
             }
         }
@@ -466,13 +485,11 @@
 
             var $form = (typeof(e)==='string') ? $(e).eq(0) : (e.target ? $(e.target) : $(e));
 
-            warn($form.attr('action'));
-
             if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
                 showPageByHref($form.attr('action'), {
                     data: $form.serialize(),
                     method: $form.attr('method') || "POST",
-                    animation: animations[0] || null,
+                    animation: getAnimation($form),
                     callback: callback
                 });
                 return false;
@@ -584,18 +601,7 @@
                 $el.unselect();
                 return true;
             } else {
-                // Figure out the animation to use
-                for (var i=0, max=animations.length; i < max; i++) {
-                    if ($el.is(animations[i].selector)) {
-                        animation = animations[i];
-                        break;
-                    }
-                }
-
-                if (!animation) {
-                    warn('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
-                    animation = jQTSettings.defaultAnimation;
-                }
+                animation = getAnimation($el);
 
                 if (hash && hash !== '#') {
                     // Internal href
