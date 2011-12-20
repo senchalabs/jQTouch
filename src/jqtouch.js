@@ -747,6 +747,8 @@
                 options.framework = $;
                 return jQTouchCore(options);
             };
+
+            $.fn.prop = $.fn.attr;
             
             // Extensions directly manipulate the jQTouch object, before it's initialized.
             $.jQTouch.addExtension = function(extension) {
