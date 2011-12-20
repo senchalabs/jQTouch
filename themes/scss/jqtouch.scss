@@ -12,7 +12,7 @@
 #jqt {
     > * {
         @include background-image(
-            background_noise($size: 60, $opacity: .3, $monochrome: true),
+            background_noise($size: 60, $opacity: .07),
             bevel-gradient($base-color)
         );
     }
