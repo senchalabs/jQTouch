@@ -1301,8 +1301,8 @@ body {
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: black;
-  text-shadow: #9eadc1 0 1px 0;
+  color: white;
+  text-shadow: #5c718e 0 -1px 0;
 }
 /* line 45, ../scss/include/_skeleton.scss */
 #jqt .black-translucent .toolbar {
@@ -1859,36 +1859,36 @@ body {
 }
 /* line 23, ../scss/apple.scss */
 #jqt .toolbar {
-  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.15)), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #9babbf), color-stop(50%, #899bb3), color-stop(51%, #7f93ad), color-stop(100%, #768ba7));
-  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)), -webkit-linear-gradient(top, #9babbf, #899bb3 50%, #7f93ad 51%, #768ba7);
-  background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)), linear-gradient(top, #9babbf, #899bb3 50%, #7f93ad 51%, #768ba7);
+  background-image: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, rgba(255, 255, 255, 0.15)), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #92a3b9), color-stop(50%, #7f93ad), color-stop(51%, #768ba7), color-stop(100%, #6d83a1));
+  background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)), -webkit-linear-gradient(top, #92a3b9, #7f93ad 50%, #768ba7 51%, #6d83a1);
+  background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0)), linear-gradient(top, #92a3b9, #7f93ad 50%, #768ba7 51%, #6d83a1);
   -webkit-box-shadow: rgba(255, 255, 255, 0.3) 0 1px 0 inset;
   box-shadow: rgba(255, 255, 255, 0.3) 0 1px 0 inset;
 }
-/* line 36, ../scss/apple.scss */
+/* line 35, ../scss/apple.scss */
 #jqt ul li select {
   background: transparent url(../img/apple/chevron.png) no-repeat 103% 3px;
 }
-/* line 40, ../scss/apple.scss */
+/* line 39, ../scss/apple.scss */
 #jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
   color: #324f85;
 }
-/* line 44, ../scss/apple.scss */
+/* line 43, ../scss/apple.scss */
 #jqt ul li.arrow {
   background-image: url(../img/apple/chevron.png);
   background-position: right center;
   background-repeat: no-repeat;
 }
-/* line 51, ../scss/apple.scss */
+/* line 50, ../scss/apple.scss */
 #jqt ul .toggle input[type="checkbox"] {
   background: transparent url(../img/apple/on_off.png) 0 0 no-repeat;
 }
-/* line 55, ../scss/apple.scss */
+/* line 54, ../scss/apple.scss */
 #jqt ul input[type='submit'] {
   background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeeeee), to(#9c9ea0));
   border: 1px outset #aaa;
 }
-/* line 61, ../scss/apple.scss */
+/* line 60, ../scss/apple.scss */
 #jqt ul.edgetoedge li.sep {
   background-image: none;
   background-color: #cbd2d8;
@@ -1900,23 +1900,23 @@ body {
   border-bottom: 1px solid #b5c1c9;
   border-top: 1px solid #b5c1c9;
 }
-/* line 69, ../scss/apple.scss */
+/* line 68, ../scss/apple.scss */
 #jqt ul li.arrow a.active {
   background-image: url(../img/apple/listArrowSel.png);
   background-position: right center;
   background-repeat: no-repeat;
 }
-/* line 75, ../scss/apple.scss */
+/* line 74, ../scss/apple.scss */
 #jqt ul.edgetoedge li, #jqt .metal li {
   -webkit-border-radius: 0;
   border-radius: 0;
 }
-/* line 79, ../scss/apple.scss */
+/* line 78, ../scss/apple.scss */
 #jqt ul.edgetoedge li em {
   font-weight: normal;
   font-style: normal;
 }
-/* line 84, ../scss/apple.scss */
+/* line 83, ../scss/apple.scss */
 #jqt ul.edgetoedge, #jqt ul.metal, #jqt ul.plastic {
   -webkit-border-radius: 0;
   border-radius: 0;
@@ -1925,30 +1925,30 @@ body {
   border-right: 0;
   border-top: 0;
 }
-/* line 92, ../scss/apple.scss */
+/* line 91, ../scss/apple.scss */
 #jqt ul.metal li {
   border-top: 1px solid #eeeeee;
   border-bottom: 1px solid #9c9ea5;
   font-size: 26px;
   text-shadow: #fff 0 1px 0;
 }
-/* line 98, ../scss/apple.scss */
+/* line 97, ../scss/apple.scss */
 #jqt ul.metal li a:hover {
   color: #000;
 }
-/* line 100, ../scss/apple.scss */
+/* line 99, ../scss/apple.scss */
 #jqt ul.metal li a:hover small {
   color: inherit;
 }
-/* line 104, ../scss/apple.scss */
+/* line 103, ../scss/apple.scss */
 #jqt ul.metal li em {
   color: #444;
 }
-/* line 108, ../scss/apple.scss */
+/* line 107, ../scss/apple.scss */
 #jqt ul.metal li.arrow {
   background: url(../img/apple/chevron.png) right center no-repeat;
 }
-/* line 113, ../scss/apple.scss */
+/* line 112, ../scss/apple.scss */
 #jqt .info {
   background: #dce1eb;
   text-shadow: rgba(255, 255, 255, 0.8) 0 1px 0;

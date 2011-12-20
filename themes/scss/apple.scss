@@ -4,7 +4,7 @@ $highlight-color: #3366CC;
 
 $list-background-color: #fff;
 
-$toolbar-background-color: lighten(#768BA7, 3);
+$toolbar-background-color: $base-color;
 $toolbar-button-color: saturate(darken($base-color, 10), 10);
 
 @import 'include/core';
@@ -26,7 +26,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
             glossy-gradient($toolbar-background-color, $contrast: .6)
         );
         @include box-shadow(rgba(#fff, .3) 0 1px 0 inset);
-
     }
 
     ul {
