@@ -19,7 +19,7 @@
 
     .toolbar {
         @include background-carbon-fiber(
-            $background-color: $toolbar-background-color
+            $background-color: darken($toolbar-background-color, 5)
         );
     }
     .blueButton {
