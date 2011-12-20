@@ -275,6 +275,7 @@
 
             if (typeof(toPage) === 'string') {
                 var nextPage = $(toPage);
+
                 if (nextPage.length < 1) {
                     showPageByHref(toPage, {
                         'animation': animation
@@ -558,7 +559,7 @@
 
             // Init some vars
             var target = $el.attr('target'),
-                hash = $el.attr('hash'),
+                hash = $el.prop('hash'),
                 animation = null;
 
             if ($el.isExternalLink()) {
