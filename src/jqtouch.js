@@ -123,6 +123,8 @@
         }
         function doNavigation(fromPage, toPage, animation, goingBack) {
 
+            goingBack = goingBack ? goingBack : false;
+
             // Error check for target page
             if (toPage === undefined || toPage.length === 0) {
                 $.fn.unselect();
@@ -143,8 +145,8 @@
             // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
             // toPage.css('top', window.pageYOffset);
 
-            fromPage.trigger('pageAnimationStart', { direction: 'out' });
-            toPage.trigger('pageAnimationStart', { direction: 'in' });
+            fromPage.trigger('pageAnimationStart', { direction: 'out', back: goingBack });
+            toPage.trigger('pageAnimationStart', { direction: 'in', back: goingBack });
 
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
 
@@ -214,8 +216,8 @@
                 setHash($currentPage.attr('id'));
 
                 // Trigger custom events
-                toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
-                fromPage.trigger('pageAnimationEnd', {direction:'out', animation:animation});
+                toPage.trigger('pageAnimationEnd', { direction:'in', animation: animation});
+                fromPage.trigger('pageAnimationEnd', { direction:'out', animation: animation});
             }
 
             return true;
