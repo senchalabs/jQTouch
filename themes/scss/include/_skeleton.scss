@@ -16,19 +16,21 @@ body {
 
     .toolbar {
         @include box-sizing(border-box);
+        @include box-shadow(rgba(#000, .4) 0 1px 6px);
         border-bottom: 1px solid darken($base-color, 35%);
+
+        z-index: 10;
 
         position: relative;
         padding: 10px;
-        height: 45px;
+        height: 44px;
 
         & > h1 {
             position: absolute;
             overflow: hidden;
             left: 50%;
-            top: 10px;
+            bottom: 12px;
             margin: 1px 0 0 -75px;
-            height: 40px;
             width: 150px;
 
             font-size: 20px;
@@ -42,8 +44,9 @@ body {
             @include color-by-background($toolbar-background-color);
         }
     }
-    .black-translucent .toolbar {
-        margin-top: 20px;
+    &.black-translucent .toolbar {
+        padding-top: 30px;
+        height: 64px;
     }
     &.landscape .toolbar > h1 {
         margin-left: -125px;
@@ -65,7 +68,7 @@ body {
         white-space: nowrap;
         background: none;
 
-        top: 6px;
+        bottom: 6px;
         right: 10px;
         margin: 0;
         padding: 0 10px;

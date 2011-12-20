@@ -54,7 +54,7 @@ body {
         display: none;
     }
 
-    &.ios5:not(.animating3d) {
+    &.touchscroll:not(.animating3d) {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
 

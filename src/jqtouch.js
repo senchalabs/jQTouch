@@ -690,8 +690,8 @@
             if ($.support.transform3d) {
                 $body.addClass('supports3d');
             }
-            if ($.support.ios5) {
-                $body.addClass('ios5');
+            if ($.support.ios5 && jQTSettings.useTouchScroll) {
+                $body.addClass('touchscroll');
             }
 
             if (jQTSettings.fullScreenClass && window.navigator.standalone === true) {

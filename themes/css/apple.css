@@ -661,16 +661,16 @@ body {
   display: none;
 }
 /* line 57, ../scss/include/_base.scss */
-#jqt.ios5:not(.animating3d) {
+#jqt.touchscroll:not(.animating3d) {
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
 }
 /* line 61, ../scss/include/_base.scss */
-#jqt.ios5:not(.animating3d) > * {
+#jqt.touchscroll:not(.animating3d) > * {
   height: 100%;
 }
 /* line 64, ../scss/include/_base.scss */
-#jqt.ios5:not(.animating3d) .scroll {
+#jqt.touchscroll:not(.animating3d) .scroll {
   position: relative;
   -webkit-box-flex: 1;
   box-flex: 1;
@@ -1284,19 +1284,21 @@ body {
 #jqt .toolbar {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px;
+  box-shadow: rgba(0, 0, 0, 0.4) 0 1px 6px;
   border-bottom: 1px solid #2a3441;
+  z-index: 10;
   position: relative;
   padding: 10px;
-  height: 45px;
+  height: 44px;
 }
-/* line 25, ../scss/include/_skeleton.scss */
+/* line 28, ../scss/include/_skeleton.scss */
 #jqt .toolbar > h1 {
   position: absolute;
   overflow: hidden;
   left: 50%;
-  top: 10px;
+  bottom: 12px;
   margin: 1px 0 0 -75px;
-  height: 40px;
   width: 150px;
   font-size: 20px;
   font-weight: bold;
@@ -1307,16 +1309,17 @@ body {
   color: white;
   text-shadow: #5c718e 0 -1px 0;
 }
-/* line 45, ../scss/include/_skeleton.scss */
-#jqt .black-translucent .toolbar {
-  margin-top: 20px;
+/* line 47, ../scss/include/_skeleton.scss */
+#jqt.black-translucent .toolbar {
+  padding-top: 30px;
+  height: 64px;
 }
-/* line 48, ../scss/include/_skeleton.scss */
+/* line 51, ../scss/include/_skeleton.scss */
 #jqt.landscape .toolbar > h1 {
   margin-left: -125px;
   width: 250px;
 }
-/* line 53, ../scss/include/_skeleton.scss */
+/* line 56, ../scss/include/_skeleton.scss */
 #jqt .button, #jqt .back, #jqt .cancel, #jqt .add {
   position: absolute;
   overflow: hidden;
@@ -1330,7 +1333,7 @@ body {
   text-decoration: none;
   white-space: nowrap;
   background: none;
-  top: 6px;
+  bottom: 6px;
   right: 10px;
   margin: 0;
   padding: 0 10px;
@@ -1347,7 +1350,7 @@ body {
   background-image: -webkit-linear-gradient(top, #7c97bb, #5a7caa 50%, #50709a 51%, #476489);
   background-image: linear-gradient(top, #7c97bb, #5a7caa 50%, #50709a 51%, #476489);
 }
-/* line 80, ../scss/include/_skeleton.scss */
+/* line 83, ../scss/include/_skeleton.scss */
 #jqt .button.active, #jqt .back.active, #jqt .cancel.active, #jqt .add.active {
   border-color: #243346;
   background-image: none;
@@ -1358,14 +1361,14 @@ body {
   color: white;
   text-shadow: #364b68 0 -1px 0;
 }
-/* line 87, ../scss/include/_skeleton.scss */
+/* line 90, ../scss/include/_skeleton.scss */
 #jqt .back {
   max-width: 60px;
   margin-left: 15px;
   overflow: visible;
   padding-left: 5px;
 }
-/* line 94, ../scss/include/_skeleton.scss */
+/* line 97, ../scss/include/_skeleton.scss */
 #jqt .back:after, #jqt .back:before {
   content: '';
   position: absolute;
@@ -1388,33 +1391,33 @@ body {
   -webkit-mask-clip: border-box;
   -webkit-background-clip: content-box;
 }
-/* line 123, ../scss/include/_skeleton.scss */
+/* line 126, ../scss/include/_skeleton.scss */
 #jqt .back:after {
   -webkit-box-shadow: rgba(0, 0, 0, 0.2) 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset;
   box-shadow: rgba(0, 0, 0, 0.2) 1px 0 0 inset, rgba(0, 0, 0, 0.2) 0 -1px 0 inset;
 }
-/* line 126, ../scss/include/_skeleton.scss */
+/* line 129, ../scss/include/_skeleton.scss */
 #jqt .back:before {
   margin-left: -1px;
   background: #243346 none;
 }
-/* line 131, ../scss/include/_skeleton.scss */
+/* line 134, ../scss/include/_skeleton.scss */
 #jqt .back.active:after {
   background-image: -webkit-gradient(linear, 0% 0%, 100% 100%, color-stop(0%, #6b89b2), color-stop(50%, #50709a), color-stop(51%, #476489), color-stop(100%, #3e5779));
   background-image: -webkit-linear-gradient(left top, #6b89b2, #50709a 50%, #476489 51%, #3e5779);
   background-image: linear-gradient(left top, #6b89b2, #50709a 50%, #476489 51%, #3e5779);
 }
-/* line 136, ../scss/include/_skeleton.scss */
+/* line 139, ../scss/include/_skeleton.scss */
 #jqt .back.active:before {
   background-color: #243346;
 }
-/* line 142, ../scss/include/_skeleton.scss */
+/* line 145, ../scss/include/_skeleton.scss */
 #jqt .blueButton {
   background-image: #2f7ce3, glossy;
   color: white;
   text-shadow: #1a63c5 0 -1px 0;
 }
-/* line 146, ../scss/include/_skeleton.scss */
+/* line 149, ../scss/include/_skeleton.scss */
 #jqt .whiteButton, #jqt .grayButton, #jqt .redButton, #jqt .blueButton, #jqt .greenButton {
   display: block;
   font-size: 20px;
@@ -1428,7 +1431,7 @@ body {
   -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.4) 0 0 0 5px, rgba(255, 255, 255, 0.3) 0 1px 0 5px;
   box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px, rgba(0, 0, 0, 0.4) 0 0 0 5px, rgba(255, 255, 255, 0.3) 0 1px 0 5px;
 }
-/* line 161, ../scss/include/_skeleton.scss */
+/* line 164, ../scss/include/_skeleton.scss */
 #jqt .whiteButton.active, #jqt .whiteButton:active, #jqt .grayButton.active, #jqt .grayButton:active, #jqt .redButton.active, #jqt .redButton:active, #jqt .blueButton.active, #jqt .blueButton:active, #jqt .greenButton.active, #jqt .greenButton:active {
   background-image: none;
   background-color: #2952a3;
@@ -1438,7 +1441,7 @@ body {
   color: white;
   text-shadow: #1f3d7a 0 -1px 0;
 }
-/* line 167, ../scss/include/_skeleton.scss */
+/* line 170, ../scss/include/_skeleton.scss */
 #jqt .whiteButton {
   background-image: none;
   background-color: #eeeeee;
@@ -1448,7 +1451,7 @@ body {
   color: #151515;
   text-shadow: white 0 1px 0;
 }
-/* line 171, ../scss/include/_skeleton.scss */
+/* line 174, ../scss/include/_skeleton.scss */
 #jqt .grayButton {
   background-image: none;
   background-color: #444444;
@@ -1458,7 +1461,7 @@ body {
   color: white;
   text-shadow: #2b2b2b 0 -1px 0;
 }
-/* line 176, ../scss/include/_skeleton.scss */
+/* line 179, ../scss/include/_skeleton.scss */
 #jqt .redButton {
   background-image: none;
   background-color: #d83b38;
@@ -1468,7 +1471,7 @@ body {
   color: white;
   text-shadow: #b92724 0 -1px 0;
 }
-/* line 180, ../scss/include/_skeleton.scss */
+/* line 183, ../scss/include/_skeleton.scss */
 #jqt .redButton.active, #jqt .redButton:active {
   background-image: none;
   background-color: #c12926;
@@ -1478,7 +1481,7 @@ body {
   color: white;
   text-shadow: #97201e 0 -1px 0;
 }
-/* line 187, ../scss/include/_skeleton.scss */
+/* line 190, ../scss/include/_skeleton.scss */
 #jqt .greenButton {
   background-image: none;
   background-color: #3366cc;
@@ -1488,28 +1491,28 @@ body {
   color: white;
   text-shadow: #2952a3 0 -1px 0;
 }
-/* line 192, ../scss/include/_skeleton.scss */
+/* line 195, ../scss/include/_skeleton.scss */
 #jqt .leftButton, #jqt .cancel, #jqt .back {
   left: 6px;
   right: auto;
 }
-/* line 197, ../scss/include/_skeleton.scss */
+/* line 200, ../scss/include/_skeleton.scss */
 #jqt .add {
   font-size: 24px;
   line-height: 24px;
   font-weight: bold;
 }
-/* line 205, ../scss/include/_skeleton.scss */
+/* line 208, ../scss/include/_skeleton.scss */
 #jqt h1 + ul, #jqt h2 + ul, #jqt h3 + ul, #jqt h4 + ul, #jqt h5 + ul, #jqt h6 + ul {
   margin-top: 0;
 }
-/* line 210, ../scss/include/_skeleton.scss */
+/* line 213, ../scss/include/_skeleton.scss */
 #jqt ul {
   padding: 0;
   margin: 15px 10px 17px 10px;
   -webkit-margin-collapse: separate;
 }
-/* line 212, ../scss/include/_skeleton.scss */
+/* line 215, ../scss/include/_skeleton.scss */
 #jqt ul, #jqt ul.individual li {
   background-color: white;
   color: gray;
@@ -1517,7 +1520,7 @@ body {
   border: 1px solid #d9d9d9;
   font: bold 18px "Helvetica Neue", Helvetica;
 }
-/* line 223, ../scss/include/_skeleton.scss */
+/* line 226, ../scss/include/_skeleton.scss */
 #jqt ul li {
   border-top: 1px solid #f2f2f2;
   list-style-type: none;
@@ -1526,7 +1529,7 @@ body {
   -webkit-transform: translate3d(0, 0, 0);
   /* expensive way to avoid flickr */
 }
-/* line 230, ../scss/include/_skeleton.scss */
+/* line 233, ../scss/include/_skeleton.scss */
 #jqt ul li a {
   text-decoration: none;
   text-overflow: ellipsis;
@@ -1540,7 +1543,7 @@ body {
   color: #262626;
   text-shadow: white 0 1px 0;
 }
-/* line 242, ../scss/include/_skeleton.scss */
+/* line 245, ../scss/include/_skeleton.scss */
 #jqt ul li a.active {
   background-image: none;
   background-color: #3366cc;
@@ -1549,16 +1552,16 @@ body {
   color: white;
   text-shadow: #2952a3 0 -1px 0;
 }
-/* line 247, ../scss/include/_skeleton.scss */
+/* line 250, ../scss/include/_skeleton.scss */
 #jqt ul li a.active small {
   color: #adc2eb;
   text-shadow: #0a1429 0 -1px 0;
 }
-/* line 248, ../scss/include/_skeleton.scss */
+/* line 251, ../scss/include/_skeleton.scss */
 #jqt ul li a.active small.counter {
   background-color: #24478f;
 }
-/* line 257, ../scss/include/_skeleton.scss */
+/* line 260, ../scss/include/_skeleton.scss */
 #jqt ul li small {
   color: #3366cc;
   font: 17px "Helvetica Neue", Helvetica;
@@ -1573,7 +1576,7 @@ body {
   float: right;
   padding: 0;
 }
-/* line 271, ../scss/include/_skeleton.scss */
+/* line 274, ../scss/include/_skeleton.scss */
 #jqt ul li small.counter {
   background: #d9d9d9;
   color: #595959;
@@ -1588,12 +1591,12 @@ body {
   display: block;
   width: auto;
 }
-/* line 288, ../scss/include/_skeleton.scss */
+/* line 291, ../scss/include/_skeleton.scss */
 #jqt ul li ::-webkit-input-placeholder {
   color: #8293a1;
   text-shadow: #e8ebee 0 1px 0;
 }
-/* line 299, ../scss/include/_skeleton.scss */
+/* line 302, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="text"],
 #jqt ul li input[type="password"],
 #jqt ul li input[type="tel"],
@@ -1613,18 +1616,18 @@ body {
   width: 100%;
   -webkit-appearance: textarea;
 }
-/* line 310, ../scss/include/_skeleton.scss */
+/* line 313, ../scss/include/_skeleton.scss */
 #jqt ul li textarea {
   height: 120px;
   padding: 0;
   text-indent: -2px;
 }
-/* line 315, ../scss/include/_skeleton.scss */
+/* line 318, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
   margin: 0;
   padding: 10px;
 }
-/* line 319, ../scss/include/_skeleton.scss */
+/* line 322, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="checkbox"]:after, #jqt ul li input[type="radio"]:after {
   content: attr(title);
   font-size: 17px;
@@ -1636,7 +1639,7 @@ body {
   color: black;
   text-shadow: #e8ebee 0 1px 0;
 }
-/* line 331, ../scss/include/_skeleton.scss */
+/* line 334, ../scss/include/_skeleton.scss */
 #jqt ul li input[type='submit'] {
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -1647,26 +1650,26 @@ body {
   font-weight: inherit;
   padding: 10px;
 }
-/* line 343, ../scss/include/_skeleton.scss */
+/* line 346, ../scss/include/_skeleton.scss */
 #jqt ul li.arrow small {
   margin-right: 15px;
 }
-/* line 346, ../scss/include/_skeleton.scss */
+/* line 349, ../scss/include/_skeleton.scss */
 #jqt ul li.arrow a {
   padding: 12px 22px 12px 10px;
 }
-/* line 354, ../scss/include/_skeleton.scss */
+/* line 357, ../scss/include/_skeleton.scss */
 #jqt ul.rounded, #jqt ul.individual li {
   -webkit-box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0;
   box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0;
   border: 1px solid #52657f;
 }
-/* line 359, ../scss/include/_skeleton.scss */
+/* line 362, ../scss/include/_skeleton.scss */
 #jqt ul.rounded {
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
-/* line 362, ../scss/include/_skeleton.scss */
+/* line 365, ../scss/include/_skeleton.scss */
 #jqt ul.rounded li:first-child, #jqt ul.rounded li:first-child a {
   border-top: 0;
   -webkit-border-top-left-radius: 8px;
@@ -1674,44 +1677,44 @@ body {
   -webkit-border-top-right-radius: 8px;
   border-top-right-radius: 8px;
 }
-/* line 366, ../scss/include/_skeleton.scss */
+/* line 369, ../scss/include/_skeleton.scss */
 #jqt ul.rounded li:last-child, #jqt ul.rounded li:last-child a {
   -webkit-border-bottom-left-radius: 8px;
   border-bottom-left-radius: 8px;
   -webkit-border-bottom-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-/* line 372, ../scss/include/_skeleton.scss */
+/* line 375, ../scss/include/_skeleton.scss */
 #jqt ul.form li {
   padding: 7px 10px;
 }
-/* line 375, ../scss/include/_skeleton.scss */
+/* line 378, ../scss/include/_skeleton.scss */
 #jqt ul.form li.error {
   border: 2px solid red;
 }
-/* line 378, ../scss/include/_skeleton.scss */
+/* line 381, ../scss/include/_skeleton.scss */
 #jqt ul.form li.error + #jqt ul.form li.error {
   border-top: 0;
 }
-/* line 385, ../scss/include/_skeleton.scss */
+/* line 388, ../scss/include/_skeleton.scss */
 #jqt ul.metal {
   border: 0;
   margin: 0;
 }
-/* line 389, ../scss/include/_skeleton.scss */
+/* line 392, ../scss/include/_skeleton.scss */
 #jqt ul.metal li {
   background-image: none;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #666;
   font-size: 26px;
 }
-/* line 396, ../scss/include/_skeleton.scss */
+/* line 399, ../scss/include/_skeleton.scss */
 #jqt ul.metal li a {
   line-height: 26px;
   margin: 0;
   padding: 13px 0;
 }
-/* line 402, ../scss/include/_skeleton.scss */
+/* line 405, ../scss/include/_skeleton.scss */
 #jqt ul.metal li em {
   display: block;
   font-size: 14px;
@@ -1719,43 +1722,43 @@ body {
   width: 50%;
   line-height: 14px;
 }
-/* line 410, ../scss/include/_skeleton.scss */
+/* line 413, ../scss/include/_skeleton.scss */
 #jqt ul.metal li small {
   float: right;
   position: relative;
   margin-top: 10px;
   font-weight: bold;
 }
-/* line 421, ../scss/include/_skeleton.scss */
+/* line 424, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge {
   margin: 0;
   padding: 0;
 }
-/* line 425, ../scss/include/_skeleton.scss */
+/* line 428, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li {
   font-size: 20px;
 }
-/* line 428, ../scss/include/_skeleton.scss */
+/* line 431, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li:first-child {
   border-top: 0;
 }
-/* line 432, ../scss/include/_skeleton.scss */
+/* line 435, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li.sep {
   font-size: 16px;
   padding: 2px 10px;
 }
-/* line 437, ../scss/include/_skeleton.scss */
+/* line 440, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li em {
   font-weight: normal;
   font-style: normal;
 }
-/* line 446, ../scss/include/_skeleton.scss */
+/* line 449, ../scss/include/_skeleton.scss */
 #jqt ul.plastic {
   font-size: 18px;
   margin: 0;
   padding: 0;
 }
-/* line 451, ../scss/include/_skeleton.scss */
+/* line 454, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li {
   border-width: 1px 0;
   border-style: solid;
@@ -1764,18 +1767,18 @@ body {
   border-top-color: #d9d9d9;
   border-bottom-color: #cccccc;
 }
-/* line 459, ../scss/include/_skeleton.scss */
+/* line 462, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li:nth-child(odd) {
   background-image: none;
   background-color: #d9d9d9;
 }
-/* line 463, ../scss/include/_skeleton.scss */
+/* line 466, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li a.active.loading {
   background-image: url(img/loading.gif);
   background-position: 95% center;
   background-repeat: no-repeat;
 }
-/* line 468, ../scss/include/_skeleton.scss */
+/* line 471, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li small {
   color: #888;
   font-size: 13px;
@@ -1783,14 +1786,14 @@ body {
   line-height: 24px;
   text-transform: uppercase;
 }
-/* line 479, ../scss/include/_skeleton.scss */
+/* line 482, ../scss/include/_skeleton.scss */
 #jqt ul.individual {
   border: 0;
   background: none;
   clear: both;
   overflow: hidden;
 }
-/* line 485, ../scss/include/_skeleton.scss */
+/* line 488, ../scss/include/_skeleton.scss */
 #jqt ul.individual li {
   font-size: 14px;
   text-align: center;
@@ -1803,11 +1806,11 @@ body {
   display: block;
   padding: 11px 10px 14px 10px;
 }
-/* line 495, ../scss/include/_skeleton.scss */
+/* line 498, ../scss/include/_skeleton.scss */
 #jqt ul.individual li + li {
   float: right;
 }
-/* line 500, ../scss/include/_skeleton.scss */
+/* line 503, ../scss/include/_skeleton.scss */
 #jqt ul.individual a {
   line-height: 16px;
   margin: -11px -10px -14px -10px;
@@ -1815,7 +1818,7 @@ body {
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
-/* line 509, ../scss/include/_skeleton.scss */
+/* line 512, ../scss/include/_skeleton.scss */
 #jqt .toggle {
   width: 94px;
   position: relative;
@@ -1824,7 +1827,7 @@ body {
   overflow: hidden;
   float: right;
 }
-/* line 517, ../scss/include/_skeleton.scss */
+/* line 520, ../scss/include/_skeleton.scss */
 #jqt .toggle input[type="checkbox"] {
   margin: 0;
   -webkit-border-radius: 5px;
@@ -1841,11 +1844,11 @@ body {
   -webkit-appearance: textarea;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-/* line 531, ../scss/include/_skeleton.scss */
+/* line 534, ../scss/include/_skeleton.scss */
 #jqt .toggle input[type="checkbox"]:checked {
   left: 0px;
 }
-/* line 537, ../scss/include/_skeleton.scss */
+/* line 540, ../scss/include/_skeleton.scss */
 #jqt .info {
   font-size: 12px;
   line-height: 16px;
