@@ -74,19 +74,7 @@
                 $('#jqt').bind('turn', function(e, data){
                     $('#orient').html('Orientation: ' + data.orientation);
                 });
-                $('#play_movie').bind('tap', function(){
-                    $('#movie').get(0).play();
-                    $(this).removeClass('active');
-                });
                 
-                $('#video').bind('pageAnimationStart', function(e, info){
-                    $('#movie').css('display', 'none');
-                }).bind('pageAnimationEnd', function(e, info){
-                    if (info.direction == 'in')
-                    {
-                        $('#movie').css('display', 'block');
-                    }
-                })
             });
         </script>
         <style type="text/css" media="screen">
@@ -320,7 +308,6 @@
                         <li class="arrow"><a href="#ajax">AJAX <small class="counter">4</small></a></li>
                         <li class="arrow"><a href="#callbacks">Events <small class="counter">4</small></a></li>
                         <li class="arrow"><a href="#extensions">Extensions <small class="counter">4</small></a> </li>
-                        <li class="arrow"><a href="#video">Video </a></li>
                         <li class="arrow"><a href="#demos">Demos <small class="counter">2</small></a></li>
                         <li class="arrow"><a href="#themes">Themes <small class="counter">2</small></a></li>
                     </ul>
@@ -392,17 +379,6 @@
                     <ul class="rounded">
                         <li class="arrow"><a href="#forms">Forms</a></li>
                     </ul>
-                </div>
-            </div>
-            <div id="video">
-                <div class="toolbar">
-                    <h1>Video</h1>
-                    <a class="back" href="#">Home</a>
-                </div>
-                <div class="scroll">
-                    <video id="movie" src="http://jqtouch.googlecode.com/svn-history/r143/trunk/demos/main/video/fireworks-iPhone.m4v" poster="video/fireworks.jpg" width="320" height="426" controls></video>
-                    
-                    <a href="#" id="play_movie" style="margin-top: 10px; margin-bottom: 10px;" class="whiteButton">Play Movie</a>
                 </div>
             </div>
             <form id="ajax_post" action="ajax_post.php" method="POST" class="form">
