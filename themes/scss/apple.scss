@@ -29,48 +29,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
 
     }
 
-    .blueButton {
-        -webkit-border-image: url(../img/apple/activeButton.png) 0 5 0 5;
-    }
-
-    .whiteButton,
-    .grayButton, .redButton, .blueButton, .greenButton {
-        display: block;
-        border-width: 0 12px;
-        margin: 0 10px;
-        padding: 10px;
-        text-align: center;
-        font-size: 20px;
-        font-weight: bold;
-        text-decoration: inherit;
-        color: inherit;
-    }
-
-    .whiteButton.active, .grayButton.active, .redButton.active, .blueButton.active, .greenButton.active,
-    .whiteButton:active, .grayButton:active, .redButton:active, .blueButton:active, .greenButton:active {
-        -webkit-border-image: url(../img/apple/activeButton.png) 0 12 0 12;
-    }
-
-    .whiteButton {
-        -webkit-border-image: url(../img/apple/whiteButton.png) 0 12 0 12;
-        text-shadow: rgba(255, 255, 255, 0.7) 0 1px 0;
-    }
-
-    .grayButton {
-        -webkit-border-image: url(../img/apple/grayButton.png) 0 12 0 12;
-        color: #fff;
-    }
-
-    .redButton {
-        -webkit-border-image: url(../img/apple/redButton.png) 0 12 0 12;
-        color: #fff;
-    }
-
-    .greenButton {
-        -webkit-border-image: url(../img/apple/greenButton.png) 0 12 0 12;
-        color: #fff;
-    }
-
     ul {
 
         li {

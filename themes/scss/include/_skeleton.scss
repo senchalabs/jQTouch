@@ -140,7 +140,46 @@ body {
     }
 
     .blueButton {
-        border-width: 0 5px;
+        @include background-image(#2F7CE3, glossy);
+        @include color-by-background(#2F7CE3);
+    }
+    .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 0 10px;
+        padding: 10px;
+        text-align: center;
+        text-decoration: inherit;
+        @include border-radius;
+        @include box-shadow(
+            rgba(#000, .8) 0 0 0 5px,
+            rgba(#fff, .3) 0 1px 0 5px
+        );
+
+        &.active, &:active {
+            $active-color: darken($highlight-color, 10);
+            @include background-gradient($active-color, glossy);
+            @include color-by-background($active-color);
+        }
+    }
+    .whiteButton {
+        @include background-gradient(#eee, glossy);
+        @include color-by-background(#eee);
+    }
+    .grayButton {
+        @include background-gradient($base-color, glossy);
+        @include color-by-background($base-color);
+    }
+
+    .redButton {
+        @include background-gradient(#D83B38, glossy);
+        @include color-by-background(#D83B38);
+    }
+
+    .greenButton {
+        @include background-gradient($highlight-color, glossy);        
+        @include color-by-background($highlight-color);
     }
 
     .leftButton, .cancel, .back {
