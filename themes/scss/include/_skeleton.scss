@@ -147,13 +147,14 @@ body {
         display: block;
         font-size: 20px;
         font-weight: bold;
-        margin: 0 10px;
+        margin: 10px 20px;
         padding: 10px;
         text-align: center;
         text-decoration: inherit;
         @include border-radius;
         @include box-shadow(
-            rgba(#000, .8) 0 0 0 5px,
+            rgba(#000, .4) 0 1px 3px,
+            rgba(#000, .4) 0 0 0 5px,
             rgba(#fff, .3) 0 1px 0 5px
         );
 
@@ -168,13 +169,19 @@ body {
         @include color-by-background(#eee);
     }
     .grayButton {
-        @include background-gradient($base-color, glossy);
-        @include color-by-background($base-color);
+        @include background-gradient(#444, glossy);
+        @include color-by-background(#444);
     }
 
     .redButton {
         @include background-gradient(#D83B38, glossy);
         @include color-by-background(#D83B38);
+
+        &.active, &:active {
+            $active-color: darken(#D83B38, 8);
+            @include background-gradient($active-color, glossy);
+            @include color-by-background($active-color);
+        }
     }
 
     .greenButton {
