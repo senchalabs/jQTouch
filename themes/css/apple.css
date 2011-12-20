@@ -690,15 +690,25 @@ body {
   z-index: 10;
 }
 /* line 85, ../scss/include/_base.scss */
+#jqt .in:after {
+  content: "";
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+/* line 94, ../scss/include/_base.scss */
 #jqt .out {
   z-index: 0 !important;
 }
-/* line 89, ../scss/include/_base.scss */
+/* line 98, ../scss/include/_base.scss */
 #jqt.supports3d {
   -webkit-perspective: 1000;
   -webkit-transform-style: preserve-3d;
 }
-/* line 93, ../scss/include/_base.scss */
+/* line 102, ../scss/include/_base.scss */
 #jqt.supports3d > * {
   -webkit-transform: translate3d(0, 0, 0) rotate(0) scale(1);
 }

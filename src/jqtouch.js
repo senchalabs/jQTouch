@@ -31,11 +31,9 @@
             jQTSettings={},
             $currentPage='',
             orientation='portrait',
-            tapReady=true,
-            lastAnimationTime=0,
             touchSelectors=[],
             publicObj={},
-            tapBuffer=351,
+            tapBuffer=150,
             extensions=jQTouchCore.prototype.extensions,
             animations=[],
             hairExtensions='',
@@ -98,12 +96,6 @@
         // is being used for links, forms, etc.
         function clickHandler(e) {
 
-            if (!tapReady) {
-                warn('ClickHandler handler aborted because tap is not ready (probably still animating).');
-                e.preventDefault();
-                return false;
-            }
-
             // Figure out whether to prevent default
             var $el = $(e.target);
 
@@ -156,7 +148,6 @@
 
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
 
-                tapReady = false;
 
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
@@ -182,21 +173,31 @@
                 fromPage.addClass(finalAnimationName + ' out');
 
             } else {
-                toPage.addClass('current');
+                toPage.addClass('current in');
                 navigationEndHandler();
             }
 
             // Private navigationEnd callback
             function navigationEndHandler(event) {
+
+                var bufferTime = tapBuffer;
+
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
                     fromPage.removeClass('current ' + finalAnimationName + ' out');
-                    toPage.removeClass(finalAnimationName + ' in');
+                    
+                    toPage.removeClass(finalAnimationName);
                     // scrollTo(0, 0);
                     // toPage.css('top', 0);
                 } else {
                     fromPage.removeClass(finalAnimationName + ' out current');
+                    tapBuffer += 201;
                 }
+
+                // In class is intentionally delayed, as it is our ghost click hack
+                setTimeout(function(){
+                    toPage.removeClass('in');
+                }, tapBuffer);
 
                 // Housekeeping
                 $currentPage = toPage;
@@ -207,9 +208,8 @@
                 }
 
                 fromPage.unselect();
-                lastAnimationTime = (new Date()).getTime();
+
                 setHash($currentPage.attr('id'));
-                tapReady = true;
 
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', {direction:'in', animation:animation});
@@ -296,8 +296,10 @@
         function hashChangeHandler(e) {
             if (location.hash === history[0].hash) {
                 warn('We are on the right panel');
+                return true;
             } else if (location.hash === '') {
                 goBack();
+                return true;
             } else {
 
                 // TODO: Check for forward here!
@@ -411,15 +413,8 @@
                 return false;
             }
         }
-        function mousedownHandler(e) {
-            var timeDiff = (new Date()).getTime() - lastAnimationTime;
-            if (timeDiff < tapBuffer) {
-                e.preventDefault();
-                return false;
-            }
-        }
-        function orientationChangeHandler() {
 
+        function orientationChangeHandler() {
             $body.css('minHeight', 1000);
             scrollTo(0,0);
             var bodyHeight = window.innerHeight;
@@ -537,6 +532,7 @@
             return result;
         }
         function touchStartHandler(e){
+
             var $el = $(e.target);
 
             // Find the nearest tappable ancestor
@@ -549,16 +545,12 @@
                 $el.addClass('active');
             }
 
+            // Remove our active class if we move
             $el.on($.support.touch ? 'touchmove' : 'mousemove', function(){
                 $el.removeClass('active');
             });
         }
         function tapHandler(e){
-
-            if (!tapReady) {
-                warn('Tap is not ready');
-                return false;
-            }
 
             // Grab the target element
             var $el = $(e.target);
@@ -679,7 +671,6 @@
             }
 
             // Create an array of stuff that needs touch event handling
-            // touchSelectors.push('input');
             touchSelectors.push(jQTSettings.touchSelector);
             touchSelectors.push(jQTSettings.backSelector);
             touchSelectors.push(jQTSettings.submitSelector);
@@ -708,12 +699,13 @@
             $(window).bind('hashchange', hashChangeHandler);
             $body
                 .bind('click', clickHandler)
-                .bind('mousedown', mousedownHandler)
                 .bind('orientationchange', orientationChangeHandler)
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
                 .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
+
+            
 
             // Determine what the "current" (initial) panel should be
 
