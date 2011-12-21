@@ -143,14 +143,10 @@
             // Collapse the keyboard
             $(':focus').trigger('blur');
 
-            // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
-            
-
             fromPage.trigger('pageAnimationStart', { direction: 'out', back: goingBack });
             toPage.trigger('pageAnimationStart', { direction: 'in', back: goingBack });
 
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
-
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
                     warn('Did not detect support for 3d animations, falling back to ' + jQTSettings.defaultAnimation);
@@ -175,7 +171,7 @@
 
                 var lastScroll = window.pageYOffset;
 
-                // fromPage.css('top', -window.pageYOffset);
+                // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
                 if (jQTSettings.trackScrollPositions === true) {
                     toPage.css('top', window.pageYOffset - (toPage.data('lastScroll') || 0));
                 }
@@ -197,7 +193,6 @@
 
             // Private navigationEnd callback
             function navigationEndHandler(event) {
-
                 var bufferTime = tapBuffer;
 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
@@ -309,7 +304,6 @@
                 } else {
                     toPage = nextPage;
                 }
-
             }
             if (doNavigation(fromPage, toPage, animation)) {
                 return publicObj;
