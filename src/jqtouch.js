@@ -54,6 +54,7 @@
                 statusBar: 'default', // other options: black-translucent, black
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
+                trackScrollPositions: true,
                 useAnimations: true,
                 useFastTouch: true,
                 useTouchScroll: true,
@@ -143,7 +144,7 @@
             $(':focus').trigger('blur');
 
             // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
-            // toPage.css('top', window.pageYOffset);
+            
 
             fromPage.trigger('pageAnimationStart', { direction: 'out', back: goingBack });
             toPage.trigger('pageAnimationStart', { direction: 'in', back: goingBack });
@@ -170,10 +171,25 @@
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
 
                 // Trigger animations
-                scrollTo(0, 0);
                 $body.addClass('animating ' + is3d);
+
+                var lastScroll = window.pageYOffset;
+
+                // fromPage.css('top', -window.pageYOffset);
+                if (jQTSettings.trackScrollPositions === true) {
+                    toPage.css('top', window.pageYOffset - (toPage.data('lastScroll') || 0));
+                }
+                
                 toPage.addClass(finalAnimationName + ' in current');
                 fromPage.addClass(finalAnimationName + ' out');
+
+                if (jQTSettings.trackScrollPositions === true) {
+                    fromPage.data('lastScroll', lastScroll);
+                    $('.scroll', fromPage).each(function(){
+                        $(this).data('lastScroll', this.scrollTop);
+                    });
+                }
+
             } else {
                 toPage.addClass('current in');
                 navigationEndHandler();
@@ -187,12 +203,21 @@
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
                     fromPage.removeClass('current ' + finalAnimationName + ' out');
-                    
                     toPage.removeClass(finalAnimationName);
                     $body.removeClass('animating animating3d');
+                    if (jQTSettings.trackScrollPositions === true) {
+                        toPage.css('top', -toPage.data('lastScroll'));
 
-                    // scrollTo(0, 0);
-                    // toPage.css('top', 0);
+                        // Have to make sure the scroll/style resets
+                        // are outside the flow of this function.
+                        setTimeout(function(){
+                            toPage.css('top', 0);
+                            window.scroll(0, toPage.data('lastScroll'));
+                            $('.scroll', toPage).each(function(){
+                                this.scrollTop = - $(this).data('lastScroll');
+                            });
+                        }, 0);
+                    }
                 } else {
                     fromPage.removeClass(finalAnimationName + ' out current');
                     tapBuffer += 201;
@@ -277,12 +302,12 @@
                 }
             }
 
-            if (typeof(toPage) === 'string') {
+            if (typeof toPage === 'string') {
                 var nextPage = $(toPage);
 
                 if (nextPage.length < 1) {
                     showPageByHref(toPage, {
-                        'animation': animation
+                        animation: animation
                     });
                     return;
                 } else {
@@ -365,7 +390,6 @@
             if (hairExtensions) {
                 $head.prepend(hairExtensions);
             }
-
         }
 
         function getAnimation(el) {
@@ -537,11 +561,12 @@
         }
         function touchStartHandler(e){
 
-            var $el = $(e.target);
+            var $el = $(e.target),
+                selectors = touchSelectors.join(', ');
 
             // Find the nearest tappable ancestor
-            if (!$el.is(touchSelectors.join(', '))) {
-                $el = $(e.target).closest(touchSelectors.join(', '));
+            if (!$el.is(selectors)) {
+                $el = $el.closest(selectors);
             }
 
             // Make sure we have a tappable element
@@ -553,6 +578,11 @@
             $el.on($.support.touch ? 'touchmove' : 'mousemove', function(){
                 $el.removeClass('active');
             });
+
+            $el.on('touchend', function(){
+                $el.unbind('touchmove mousemove');
+            });
+
         }
         function tapHandler(e){
 
@@ -561,7 +591,7 @@
 
             // Find the nearest tappable ancestor
             if (!$el.is(touchSelectors.join(', '))) {
-                $el = $(e.target).closest(touchSelectors.join(', '));
+                $el = $el.closest(touchSelectors.join(', '));
             }
 
             // Make sure we have a tappable element
@@ -573,6 +603,7 @@
             // Init some vars
             var target = $el.attr('target'),
                 hash = $el.prop('hash'),
+                href = $el.attr('href'),
                 animation = null;
 
             if ($el.isExternalLink()) {
@@ -589,10 +620,10 @@
 
             } else if (target === '_webapp') {
                 // User clicked or tapped an internal link, fullscreen mode
-                window.location = $el.attr('href');
+                window.location = href;
                 return false;
 
-            } else if ($el.attr('href') === '#') {
+            } else if (href === '#') {
                 // Allow tap on item with no href
                 $el.unselect();
                 return true;
@@ -682,35 +713,37 @@
 
             // Make sure we have a jqt element
             $body = $('#jqt');
+            var anatomy_lessons = [];
 
             if ($body.length === 0) {
                 warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
-                $body = $('body').attr('id', 'jqt');
+                $body = $(document.body).attr('id', 'jqt');
             }
 
             // Add some specific css if need be
             if ($.support.transform3d) {
-                $body.addClass('supports3d');
+                anatomy_lessons.push('supports3d');
             }
             if ($.support.ios5 && jQTSettings.useTouchScroll) {
-                $body.addClass('touchscroll');
+                anatomy_lessons.push('touchscroll');
             }
 
             if (jQTSettings.fullScreenClass && window.navigator.standalone === true) {
-                $body.addClass(jQTSettings.fullScreenClass + ' ' + jQTSettings.statusBar);
+                anatomy_lessons.push(jQTSettings.fullScreenClass, jQTSettings.statusBar);
             }
 
             // Bind events
-            $(window).bind('hashchange', hashChangeHandler);
+            
             $body
+                .addClass(anatomy_lessons.join(' '))
                 .bind('click', clickHandler)
                 .bind('orientationchange', orientationChangeHandler)
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
                 .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
-
             
+            $(window).bind('hashchange', hashChangeHandler);
 
             // Determine what the "current" (initial) panel should be
 

@@ -686,14 +686,12 @@ body {
   -webkit-animation-duration: 250ms;
   -webkit-animation-fill-mode: both;
   -webkit-animation-timing-function: ease-in-out;
-  height: 100%;
-  overflow: hidden;
 }
-/* line 85, ../scss/include/_base.scss */
+/* line 82, ../scss/include/_base.scss */
 #jqt .in {
   z-index: 10;
 }
-/* line 88, ../scss/include/_base.scss */
+/* line 85, ../scss/include/_base.scss */
 #jqt .in:after {
   content: "";
   position: absolute;
@@ -703,15 +701,15 @@ body {
   bottom: 0;
   right: 0;
 }
-/* line 97, ../scss/include/_base.scss */
+/* line 94, ../scss/include/_base.scss */
 #jqt .out {
   z-index: 0 !important;
 }
-/* line 101, ../scss/include/_base.scss */
+/* line 98, ../scss/include/_base.scss */
 #jqt.supports3d {
   -webkit-perspective: 1000;
 }
-/* line 104, ../scss/include/_base.scss */
+/* line 101, ../scss/include/_base.scss */
 #jqt.supports3d > * {
   -webkit-transform: translate3d(0, 0, 0) rotate(0) scale(1);
 }
@@ -831,271 +829,257 @@ body {
 #jqt .slideleft.in {
   -webkit-animation-name: slideLeftIn;
 }
-/* line 101, ../scss/include/_animations.scss */
-#jqt .slideleft.in .toolbar * {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
-  opacity: 0;
-  -webkit-animation-name: dissolveIn;
-  -webkit-animation-duration: 250ms;
-}
 
-/* line 108, ../scss/include/_animations.scss */
+/* line 102, ../scss/include/_animations.scss */
 #jqt .slideleft.out {
   -webkit-animation-name: slideLeftOut;
 }
-/* line 111, ../scss/include/_animations.scss */
-#jqt .slideleft.out .toolbar * {
-  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
-  opacity: 1;
-  -webkit-animation-name: dissolveOut;
-  -webkit-animation-duration: 250ms;
-}
 
 @-webkit-keyframes slideLeftIn {
-  /* line 119, ../scss/include/_animations.scss */
+  /* line 107, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translateX(100%);
   }
 
-  /* line 122, ../scss/include/_animations.scss */
+  /* line 110, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translateX(0);
   }
 }
 
 @-webkit-keyframes slideLeftOut {
-  /* line 128, ../scss/include/_animations.scss */
+  /* line 116, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translateX(0px);
   }
 
-  /* line 131, ../scss/include/_animations.scss */
+  /* line 119, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translateX(-100%);
   }
 }
 
 /* Slide Right */
-/* line 140, ../scss/include/_animations.scss */
+/* line 128, ../scss/include/_animations.scss */
 #jqt .slideright.in {
   -webkit-animation-name: slideRightIn;
 }
 
-/* line 144, ../scss/include/_animations.scss */
+/* line 132, ../scss/include/_animations.scss */
 #jqt .slideright.out {
   -webkit-animation-name: slideRightOut;
 }
 
 @-webkit-keyframes slideRightIn {
-  /* line 149, ../scss/include/_animations.scss */
+  /* line 137, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translateX(-100%);
   }
 
-  /* line 152, ../scss/include/_animations.scss */
+  /* line 140, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translateX(0);
   }
 }
 
 @-webkit-keyframes slideRightOut {
-  /* line 158, ../scss/include/_animations.scss */
+  /* line 146, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translateX(0);
   }
 
-  /* line 161, ../scss/include/_animations.scss */
+  /* line 149, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translateX(100%);
   }
 }
 
 /* Slide Up */
-/* line 170, ../scss/include/_animations.scss */
+/* line 158, ../scss/include/_animations.scss */
 #jqt .slideup.in {
   z-index: 10;
   -webkit-animation-name: slideUpIn;
 }
 
-/* line 174, ../scss/include/_animations.scss */
+/* line 162, ../scss/include/_animations.scss */
 #jqt .slideup.out {
   z-index: 0;
   -webkit-animation-name: slideUpOut;
 }
 
 @-webkit-keyframes slideUpIn {
-  /* line 180, ../scss/include/_animations.scss */
+  /* line 168, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translateY(100%);
   }
 
-  /* line 183, ../scss/include/_animations.scss */
+  /* line 171, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translateY(0);
   }
 }
 
 @-webkit-keyframes slideUpOut {
-  /* line 189, ../scss/include/_animations.scss */
+  /* line 177, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translateY(0);
   }
 
-  /* line 192, ../scss/include/_animations.scss */
+  /* line 180, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translateY(0);
   }
 }
 
 /* Slide Down */
-/* line 201, ../scss/include/_animations.scss */
+/* line 189, ../scss/include/_animations.scss */
 #jqt .slidedown.in {
   z-index: 0;
   -webkit-animation-name: slideDownIn;
 }
 
-/* line 205, ../scss/include/_animations.scss */
+/* line 193, ../scss/include/_animations.scss */
 #jqt .slidedown.out {
   z-index: 10;
   -webkit-animation-name: slideDownOut;
 }
 
 @-webkit-keyframes slideDownIn {
-  /* line 211, ../scss/include/_animations.scss */
+  /* line 199, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translateY(0);
   }
 
-  /* line 214, ../scss/include/_animations.scss */
+  /* line 202, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translateY(0);
   }
 }
 
 @-webkit-keyframes slideDownOut {
-  /* line 220, ../scss/include/_animations.scss */
+  /* line 208, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translateY(0);
   }
 
-  /* line 223, ../scss/include/_animations.scss */
+  /* line 211, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translateY(100%);
   }
 }
 
 /* Flip Left */
-/* line 232, ../scss/include/_animations.scss */
+/* line 220, ../scss/include/_animations.scss */
 #jqt .flipleft {
   -webkit-backface-visibility: hidden;
 }
 
-/* line 236, ../scss/include/_animations.scss */
+/* line 224, ../scss/include/_animations.scss */
 #jqt .flipleft.in {
   -webkit-animation-name: flipLeftIn;
 }
 
-/* line 240, ../scss/include/_animations.scss */
+/* line 228, ../scss/include/_animations.scss */
 #jqt .flipleft.out {
   -webkit-animation-name: flipLeftOut;
 }
 
 @-webkit-keyframes flipLeftIn {
-  /* line 245, ../scss/include/_animations.scss */
+  /* line 233, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: rotateY(180deg) scale(0.8);
   }
 
-  /* line 248, ../scss/include/_animations.scss */
+  /* line 236, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: rotateY(0deg) scale(1);
   }
 }
 
 @-webkit-keyframes flipLeftOut {
-  /* line 254, ../scss/include/_animations.scss */
+  /* line 242, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: rotateY(0deg) scale(1);
   }
 
-  /* line 257, ../scss/include/_animations.scss */
+  /* line 245, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: rotateY(-180deg) scale(0.8);
   }
 }
 
 /* Flip Right */
-/* line 266, ../scss/include/_animations.scss */
+/* line 254, ../scss/include/_animations.scss */
 #jqt .flipright {
   -webkit-backface-visibility: hidden;
 }
 
-/* line 270, ../scss/include/_animations.scss */
+/* line 258, ../scss/include/_animations.scss */
 #jqt .flipright.in {
   -webkit-animation-name: flipRightIn;
 }
 
-/* line 274, ../scss/include/_animations.scss */
+/* line 262, ../scss/include/_animations.scss */
 #jqt .flipright.out {
   -webkit-animation-name: flipRightOut;
 }
 
 @-webkit-keyframes flipRightIn {
-  /* line 279, ../scss/include/_animations.scss */
+  /* line 267, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: rotateY(-180deg) scale(0.8);
   }
 
-  /* line 282, ../scss/include/_animations.scss */
+  /* line 270, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: rotateY(0deg) scale(1);
   }
 }
 
 @-webkit-keyframes flipRightOut {
-  /* line 288, ../scss/include/_animations.scss */
+  /* line 276, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: rotateY(0deg) scale(1);
   }
 
-  /* line 291, ../scss/include/_animations.scss */
+  /* line 279, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: rotateY(180deg) scale(0.8);
   }
 }
 
 /* Swap Right */
-/* line 300, ../scss/include/_animations.scss */
+/* line 288, ../scss/include/_animations.scss */
 #jqt .swapright {
   -webkit-animation-duration: .7s;
   -webkit-transform: perspective(800);
   -webkit-animation-timing-function: ease-out;
 }
 
-/* line 305, ../scss/include/_animations.scss */
+/* line 293, ../scss/include/_animations.scss */
 #jqt .swapright.in {
   -webkit-animation-name: swapRightIn;
 }
 
-/* line 308, ../scss/include/_animations.scss */
+/* line 296, ../scss/include/_animations.scss */
 #jqt .swapright.out {
   -webkit-animation-name: swapRightOut;
 }
 
 @-webkit-keyframes swapRightIn {
-  /* line 313, ../scss/include/_animations.scss */
+  /* line 301, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translate3d(0px, 0px, -800px) rotateY(70deg);
     opacity: 0;
   }
 
-  /* line 317, ../scss/include/_animations.scss */
+  /* line 305, ../scss/include/_animations.scss */
   35% {
     -webkit-transform: translate3d(-180px, 0px, -400px) rotateY(20deg);
     opacity: 1;
   }
 
-  /* line 321, ../scss/include/_animations.scss */
+  /* line 309, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
     opacity: 1;
@@ -1103,19 +1087,19 @@ body {
 }
 
 @-webkit-keyframes swapRightOut {
-  /* line 328, ../scss/include/_animations.scss */
+  /* line 316, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
     opacity: 1;
   }
 
-  /* line 332, ../scss/include/_animations.scss */
+  /* line 320, ../scss/include/_animations.scss */
   35% {
     -webkit-transform: translate3d(180px, 0px, -400px) rotateY(-20deg);
     opacity: .5;
   }
 
-  /* line 336, ../scss/include/_animations.scss */
+  /* line 324, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translate3d(0px, 0px, -800px) rotateY(-70deg);
     opacity: 0;
@@ -1123,37 +1107,37 @@ body {
 }
 
 /* Swap Left */
-/* line 344, ../scss/include/_animations.scss */
+/* line 332, ../scss/include/_animations.scss */
 #jqt .swapleft {
   -webkit-animation-duration: .7s;
   -webkit-transform: perspective(800);
   -webkit-animation-timing-function: ease-out;
 }
 
-/* line 349, ../scss/include/_animations.scss */
+/* line 337, ../scss/include/_animations.scss */
 #jqt .swapleft.in {
   -webkit-animation-name: swapLeftIn;
 }
 
-/* line 352, ../scss/include/_animations.scss */
+/* line 340, ../scss/include/_animations.scss */
 #jqt .swapleft.out {
   -webkit-animation-name: swapLeftOut;
 }
 
 @-webkit-keyframes swapLeftIn {
-  /* line 357, ../scss/include/_animations.scss */
+  /* line 345, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translate3d(0px, 0px, -800px) rotateY(-70deg);
     opacity: 0;
   }
 
-  /* line 361, ../scss/include/_animations.scss */
+  /* line 349, ../scss/include/_animations.scss */
   35% {
     -webkit-transform: translate3d(180px, 0px, -400px) rotateY(-20deg);
     opacity: 1;
   }
 
-  /* line 365, ../scss/include/_animations.scss */
+  /* line 353, ../scss/include/_animations.scss */
   100% {
     opacity: 1;
     -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
@@ -1161,19 +1145,19 @@ body {
 }
 
 @-webkit-keyframes swapLeftOut {
-  /* line 372, ../scss/include/_animations.scss */
+  /* line 360, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
     opacity: 1;
   }
 
-  /* line 376, ../scss/include/_animations.scss */
+  /* line 364, ../scss/include/_animations.scss */
   35% {
     -webkit-transform: translate3d(-180px, 0px, -400px) rotateY(20deg);
     opacity: .5;
   }
 
-  /* line 380, ../scss/include/_animations.scss */
+  /* line 368, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: translate3d(0px, 0px, -800px) rotateY(70deg);
     opacity: 0;
@@ -1181,32 +1165,32 @@ body {
 }
 
 /* Cube Left */
-/* line 394, ../scss/include/_animations.scss */
+/* line 382, ../scss/include/_animations.scss */
 #jqt .cubeleft.in, #jqt .cubeleft.out, #jqt .cuberight.in, #jqt .cuberight.out {
   -webkit-animation-duration: .6s;
   -webkit-transform: perspective(800);
 }
 
-/* line 401, ../scss/include/_animations.scss */
+/* line 389, ../scss/include/_animations.scss */
 #jqt .cubeleft.in {
   -webkit-transform-origin: 0% 50%;
   -webkit-animation-name: cubeLeftIn;
 }
 
-/* line 406, ../scss/include/_animations.scss */
+/* line 394, ../scss/include/_animations.scss */
 #jqt .cubeleft.out {
   -webkit-transform-origin: 100% 50%;
   -webkit-animation-name: cubeLeftOut;
 }
 
 @-webkit-keyframes cubeLeftIn {
-  /* line 412, ../scss/include/_animations.scss */
+  /* line 400, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: rotateY(90deg) translateZ(320px);
     opacity: .5;
   }
 
-  /* line 416, ../scss/include/_animations.scss */
+  /* line 404, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: rotateY(0deg) translateZ(0) translateX(0);
     opacity: 1;
@@ -1214,13 +1198,13 @@ body {
 }
 
 @-webkit-keyframes cubeLeftOut {
-  /* line 423, ../scss/include/_animations.scss */
+  /* line 411, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: rotateY(0deg) translateZ(0) translateX(0);
     opacity: 1;
   }
 
-  /* line 427, ../scss/include/_animations.scss */
+  /* line 415, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: rotateY(-90deg) translateZ(320px);
     opacity: .5;
@@ -1228,26 +1212,26 @@ body {
 }
 
 /* Cube Right */
-/* line 435, ../scss/include/_animations.scss */
+/* line 423, ../scss/include/_animations.scss */
 #jqt .cuberight.in {
   -webkit-transform-origin: 100% 50%;
   -webkit-animation-name: cubeRightIn;
 }
 
-/* line 440, ../scss/include/_animations.scss */
+/* line 428, ../scss/include/_animations.scss */
 #jqt .cuberight.out {
   -webkit-transform-origin: 0% 50%;
   -webkit-animation-name: cubeRightOut;
 }
 
 @-webkit-keyframes cubeRightIn {
-  /* line 446, ../scss/include/_animations.scss */
+  /* line 434, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: rotateY(-90deg) translateZ(320px);
     opacity: .5;
   }
 
-  /* line 450, ../scss/include/_animations.scss */
+  /* line 438, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: rotateY(0deg) translateZ(0) translateX(0);
     opacity: 1;
@@ -1255,13 +1239,13 @@ body {
 }
 
 @-webkit-keyframes cubeRightOut {
-  /* line 457, ../scss/include/_animations.scss */
+  /* line 445, ../scss/include/_animations.scss */
   0% {
     -webkit-transform: rotateY(0deg) translateZ(0) translateX(0);
     opacity: 1;
   }
 
-  /* line 461, ../scss/include/_animations.scss */
+  /* line 449, ../scss/include/_animations.scss */
   100% {
     -webkit-transform: rotateY(90deg) translateZ(320px);
     opacity: .5;
