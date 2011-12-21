@@ -285,11 +285,7 @@
             }
 
         }
-        function goTo(toPage, animation, reverse) {
-
-            if (reverse) {
-                warn('The reverse parameter of the goTo() function has been deprecated.');
-            }
+        function goTo(toPage, animation) {
 
             var fromPage = history[0].page;
 
@@ -330,20 +326,10 @@
                 goBack();
                 return true;
             } else {
-
-                // TODO: Check for forward here!
-                if( (history[1] && location.hash === history[1].hash) || history.length === 1 ) {
+                if( (history[1] && location.hash === history[1].hash) ) {
                     goBack();
+                    return true;
                 } else {
-                    for (var i = history.length - 1; i >= 0; i--) {
-                        if (location.hash === history[i].hash) {
-                            warn('Forward ho');
-                            history.splice(i, 1);
-                            doNavigation($currentPage, history[i].page, history[i].animation, true);
-                            return;
-                        }
-                    }
-
                     // Lastly, just try going to the ID...
                     warn('Could not find ID in history, just forwarding to DOM element.');
                     goTo($(location.hash), jQTSettings.defaultAnimation);
@@ -452,12 +438,8 @@
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
         function setHash(hash) {
-
-            // Trim leading # if need be
-            hash = hash.replace(/^#/, '');
-
-            // Change hash
-            location.hash = '#' + hash;
+            // Sanitize
+            location.hash = '#' + hash.replace(/^#/, '');
         }
         function showPageByHref(href, options) {
 
@@ -745,8 +727,9 @@
             
             $(window).bind('hashchange', hashChangeHandler);
 
-            // Determine what the "current" (initial) panel should be
+            var startHash = location.hash;
 
+            // Determine what the initial view should be
             if ($('#jqt > .current').length === 0) {
                 $currentPage = $('#jqt > *:first-child').addClass('current');
             } else {
@@ -754,8 +737,11 @@
             }
             
             setHash($currentPage.attr('id'));
-
             addPageToHistory($currentPage);
+
+            if ($(startHash).length === 1) {
+                goTo(startHash);
+            }
         });
 
         // Expose public methods and properties
