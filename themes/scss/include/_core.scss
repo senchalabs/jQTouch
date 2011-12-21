@@ -1,11 +1,3 @@
-$include-metal-lists: true;
-$include-plastic-lists: true;
-$include-edge-lists: true;
-$include-forms: true;
-
-$include-animations: true;
-$include-3d-animations: true;
-
 // Disable everything but WebKit
 $experimental-support-for-mozilla: false;
 $experimental-support-for-opera: false;
