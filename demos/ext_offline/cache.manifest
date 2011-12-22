@@ -5,7 +5,8 @@ index.html
 jqtouch.png
 ../../jqtouch/jqtouch.css
 ../../jqtouch/jqtouch.js
-../../jqtouch/jquery-1.4.2.min.js
+../../jqtouch/jquery-1.7.js
+../../jqtouch/jquery-1.7.min.js
 ../../themes/jqt/theme.css
 ../../extensions/jqt.offline.js
 ../../themes/jqt/img/back_button.png

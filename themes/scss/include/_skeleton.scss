@@ -1,0 +1,595 @@
+// Typography and layout sizing/measurements
+
+$default-border-radius: 8px;
+
+body {
+    background: rgb(0,0,0);
+}
+
+.base-chevron {
+    content: '›';
+    width: 22px;
+    height: 100%;
+    vertical-align: middle;
+    font-size: 30px;
+    line-height: 38px;
+    font-family: Futura, "Futura Condensed", Helvetica, Arial, sans-serif;
+    font-weight: bold;
+    @include opacity(.6);
+    position: absolute;
+    right: 0;
+    top: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.base-flatlists {
+    margin: 0;
+    padding: 0;
+    border-width: 0 0 0 1px;
+    @include border-radius(0);
+}
+
+#jqt {
+
+    h1, h2 {
+        font: bold 18px $base-font-family;
+        margin: 10px 20px 6px;
+        @include color-by-background($page-background-color, 40);
+    }
+
+    .toolbar {
+        @include box-sizing(border-box);
+        @include box-shadow(rgba(#000, .4) 0 1px 6px);
+        border-bottom: 1px solid darken($base-color, 35%);
+
+        z-index: 10;
+
+        position: relative;
+        padding: 10px;
+        height: 44px;
+
+        & > h1 {
+            position: absolute;
+            overflow: hidden;
+            left: 50%;
+            bottom: 12px;
+            margin: 1px 0 0 -75px;
+            width: 150px;
+
+            font-size: 20px;
+            font-weight: bold;
+            line-height: 1em;
+
+            text-align: center;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+            @include color-by-background($toolbar-background-color);
+        }
+    }
+    &.black-translucent .toolbar {
+        padding-top: 30px;
+        height: 64px;
+    }
+    &.landscape .toolbar > h1 {
+        margin-left: -125px;
+        width: 250px;
+    }
+
+    .button, .back, .cancel, .add {
+        position: absolute;
+        overflow: hidden;
+        width: auto;
+        height: 30px;
+
+        font-family: inherit;
+        font-size: 12px;
+        font-weight: bold;
+        line-height: 30px;
+        text-overflow: ellipsis;
+        text-decoration: none;
+        white-space: nowrap;
+        background: none;
+
+        bottom: 6px;
+        right: 10px;
+        margin: 0;
+        padding: 0 10px;
+
+        @include color-by-background($toolbar-button-color);
+        @include box-shadow(rgba(#fff, .2) 0 1px 0, rgba(#000, .2) 0 1px 2px inset);
+        border: 1px solid darken($toolbar-button-color, 20);
+        @include border-radius(5px);
+
+        @include background-gradient($toolbar-button-color, glossy);
+
+        &.active {
+            border-color: darken($toolbar-button-active-color, 20);
+            @include background-gradient($toolbar-button-active-color, glossy);
+            @include color-by-background($toolbar-button-active-color);
+        }
+    }
+
+    .back {
+        max-width: 60px;
+        margin-left: 15px;
+        overflow: visible;
+        padding-left: 5px;
+
+        // THE HOLY GRAIL (ish)
+        &:after, &:before {
+            content:'';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 1px;
+            left: 1px;
+            
+            // The .2px gets rid of a blurry artifact from
+            // combining the mask and rotate properties.
+            @include transform(rotate(45deg) translate3d(.2px,0,0)); // Just be glad you didn't have to find it.
+            @include transform-origin(0,0);
+            @include background-image(
+                glossy-gradient($toolbar-button-color, top left)
+            );
+            background-size: 100% 98%;
+            @include border-radius(0 0 0 2px);
+
+            // New gradient syntax
+            -webkit-mask-image: -webkit-linear-gradient(45deg, rgba(0,0,0,1), rgba(0,0,0,1) 15px, rgba(0,0,0,0) 15px);
+
+            // Old gradient syntax
+            @if $support-for-original-webkit-gradients {
+                -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(rgba(0,0,0,1)), color-stop(50%, black), color-stop(50%, rgba(0,0,0,0)), to(rgba(0,0,0,0)));
+            }
+
+            -webkit-mask-clip: border-box;
+            -webkit-background-clip: content-box;
+        }
+        &:after {
+            @include box-shadow(rgba(#000, .2) 1px 0 0 inset, rgba(#000, .2) 0 -1px 0 inset);
+        }
+        &:before {
+            margin-left: -1px;
+            background: darken($toolbar-button-active-color, 20) none;
+        }
+        &.active {
+            &:after {
+                @include background-image(
+                    glossy-gradient($toolbar-button-active-color, left top)
+                );
+            }
+            &:before {
+                background-color: darken($toolbar-button-active-color, 20);
+            }
+        }
+    }
+
+    .blueButton {
+        @include background-image(#2F7CE3, glossy);
+        @include color-by-background(#2F7CE3);
+    }
+    .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
+        display: block;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 10px 20px;
+        padding: 10px;
+        text-align: center;
+        text-decoration: inherit;
+        @include border-radius;
+        @include box-shadow(
+            rgba(#000, .4) 0 1px 3px,
+            rgba(#000, .4) 0 0 0 5px,
+            rgba(#fff, .3) 0 1px 0 5px
+        );
+
+        &.active, &:active {
+            $active-color: darken($highlight-color, 10);
+            @include background-gradient($active-color, glossy);
+            @include color-by-background($active-color);
+        }
+    }
+    .whiteButton {
+        @include background-gradient(#eee, glossy);
+        @include color-by-background(#eee);
+    }
+    .grayButton {
+        @include background-gradient(#444, glossy);
+        @include color-by-background(#444);
+    }
+
+    .redButton {
+        @include background-gradient(#D83B38, glossy);
+        @include color-by-background(#D83B38);
+
+        &.active, &:active {
+            $active-color: darken(#D83B38, 8);
+            @include background-gradient($active-color, glossy);
+            @include color-by-background($active-color);
+        }
+    }
+
+    .greenButton {
+        @include background-gradient($highlight-color, glossy);        
+        @include color-by-background($highlight-color);
+    }
+
+    .leftButton, .cancel, .back {
+        left: 6px;
+        right: auto;
+    }
+
+    .add {
+        font-size: 24px;
+        line-height: 24px;
+        font-weight: bold;
+    }
+
+    // Lists
+    h1, h2, h3, h4, h5, h6 {
+        & + ul {
+            margin-top: 6px;
+        }
+    }
+
+    ul {
+
+        &, &.individual li {
+            background-color: $list-background-color;
+            @include color-by-background($list-background-color, 50);
+            border: 1px solid darken($list-background-color, 15%);
+            font: bold 18px $base-font-family;
+        }
+        
+        padding: 0;
+        margin: 15px 10px 17px 10px;
+        -webkit-margin-collapse: separate;
+
+        li {
+            border-top: 1px solid darken($list-background-color, 5);
+            list-style-type: none;
+            overflow: hidden;
+            padding: 10px;
+            -webkit-transform: translate3d(0,0,0); /* expensive way to avoid flickr */
+
+            a {
+                text-decoration: none;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                display: block;
+                padding: 10px;
+                margin: -10px;
+                -webkit-tap-highlight-color: rgba(0,0,0,0);
+                -webkit-transform: translateZ(0);
+                @include color-by-background($list-background-color);
+
+                &.active {
+                    @include background-gradient($highlight-color);
+                    @include box-shadow(lighten($highlight-color, 4) 0 1px 0px inset);
+                    @include color-by-background($highlight-color);
+
+                    small {
+                        &.counter {
+                            background-color: darken($highlight-color, 15);
+                        }
+                        
+                        @include color-by-background(darken($highlight-color, 30), 60);
+                    }
+                }
+            }
+
+            small {
+                color: $highlight-color;
+                font: 16px $base-font-family;
+                text-align: right;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+                display: block;
+                width: 23%;
+                position: relative;
+                z-index: 20;
+                float: right;
+                line-height: 16px;
+                padding: 2px 8px 4px 8px;
+
+                &.counter {
+                    background: darken($list-background-color, 15);
+
+                    @include color-by-background(darken($list-background-color, 20), 45);
+                    z-index: 10;
+                    font-size: 16px;
+                    // line-height: 16px;
+                    font-weight: bold;
+                    @include border-radius(3px);
+                    display: block;
+                    width: auto;
+                }
+            }
+
+            @if $include-forms {
+
+                ::-webkit-input-placeholder {
+                    @include color-by-background($page-background-color, 25%);
+                }
+
+                input[type="text"],
+                input[type="password"],
+                input[type="tel"],
+                input[type="number"],
+                input[type="search"],
+                input[type="email"],
+                input[type="url"],
+                textarea, select {
+                    @include color-by-background($page-background-color);
+                    background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
+                    border: 0;
+                    font: normal 17px $base-font-family;
+                    padding: 0;
+                    display: inline-block;
+                    margin-left: 0px;
+                    width: 100%;
+                    -webkit-appearance: textarea;
+                }
+                textarea {
+                    height: 120px;
+                    padding: 0;
+                    text-indent: -2px;
+                }
+                input[type="checkbox"], input[type="radio"] {
+                    margin: 0;
+                    padding: 10px;
+
+                    &:after {
+                        @include pseudo-element($content: attr(title));
+                        left: 21px;
+                        top: 12px;
+                        font-family: $base-font-family;
+                        font-size: 17px;
+                        line-height: 21px;
+                        width: 246px;
+                        margin: 0 0 0 17px;
+                        @include color-by-background($page-background-color);
+                    }
+                }
+
+                input[type='submit'] {
+                    @include border-radius(4px);
+                    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+                    border: 1px outset #aaa;
+                    display: block;
+                    font-size: inherit;
+                    font-weight: inherit;
+                    padding: 10px;
+                }
+
+            } // forms
+
+            &.arrow, &.forward {
+                small {
+                    margin-right: 24px;
+                }
+
+                &:after {
+                    @extend .base-chevron;
+                }
+            }
+
+            $chevron-size: 24px;
+
+            &.forward {
+                &:before {
+                    @include pseudo-element($chevron-size, $chevron-size);
+                    top: 50%;
+                    right: 6px;
+                    margin-top: -$chevron-size/2;
+                    @include circle($chevron-size);
+                    @include background-gradient($highlight-color, glossy);
+                    border: 2px solid #fff;
+                    @include box-shadow(0 1px 2px rgba(#000, .3));
+                    -webkit-box-sizing: border-box;
+                    padding: 0;
+                    z-index: 10;
+                    line-height: 0;
+                    pointer-events: none;
+                }
+                &:after {
+                    @include color-by-background($highlight-color);
+                    @include opacity(1);
+                    font-size: 24px;
+                }
+            }
+
+        } // /li
+
+        &.rounded, &.individual li {
+            @include box-shadow(rgba(#fff,.15) 0 1px 0);
+            border: 1px solid darken($base-color, 15);
+        }
+
+        &.rounded {
+            @include border-radius;
+
+            li:first-child, li:first-child a {
+                border-top: 0;
+                @include border-top-radius;
+            }
+            li:last-child, li:last-child a {
+                @include border-bottom-radius;
+            }
+        }
+
+        &.form {
+            li {
+                padding: 7px 10px;
+
+                &.error {
+                    border: 2px solid red;
+                }
+                &.error + &.error {
+                    border-top: 0;
+                }
+            }
+        }
+
+        @if $include-metal-lists {
+            &.metal {
+                @extend .base-flatlists;
+
+                li {
+                    background-image: none;
+                    border-top: 1px solid #fff;
+                    border-bottom: 1px solid #666;
+                    font-size: 26px;
+                    // background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+
+                    a {
+                        line-height: 26px;
+                        margin: 0;
+                        padding: 13px 0;
+                    }
+
+                    em {
+                        display: block;
+                        font-size: 14px;
+                        font-style: normal;
+                        width: 50%;
+                        line-height: 14px;
+                    }
+
+                    small {
+                        float: right;
+                        position: relative;
+                        margin-top: 10px;
+                        font-weight: bold;
+                    }
+                }
+            } // ul.metal
+        }
+
+        @if $include-edge-lists {
+            &.edgetoedge {
+                @extend .base-flatlists;
+
+                li {
+                    font-size: 20px;
+
+                    &:first-child {
+                        border-top: 0;
+                    }
+
+                    &.sep {
+                        font-size: 16px;
+                        padding: 2px 10px;
+                    }
+
+                    em {
+                        font-weight: normal;
+                        font-style: normal;
+                    }
+                }
+            } // ul.edgetoedge
+        }
+
+        @if $include-plastic-lists {
+            &.plastic {
+                @extend .base-flatlists;
+                font-size: 18px;
+
+                li {
+                    border-width: 1px 0;
+                    border-style: solid;
+
+                    @include background-gradient(darken($list-background-color, 17));
+                    border-top-color: darken($list-background-color, 15);                
+                    border-bottom-color: darken($list-background-color, 20);
+
+                    &:nth-child(odd) {
+                        @include background-gradient(darken($list-background-color, 15));
+                    }
+                    
+                    a.active.loading {
+                        background-image: url(img/loading.gif);
+                        background-position: 95% center;
+                        background-repeat: no-repeat;
+                    }
+                    small {
+                        color: color-by-background(darken($list-background-color, 15), 40);
+                        font-size: 13px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+
+        &.individual {
+            border: 0;
+            background: none;
+            clear: both;
+            overflow: hidden;
+
+            li {
+                font-size: 14px;
+                text-align: center;
+                @include border-radius;
+                @include box-sizing(border-box);
+                width: 48%;
+                float: left;
+                display: block;
+                padding: 11px 10px 14px 10px;
+
+                & + li {
+                    float: right;
+                }
+            }
+
+            a {
+                line-height: 16px;
+                margin: -11px -10px -14px -10px;
+                padding: 11px 10px 14px 10px;
+                @include border-radius;
+            }
+        }
+    }
+
+    .toggle {
+        width: 94px;
+        position: relative;
+        height: 27px;
+        display: block;
+        overflow: hidden;
+        float: right;
+
+        input[type="checkbox"] {
+            margin: 0;
+            @include border-radius(5px);
+            height: 27px;
+            overflow: hidden;
+            width: 149px;
+            border: 0;
+            @include transition(left .15s ease-in-out);
+            position: absolute;
+            top: 0;
+            left: -55px;
+            -webkit-appearance: textarea;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+
+            &:checked {
+                left: 0px;
+            }
+        }
+    }
+
+    .info {
+        font-size: 12px;
+        line-height: 16px;
+        text-align: center;
+        color: #444;
+        padding: 15px;
+        font-weight: bold;
+    }
+}

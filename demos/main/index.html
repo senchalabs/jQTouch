@@ -2,62 +2,61 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-<!--
-        <script src="http://jsconsole.com/remote.js?"></script>
-        <script src="http://192.168.1.2:8080/target/target-script-min.js"></script>
--->
         <title>jQTouch &beta;</title>
-        <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
-        <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
-        <script src="../../jqtouch/jquery-1.4.2.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="../../themes/css/jqtouch.css" title="jQTouch">
+
+        <script src="../../src/lib/zepto.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
+        <!-- Uncomment the following two lines (and comment out the previous two) to use jQuery instead of Zepto. -->
+        <!-- <script src="../../src/lib/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script> -->
+        <!-- <script src="../../src/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> -->
+
+        <script src="../../extensions/jqt.themeswitcher.js" type="application/x-javascript" charset="utf-8"></script>
+
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
                 icon: 'jqtouch.png',
                 icon4: 'jqtouch4.png',
                 addGlossToIcon: false,
                 startupScreen: 'jqt_startup.png',
-                statusBar: 'black',
-                preloadImages: [
-                    '../../themes/jqt/img/activeButton.png',
-                    '../../themes/jqt/img/back_button.png',
-                    '../../themes/jqt/img/back_button_clicked.png',
-                    '../../themes/jqt/img/blueButton.png',
-                    '../../themes/jqt/img/button.png',
-                    '../../themes/jqt/img/button_clicked.png',
-                    '../../themes/jqt/img/grayButton.png',
-                    '../../themes/jqt/img/greenButton.png',
-                    '../../themes/jqt/img/redButton.png',
-                    '../../themes/jqt/img/whiteButton.png',
-                    '../../themes/jqt/img/loading.gif'
-                    ]
+                statusBar: 'black-translucent',
+                themeSelectionSelector: '#jqt #themes ul',
+                preloadImages: []
             });
+
             // Some sample Javascript functions:
             $(function(){
+
                 // Show a swipe event on swipe test
                 $('#swipeme').swipe(function(evt, data) {
-                    $(this).html('You swiped <strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!');
+                    var details = !data ? '': '<strong>' + data.direction + '/' + data.deltaX +':' + data.deltaY + '</strong>!';
+                    $(this).html('You swiped ' + details );
                     $(this).parent().after('<li>swiped!</li>')
-
                 });
+
                 $('#tapme').tap(function(){
                     $(this).parent().after('<li>tapped!</li>')
-                })
-                $('a[target="_blank"]').click(function() {
+                });
+
+                $('a[target="_blank"]').bind('click', function() {
                     if (confirm('This link opens in a new window.')) {
                         return true;
                     } else {
                         return false;
                     }
                 });
+
                 // Page animation callback events
                 $('#pageevents').
                     bind('pageAnimationStart', function(e, info){ 
-                        $(this).find('.info').append('Started animating ' + info.direction + '&hellip; ');
+                        $(this).find('.info').append('Started animating ' + info.direction + '&hellip;  And the link ' +
+                            'had this custom data: ' + $(this).data('referrer').data('custom') + '<br>');
                     }).
                     bind('pageAnimationEnd', function(e, info){
-                        $(this).find('.info').append(' finished animating ' + info.direction + '.<br /><br />');
+                        $(this).find('.info').append('Finished animating ' + info.direction + '.<br><br>');
+
                     });
+                
                 // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
                 $('#callback').bind('pageAnimationEnd', function(e, info){
                     // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
@@ -75,19 +74,7 @@
                 $('#jqt').bind('turn', function(e, data){
                     $('#orient').html('Orientation: ' + data.orientation);
                 });
-                $('#play_movie').bind('tap', function(){
-                    $('#movie').get(0).play();
-                    $(this).removeClass('active');
-                });
                 
-                $('#video').bind('pageAnimationStart', function(e, info){
-                    $('#movie').css('display', 'none');
-                }).bind('pageAnimationEnd', function(e, info){
-                    if (info.direction == 'in')
-                    {
-                        $('#movie').css('display', 'block');
-                    }
-                })
             });
         </script>
         <style type="text/css" media="screen">
@@ -96,7 +83,8 @@
             }
             div#jqt #about {
                 padding: 100px 10px 40px;
-                text-shadow: rgba(255, 255, 255, 0.3) 0px -1px 0;
+                text-shadow: rgba(0, 0, 0, 0.3) 0px -1px 0;
+                color: #999;
                 font-size: 13px;
                 text-align: center;
                 background: #161618;
@@ -115,20 +103,20 @@
         <div id="jqt">
             <div id="about" class="selectable">
                     <p><img src="jqtouch.png" /></p>
-                    <p><strong>jQTouch</strong><br />Version 1.0 beta<br />
+                    <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
                         <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
-                    <p><em>Create powerful mobile apps with<br /> just HTML, CSS, and jQuery.</em></p>
+                    <p><em>Create powerful mobile apps with<br> just HTML, CSS, and jQuery.</em></p>
                     <p>
                         <a target="_blank" href="http://twitter.com/jqtouch">@jQTouch on Twitter</a>
                     </p>
-                    <p><br /><br /><a href="#" class="grayButton goback">Close</a></p>
+                    <p><br><br><a href="#" class="grayButton goback">Close</a></p>
             </div>
             <div id="ajax">
                 <div class="toolbar">
                     <h1>AJAX</h1>
                     <a class="back" href="#home">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
                         <li class="arrow"><a href="#ajax_post">POST Form Example</a></li>
                         <li class="arrow"><a href="ajax.html">GET Example</a></li>
@@ -142,18 +130,23 @@
                     <h1>Animations</h1>
                     <a class="back" href="#">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
+                    <h2>Most Popular</h2>
                     <ul class="rounded">
-                        <li><a href="#animdemo" class="slideleft">Slide Left</a></li>
-                        <li><a href="#animdemo" class="slideright">Slide Right</a></li>
+                        <li><a href="#animdemo">Slide</a></li>
                         <li><a href="#animdemo" class="slideup">Slide Up</a></li>
-                        <li><a href="#animdemo" class="flipleft">Flip Left</a></li>
-                        <li><a href="#animdemo" class="flipright">Flip Right</a></li>
-                        <li><a href="#animations2" class="slideleft">More...</a></li>
+                        <li><a href="#animdemo" class="dissolve">Dissolve</a></li>
+                        <li><a href="#animdemo" class="pop">Pop</a></li>
+                    </ul>
+                    <h2>3d Transitions</h2>
+                    <ul class="rounded">
+                        <li><a href="#animdemo" class="flip">Flip</a></li>
+                        <li><a href="#animdemo" class="cube">Cube</a></li>
+                        <li><a href="#animdemo" class="swap">Swap</a></li>
                     </ul>
                 </div>
                 <div class="info">
-                    Custom animations are also <a target="_blank" href="http://code.google.com/p/jqtouch/wiki/Animations">easy to write</a>. <br />View the source in <code>demos/customanimation</code> to see how.
+                    Custom animations are also <a target="_blank" href="http://code.google.com/p/jqtouch/wiki/Animations">easy to write</a>. <br>View the source in <code>demos/customanimation</code> to see how.
                 </div>
             </div>
             <div id="animations2">
@@ -161,14 +154,8 @@
                     <h1>Animations</h1>
                     <a href="#" class="back">Animations</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
-                        <li><a href="#animdemo" class="cubeleft">Cube Left</a></li>
-                        <li><a href="#animdemo" class="cuberight">Cube Right</a></li>
-                        <li><a href="#animdemo" class="fade">Fade</a></li>
-                        <li><a href="#animdemo" class="dissolve">Dissolve</a></li>
-                        <li><a href="#animdemo" class="pop">Pop</a></li>
-                        <li><a href="#animdemo" class="swap">Swap</a></li>
                     </ul>
                 </div>
             </div>
@@ -183,13 +170,13 @@
                     <h1>Buttons!</h1>
                     <a href="#" class="back">Home</a>
                 </div>
-                <div style="margin-top: 10px;" class="view">
+                <div style="margin-top: 10px;" class="scroll">
                     <a href="#" class="whiteButton">White</a>
-                    <br />
+                    <br>
                     <a href="#" class="grayButton">Gray</a>
-                    <br />
+                    <br>
                     <a href="#" class="redButton">Red</a>
-                    <br />
+                    <br>
                     <a href="#" class="greenButton">Green</a>
                 </div>
             </div>
@@ -204,10 +191,10 @@
                     <h1>Events</h1>
                     <a class="back" href="#home">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
-                        <li id="orient">Orientation: <strong>profile</strong></li>
-                        <li><a href="#pageevents">Page events</a></li>
+                        <li id="orient">Orientation: <strong>portrait</strong></li>
+                        <li><a href="#pageevents" data-custom="WOOT!">Page events</a></li>
                         <li><a href="#" id="swipeme">Swipe me!</a></li>
                         <li><a href="#" id="tapme">Tap me!</a></li>
                     </ul>
@@ -218,35 +205,44 @@
                     <h1>Demos</h1>
                     <a class="back" href="#home">Home</a>
                 </div>
-                <div class="view">
-                    <div class="info">
-                        These apps open in a new window. Don&#8217;t forget to save them to your home screen to enable full-screen mode.
-                    </div>
+                <div class="scroll">
+ 
                     <ul class="rounded">
                         <li class="forward"><a target="_blank" href="../todo/">To-Do app</a></li>
                         <li class="forward"><a target="_blank" href="../clock/">Clock app</a></li>
                     </ul>
                 </div>
+                <div class="info">
+                     These apps open in a new window. Don&#8217;t forget to save them to your home screen to enable full-screen mode.
+                 </div>
             </div>
-            <div id="edge" class="unfixed">
+            <div id="edge">
                 <div class="toolbar">
                     <h1>Edge to Edge</h1>
                     <a href="#" class="back">Back</a>
                 </div>
-                <ul class="edgetoedge view">
+                <ul class="edgetoedge scroll">
                     <li class="sep">F</li>
-                    <li><a href="#">Flintstone, <em>Fred</em></a></li>
-                    <li><a href="#">Flintstone, <em>Pebble</em></a></li>
+                    <li><a href="#">Flintstone, <em>Fred</em> <small>Label</small></a></li>
+                    <li><a href="#">Flintstone, <em>Pebble</em> <small class="counter">42</small></a></li>
                     <li><a href="#">Flintstone, <em>Wilma</em></a></li>
                     <li class="sep">J</li>
-                    <li><a href="#">Jetson, <em>Elroy</em></a></li>
-                    <li><a href="#">Jetson, <em>George</em></a></li>
-                    <li><a href="#">Jetson, <em>Jane</em></a></li>
-                    <li><a href="#">Jetson, <em>Judy</em></a></li>
+                    <li class="arrow"><a href="#">Jetson, <em>Elroy</em> <small>Label</small></a></li>
+                    <li class="arrow"><a href="#">Jetson, <em>George</em> <small class="counter">42</small></a></li>
+                    <li class="arrow"><a href="#">Jetson, <em>Jane</em></a></li>
+                    <li class="arrow"><a href="#">Jetson, <em>Judy</em></a></li>
                     <li class="sep">R</li>
-                    <li><a href="#">Rubble, <em>Bambam</em></a></li>
-                    <li><a href="#">Rubble, <em>Barney</em></a></li>
-                    <li><a href="#">Rubble, <em>Betty</em></a></li>
+                    <li class="forward"><a href="#">Rubble, <em>Bambam</em> <small>Label</small></a></li>
+                    <li class="forward"><a href="#">Rubble, <em>Barney</em> <small class="counter">42</small></a></li>
+                    <li class="forward"><a href="#">Rubble, <em>Betty</em></a></li>
+                </ul>
+            </div>
+            <div id="themes">
+                <div class="toolbar">
+                    <h1>Themes</h1>
+                    <a href="#" class="back">Back</a>
+                </div>
+                <ul class="rounded">
                 </ul>
             </div>
             <div id="extensions">
@@ -254,15 +250,15 @@
                     <h1>Extensions</h1>
                     <a class="back" href="#home">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <div class="info">
                         These apps open in a new window. Don&#8217;t forget to save them to your home screen to enable full-screen mode.
                     </div>
                     <ul class="rounded">
-                        <li class="forward"><a target="_blank" href="../ext_location/">Geo Location</a></li>
-                        <li class="forward"><a target="_blank" href="../ext_offline/">Offline Utility</a></li>
-                        <li class="forward"><a target="_blank" href="../ext_floaty/">Floaty Bar</a></li>
-                        <li class="forward"><a target="_blank" href="../ext_autotitles/">Auto Titles</a></li>
+                        <li class="forward"><a target="_blank" href="../ext_location/index.html">Geo Location</a></li>
+                        <li class="forward"><a target="_blank" href="../ext_offline/index.html">Offline Utility</a></li>
+                        <li class="forward"><a target="_blank" href="../ext_floaty/index.html">Floaty Bar</a></li>
+                        <li class="forward"><a target="_blank" href="../ext_autotitles/index.html">Auto Titles</a></li>
                     </ul>
                 </div>
             </div>
@@ -271,7 +267,7 @@
                     <h1>Forms</h1>
                     <a href="#" class="back">Back</a>
                 </div>
-                <form class="view">
+                <form class="scroll">
                     <ul class="edit rounded">
                         <li><input type="text" name="name" placeholder="Text" id="some_name" /></li>
                         <li><input type="search" name="search" placeholder="Search" id="some_name" /></li>
@@ -281,7 +277,7 @@
                         <li><input type="url" name="url" placeholder="Url" id="some_name" /></li>
                         <li><textarea placeholder="Textarea" ></textarea></li>
                         <li>Sample Toggle <span class="toggle"><input type="checkbox" /></span></li>
-                        <li>
+                        <li class="arrow">
                             <select id="lol">
                                 <optgroup label="Swedish Cars">
                                     <option value ="volvo">Volvo</option>
@@ -306,15 +302,15 @@
                     <h1>jQTouch</h1>
                     <a class="button slideup" id="infoButton" href="#about">About</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
-                        <li class="arrow"><a href="#ui">User Interface</a> <small class="counter">4</small></li>
-                        <li class="arrow"><a href="#animations">Animations</a> <small class="counter">8</small></li>
-                        <li class="arrow"><a href="#ajax">AJAX</a> <small class="counter">3</small></li>
-                        <li class="arrow"><a href="#callbacks">Events</a> <small class="counter">3</small></li>
-                        <li class="arrow"><a href="#extensions">Extensions</a> <small class="counter">4</small></li>
-                        <li class="arrow"><a href="#video">Video</a></li>
-                        <li class="arrow"><a href="#demos">Demos</a> <small class="counter">2</small></li>
+                        <li class="arrow"><a href="#ui">User Interface <small class="counter">5</small></a> </li>
+                        <li class="arrow"><a href="#animations">Animations <small class="counter">7</small></a></li>
+                        <li class="arrow"><a href="#ajax">AJAX <small class="counter">4</small></a></li>
+                        <li class="arrow"><a href="#callbacks">Events <small class="counter">4</small></a></li>
+                        <li class="arrow"><a href="#extensions">Extensions <small class="counter">4</small></a> </li>
+                        <li class="arrow"><a href="#demos">Demos <small class="counter">2</small></a></li>
+                        <li class="arrow"><a href="#themes">Themes <small class="counter">2</small></a></li>
                     </ul>
                     <h2>External Links</h2>
                     <ul class="rounded">
@@ -336,7 +332,7 @@
                     <h1>Metal Lists</h1>
                     <a href="#" class="back">Back</a>
                 </div>
-                <ul class="metal view">
+                <ul class="metal scroll">
                     <li class="arrow"><a href="#"><small>AM</small> 9:40 <em>Buenos Aires</em></a></li>
                     <li class="arrow"><a href="#"><small>PM</small> 19:40 <em>Singapur</em></a></li>
                     <li class="arrow"><a href="#"><small>PM</small> 22:40 <em>Japan</em></a></li>
@@ -349,7 +345,7 @@
                     <h1>Page Events</h1>
                     <a class="back" href="#">Events</a>
                 </div>
-                <div class="info view" style="font-weight: normal;">
+                <div class="info scroll" style="font-weight: normal;">
                 </div>
             </div>
             <div id="plastic">
@@ -357,22 +353,19 @@
                     <h1>Plastic Lists</h1>
                     <a href="#" class="back">Back</a>
                 </div>
-                <ul class="plastic view">
-                    <li class="arrow"><a href="#">Simple list</a></li>
-                    <li class="arrow"><a href="#">Contact list</a></li>
-                    <li class="arrow"><a href="#">Content List</a></li>
-                    <li class="arrow"><a href="#">Metal list</a></li>
+                <ul class="plastic scroll">
+                    <li class="arrow"><a href="#">Simple list <small>Label</small></a></li>
+                    <li class="arrow"><a href="#">Contact list <small class="counter">42</small></a></li>
+                    <li class="forward"><a href="#">Content List</a></li>
+                    <li><a href="#">Metal list</a></li>
                 </ul>
-                <div class="info">
-                    <p><strong>Best enjoyed on a real iPhone</strong></p>
-                </div>
             </div>
             <div id="ui">
                 <div class="toolbar">
                     <h1>UI Demos</h1>
                     <a class="back" href="#">Home</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <h2>Lists</h2>
                     <ul class="rounded">
                         <li class="arrow"><a href="#edge">Edge to Edge</a></li>
@@ -389,25 +382,20 @@
                     </ul>
                 </div>
             </div>
-            <div id="video">
-                <div class="toolbar">
-                    <h1>Video</h1>
-                    <a class="back" href="#">Home</a>
-                </div>
-                <div class="view">
-                    <video id="movie" src="http://jqtouch.googlecode.com/svn-history/r143/trunk/demos/main/video/fireworks-iPhone.m4v" poster="video/fireworks.jpg" width="320" height="426" controls></video>
-                    
-                    <a href="#" id="play_movie" style="margin-top: 10px; margin-bottom: 10px;" class="whiteButton">Play Movie</a>
-                </div>
-            </div>
             <form id="ajax_post" action="ajax_post.php" method="POST" class="form">
                 <div class="toolbar">
                     <h1>Post Demo</h1>
                     <a class="back" href="#">Ajax</a>
                 </div>
-                <div class="view">
+                <div class="scroll">
                     <ul class="rounded">
                         <li><input type="text" name="zip" value="" placeholder="Zip Code" /></li>
+                    </ul>
+                    <h2>Favorite color?</h2>
+                    <ul class="rounded">
+                        <li><input type="radio" name="color" value="green" title="Green" /></li>
+                        <li><input type="radio" name="color" value="blue" title="Blue" /></li>
+                        <li><input type="radio" name="color" value="red" title="Red" /></li>
                     </ul>
                     <a style="margin-top: 10px; margin-bottom: 10px; color:rgba(0,0,0,.9)" href="#" class="submit whiteButton">Submit</a>
                 </div>

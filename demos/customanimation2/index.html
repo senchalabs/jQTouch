@@ -3,10 +3,9 @@
     <head>
         <meta charset="UTF-8" />
         <title>jQTouch &beta;</title>
-        <style type="text/css" media="screen">@import "../../jqtouch/jqtouch.css";</style>
-        <style type="text/css" media="screen">@import "../../themes/jqt/theme.css";</style>
-        <script src="../../jqtouch/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../jqtouch/jqtouch.js" type="application/x-javascript" charset="utf-8"></script>
+        <style type="text/css" media="screen">@import "../../themes/css/jqtouch.css";</style>
+        <script src="../../src/lib/zepto.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
@@ -34,14 +33,10 @@
                     selector: '.pageflip'
                 });
                 $('#page1').swipe(function(e, info){
-                    if (info.direction === 'left') {
-                        jQT.goTo($('#page2'), 'pageflip');
-                    }
+                    jQT.goTo($('#page2'), 'pageflip');
                 });
                 $('#page2').swipe(function(e, info){
-                    if (info.direction === 'right') {
-                        jQT.goBack('#page1');
-                    }
+                    jQT.goBack('#page1');
                 })
             });
         </script>
@@ -90,12 +85,12 @@
         <div id="jqt">
             <div id="page1" class="touch">
                 <div>
-                    Swipe left to go to the next page.
+                    Swipe to go to the next page.
                 </div>
             </div>
             <div id="page2" class="touch">
                 <div>
-                    Swipe right to go back.                
+                    Swipe to go back.                
                 </div>
             </div>
         </div>
