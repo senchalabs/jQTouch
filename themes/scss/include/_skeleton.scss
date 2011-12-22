@@ -12,7 +12,7 @@ body {
     height: 100%;
     vertical-align: middle;
     font-size: 30px;
-    line-height: 44px;
+    line-height: 38px;
     font-family: Futura, "Futura Condensed", Helvetica, Arial, sans-serif;
     font-weight: bold;
     @include opacity(.6);
@@ -23,10 +23,17 @@ body {
     z-index: 10;
 }
 
+.base-flatlists {
+    margin: 0;
+    padding: 0;
+    border-width: 0 0 0 1px;
+    @include border-radius(0);
+}
+
 #jqt {
 
     h1, h2 {
-        font: bold 18px "Helvetica Neue", Helvetica;
+        font: bold 18px $base-font-family;
         margin: 10px 20px 6px;
         @include color-by-background($page-background-color, 40);
     }
@@ -233,7 +240,7 @@ body {
             background-color: $list-background-color;
             @include color-by-background($list-background-color, 50);
             border: 1px solid darken($list-background-color, 15%);
-            font: bold 18px "Helvetica Neue", Helvetica;
+            font: bold 18px $base-font-family;
         }
         
         padding: 0;
@@ -276,7 +283,7 @@ body {
 
             small {
                 color: $highlight-color;
-                font: 17px "Helvetica Neue", Helvetica;
+                font: 16px $base-font-family;
                 text-align: right;
                 text-overflow: ellipsis;
                 white-space: nowrap;
@@ -286,7 +293,8 @@ body {
                 position: relative;
                 z-index: 20;
                 float: right;
-                padding: 0;
+                line-height: 16px;
+                padding: 2px 8px 4px 8px;
 
                 &.counter {
                     background: darken($list-background-color, 15);
@@ -294,10 +302,9 @@ body {
                     @include color-by-background(darken($list-background-color, 20), 45);
                     z-index: 10;
                     font-size: 16px;
-                    line-height: 16px;
+                    // line-height: 16px;
                     font-weight: bold;
                     @include border-radius(3px);
-                    padding: 2px 8px 4px 8px;
                     display: block;
                     width: auto;
                 }
@@ -320,7 +327,7 @@ body {
                     @include color-by-background($page-background-color);
                     background: transparent url('data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==');
                     border: 0;
-                    font: normal 17px "Helvetica Neue", Helvetica;
+                    font: normal 17px $base-font-family;
                     padding: 0;
                     display: inline-block;
                     margin-left: 0px;
@@ -337,11 +344,12 @@ body {
                     padding: 10px;
 
                     &:after {
-                        content: attr(title);
+                        @include pseudo-element($content: attr(title));
+                        left: 21px;
+                        top: 12px;
+                        font-family: $base-font-family;
                         font-size: 17px;
-                        vertical-align: middle;
-                        line-height: 1em;
-                        display: block;
+                        line-height: 21px;
                         width: 246px;
                         margin: 0 0 0 17px;
                         @include color-by-background($page-background-color);
@@ -357,11 +365,12 @@ body {
                     font-weight: inherit;
                     padding: 10px;
                 }
+
             } // forms
 
-            &.arrow {
+            &.arrow, &.forward {
                 small {
-                    margin-right: 15px;
+                    margin-right: 24px;
                 }
 
                 &:after {
@@ -388,7 +397,6 @@ body {
                     pointer-events: none;
                 }
                 &:after {
-                    @extend .base-chevron;
                     @include color-by-background($highlight-color);
                     @include opacity(1);
                     font-size: 24px;
@@ -429,8 +437,7 @@ body {
 
         @if $include-metal-lists {
             &.metal {
-                border: 0;
-                margin: 0;
+                @extend .base-flatlists;
 
                 li {
                     background-image: none;
@@ -465,8 +472,7 @@ body {
 
         @if $include-edge-lists {
             &.edgetoedge {
-                margin: 0;
-                padding: 0;
+                @extend .base-flatlists;
 
                 li {
                     font-size: 20px;
@@ -490,10 +496,9 @@ body {
 
         @if $include-plastic-lists {
             &.plastic {
+                @extend .base-flatlists;
                 font-size: 18px;
-                margin: 0;
-                padding: 0;
-                
+
                 li {
                     border-width: 1px 0;
                     border-style: solid;
@@ -512,10 +517,9 @@ body {
                         background-repeat: no-repeat;
                     }
                     small {
-                        color: #888;
+                        color: color-by-background(darken($list-background-color, 15), 40);
                         font-size: 13px;
                         font-weight: bold;
-                        line-height: 24px;
                         text-transform: uppercase;
                     }
                 }

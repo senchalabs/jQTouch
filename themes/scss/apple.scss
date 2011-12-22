@@ -31,11 +31,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
     ul {
 
         li {
-
-            select {
-                background: transparent url(../img/apple/chevron.png) no-repeat 103% 3px;
-            }
-
             input[type="checkbox"], input[type="radio"] {
                 color: rgb(50,79,133);
             }
@@ -68,14 +63,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
         font-style: normal;
     }
 
-    ul.edgetoedge, ul.metal, ul.plastic {
-        @include border-radius(0);
-        margin: 0;
-        border-left: 0;
-        border-right: 0;
-        border-top: 0;
-    }
-
     ul.metal li {
         border-top: 1px solid rgb(238,238,238);
         border-bottom: 1px solid rgb(156,158,165);
@@ -84,9 +71,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
 
         a:hover {
             color: #000;
-            small {
-                color: inherit;
-            }
         }
         em {
             color: #444;
