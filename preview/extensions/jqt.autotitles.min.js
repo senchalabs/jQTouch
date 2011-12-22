@@ -1,0 +1,1 @@
+(function(a){a.jQTouch&&a.jQTouch.addExtension(function(){var c=".toolbar h1";a(function(){a("#jqt").bind("pageAnimationStart",function(d,f){if("in"===f.direction){var b=a(c,a(d.target)),e=a(d.target).data("referrer");b.length&&e&&""===b.text()&&b.html(e.text())}})});return{setTitleSelector:function(a){c=a}}})})($);

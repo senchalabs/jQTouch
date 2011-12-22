@@ -1,0 +1,14 @@
+//@import "tests";
+
+@import "recipes/base/normalize";
+
+#boxsize button,
+#boxsize input,
+#boxsize select,
+#boxsize textarea {
+    width:200px;
+    padding:5px;
+    border:1px solid #333;
+}
+
+@include base-normalize;

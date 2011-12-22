@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-touch-callout: none;
+}
+
+#jqt {
+    -webkit-text-size-adjust: none;
+    @include user-select(none);
+    font-family: "Helvetica Neue", Helvetica;
+    position: absolute;
+    right: 0;
+    top: 0;
+    left: 0;
+    bottom: 0;
+
+    a {
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        -webkit-user-drag: none;
+    }
+
+    .selectable, input, textarea {
+        -webkit-user-select: auto;
+    }
+
+    &.notransform {
+        -webkit-transform: none !important;
+    }
+
+    // "Views"
+    > * {
+        display: block;
+        left: 0;
+        top: 0;
+        min-height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        position: absolute;
+        z-index: 0;
+        @include display-box;
+        @include box-orient(vertical);
+        @include box-flex(1);
+    }
+
+    > .current {
+        z-index: 10;
+    }
+
+    > :not(.current) {
+        display: none;
+    }
+
+    &.touchscroll:not(.animating3d) {
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+
+        > * {
+            height: 100%;
+        }
+        .scroll {
+            position: relative;
+            @include box-flex(1);
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+    }
+    // Ensure margins don't collapse
+    .scroll {
+        -webkit-margin-collapse: separate;
+    }
+
+    .in, .out {
+        -webkit-animation-duration: 250ms;
+        -webkit-animation-fill-mode: both;
+        -webkit-animation-timing-function: ease-in-out;
+    }
+
+    .in {
+        z-index: 10;
+
+        &:after {
+            @include pseudo-element($width: auto);
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            // background-color: red;
+        }
+    }
+    .out {
+        z-index: 0 !important;
+    }
+
+    &.supports3d {
+        -webkit-perspective: 1000;
+
+        > * {
+            -webkit-transform: translate3d(0,0,0) rotate(0) scale(1);
+        }
+    }
+}

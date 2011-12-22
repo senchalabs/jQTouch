@@ -1,0 +1,86 @@
+$base-color: #768BA7;
+$page-background-color: #CBD2D8;
+$highlight-color: #3366CC;
+
+$list-background-color: #fff;
+
+$toolbar-background-color: $base-color;
+$toolbar-button-color: saturate(darken($base-color, 10), 10);
+
+@import 'include/core';
+
+#jqt {
+    > * {
+        @include background-striped(
+            $angle: left,
+            $minorsize: 1px,
+            $majorsize: 7px,
+            $bgcolor: $page-background-color,
+            $stripe-color: darken($page-background-color, 2)
+        )
+    }
+
+    .toolbar {
+        @include background-image(
+            linear-gradient(rgba(#fff, .15), rgba(#fff, 0)),
+            glossy-gradient($toolbar-background-color, $contrast: .6)
+        );
+        @include box-shadow(rgba(#fff, .3) 0 1px 0 inset);
+    }
+
+    ul {
+
+        li {
+            input[type="checkbox"], input[type="radio"] {
+                color: rgb(50,79,133);
+            }
+        }
+
+        .toggle input[type="checkbox"] {
+            background: transparent url(../img/apple/on_off.png) 0 0 no-repeat;
+        }
+
+        input[type='submit'] {
+            background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+            border: 1px outset #aaa;
+        }
+
+        // Edge to edge
+        &.edgetoedge li.sep {
+            @include background-gradient($page-background-color, recessed);
+            @include color-by-background($page-background-color);
+            border-bottom: 1px solid #b5c1c9;
+            border-top: 1px solid #b5c1c9;
+        }
+    }
+
+    ul.edgetoedge li, .metal li {
+        @include border-radius(0);
+    }
+
+    ul.edgetoedge li em {
+        font-weight: normal;
+        font-style: normal;
+    }
+
+    ul.metal li {
+        border-top: 1px solid rgb(238,238,238);
+        border-bottom: 1px solid rgb(156,158,165);
+        font-size: 26px;
+        text-shadow: #fff 0 1px 0;
+
+        a:hover {
+            color: #000;
+        }
+        em {
+            color: #444;
+        }
+    }
+
+    .info {
+        background: #dce1eb;
+        text-shadow: rgba(255,255,255,.8) 0 1px 0;
+        color: rgb(76, 86, 108);
+        border-top: 1px solid rgba(76, 86, 108, .3);
+    }
+}

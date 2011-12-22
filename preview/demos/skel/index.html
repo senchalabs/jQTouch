@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        
+        <title>jQTouch &beta;</title>
+        <style type="text/css" media="screen">@import "../../themes/css/jqtouch.css";</style>
+        <script src="../../src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                icon: 'jqtouch.png',
+                addGlossToIcon: false,
+                startupScreen: 'jqt_startup.png',
+                statusBar: 'black'
+            });
+
+            $(function(){
+                // Custom Javascript (onReady)
+            });
+        </script>
+        <style type="text/css" media="screen">
+            /* Custom Style */
+        </style>
+    </head>
+    <body>
+        <div id="jqt">
+            <div id="start">
+                
+            </div>
+        </div>
+    </body>
+</html>
