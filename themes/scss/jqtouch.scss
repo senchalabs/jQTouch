@@ -47,50 +47,11 @@
                 background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
                 border: 1px outset black;
             }
-            
-            &.forward {
-                position: relative;
-                &:after {
-                    content: '';
-                    background-image: url(../img/jqt/chevron_circle.png);
-                    background-position: right center;
-                    background-repeat: no-repeat;
-                    width: 40px;
-                    height: 100%;
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                }                
-            }
-
-            &.arrow {
-                position: relative;
-                &:after {
-                    content: '';
-                    background-image: url(../img/jqt/chevron.png);
-                    background-position: right center;
-                    background-repeat: no-repeat;
-                    width: 40px;
-                    height: 100%;
-                    position: absolute;
-                    right: 0;
-                    top: 0;
-                }
-            }
-            
-            a.active.loading {
-                background-image: url(../img/jqt/loading.gif);
-                background-position: 95% center;
-                background-repeat: no-repeat;
-            }
 
             small.counter {
                 @include box-shadow(rgba(#fff,.1) 0 1px 0);
             }
 
-            li.arrow small.counter {
-                margin-right: 15px;
-            }
         } // /li
 
         &.metal {
@@ -107,12 +68,6 @@
 
                 em {
                     color: #444;
-                }
-
-                &.arrow {
-                    background-position: right center;
-                    background-repeat: no-repeat;
-                    background-image: url(../img/jqt/chevron.png), -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
                 }
             }
         } // ul.metal

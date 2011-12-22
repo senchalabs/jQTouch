@@ -39,12 +39,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
             input[type="checkbox"], input[type="radio"] {
                 color: rgb(50,79,133);
             }
-
-            &.arrow {
-                background-image: url(../img/apple/chevron.png);
-                background-position: right center;
-                background-repeat: no-repeat;
-            }
         }
 
         .toggle input[type="checkbox"] {
@@ -63,12 +57,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
             border-bottom: 1px solid #b5c1c9;
             border-top: 1px solid #b5c1c9;
         }
-    }
-
-    ul li.arrow a.active {
-        background-image: url(../img/apple/listArrowSel.png);
-        background-position: right center;
-        background-repeat: no-repeat;
     }
 
     ul.edgetoedge li, .metal li {
@@ -102,10 +90,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
         }
         em {
             color: #444;
-        }
-
-        &.arrow {
-            background:  url(../img/apple/chevron.png) right center no-repeat;
         }
     }
 
