@@ -1309,12 +1309,12 @@ body {
   position: absolute;
   overflow: hidden;
   left: 50%;
-  bottom: 12px;
+  bottom: 9px;
   margin: 1px 0 0 -75px;
   width: 150px;
   font-size: 20px;
   font-weight: bold;
-  line-height: 1em;
+  line-height: 1.3em;
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
