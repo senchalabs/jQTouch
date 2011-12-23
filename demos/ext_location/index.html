@@ -38,20 +38,28 @@
                           mapTypeId: google.maps.MapTypeId.ROADMAP
                         };
                         var map = new google.maps.Map($("#map_canvas").get(0), myOptions);
+
                     } else {
                         setDisplay('Device not capable of geo-location.');
                     }
+                }, function(){
+                    var latlng = new google.maps.LatLng(37.48, -122.24);
+                    var myOptions = {
+                      zoom: 8,
+                      center: latlng,
+                      mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map($("#map_canvas").get(0), myOptions);
                 });
 
                 if (lookup) {
                     setDisplay('Looking up location&hellip;');
-                    
                 }
             });
         </script>
         <style type="text/css" media="screen">
             #map_canvas {
-                height: 200px;
+                height: 100%;
                 background-color: rgba(255,255,255,.3);
             }
         </style>
@@ -67,7 +75,7 @@
                 </ul>
                 <div class="info"></div>
             </div>
-            <div id="map" class="notransform">
+            <div id="map">
                 <div class="toolbar">
                     <h1>Map</h1>
                     <a href="#" class="back">Back</a>
