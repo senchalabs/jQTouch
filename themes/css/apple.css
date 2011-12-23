@@ -1895,8 +1895,10 @@ body {
 /* line 13, ../scss/apple.scss */
 #jqt > * {
   background-color: #cbd2d8;
-  background-image: -webkit-repeating-linear-gradient(left, transparent, transparent 1px, #c5cdd4 1px, #c5cdd4 7px);
-  background-image: repeating-linear-gradient(left, transparent, transparent 1px, #c5cdd4 1px, #c5cdd4 7px);
+  background-image: -webkit-gradient(linear, 0% 50%, 7 50%, color-stop(0%, rgba(197, 205, 212, 0)), color-stop(14.286%, rgba(197, 205, 212, 0)), color-stop(14.286%, #c5cdd4), color-stop(100%, #c5cdd4));
+  background-image: -webkit-linear-gradient(left, rgba(197, 205, 212, 0), rgba(197, 205, 212, 0) 1px, #c5cdd4 1px, #c5cdd4 7px);
+  background-image: linear-gradient(left, rgba(197, 205, 212, 0), rgba(197, 205, 212, 0) 1px, #c5cdd4 1px, #c5cdd4 7px);
+  background-size: 7px;
 }
 /* line 23, ../scss/apple.scss */
 #jqt .toolbar {
