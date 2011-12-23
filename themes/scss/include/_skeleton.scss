@@ -228,11 +228,6 @@ body {
     }
 
     // Lists
-    h1, h2, h3, h4, h5, h6 {
-        & + ul {
-            margin-top: 6px;
-        }
-    }
 
     ul {
 
@@ -244,7 +239,11 @@ body {
         }
         
         padding: 0;
-        margin: 15px 10px 17px 10px;
+        margin: 5px 10px 10px 10px;
+        &:first-child {
+            margin-top: 15px;
+        }
+
         -webkit-margin-collapse: separate;
 
         li {

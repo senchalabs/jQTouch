@@ -1515,16 +1515,12 @@ body {
   font-weight: bold;
 }
 /* line 232, ../scss/include/_skeleton.scss */
-#jqt h1 + ul, #jqt h2 + ul, #jqt h3 + ul, #jqt h4 + ul, #jqt h5 + ul, #jqt h6 + ul {
-  margin-top: 6px;
-}
-/* line 237, ../scss/include/_skeleton.scss */
 #jqt ul {
   padding: 0;
-  margin: 15px 10px 17px 10px;
+  margin: 5px 10px 10px 10px;
   -webkit-margin-collapse: separate;
 }
-/* line 239, ../scss/include/_skeleton.scss */
+/* line 234, ../scss/include/_skeleton.scss */
 #jqt ul, #jqt ul.individual li {
   background-color: white;
   color: gray;
@@ -1532,7 +1528,11 @@ body {
   border: 1px solid #d9d9d9;
   font: bold 18px "Helvetica Neue", Helvetica;
 }
-/* line 250, ../scss/include/_skeleton.scss */
+/* line 243, ../scss/include/_skeleton.scss */
+#jqt ul:first-child {
+  margin-top: 15px;
+}
+/* line 249, ../scss/include/_skeleton.scss */
 #jqt ul li {
   border-top: 1px solid #f2f2f2;
   list-style-type: none;
@@ -1541,7 +1541,7 @@ body {
   -webkit-transform: translate3d(0, 0, 0);
   /* expensive way to avoid flickr */
 }
-/* line 257, ../scss/include/_skeleton.scss */
+/* line 256, ../scss/include/_skeleton.scss */
 #jqt ul li a {
   text-decoration: none;
   text-overflow: ellipsis;
@@ -1555,7 +1555,7 @@ body {
   color: #262626;
   text-shadow: white 0 1px 0;
 }
-/* line 269, ../scss/include/_skeleton.scss */
+/* line 268, ../scss/include/_skeleton.scss */
 #jqt ul li a.active {
   background-image: none;
   background-color: #3366cc;
@@ -1564,16 +1564,16 @@ body {
   color: white;
   text-shadow: #2952a3 0 -1px 0;
 }
-/* line 274, ../scss/include/_skeleton.scss */
+/* line 273, ../scss/include/_skeleton.scss */
 #jqt ul li a.active small {
   color: #adc2eb;
   text-shadow: #0a1429 0 -1px 0;
 }
-/* line 275, ../scss/include/_skeleton.scss */
+/* line 274, ../scss/include/_skeleton.scss */
 #jqt ul li a.active small.counter {
   background-color: #24478f;
 }
-/* line 284, ../scss/include/_skeleton.scss */
+/* line 283, ../scss/include/_skeleton.scss */
 #jqt ul li small {
   color: #3366cc;
   font: 16px "Helvetica Neue", Helvetica;
@@ -1589,7 +1589,7 @@ body {
   line-height: 16px;
   padding: 2px 8px 4px 8px;
 }
-/* line 299, ../scss/include/_skeleton.scss */
+/* line 298, ../scss/include/_skeleton.scss */
 #jqt ul li small.counter {
   background: #d9d9d9;
   color: #595959;
@@ -1602,12 +1602,12 @@ body {
   display: block;
   width: auto;
 }
-/* line 315, ../scss/include/_skeleton.scss */
+/* line 314, ../scss/include/_skeleton.scss */
 #jqt ul li ::-webkit-input-placeholder {
   color: #8293a1;
   text-shadow: #e8ebee 0 1px 0;
 }
-/* line 326, ../scss/include/_skeleton.scss */
+/* line 325, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="text"],
 #jqt ul li input[type="password"],
 #jqt ul li input[type="tel"],
@@ -1627,18 +1627,18 @@ body {
   width: 100%;
   -webkit-appearance: textarea;
 }
-/* line 337, ../scss/include/_skeleton.scss */
+/* line 336, ../scss/include/_skeleton.scss */
 #jqt ul li textarea {
   height: 120px;
   padding: 0;
   text-indent: -2px;
 }
-/* line 342, ../scss/include/_skeleton.scss */
+/* line 341, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="checkbox"], #jqt ul li input[type="radio"] {
   margin: 0;
   padding: 10px;
 }
-/* line 346, ../scss/include/_skeleton.scss */
+/* line 345, ../scss/include/_skeleton.scss */
 #jqt ul li input[type="checkbox"]:after, #jqt ul li input[type="radio"]:after {
   content: attr(title);
   position: absolute;
@@ -1654,7 +1654,7 @@ body {
   color: black;
   text-shadow: #e8ebee 0 1px 0;
 }
-/* line 359, ../scss/include/_skeleton.scss */
+/* line 358, ../scss/include/_skeleton.scss */
 #jqt ul li input[type='submit'] {
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -1665,11 +1665,11 @@ body {
   font-weight: inherit;
   padding: 10px;
 }
-/* line 372, ../scss/include/_skeleton.scss */
+/* line 371, ../scss/include/_skeleton.scss */
 #jqt ul li.arrow small, #jqt ul li.forward small {
   margin-right: 24px;
 }
-/* line 384, ../scss/include/_skeleton.scss */
+/* line 383, ../scss/include/_skeleton.scss */
 #jqt ul li.forward:before {
   content: "";
   position: absolute;
@@ -1697,7 +1697,7 @@ body {
   line-height: 0;
   pointer-events: none;
 }
-/* line 399, ../scss/include/_skeleton.scss */
+/* line 398, ../scss/include/_skeleton.scss */
 #jqt ul li.forward:after {
   color: white;
   text-shadow: #2952a3 0 -1px 0;
@@ -1705,18 +1705,18 @@ body {
   opacity: 1;
   font-size: 24px;
 }
-/* line 408, ../scss/include/_skeleton.scss */
+/* line 407, ../scss/include/_skeleton.scss */
 #jqt ul.rounded, #jqt ul.individual li {
   -webkit-box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0;
   box-shadow: rgba(255, 255, 255, 0.15) 0 1px 0;
   border: 1px solid #52657f;
 }
-/* line 413, ../scss/include/_skeleton.scss */
+/* line 412, ../scss/include/_skeleton.scss */
 #jqt ul.rounded {
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
-/* line 416, ../scss/include/_skeleton.scss */
+/* line 415, ../scss/include/_skeleton.scss */
 #jqt ul.rounded li:first-child, #jqt ul.rounded li:first-child a {
   border-top: 0;
   -webkit-border-top-left-radius: 8px;
@@ -1724,39 +1724,39 @@ body {
   -webkit-border-top-right-radius: 8px;
   border-top-right-radius: 8px;
 }
-/* line 420, ../scss/include/_skeleton.scss */
+/* line 419, ../scss/include/_skeleton.scss */
 #jqt ul.rounded li:last-child, #jqt ul.rounded li:last-child a {
   -webkit-border-bottom-left-radius: 8px;
   border-bottom-left-radius: 8px;
   -webkit-border-bottom-right-radius: 8px;
   border-bottom-right-radius: 8px;
 }
-/* line 426, ../scss/include/_skeleton.scss */
+/* line 425, ../scss/include/_skeleton.scss */
 #jqt ul.form li {
   padding: 7px 10px;
 }
-/* line 429, ../scss/include/_skeleton.scss */
+/* line 428, ../scss/include/_skeleton.scss */
 #jqt ul.form li.error {
   border: 2px solid red;
 }
-/* line 432, ../scss/include/_skeleton.scss */
+/* line 431, ../scss/include/_skeleton.scss */
 #jqt ul.form li.error + #jqt ul.form li.error {
   border-top: 0;
 }
-/* line 442, ../scss/include/_skeleton.scss */
+/* line 441, ../scss/include/_skeleton.scss */
 #jqt ul.metal li {
   background-image: none;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #666;
   font-size: 26px;
 }
-/* line 449, ../scss/include/_skeleton.scss */
+/* line 448, ../scss/include/_skeleton.scss */
 #jqt ul.metal li a {
   line-height: 26px;
   margin: 0;
   padding: 13px 0;
 }
-/* line 455, ../scss/include/_skeleton.scss */
+/* line 454, ../scss/include/_skeleton.scss */
 #jqt ul.metal li em {
   display: block;
   font-size: 14px;
@@ -1764,36 +1764,36 @@ body {
   width: 50%;
   line-height: 14px;
 }
-/* line 463, ../scss/include/_skeleton.scss */
+/* line 462, ../scss/include/_skeleton.scss */
 #jqt ul.metal li small {
   float: right;
   position: relative;
   margin-top: 10px;
   font-weight: bold;
 }
-/* line 477, ../scss/include/_skeleton.scss */
+/* line 476, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li {
   font-size: 20px;
 }
-/* line 480, ../scss/include/_skeleton.scss */
+/* line 479, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li:first-child {
   border-top: 0;
 }
-/* line 484, ../scss/include/_skeleton.scss */
+/* line 483, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li.sep {
   font-size: 16px;
   padding: 2px 10px;
 }
-/* line 489, ../scss/include/_skeleton.scss */
+/* line 488, ../scss/include/_skeleton.scss */
 #jqt ul.edgetoedge li em {
   font-weight: normal;
   font-style: normal;
 }
-/* line 498, ../scss/include/_skeleton.scss */
+/* line 497, ../scss/include/_skeleton.scss */
 #jqt ul.plastic {
   font-size: 18px;
 }
-/* line 502, ../scss/include/_skeleton.scss */
+/* line 501, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li {
   border-width: 1px 0;
   border-style: solid;
@@ -1802,32 +1802,32 @@ body {
   border-top-color: #d9d9d9;
   border-bottom-color: #cccccc;
 }
-/* line 510, ../scss/include/_skeleton.scss */
+/* line 509, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li:nth-child(odd) {
   background-image: none;
   background-color: #d9d9d9;
 }
-/* line 514, ../scss/include/_skeleton.scss */
+/* line 513, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li a.active.loading {
   background-image: url(img/loading.gif);
   background-position: 95% center;
   background-repeat: no-repeat;
 }
-/* line 519, ../scss/include/_skeleton.scss */
+/* line 518, ../scss/include/_skeleton.scss */
 #jqt ul.plastic li small {
   color: #737373;
   font-size: 13px;
   font-weight: bold;
   text-transform: uppercase;
 }
-/* line 529, ../scss/include/_skeleton.scss */
+/* line 528, ../scss/include/_skeleton.scss */
 #jqt ul.individual {
   border: 0;
   background: none;
   clear: both;
   overflow: hidden;
 }
-/* line 535, ../scss/include/_skeleton.scss */
+/* line 534, ../scss/include/_skeleton.scss */
 #jqt ul.individual li {
   font-size: 14px;
   text-align: center;
@@ -1840,11 +1840,11 @@ body {
   display: block;
   padding: 11px 10px 14px 10px;
 }
-/* line 545, ../scss/include/_skeleton.scss */
+/* line 544, ../scss/include/_skeleton.scss */
 #jqt ul.individual li + li {
   float: right;
 }
-/* line 550, ../scss/include/_skeleton.scss */
+/* line 549, ../scss/include/_skeleton.scss */
 #jqt ul.individual a {
   line-height: 16px;
   margin: -11px -10px -14px -10px;
@@ -1852,7 +1852,7 @@ body {
   -webkit-border-radius: 8px;
   border-radius: 8px;
 }
-/* line 559, ../scss/include/_skeleton.scss */
+/* line 558, ../scss/include/_skeleton.scss */
 #jqt .toggle {
   width: 94px;
   position: relative;
@@ -1861,7 +1861,7 @@ body {
   overflow: hidden;
   float: right;
 }
-/* line 567, ../scss/include/_skeleton.scss */
+/* line 566, ../scss/include/_skeleton.scss */
 #jqt .toggle input[type="checkbox"] {
   margin: 0;
   -webkit-border-radius: 5px;
@@ -1878,11 +1878,11 @@ body {
   -webkit-appearance: textarea;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
-/* line 581, ../scss/include/_skeleton.scss */
+/* line 580, ../scss/include/_skeleton.scss */
 #jqt .toggle input[type="checkbox"]:checked {
   left: 0px;
 }
-/* line 587, ../scss/include/_skeleton.scss */
+/* line 586, ../scss/include/_skeleton.scss */
 #jqt .info {
   font-size: 12px;
   line-height: 16px;
