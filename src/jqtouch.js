@@ -33,7 +33,7 @@
             orientation='portrait',
             touchSelectors=[],
             publicObj={},
-            tapBuffer=150,
+            tapBuffer=100, // High click delay = ~350, quickest animation (slide) = 250
             extensions=jQTouchCore.prototype.extensions,
             animations=[],
             hairExtensions='',
@@ -215,13 +215,13 @@
                     }
                 } else {
                     fromPage.removeClass(finalAnimationName + ' out current');
-                    tapBuffer += 201;
+                    bufferTime += 260;
                 }
 
                 // In class is intentionally delayed, as it is our ghost click hack
                 setTimeout(function(){
                     toPage.removeClass('in');
-                }, tapBuffer);
+                }, bufferTime);
 
                 // Housekeeping
                 $currentPage = toPage;
