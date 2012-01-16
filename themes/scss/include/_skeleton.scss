@@ -102,11 +102,11 @@ body {
         border: 1px solid darken($toolbar-button-color, 20);
         @include border-radius(5px);
 
-        @include background-gradient($toolbar-button-color, glossy);
+        @include background-gradient($toolbar-button-color, $base-button-gradient);
 
         &.active {
             border-color: darken($toolbar-button-active-color, 20);
-            @include background-gradient($toolbar-button-active-color, glossy);
+            @include background-gradient($toolbar-button-active-color, $base-button-gradient);
             @include color-by-background($toolbar-button-active-color);
         }
     }
@@ -130,9 +130,8 @@ body {
             // combining the mask and rotate properties.
             @include transform(rotate(45deg) translate3d(.2px,0,0)); // Just be glad you didn't have to find it.
             @include transform-origin(0,0);
-            @include background-image(
-                glossy-gradient($toolbar-button-color, top left)
-            );
+            @include background-gradient($toolbar-button-color, $base-button-gradient, top left);
+            
             background-size: 100% 98%;
             @include border-radius(0 0 0 2px);
 
@@ -156,9 +155,7 @@ body {
         }
         &.active {
             &:after {
-                @include background-image(
-                    glossy-gradient($toolbar-button-active-color, left top)
-                );
+                @include background-gradient($toolbar-button-active-color, $base-button-gradient, left top);
             }
             &:before {
                 background-color: darken($toolbar-button-active-color, 20);
@@ -167,7 +164,7 @@ body {
     }
 
     .blueButton {
-        @include background-image(#2F7CE3, glossy);
+        @include background-image(#2F7CE3, $base-button-gradient);
         @include color-by-background(#2F7CE3);
     }
     .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
@@ -187,32 +184,32 @@ body {
 
         &.active, &:active {
             $active-color: darken($highlight-color, 10);
-            @include background-gradient($active-color, glossy);
+            @include background-gradient($active-color, $base-button-gradient);
             @include color-by-background($active-color);
         }
     }
     .whiteButton {
-        @include background-gradient(#eee, glossy);
+        @include background-gradient(#eee, $base-button-gradient);
         @include color-by-background(#eee);
     }
     .grayButton {
-        @include background-gradient(#444, glossy);
+        @include background-gradient(#444, $base-button-gradient);
         @include color-by-background(#444);
     }
 
     .redButton {
-        @include background-gradient(#D83B38, glossy);
+        @include background-gradient(#D83B38, $base-button-gradient);
         @include color-by-background(#D83B38);
 
         &.active, &:active {
             $active-color: darken(#D83B38, 8);
-            @include background-gradient($active-color, glossy);
+            @include background-gradient($active-color, $base-button-gradient);
             @include color-by-background($active-color);
         }
     }
 
     .greenButton {
-        @include background-gradient($highlight-color, glossy);        
+        @include background-gradient($highlight-color, $base-button-gradient);        
         @include color-by-background($highlight-color);
     }
 
@@ -386,7 +383,7 @@ body {
                     right: 6px;
                     margin-top: -$chevron-size/2;
                     @include circle($chevron-size);
-                    @include background-gradient($highlight-color, glossy);
+                    @include background-gradient($highlight-color, $base-button-gradient);
                     border: 2px solid #fff;
                     @include box-shadow(0 1px 2px rgba(#000, .3));
                     -webkit-box-sizing: border-box;

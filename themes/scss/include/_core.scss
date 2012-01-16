@@ -19,6 +19,8 @@ $toolbar-button-color: darken($toolbar-background-color, 15%) !default;
 $toolbar-button-active-color: darken($toolbar-button-color, 5%) !default;
 $base-font-family: "Helvetica Neue", Helvetica;
 
+$base-button-gradient: glossy !default;
+
 // Optimization variables
 $include-metal-lists: true !default;
 $include-plastic-lists: true !default;
