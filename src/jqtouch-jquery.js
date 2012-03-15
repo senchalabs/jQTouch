@@ -153,6 +153,8 @@
     } // End touch handler
 
     $.jQTouch = function(options) {
+    
+    	options = options || {};
 
         // take in options
         for (var i in options) {
