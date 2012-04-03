@@ -15,32 +15,37 @@
           <div class="toolbar">
             <h1>Todos</h1>
           </div>
-          <input id="new-todo" type="text" placeholder="What needs to be done?">
+          <div class="scroll">
+            <ul class="edit rounded">
+              <li>
+                <input id="new-todo" type="text" placeholder="What needs to be done?">
+              </li>
+            </ul>
 
-          <section id="main">
-            <input id="toggle-all" type="checkbox">
-            <label for="toggle-all">Mark all as complete</label>
+            <ul id="main" class="rounded" >
+              <li>
+                <input id="toggle-all" type="checkbox">
+                <label for="toggle-all">Mark all as complete</label>  
+              </li>
+            </ul>
             <ul id="todo-list"></ul>
-          </section>
 
-          <footer>
-            <a id="clear-completed">Clear completed</a>
-            <div id="todo-count"></div>
-          </footer>
+<!--             <footer>
+              <a id="clear-completed">Clear completed</a>
+              <div id="todo-count"></div>
+            </footer>
+ -->
+            <h2>Double-click to edit a todo.  Created by:</h2>
+            <div id="credits" class="info">
+              <p>
+                <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
+                <br />Rewritten by: <a href="http://addyosmani.github.com/todomvc">TodoMVC</a>.
+              </p>
+            </div>
+          </div>
           
         </div>
         
-        <div id="instructions">
-          Double-click to edit a todo.
-        </div>
-        
-        <div id="credits">
-          Created by
-          <br />
-          <a href="http://jgn.me/">J&eacute;r&ocirc;me Gravel-Niquet</a>.
-          <br />Rewritten by: <a href="http://addyosmani.github.com/todomvc">TodoMVC</a>.
-        </div>
-
             </div>
         </div>
 
@@ -77,6 +82,13 @@
         </script>
 
         <script type="text/template" id="stats-template">
+          <% if (done) { %>
+            <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
+          <% } %>
+          <div class="todo-count"><b><%= remaining %></b> <%= remaining == 1 ? 'item' : 'items' %> left</div>
+        </script>
+
+        <script type="text/template" id="about-template">
           <% if (done) { %>
             <a id="clear-completed">Clear <%= done %> completed <%= done == 1 ? 'item' : 'items' %></a>
           <% } %>
