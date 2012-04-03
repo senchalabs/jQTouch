@@ -58,6 +58,7 @@
                 useAnimations: true,
                 useFastTouch: true,
                 useTouchScroll: true,
+                handleRoutingAndHistory: true,
                 animations: [ // highest to lowest priority
                     {name:'cubeleft', selector:'.cubeleft, .cube', is3d: true},
                     {name:'cuberight', selector:'.cuberight', is3d: true},
@@ -298,9 +299,9 @@
             }
 
         }
-        function goTo(toPage, animation) {
+        function goTo(toPage, animation, fromPage) {
 
-            var fromPage = history[0].page;
+            fromPage = fromPage || history[0].page;
 
             if (typeof animation === 'string') {
                 for (var i=0, max=animations.length; i < max; i++) {
@@ -331,20 +332,22 @@
             }
         }
         function hashChangeHandler(e) {
-            if (location.hash === history[0].hash) {
-                warn('We are on the right panel');
-                return true;
-            } else if (location.hash === '') {
-                goBack();
-                return true;
-            } else {
-                if( (history[1] && location.hash === history[1].hash) ) {
+            if (jQTSettings.handleRoutingAndHistory){
+                if (location.hash === history[0].hash) {
+                    warn('We are on the right panel');
+                    return true;
+                } else if (location.hash === '') {
                     goBack();
                     return true;
                 } else {
-                    // Lastly, just try going to the ID...
-                    warn('Could not find ID in history, just forwarding to DOM element.');
-                    goTo($(location.hash), jQTSettings.defaultAnimation);
+                    if( (history[1] && location.hash === history[1].hash) ) {
+                        goBack();
+                        return true;
+                    } else {
+                        // Lastly, just try going to the ID...
+                        warn('Could not find ID in history, just forwarding to DOM element.');
+                        goTo($(location.hash), jQTSettings.defaultAnimation);
+                    }
                 }
             }
         }
@@ -604,50 +607,54 @@
                 return true;
             } 
 
-            // Init some vars
-            var target = $el.attr('target'),
-                hash = $el.prop('hash'),
-                href = $el.prop('href'),
-                animation = null;
+            if (jQTSettings.handleRoutingAndHistory){
+                // Init some vars
+                var target = $el.attr('target'),
+                    hash = $el.prop('hash'),
+                    href = $el.attr('href'),
+                    animation = null;
 
-            if ($el.is(jQTSettings.backSelector)) {
-                // User clicked or tapped a back button
-                goBack(hash);
+                if ($el.is(jQTSettings.backSelector)) {
+                    // User clicked or tapped a back button
+                    goBack(hash);
 
-            } else if ($el.is(jQTSettings.submitSelector)) {
-                // User clicked or tapped a submit element
-                submitParentForm($el);
+                } else if ($el.is(jQTSettings.submitSelector)) {
+                    // User clicked or tapped a submit element
+                    submitParentForm($el);
 
-            } else if (target === '_webapp') {
-                // User clicked or tapped an internal link, fullscreen mode
-                window.location = href;
-                return false;
-
-            } else if (href === '#') {
-                // Allow tap on item with no href
-                $el.unselect();
-                return true;
-            } else {
-                animation = getAnimation($el);
-
-                if (hash && hash !== '#') {
-                    // Internal href
-                    $el.addClass('active');
-                    goTo($(hash).data('referrer', $el), animation, $el.hasClass('reverse'));
+                } else if (target === '_webapp') {
+                    // User clicked or tapped an internal link, fullscreen mode
+                    window.location = href;
                     return false;
+
+                } else if (href === '#') {
+                    // Allow tap on item with no href
+                    $el.unselect();
+                    return true;
                 } else {
-                    // External href
-                    $el.addClass('loading active');
-                    showPageByHref($el.prop('href'), {
-                        animation: animation,
-                        callback: function() {
-                            $el.removeClass('loading');
-                            setTimeout($.fn.unselect, 250, $el);
-                        },
-                        $referrer: $el
-                    });
-                    return false;
+                    animation = getAnimation($el);
+
+                    if (hash && hash !== '#') {
+                        // Internal href
+                        $el.addClass('active');
+                        goTo($(hash).data('referrer', $el), animation, $el.hasClass('reverse'));
+                        return false;
+                    } else {
+                        // External href
+                        $el.addClass('loading active');
+                        showPageByHref($el.attr('href'), {
+                            animation: animation,
+                            callback: function() {
+                                $el.removeClass('loading');
+                                setTimeout($.fn.unselect, 250, $el);
+                            },
+                            $referrer: $el
+                        });
+                        return false;
+                    }
                 }
+            } else {
+                return true; // someone else is handling routing and history; carry on as normal.
             }
         }
 
