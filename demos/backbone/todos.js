@@ -111,7 +111,6 @@ $(function(){
 
     // Re-render the titles of the todo item.
     render: function() {
-      console.log(this);
       $(this.el).html(this.template(this.model.toJSON()));
       $(this.el).toggleClass('done', this.model.get('done'));
       this.input = this.$('.edit');
@@ -125,7 +124,7 @@ $(function(){
 
     // Switch this view into `"editing"` mode, displaying the input field.
     edit: function() {
-      this.$el.addClass("editing");
+      $(this.el).addClass("editing");
       this.input.focus();
     },
 
@@ -134,7 +133,7 @@ $(function(){
       var value = this.input.val();
       if (!value) this.clear();
       this.model.save({title: value});
-      this.$el.removeClass("editing");
+      $(this.el).removeClass("editing");
     },
 
     // If you hit `enter`, we're through editing the item.

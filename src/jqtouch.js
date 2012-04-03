@@ -139,7 +139,7 @@
                 warn('Converting click event to a tap event because touch handlers are not present or off');
                 $(e.target).trigger('tap', e);
             }
-
+            return true;
         }
         function doNavigation(fromPage, toPage, animation, goingBack) {
 
@@ -598,7 +598,7 @@
             // Make sure we have a tappable element
             if (!$el.length || !$el.prop('href')) {
                 warn('Could not find a link related to tapped element');
-                return false;
+                return true;
             }
 
             // Unselect this element and return if this is an external link
