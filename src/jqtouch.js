@@ -598,17 +598,19 @@
                 return false;
             }
 
+            // Unselect this element and return if this is an external link
+            if ($el.isExternalLink()) {
+                $el.unselect();
+                return true;
+            } 
+
             // Init some vars
             var target = $el.attr('target'),
                 hash = $el.prop('hash'),
                 href = $el.prop('href'),
                 animation = null;
 
-            if ($el.isExternalLink()) {
-                $el.unselect();
-                return true;
-
-            } else if ($el.is(jQTSettings.backSelector)) {
+            if ($el.is(jQTSettings.backSelector)) {
                 // User clicked or tapped a back button
                 goBack(hash);
 
