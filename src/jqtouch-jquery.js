@@ -198,3 +198,7 @@
     };
 
 })(jQuery);
+// Local Variables:
+// indent-tabs-mode: nil
+// js-indent-level: 4
+// End:

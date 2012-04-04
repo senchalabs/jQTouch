@@ -773,3 +773,7 @@
         })(Zepto);
     }
 })(); // Double closure, ALL THE WAY ACROSS THE SKY
+// Local Variables:
+// indent-tabs-mode: nil
+// js-indent-level: 4
+// End:
