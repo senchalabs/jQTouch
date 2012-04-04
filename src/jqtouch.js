@@ -122,9 +122,14 @@
             }
 
         }
-        function doNavigation(fromPage, toPage, animation, goingBack) {
+        // popCount: if 0 (or undefined) this is a forward navigation,
+        //   and toPage will be added to the history; if positive this
+        //   is a back navigation, and popCount entries will be popped
+        //   from the history.
+        function doNavigation(fromPage, toPage, animation, popCount) {
 
-            goingBack = goingBack ? goingBack : false;
+            popCount = popCount || 0;
+            var goingBack = popCount > 0;
 
             // Error check for target page
             if (toPage === undefined || toPage.length === 0) {
@@ -226,7 +231,10 @@
                 // Housekeeping
                 $currentPage = toPage;
                 if (goingBack) {
-                    history.shift();
+                    var i = popCount;
+                    while (i-- > 0) {
+                        history.shift();
+                    }
                 } else {
                     addPageToHistory($currentPage, animation);
                 }
@@ -257,7 +265,7 @@
         function getOrientation() {
             return orientation;
         }
-        function goBack() {
+        function goBack(toPage) {
 
             // Error checking
             if (history.length < 1 ) {
@@ -270,9 +278,35 @@
             }
 
             var from = history[0],
-                to = history[1];
+                popCount = 0;
 
-            if (doNavigation(from.page, to.page, from.animation, true)) {
+            if (toPage) {
+                if (typeof toPage === 'number') {
+                    if (toPage > 0 && toPage < history.length) {
+                        popCount = toPage;
+                        toPage = history[popCount].page;
+                    } else {
+                        warn('toPage '+toPage+' out of history range.');
+                    }
+                } else if (typeof toPage === 'string') {
+                    find_history_entry: {
+                        for (var i = 1; i < history.length; i++) {
+                            if (history[i].hash === toPage) {
+                                popCount = i;
+                                toPage = history[i].page;
+                                break find_history_entry;
+                            }
+                        }
+                        warn('toPage '+toPage+' not found in history.');
+                        toPage = $(toPage);
+                    }
+                }
+            } else {
+                popCount = 1;
+                toPage = history[popCount].page;
+            }
+
+            if (doNavigation(from.page, toPage, from.animation, popCount)) {
                 return publicObj;
             } else {
                 warn('Could not go back.');
