@@ -621,6 +621,7 @@ body {
   top: 0;
   left: 0;
   bottom: 0;
+  overflow: hidden;
 }
 /* line 21, ../scss/include/_base.scss */
 #jqt a {
