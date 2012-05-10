@@ -147,16 +147,17 @@
             toPage.trigger('pageAnimationStart', { direction: 'in', back: goingBack });
 
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
-                // Fail over to 2d animation if need be
-                if (!$.support.transform3d && animation.is3d) {
-                    warn('Did not detect support for 3d animations, falling back to ' + jQTSettings.defaultAnimation);
-                    animation.name = jQTSettings.defaultAnimation;
-                }
-
-                // Reverse animation if need be
                 var finalAnimationName = animation.name,
                     is3d = animation.is3d ? 'animating3d' : '';
 
+                // Fail over to 2d animation if need be
+                if (!$.support.transform3d && animation.is3d) {
+                    warn('Did not detect support for 3d animations, falling back to ' + jQTSettings.defaultAnimation);
+                    finalAnimationName = jQTSettings.defaultAnimation;
+                    is3d = '';
+                }
+
+                // Reverse animation if need be
                 if (goingBack) {
                     finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation );
                 }
