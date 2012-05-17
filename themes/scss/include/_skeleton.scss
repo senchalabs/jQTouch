@@ -508,7 +508,7 @@ body {
                     }
                     
                     a.active.loading {
-                        background-image: url(img/loading.gif);
+                        background-image: url(../img/#{$theme}/loading.gif);
                         background-position: 95% center;
                         background-repeat: no-repeat;
                     }
