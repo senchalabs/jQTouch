@@ -760,6 +760,7 @@
     if (!!window.Zepto) {
         (function($) {
             $.jQTouch = function(options) {
+            	options = options || {};
                 options.framework = $;
                 return jQTouchCore(options);
             };

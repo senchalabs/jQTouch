@@ -114,6 +114,14 @@
                 } else {
                     direction = 'right';
                 }
+            } else if (absY > absX && (absX < 30) && deltaT < 1000) {
+                if (deltaY < 0) {
+            		direction = 'up';
+            	} else {
+            		direction = 'down';
+            	}
+            }
+            if (direction) {
                 unbindEvents($el);
                 $el.trigger('swipe', {direction:direction, deltaX:deltaX, deltaY: deltaY});
             }
@@ -153,6 +161,8 @@
     } // End touch handler
 
     $.jQTouch = function(options) {
+    
+    	options = options || {};
 
         // take in options
         for (var i in options) {
