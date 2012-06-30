@@ -1429,7 +1429,8 @@ body {
 }
 /* line 166, ../scss/include/_skeleton.scss */
 #jqt .blueButton {
-  background-image: #2f7ce3, glossy;
+  background-image: none;
+  background-color: #2f7ce3;
   color: white;
   text-shadow: #1a63c5 0 -1px 0;
 }
