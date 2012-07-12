@@ -30,7 +30,7 @@ jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and c
 ## Building / Contribute
 
 Depedencies: 
-* Java
+- Java, Ant
 
 Exec: 
 
