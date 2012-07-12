@@ -21,9 +21,9 @@
 */
 (function() {
 
-    jQTouchCore = function(options) {
+    $.jQTouch = function(options) {
         // Initialize internal jQT variables
-        var $ = options.framework,
+        var $ = fx(),
             $body,
             $head=$('head'),
             history=[],
@@ -34,7 +34,7 @@
             touchSelectors=[],
             publicObj={},
             tapBuffer=100, // High click delay = ~350, quickest animation (slide) = 250
-            extensions=jQTouchCore.prototype.extensions,
+            extensions=$.jQTouch.prototype.extensions,
             animations=[],
             hairExtensions='',
             defaults = {
@@ -74,6 +74,21 @@
                 ]
             }; // end defaults
 
+        function fx() {
+            var fx;
+            if (!!window.Zepto) {
+                fx = window.Zepto;
+                fx.fn.prop = fx.fn.attr;
+            } else if (!!window.jQuery) {
+                fx = window.jQuery;
+                // trick to get Zepto/touch.js to work for jQuery
+                //window.Zepto = $;
+            } else {
+                throw('Either Zepto or jQuery is required but neither can be found.');
+            }
+            return fx;
+        }
+
         function warn(message) {
             if (window.console !== undefined && jQTSettings.debug === true) {
                 console.warn(message);
@@ -96,7 +111,6 @@
         // Unfortunately, we can not assume the "tap" event
         // is being used for links, forms, etc.
         function clickHandler(e) {
-
             // Figure out whether to prevent default
             var $el = $(e.target);
 
@@ -106,7 +120,7 @@
             }
 
             // Prevent default if we found an internal link (relative or absolute)
-            if ($el && $el.attr('href') && !$el.isExternalLink()) {
+            if ($el && $el.prop('href') && !$el.isExternalLink()) {
                 warn('Need to prevent default click behavior');
                 e.preventDefault();
             } else {
@@ -546,7 +560,7 @@
             }
 
             // Make sure we have a tappable element
-            if ($el.length && $el.attr('href')) {
+            if ($el.length && $el.prop('href')) {
                 $el.addClass('active');
             }
 
@@ -571,7 +585,7 @@
             }
 
             // Make sure we have a tappable element
-            if (!$el.length || !$el.attr('href')) {
+            if (!$el.length || !$el.prop('href')) {
                 warn('Could not find a link related to tapped element');
                 return false;
             }
@@ -579,7 +593,7 @@
             // Init some vars
             var target = $el.attr('target'),
                 hash = $el.prop('hash'),
-                href = $el.attr('href'),
+                href = $el.prop('href'),
                 animation = null;
 
             if ($el.isExternalLink()) {
@@ -614,7 +628,7 @@
                 } else {
                     // External href
                     $el.addClass('loading active');
-                    showPageByHref($el.attr('href'), {
+                    showPageByHref($el.prop('href'), {
                         animation: animation,
                         callback: function() {
                             $el.removeClass('loading');
@@ -753,23 +767,10 @@
         return publicObj;
     };
     
-    jQTouchCore.prototype.extensions = [];
-
-    // If Zepto exists, jQTouch will use Zepto. Otherwise, a bridge should initialize
-    // jQTouch. See jqtouch-jquery.js.
-    if (!!window.Zepto) {
-        (function($) {
-            $.jQTouch = function(options) {
-                options.framework = $;
-                return jQTouchCore(options);
-            };
-
-            $.fn.prop = $.fn.attr;
+    $.jQTouch.prototype.extensions = [];
             
             // Extensions directly manipulate the jQTouch object, before it's initialized.
-            $.jQTouch.addExtension = function(extension) {
-                jQTouchCore.prototype.extensions.push(extension);
-            };
-        })(Zepto);
-    }
+    $.jQTouch.addExtension = function(extension) {
+        $.jQTouch.prototype.extensions.push(extension);
+    };
 })(); // Double closure, ALL THE WAY ACROSS THE SKY
