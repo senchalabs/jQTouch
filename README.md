@@ -27,6 +27,20 @@ jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and c
 
 [Watch this video preview](http://www.jqtouch.com/) to see it in action.
 
+## Building / Contribute
+
+Depedencies: 
+* Java
+* Ant
+* jslint
+
+Exec: 
+
+```
+cd build
+ant
+```
+
 External Guides
 ---------------
 
