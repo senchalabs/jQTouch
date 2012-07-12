@@ -36,7 +36,7 @@ Depedencies:
 
 Exec: 
 
-```
+```bash
 cd build
 ant
 ```
