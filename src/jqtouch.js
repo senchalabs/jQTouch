@@ -79,6 +79,10 @@
             if (!!window.Zepto) {
                 fx = window.Zepto;
                 fx.fn.prop = fx.fn.attr;
+                
+                Event.prototype.isDefaultPrevented = function() {
+                  return this.defaultPrevented;
+                };
             } else if (!!window.jQuery) {
                 fx = window.jQuery;
                 // trick to get Zepto/touch.js to work for jQuery
@@ -575,6 +579,10 @@
 
         }
         function tapHandler(e){
+
+            if (e.isDefaultPrevented()) {
+                return true;
+            }
 
             // Grab the target element
             var $el = $(e.target);

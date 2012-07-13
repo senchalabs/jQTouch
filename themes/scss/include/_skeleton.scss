@@ -262,7 +262,7 @@ body {
                 -webkit-transform: translateZ(0);
                 @include color-by-background($list-background-color);
 
-                &.active {
+                &.active, &.selected {
                     @include background-gradient($highlight-color);
                     @include box-shadow(lighten($highlight-color, 4) 0 1px 0px inset);
                     @include color-by-background($highlight-color);
