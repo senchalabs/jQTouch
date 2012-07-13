@@ -93,20 +93,22 @@
                 }
 
                 // bind to UI items
-                $(options.themeSelectionSelector).delegate('* > a', 'tap', function() {
+                $(options.themeSelectionSelector).delegate('* > a', 'tap', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
                     var $a = $(this).closest('a');
                     switchStyle($a.attr('data-title'));
 
                     // poor-man simulation of radio button behaviour
-                    setTimeout(function() {
-                        $a.addClass('active');
-                    }, 0);
+                    $(options.themeSelectionSelector).find('a').removeClass('selected');
+                    $a.addClass('selected');
                 });
 
                 // poor-man simulation of radio button behaviour
                 $(options.themeSelectionSelector).closest('#jqt > *').bind('pageAnimationEnd', function(e, data){
                     if (data.direction === 'in') {
-                        $(options.themeSelectionSelector).find('a[data-title="' + current + '"]').addClass('active');
+                        $(options.themeSelectionSelector).find('a[data-title="' + current + '"]').addClass('selected');
                     }
                 });
             }
