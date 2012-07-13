@@ -595,7 +595,7 @@
             // Make sure we have a tappable element
             if (!$el.length || !$el.prop('href')) {
                 warn('Could not find a link related to tapped element');
-                return false;
+                return true;
             }
 
             // Init some vars
