@@ -783,7 +783,8 @@
             goTo: goTo,
             history: history,
             settings: jQTSettings,
-            submitForm: submitHandler
+            submitForm: submitHandler,
+            addPageToHistory: addPageToHistory
         };
         return publicObj;
     };
