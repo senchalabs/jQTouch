@@ -58,6 +58,7 @@
                 useAnimations: true,
                 useFastTouch: true,
                 useTouchScroll: true,
+                handleRoutingAndHistory: true,
                 animations: [ // highest to lowest priority
                     {name:'cubeleft', selector:'.cubeleft, .cube', is3d: true},
                     {name:'cuberight', selector:'.cuberight', is3d: true},
@@ -126,7 +127,7 @@
             // Prevent default if we found an internal link (relative or absolute)
             if ($el && $el.prop('href') && !$el.isExternalLink()) {
                 warn('Need to prevent default click behavior');
-                e.preventDefault();
+                // e.preventDefault();
             } else {
                 warn('No need to prevent default click behavior');
             }
@@ -138,7 +139,6 @@
                 warn('Converting click event to a tap event because touch handlers are not present or off');
                 $(e.target).trigger('tap', e);
             }
-
         }
         function doNavigation(fromPage, toPage, animation, goingBack) {
 
@@ -171,13 +171,8 @@
                     animation.name = jQTSettings.defaultAnimation;
                 }
 
-                // Reverse animation if need be
                 var finalAnimationName = animation.name,
                     is3d = animation.is3d ? 'animating3d' : '';
-
-                if (goingBack) {
-                    finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation );
-                }
 
                 warn('finalAnimationName is ' + finalAnimationName);
 
@@ -251,7 +246,9 @@
 
                 fromPage.unselect();
 
-                setHash($currentPage.attr('id'));
+                if(jQTSettings.handleRoutingAndHistory){
+                    setHash($currentPage.attr('id'));
+                }
 
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', { direction:'in', animation: animation});
@@ -298,9 +295,15 @@
             }
 
         }
-        function goTo(toPage, animation) {
+        function goTo(toPage, animation, fromPage) {
 
-            var fromPage = history[0].page;
+            fromPage = fromPage || history[0].page;
+
+            var goback = false;
+            if (history[1] && toPage.attr("id") && toPage.attr("id") == history[1].page.attr("id")) {
+                animation = animation.replace(/left|right|up|down|in|out/, reverseAnimation );
+                goback = true;
+            }
 
             if (typeof animation === 'string') {
                 for (var i=0, max=animations.length; i < max; i++) {
@@ -323,7 +326,7 @@
                     toPage = nextPage;
                 }
             }
-            if (doNavigation(fromPage, toPage, animation)) {
+            if (doNavigation(fromPage, toPage, animation, goback)) {
                 return publicObj;
             } else {
                 warn('Could not animate pages.');
@@ -331,20 +334,22 @@
             }
         }
         function hashChangeHandler(e) {
-            if (location.hash === history[0].hash) {
-                warn('We are on the right panel');
-                return true;
-            } else if (location.hash === '') {
-                goBack();
-                return true;
-            } else {
-                if( (history[1] && location.hash === history[1].hash) ) {
+            if (jQTSettings.handleRoutingAndHistory){
+                if (location.hash === history[0].hash) {
+                    warn('We are on the right panel');
+                    return true;
+                } else if (location.hash === '') {
                     goBack();
                     return true;
                 } else {
-                    // Lastly, just try going to the ID...
-                    warn('Could not find ID in history, just forwarding to DOM element.');
-                    goTo($(location.hash), jQTSettings.defaultAnimation);
+                    if( (history[1] && location.hash === history[1].hash) ) {
+                        goBack();
+                        return true;
+                    } else {
+                        // Lastly, just try going to the ID...
+                        warn('Could not find ID in history, just forwarding to DOM element.');
+                        goTo($(location.hash), jQTSettings.defaultAnimation);
+                    }
                 }
             }
         }
@@ -441,10 +446,10 @@
         }
 
         function orientationChangeHandler() {
-            $body.css('minHeight', 1000);
+            $body.css('min-height', 1000);
             scrollTo(0,0);
             var bodyHeight = window.innerHeight;
-            $body.css('minHeight', bodyHeight);
+            $body.css('min-height', bodyHeight - 44);
 
             orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
@@ -598,54 +603,60 @@
                 return false;
             }
 
-            // Init some vars
-            var target = $el.attr('target'),
-                hash = $el.prop('hash'),
-                href = $el.prop('href'),
-                animation = null;
-
+            // Unselect this element and return if this is an external link
             if ($el.isExternalLink()) {
                 $el.unselect();
                 return true;
+            } 
 
-            } else if ($el.is(jQTSettings.backSelector)) {
-                // User clicked or tapped a back button
-                goBack(hash);
+            if (jQTSettings.handleRoutingAndHistory){
+                // Init some vars
+                var target = $el.attr('target'),
+                    hash = $el.prop('hash'),
+                    href = $el.attr('href'),
+                    animation = null;
 
-            } else if ($el.is(jQTSettings.submitSelector)) {
-                // User clicked or tapped a submit element
-                submitParentForm($el);
+                if ($el.is(jQTSettings.backSelector)) {
+                    // User clicked or tapped a back button
+                    goBack(hash);
 
-            } else if (target === '_webapp') {
-                // User clicked or tapped an internal link, fullscreen mode
-                window.location = href;
-                return false;
+                } else if ($el.is(jQTSettings.submitSelector)) {
+                    // User clicked or tapped a submit element
+                    submitParentForm($el);
 
-            } else if (href === '#') {
-                // Allow tap on item with no href
-                $el.unselect();
-                return true;
-            } else {
-                animation = getAnimation($el);
-
-                if (hash && hash !== '#') {
-                    // Internal href
-                    $el.addClass('active');
-                    goTo($(hash).data('referrer', $el), animation, $el.hasClass('reverse'));
+                } else if (target === '_webapp') {
+                    // User clicked or tapped an internal link, fullscreen mode
+                    window.location = href;
                     return false;
+
+                } else if (href === '#') {
+                    // Allow tap on item with no href
+                    $el.unselect();
+                    return true;
                 } else {
-                    // External href
-                    $el.addClass('loading active');
-                    showPageByHref($el.prop('href'), {
-                        animation: animation,
-                        callback: function() {
-                            $el.removeClass('loading');
-                            setTimeout($.fn.unselect, 250, $el);
-                        },
-                        $referrer: $el
-                    });
-                    return false;
+                    animation = getAnimation($el);
+
+                    if (hash && hash !== '#') {
+                        // Internal href
+                        $el.addClass('active');
+                        goTo($(hash).data('referrer', $el), animation, $el.hasClass('reverse'));
+                        return false;
+                    } else {
+                        // External href
+                        $el.addClass('loading active');
+                        showPageByHref($el.attr('href'), {
+                            animation: animation,
+                            callback: function() {
+                                $el.removeClass('loading');
+                                setTimeout($.fn.unselect, 250, $el);
+                            },
+                            $referrer: $el
+                        });
+                        return false;
+                    }
                 }
+            } else {
+                return true; // someone else is handling routing and history; carry on as normal.
             }
         }
 
@@ -741,24 +752,26 @@
                 .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
             
-            $(window).bind('hashchange', hashChangeHandler);
-
-            var startHash = location.hash;
-
-            // Determine what the initial view should be
-            if ($('#jqt > .current').length === 0) {
-                $currentPage = $('#jqt > *:first-child').addClass('current');
-            } else {
-                $currentPage = $('#jqt > .current');
-            }
-            
-            setHash($currentPage.attr('id'));
-            addPageToHistory($currentPage);
-
-            if ($(startHash).length === 1) {
-                goTo(startHash);
+            if (jQTSettings.handleRoutingAndHistory){
+                $(window).bind('hashchange', hashChangeHandler);
+                var startHash = location.hash;
+                // Determine what the initial view should be
+                if ($('#jqt > .current').length === 0) {
+                    $currentPage = $('#jqt > *:first-child').addClass('current');
+                } else {
+                    $currentPage = $('#jqt > .current');
+                }
+                
+                setHash($currentPage.attr('id'));
+                addPageToHistory($currentPage);
+    
+                if ($(startHash).length === 1) {
+                    goTo(startHash);
+                }
             }
         });
+
+
 
         // Expose public methods and properties
         publicObj = {
@@ -770,7 +783,8 @@
             goTo: goTo,
             history: history,
             settings: jQTSettings,
-            submitForm: submitHandler
+            submitForm: submitHandler,
+            addPageToHistory: addPageToHistory
         };
         return publicObj;
     };

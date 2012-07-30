@@ -1,0 +1,36 @@
+/*
+#main {
+	display: none !important;
+}
+*/
+
+#todo-list .destroy {
+	display: none !important;
+}
+
+/*
+'destroy' functionality was once hover-oriented, so it's broken, and I don't want to rebuild the app to make it work.
+#todo-list li:hover .destroy {
+ 	display: block !important;
+} 
+*/
+
+#todo-list li.editing .edit {
+	display: block !important;
+}
+
+#todo-list li.editing .view {
+	display: none !important;
+}
+
+#todo-list li .edit {
+	display: none !important;
+}
+
+#todoapp footer {
+	display: none !important;
+}
+
+.done{
+	text-decoration: line-through;
+}
