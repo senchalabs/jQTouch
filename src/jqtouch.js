@@ -299,6 +299,12 @@
 
             fromPage = fromPage || history[0].page;
 
+            var goback = false;
+            if (history[1] && toPage.attr("id") && toPage.attr("id") == history[1].page.attr("id")) {
+                animation = animation.replace(/left|right|up|down|in|out/, reverseAnimation );
+                goback = true;
+            }
+
             if (typeof animation === 'string') {
                 for (var i=0, max=animations.length; i < max; i++) {
                     if (animations[i].name === animation) {
@@ -320,7 +326,7 @@
                     toPage = nextPage;
                 }
             }
-            if (doNavigation(fromPage, toPage, animation)) {
+            if (doNavigation(fromPage, toPage, animation, goback)) {
                 return publicObj;
             } else {
                 warn('Could not animate pages.');
