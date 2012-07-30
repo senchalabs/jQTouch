@@ -171,13 +171,8 @@
                     animation.name = jQTSettings.defaultAnimation;
                 }
 
-                // Reverse animation if need be
                 var finalAnimationName = animation.name,
                     is3d = animation.is3d ? 'animating3d' : '';
-
-                if (goingBack) {
-                    finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation );
-                }
 
                 warn('finalAnimationName is ' + finalAnimationName);
 
