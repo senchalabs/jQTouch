@@ -127,7 +127,7 @@
             // Prevent default if we found an internal link (relative or absolute)
             if ($el && $el.prop('href') && !$el.isExternalLink()) {
                 warn('Need to prevent default click behavior');
-                e.preventDefault();
+                // e.preventDefault();
             } else {
                 warn('No need to prevent default click behavior');
             }
@@ -251,7 +251,9 @@
 
                 fromPage.unselect();
 
-                setHash($currentPage.attr('id'));
+                if(jQTSettings.handleRoutingAndHistory){
+                    setHash($currentPage.attr('id'));
+                }
 
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', { direction:'in', animation: animation});
