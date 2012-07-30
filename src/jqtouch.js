@@ -449,7 +449,7 @@
             $body.css('min-height', 1000);
             scrollTo(0,0);
             var bodyHeight = window.innerHeight;
-            $body.css('min-height', bodyHeight);
+            $body.css('min-height', bodyHeight - 44);
 
             orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
