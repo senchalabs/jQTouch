@@ -446,10 +446,10 @@
         }
 
         function orientationChangeHandler() {
-            $body.css('minHeight', 1000);
+            $body.css('min-height', 1000);
             scrollTo(0,0);
             var bodyHeight = window.innerHeight;
-            $body.css('minHeight', bodyHeight);
+            $body.css('min-height', bodyHeight);
 
             orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
