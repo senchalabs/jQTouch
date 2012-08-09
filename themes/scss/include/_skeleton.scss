@@ -28,6 +28,10 @@ body {
 
 #jqt {
 
+    > * {
+        background-color: $base-color;
+    }
+
     h1, h2 {
         font: bold 18px $base-font-family;
         margin: 10px 20px 6px;
@@ -36,7 +40,7 @@ body {
 
     .toolbar {
         @include box-sizing(border-box);
-        
+        background-color: $toolbar-background-color;
         border-bottom: 1px solid darken($base-color, 35%);
         z-index: 10;
         position: relative;
