@@ -46,7 +46,7 @@
                   item.disabled = true; // workaround for Firefox on Zepto
                   $item.attr('disabled', true);
                 }
-            };
+            }
 
             function initializeStyleState(item, title) {
               // and, workaround for WebKit by initializing the 'disabled' attribute
@@ -62,7 +62,7 @@
                 $(options.themeStyleSelector).each(function(i, item) {
                     setStyleState(item, title);
                 });
-            };
+            }
 
             // collect title names, from <head>
             $(options.themeStyleSelector).each(function(i, item) {
