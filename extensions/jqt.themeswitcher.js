@@ -29,7 +29,9 @@
                     themeStyleSelector: 'link[rel="stylesheet"][title]',
                     themeIncluded: [
                         {title: 'jQTouch', href: scriptpath + '../themes/css/jqtouch.css'},
-                        {title: 'Apple', href: scriptpath + '../themes/css/apple.css'}
+                        {title: 'Apple', href: scriptpath + '../themes/css/apple.css'},
+                        {title: 'Vanilla', href: scriptpath + '../themes/css/vanilla.css'}
+
                     ]
                 },
                 options = $.extend({}, defaults, jQT.settings);
