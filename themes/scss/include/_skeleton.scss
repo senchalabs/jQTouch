@@ -1,7 +1,3 @@
-// Typography and layout sizing/measurements
-
-$default-border-radius: 8px;
-
 body {
     background: rgb(0,0,0);
 }
@@ -32,6 +28,10 @@ body {
 
 #jqt {
 
+    > * {
+        background-color: $base-color;
+    }
+
     h1, h2 {
         font: bold 18px $base-font-family;
         margin: 10px 20px 6px;
@@ -40,14 +40,16 @@ body {
 
     .toolbar {
         @include box-sizing(border-box);
-        @include box-shadow(rgba(#000, .4) 0 1px 6px);
+        background-color: $toolbar-background-color;
         border-bottom: 1px solid darken($base-color, 35%);
-
         z-index: 10;
-
         position: relative;
         padding: 10px;
         height: 44px;
+
+        @if $include-highlights {
+            @include box-shadow(rgba(#000, .4) 0 1px 6px);
+        }
 
         & > h1 {
             position: absolute;
@@ -98,11 +100,15 @@ body {
         padding: 0 10px;
 
         @include color-by-background($toolbar-button-color);
-        @include box-shadow(rgba(#fff, .2) 0 1px 0, rgba(#000, .2) 0 1px 2px inset);
+
         border: 1px solid darken($toolbar-button-color, 20);
-        @include border-radius(5px);
+        @include border-radius($default-border-radius/2);
 
         @include background-gradient($toolbar-button-color, $base-button-gradient);
+
+        @if $include-highlights {
+            @include box-shadow(rgba(#fff, .2) 0 1px 0, rgba(#000, .2) 0 1px 2px inset);
+        }
 
         &.active {
             border-color: darken($toolbar-button-active-color, 20);
@@ -111,54 +117,60 @@ body {
         }
     }
 
-    .back {
-        max-width: 60px;
-        margin-left: 15px;
-        overflow: visible;
-        padding-left: 5px;
+    @if $include-back-arrow {
+        .back {
+            max-width: 60px;
+            margin-left: 15px;
+            overflow: visible;
+            padding-left: 5px;
 
-        // THE HOLY GRAIL (ish)
-        &:after, &:before {
-            content:'';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            top: 1px;
-            left: 1px;
-            
-            // The .2px gets rid of a blurry artifact from
-            // combining the mask and rotate properties.
-            @include transform(rotate(45deg) translate3d(.2px,0,0)); // Just be glad you didn't have to find it.
-            @include transform-origin(0,0);
-            @include background-gradient($toolbar-button-color, $base-button-gradient, top left);
-            
-            background-size: 100% 98%;
-            @include border-radius(0 0 0 2px);
+            // THE HOLY GRAIL (ish)
+            &:after, &:before {
+                content:'';
+                position: absolute;
+                width: 20px;
+                height: 20px;
+                top: 1px;
+                left: 1px;
+                
+                // The .2px gets rid of a blurry artifact from
+                // combining the mask and rotate properties.
+                @include transform(rotate(45deg) translate3d(.2px,0,0)); // Just be glad you didn't have to find it.
+                @include transform-origin(0,0);
+                @include background-gradient($toolbar-button-color, $base-button-gradient, top left);
+                
+                background-size: 100% 98%;
+                @include border-radius(0 0 0 2px);
 
-            // New gradient syntax
-            -webkit-mask-image: -webkit-linear-gradient(45deg, rgba(0,0,0,1), rgba(0,0,0,1) 15px, rgba(0,0,0,0) 15px);
+                // New gradient syntax
+                -webkit-mask-image: -webkit-linear-gradient(45deg, rgba(0,0,0,1), rgba(0,0,0,1) 15px, rgba(0,0,0,0) 15px);
 
-            // Old gradient syntax
-            @if $support-for-original-webkit-gradients {
-                -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(rgba(0,0,0,1)), color-stop(50%, black), color-stop(50%, rgba(0,0,0,0)), to(rgba(0,0,0,0)));
+                // Old gradient syntax
+                @if $support-for-original-webkit-gradients {
+                    -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(rgba(0,0,0,1)), color-stop(50%, black), color-stop(50%, rgba(0,0,0,0)), to(rgba(0,0,0,0)));
+                }
+
+                -webkit-mask-clip: border-box;
+                -webkit-background-clip: content-box;
             }
 
-            -webkit-mask-clip: border-box;
-            -webkit-background-clip: content-box;
-        }
-        &:after {
-            @include box-shadow(rgba(#000, .2) 1px 0 0 inset, rgba(#000, .2) 0 -1px 0 inset);
-        }
-        &:before {
-            margin-left: -1px;
-            background: darken($toolbar-button-active-color, 20) none;
-        }
-        &.active {
-            &:after {
-                @include background-gradient($toolbar-button-active-color, $base-button-gradient, left top);
+            @if $include-highlights {
+                &:after {
+                    @include box-shadow(rgba(#000, .2) 1px 0 0 inset, rgba(#000, .2) 0 -1px 0 inset);
+                }
             }
+
             &:before {
-                background-color: darken($toolbar-button-active-color, 20);
+                margin-left: -1px;
+                background: darken($toolbar-button-active-color, 20) none;
+            }
+            &.active {
+                &:after {
+                    @include background-gradient($toolbar-button-active-color, $base-button-gradient, left top);
+                }
+                &:before {
+                    background-color: darken($toolbar-button-active-color, 20);
+                }
             }
         }
     }
@@ -176,11 +188,16 @@ body {
         text-align: center;
         text-decoration: inherit;
         @include border-radius;
-        @include box-shadow(
-            rgba(#000, .4) 0 1px 3px,
-            rgba(#000, .4) 0 0 0 5px,
-            rgba(#fff, .3) 0 1px 0 5px
-        );
+
+        @if $include-highlights {
+            @include box-shadow(
+                rgba(#000, .4) 0 1px 3px,
+                rgba(#000, .4) 0 0 0 5px,
+                rgba(#fff, .3) 0 1px 0 5px
+            );
+        } @else {
+            border: 1px solid darken($base-color, 10);
+        }
 
         &.active, &:active {
             $active-color: darken($highlight-color, 10);
@@ -189,32 +206,38 @@ body {
         }
     }
     .whiteButton {
-        @include background-gradient(#eee, $base-button-gradient);
-        @include color-by-background(#eee);
+        @include background-gradient($white-color, $base-button-gradient);
+        @include color-by-background($white-color);
     }
     .grayButton {
-        @include background-gradient(#444, $base-button-gradient);
-        @include color-by-background(#444);
+        @include background-gradient($gray-color, $base-button-gradient);
+        @include color-by-background($gray-color);
     }
 
     .redButton {
-        @include background-gradient(#D83B38, $base-button-gradient);
-        @include color-by-background(#D83B38);
+        @include background-gradient($red-color, $base-button-gradient);
+        @include color-by-background($red-color);
 
         &.active, &:active {
-            $active-color: darken(#D83B38, 8);
+            $active-color: darken($red-color, 8);
             @include background-gradient($active-color, $base-button-gradient);
             @include color-by-background($active-color);
         }
     }
 
     .greenButton {
-        @include background-gradient($highlight-color, $base-button-gradient);        
-        @include color-by-background($highlight-color);
+        @include background-gradient($green-color, $base-button-gradient);        
+        @include color-by-background($green-color);
+
+        &.active, &:active {
+            $active-color: darken($green-color, 8);
+            @include background-gradient($active-color, $base-button-gradient);
+            @include color-by-background($active-color);
+        }
     }
 
     .leftButton, .cancel, .back {
-        left: 6px;
+        left: 10px;
         right: auto;
     }
 
@@ -264,8 +287,11 @@ body {
 
                 &.active, &.selected {
                     @include background-gradient($highlight-color);
-                    @include box-shadow(lighten($highlight-color, 4) 0 1px 0px inset);
                     @include color-by-background($highlight-color);
+
+                    @if $include-highlights {
+                        @include box-shadow(lighten($highlight-color, 4) 0 1px 0px inset);
+                    }
 
                     small {
                         &.counter {
@@ -300,7 +326,7 @@ body {
                     font-size: 16px;
                     // line-height: 16px;
                     font-weight: bold;
-                    @include border-radius(3px);
+                    @include border-radius($default-border-radius/2);
                     display: block;
                     width: auto;
                 }
@@ -353,7 +379,7 @@ body {
                 }
 
                 input[type='submit'] {
-                    @include border-radius(4px);
+                    @include border-radius($default-border-radius/2);
                     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
                     border: 1px outset #aaa;
                     display: block;
@@ -385,12 +411,15 @@ body {
                     @include circle($chevron-size);
                     @include background-gradient($highlight-color, $base-button-gradient);
                     border: 2px solid #fff;
-                    @include box-shadow(0 1px 2px rgba(#000, .3));
                     -webkit-box-sizing: border-box;
                     padding: 0;
                     z-index: 10;
                     line-height: 0;
                     pointer-events: none;
+
+                    @if $include-highlights {
+                        @include box-shadow(0 1px 2px rgba(#000, .3));
+                    }
                 }
                 &:after {
                     @include color-by-background($highlight-color);
@@ -402,7 +431,10 @@ body {
         } // /li
 
         &.rounded, &.individual li {
-            @include box-shadow(rgba(#fff,.15) 0 1px 0);
+            @if $include-highlights {
+                @include box-shadow(rgba(#fff,.15) 0 1px 0);
+            }
+            
             border: 1px solid darken($base-color, 15);
         }
 
