@@ -175,10 +175,6 @@ body {
         }
     }
 
-    .blueButton {
-        @include background-image(#2F7CE3, $base-button-gradient);
-        @include color-by-background(#2F7CE3);
-    }
     .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
         display: block;
         font-size: 20px;
@@ -205,10 +201,12 @@ body {
             @include color-by-background($active-color);
         }
     }
+
     .whiteButton {
         @include background-gradient($white-color, $base-button-gradient);
         @include color-by-background($white-color);
     }
+
     .grayButton {
         @include background-gradient($gray-color, $base-button-gradient);
         @include color-by-background($gray-color);
@@ -223,6 +221,11 @@ body {
             @include background-gradient($active-color, $base-button-gradient);
             @include color-by-background($active-color);
         }
+    }
+
+    .blueButton {
+        @include background-gradient($blue-color, $base-button-gradient);
+        @include color-by-background($blue-color);
     }
 
     .greenButton {
