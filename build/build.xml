@@ -23,10 +23,23 @@
 
     </target>
 
-    <target name="clean-start">
     <!-- This is a private target -->
+    <target name="clean-start">
         <echo message="Removing previous build directory..."/>
         <delete dir="./${dir.publish}/"/>
+    </target>
+
+    <target name="clean-for-checkin">
+        <delete>
+            <fileset dir="./${dir.root}/${dir.css}/" includes="*.css"/>
+        </delete>
+    </target>
+
+    <target name="git-modules-update">
+        <echo message="Git submodules update"/>
+        <exec executable="git" dir="./${dir.root}">
+            <arg line="submodule update --init" />
+        </exec>
     </target>
 
     <!-- JSLint target, run separately -->
@@ -162,8 +175,15 @@
         </replaceregexp>
     </target>
 
+    <target name="reverse-copy-css">
+        <copy todir="./${dir.root}/${dir.css}/">
+            <fileset dir="./${dir.publish}/${dir.css}/" includes="*.css"/>
+        </copy>
+    </target>
+
     <target name="build" depends="
         intro,
+    	git-modules-update,
         copy-files,
         make-htaccess,
         strip-warnings,
@@ -172,6 +192,11 @@
         minify-css,
         switch-to-minified
         " description="Build a jQTouch release." />
+
+    <target name="build-for-checkin" depends="
+        clean-for-checkin,
+        build,
+        reverse-copy-css" description="Build a jQTouch release and prepare for checkin." />
 
     <target name="review" depends="jslint, csslint" description="Runs CSSLint and JSLint on core jQTouch files." />
 
