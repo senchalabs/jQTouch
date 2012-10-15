@@ -16,6 +16,7 @@
         <!-- <script src="../../src/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> -->
 
         <script src="../../extensions/jqt.themeswitcher.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.actionsheet.js" type="application/x-javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
@@ -108,14 +109,14 @@
     <body>
         <div id="jqt">
             <div id="about" class="selectable">
-                    <p><img src="jqtouch.png" /></p>
-                    <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
-                        <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
-                    <p><em>Create powerful mobile apps with<br> just HTML, CSS, and jQuery.</em></p>
-                    <p>
-                        <a target="_blank" href="http://twitter.com/jqtouch">@jQTouch on Twitter</a>
-                    </p>
-                    <p><br><br><a href="#" class="grayButton goback">Close</a></p>
+                <p><img src="jqtouch.png" /></p>
+                <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
+                    <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
+                <p><em>Create powerful mobile apps with<br> just HTML, CSS, and jQuery.</em></p>
+                <p>
+                    <a target="_blank" href="http://twitter.com/jqtouch">@jQTouch on Twitter</a>
+                </p>
+                <p><br><br><a href="#" class="grayButton goback">Close</a></p>
             </div>
             <div id="ajax">
                 <div class="toolbar">
@@ -215,7 +216,6 @@
                     <a class="back" href="#home">Home</a>
                 </div>
                 <div class="scroll">
- 
                     <ul class="rounded">
                         <li class="forward"><a target="_blank" href="../todo/">To-Do app</a></li>
                         <li class="forward"><a target="_blank" href="../clock/">Clock app</a></li>
@@ -389,6 +389,30 @@
                     <ul class="rounded">
                         <li class="arrow"><a href="#forms">Forms</a></li>
                     </ul>
+                    <h2>Sheets</h2>
+                    <ul class="rounded">
+                        <li class="arrow"><a class="action" href="#actionsheet">Action</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div id="actionsheet" class="actionsheet">
+                <div class="actionchoices">
+                    <a href="#action_performed" class="whiteButton">Open in Safari</a>
+                    <br>
+                    <a href="#action_performed" class="whiteButton">Plan B</a>
+                    <br>
+                    <br>
+                    <a href="#" class="redButton">Cancel</a>
+                </div>
+            </div>
+            <div id="action_performed">
+                <div class="toolbar">
+                    <h1>Action</h1>
+                    <a class="back" href="#">Back</a>
+                </div>
+                    <div class="info">
+                        <p>You performed an action.</p>
+                    </div>
                 </div>
             </div>
             <form id="ajax_post" action="ajax_post.php" method="POST" class="form">
