@@ -696,7 +696,7 @@
                 }
             });
             addTapHandler({
-                name: 'hash',
+                name: 'standard',
                 isSupported: function(e, params) {
                     return params.hash && params.hash !== '#';
                 },
@@ -713,7 +713,7 @@
                 }
             });
             addTapHandler({
-                name: 'standard',
+                name: 'external',
                 isSupported: function(e, params) {
                     return true;
                 },
