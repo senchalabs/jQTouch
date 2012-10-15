@@ -35,10 +35,11 @@ Depedencies:
 Exec: 
 
 ```bash
-$ git submodule update --init
 $ cd build
 $ ant
 ```
+
+The command above will build the folder structure under `jqtouch-${release.version}-${release.id}`.
 
 External Guides
 ---------------
@@ -56,7 +57,7 @@ Maintained by [Thomas Yip](http://www.linkedin.com/in/thomasyip).
 
 Special thanks to [pinch/zoom](http://www.pinchzoom.com/) and [Jonathan Stark](http://jonathanstark.com/).
 
-(c) 2009-2011 Sencha Labs.
+(c) 2009-2012 Sencha Labs.
 
 jQTouch may be freely distributed under the MIT license.
 See LICENSE.txt for license.
