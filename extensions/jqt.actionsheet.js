@@ -62,8 +62,8 @@
                     $target.one('webkitAnimationEnd', function() {
                         $target.removeClass('current slidedown out');
                         $('.smokedglass').removeClass('smokedglass');
-                       
-                        if (!params.$el.is('.cancel')) {
+
+                        if (!params.$el.is('.dismiss')) {
                             params.$el.trigger('tap');
                         }
                     });
