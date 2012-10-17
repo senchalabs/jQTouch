@@ -1,0 +1,68 @@
+/* @group Action Sheet */
+
+#jqt > div::before, #jqt > form::before {
+    display: none;
+    position: absolute;
+    content: "";
+    top: 0; bottom: 0; left: 0; right: 0;
+    z-index: 20;
+    background-color: rgba(63, 63, 63, 0.6);
+    opacity: 0;
+}
+
+#jqt > .current.smokedglass::before,
+#jqt > .current.smokedfilm::before {
+    display: block;
+    opacity: 1;
+}
+
+#jqt > div.actionsheet {
+    height: 100%;
+    background-color: transparent;
+    background-image: none;
+    z-index: 50;
+}
+
+#jqt > div.actionsheet > div.spinnerfloat {
+    position: relative;
+    -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box;
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    margin: auto;
+    padding: 25px;
+    width: 50px;
+    height: auto;
+    top: 30%;
+    text-align: center;
+    font-size: 8pt;
+    font-weight: bold;
+    color: #fff;
+}
+
+#jqt > div.actionsheet > div.spinnerfloat > .spinner {
+    height: 50px;
+    width: 50px;
+}
+
+#jqt > div.actionsheet > div.actionchoices {
+    position: absolute;
+    top: auto;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding-bottom: 10px;
+    border-top: 1px solid #333;
+    background-color: rgba(0, 0, 0, 0.25);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(160, 168, 172, 0.75)), color-stop(0.08, rgba(112, 120, 128, 0.5)), color-stop(0.08, rgba(96, 102, 114, 0.5)), to(rgba(96, 102, 114, 0.5)));
+}
+
+#jqt > div.actionsheet > div.actionchoices::before {
+    display: block;
+    position: relative;
+    height: 10px;
+    content: "";
+    border-top: 1px solid #CCC;
+    width: 100%;
+}
+
+/* @end */
