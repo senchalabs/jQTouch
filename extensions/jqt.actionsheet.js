@@ -18,8 +18,8 @@
 
 (function($) {
     if ($.jQTouch) {
-
-        var scriptpath = $("script").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/';
+        var src = $("head script").last().attr("src") || '';
+        var scriptpath = src.split('?')[0].split('/').slice(0, -1).join('/')+'/';
         var csspath = scriptpath + 'jqt.actionsheet.css';
 
         var link = $('<link href="' + csspath + '" rel="stylesheet">');
