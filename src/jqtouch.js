@@ -828,6 +828,10 @@
                 .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
             
+            $body.delegate('.passe', 'webkitTransitionEnd', function() {
+                $('.passe').removeClass('passe');
+            });
+
             $(window).bind('hashchange', hashChangeHandler);
 
             var startHash = location.hash;

@@ -50,7 +50,7 @@ body {
         z-index: 10;
     }
 
-    > :not(.current) {
+    > :not(.current):not(.passe) {
         display: none;
     }
 
@@ -73,7 +73,7 @@ body {
         -webkit-margin-collapse: separate;
     }
 
-    .in, .out {
+    .in, .out, .passe {
         -webkit-animation-duration: 250ms;
         -webkit-animation-fill-mode: both;
         -webkit-animation-timing-function: ease-in-out;

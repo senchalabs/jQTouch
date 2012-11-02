@@ -17,6 +17,7 @@
 
         <script src="../../extensions/jqt.themeswitcher.js" type="application/x-javascript" charset="utf-8"></script>
         <script src="../../extensions/jqt.actionsheet.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.menusheet.js" type="application/x-javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
@@ -107,7 +108,7 @@
         </style>
     </head>
     <body>
-        <div id="jqt">
+        <div id="jqt" class="touchscroll">
             <div id="about" class="selectable">
                 <p><img src="jqtouch.png" /></p>
                 <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
@@ -392,6 +393,7 @@
                     <h2>Sheets</h2>
                     <ul class="rounded">
                         <li class="arrow"><a class="action" href="#actionsheet">Action</a></li>
+                        <li class="arrow"><a class="menu" href="#menusheet">Menu</a></li>
                     </ul>
                 </div>
             </div>
@@ -413,6 +415,26 @@
                 <div class="info">
                     <p>You performed an action.</p>
                 </div>
+            </div>
+            <div id="menusheet" class="menusheet">
+                <ul class="edgetoedge scroll">
+                    <li>Edge to Edge</li>
+                    <li>Platic</li>
+                    <li>Metal</li>
+                    <li>Buttons</li>
+                    <li>Edge to Edge</li>
+                    <li>Platic</li>
+                    <li>Metal</li>
+                    <li>Buttons</li>
+                    <li>Edge to Edge</li>
+                    <li>Platic</li>
+                    <li>Metal</li>
+                    <li>Buttons</li>
+                    <li>Edge to Edge</li>
+                    <li>Platic</li>
+                    <li>Metal</li>
+                    <li>Buttons</li>
+                </ul>
             </div>
             <form id="ajax_post" action="ajax_post.php" method="POST" class="form">
                 <div class="toolbar">
