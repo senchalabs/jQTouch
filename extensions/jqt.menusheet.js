@@ -25,17 +25,27 @@
         var link = $('<link href="' + csspath + '" rel="stylesheet">');
         $('head').append($(link));
 
-        function closemenu($source, $target) {
-            $('#jqt').removeClass('menuopened');
-            
+        function closemenu($source, $target, callback) {
+            if (callback) {
+                $source.one('webkitTransitionEnd', function() {
+                    callback.apply(this, arguments);
+                });
+            }
+
             $source.addClass('passe');
             $target.addClass('passe').removeClass('current');
+            $('#jqt').removeClass('menuopened');
         }
 
-        function openmenu($source, $target) {
+        function openmenu($source, $target, callback) {
             $source.one('touchstart mousedown', function() {
                 closemenu($source, $target);
             });
+            if (callback) {
+                $source.one('webkitTransitionEnd', function() {
+                    callback.apply(this, arguments);
+                });
+            }
 
             $source.addClass('passe');
             $target.addClass('current');
@@ -55,6 +65,28 @@
                     var $target = $(params.hash);
                     openmenu($source, $target);
 
+                    return false;
+                }
+            });
+            jQT.addTapHandler({
+                name: 'follow-menulink',
+                isSupported: function(e, params) {
+                    if ($('#jqt').hasClass('menuopened')) {
+                        return params.$el.is('.menusheet a');
+                    }
+                    return false;
+                },
+                fn: function(e, params) {
+                    params.$el.removeClass('active');
+  
+                    var $source = $('#jqt .current:not(.menusheet)');
+                    var $target = params.$el.closest('.current');
+
+                    closemenu($source, $target, function() {
+                        if (!params.$el.is('.cancel')) {
+                            params.$el.trigger('tap');
+                        }
+                    });
                     return false;
                 }
             });

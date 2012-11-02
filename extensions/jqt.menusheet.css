@@ -42,6 +42,10 @@
     border-left: none;
 }
 
+#jqt.menuopened > .menusheet.current::before {
+    display: none;
+}
+
 #jqt > div.menusheet > *:first-child {
     margin-top: 0px;
 }
