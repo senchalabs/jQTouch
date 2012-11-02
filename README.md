@@ -35,6 +35,7 @@ Depedencies:
 Exec: 
 
 ```bash
+$ git submodule update --init
 $ cd build
 $ ant
 ```

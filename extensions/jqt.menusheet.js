@@ -83,7 +83,7 @@
                     var $target = params.$el.closest('.current');
 
                     closemenu($source, $target, function() {
-                        if (!params.$el.is('.cancel')) {
+                        if (!params.$el.is('.dismiss')) {
                             params.$el.trigger('tap');
                         }
                     });
