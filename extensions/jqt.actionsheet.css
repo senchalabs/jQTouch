@@ -23,27 +23,6 @@
     z-index: 50;
 }
 
-#jqt > div.actionsheet > div.spinnerfloat {
-    position: relative;
-    -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box;
-    background-color: rgba(0, 0, 0, 0.6);
-    border-radius: 10px;
-    margin: auto;
-    padding: 25px;
-    width: 50px;
-    height: auto;
-    top: 30%;
-    text-align: center;
-    font-size: 8pt;
-    font-weight: bold;
-    color: #fff;
-}
-
-#jqt > div.actionsheet > div.spinnerfloat > .spinner {
-    height: 50px;
-    width: 50px;
-}
-
 #jqt > div.actionsheet > div.actionchoices {
     position: absolute;
     top: auto;

@@ -22,7 +22,6 @@
 #jqt.menuopened > .current {
     -webkit-transform: translate3d(280px, 0, 0) rotate(0) scale(1);
     -webkit-box-shadow: -3px 0px 3px rgba(63, 63, 63, 0.5);
-    -webkit-transition-property: translate3d, opacity, background-color;
     border-left: 0.5px solid rgba(127, 127, 127, 0.01);
 }
 

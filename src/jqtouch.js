@@ -204,9 +204,10 @@
                     toPage.css('top', window.pageYOffset - (toPage.data('lastScroll') || 0));
                 }
                 
-                toPage.addClass(finalAnimationName + ' in current');
-                fromPage.addClass(finalAnimationName + ' out');
-
+                toPage.addClass(finalAnimationName + ' in current passe');
+                fromPage.removeClass('current').addClass(finalAnimationName + ' out passe');
+                // fromPage.addClass(finalAnimationName + ' out passe');
+                
                 if (jQTSettings.trackScrollPositions === true) {
                     fromPage.data('lastScroll', lastScroll);
                     $('.scroll', fromPage).each(function(){
@@ -214,18 +215,31 @@
                     });
                 }
 
+                $body.css({'overflow': 'hidden'});
             } else {
                 toPage.addClass('current in');
+                fromPage.removeClass('current');
                 navigationEndHandler();
             }
+            
+            // Housekeeping
+            $currentPage = toPage;
+            if (goingBack) {
+                history.shift();
+            } else {
+                addPageToHistory($currentPage, animation);
+            }
+            setHash($currentPage.attr('id'));
 
             // Private navigationEnd callback
             function navigationEndHandler(event) {
+                console.warn('................');
+                $body.css({'overflow': false});
                 var bufferTime = tapBuffer;
 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
-                    fromPage.removeClass('current ' + finalAnimationName + ' out');
+                    fromPage.removeClass(finalAnimationName + ' out');
                     toPage.removeClass(finalAnimationName);
                     $body.removeClass('animating animating3d');
                     if (jQTSettings.trackScrollPositions === true) {
@@ -242,26 +256,18 @@
                         }, 0);
                     }
                 } else {
-                    fromPage.removeClass(finalAnimationName + ' out current');
+                    fromPage.removeClass(finalAnimationName + ' out');
                     bufferTime += 260;
                 }
 
                 // In class is intentionally delayed, as it is our ghost click hack
                 setTimeout(function(){
-                    toPage.removeClass('in');
+                    toPage.removeClass('in passe');
+                    fromPage.removeClass('passe');
+                    window.scroll(0,0);
                 }, bufferTime);
 
-                // Housekeeping
-                $currentPage = toPage;
-                if (goingBack) {
-                    history.shift();
-                } else {
-                    addPageToHistory($currentPage, animation);
-                }
-
                 fromPage.unselect();
-
-                setHash($currentPage.attr('id'));
 
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', { direction:'in', animation: animation});
@@ -828,8 +834,8 @@
                 .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
             
-            $body.delegate('.passe', 'webkitTransitionEnd', function() {
-                $('.passe').removeClass('passe');
+            $body.delegate('.passe', 'webkitAnimationEnd webkitTransitionEnd', function() {
+                //$(this).removeClass('passe');
             });
 
             $(window).bind('hashchange', hashChangeHandler);

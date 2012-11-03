@@ -26,11 +26,11 @@
         $('head').append($(link));
 
         function closemenu($source, $target, callback) {
-            if (callback) {
-                $source.one('webkitTransitionEnd', function() {
-                    callback.apply(this, arguments);
-                });
-            }
+            $source.one('webkitTransitionEnd', function() {
+                $source.removeClass('passe');
+                $target.removeClass('passe');
+                !callback || callback.apply(this, arguments);
+            });
 
             $source.addClass('passe');
             $target.addClass('passe').removeClass('current');
@@ -41,11 +41,11 @@
             $source.one('touchstart mousedown', function() {
                 closemenu($source, $target);
             });
-            if (callback) {
-                $source.one('webkitTransitionEnd', function() {
-                    callback.apply(this, arguments);
-                });
-            }
+            $source.one('webkitTransitionEnd', function() {
+                $source.removeClass('passe');
+                $target.removeClass('passe');
+                !callback || callback.apply(this, arguments);
+            });
 
             $source.addClass('passe');
             $target.addClass('current');
