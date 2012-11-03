@@ -155,13 +155,10 @@
 /* Slide Up */
 
 #jqt .slideup.in {
-    top: 0;
     -webkit-animation-name: slideUpIn;
-    z-index: 20;
 }
 #jqt .slideup.out {
     -webkit-animation-name: slideUpOut;
-    z-index: 20;
 }
 
 @-webkit-keyframes slideUpIn {

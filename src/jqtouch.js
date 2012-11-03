@@ -206,7 +206,6 @@
                 
                 toPage.addClass(finalAnimationName + ' in current passe');
                 fromPage.removeClass('current').addClass(finalAnimationName + ' out passe');
-                // fromPage.addClass(finalAnimationName + ' out passe');
                 
                 if (jQTSettings.trackScrollPositions === true) {
                     fromPage.data('lastScroll', lastScroll);
@@ -214,8 +213,6 @@
                         $(this).data('lastScroll', this.scrollTop);
                     });
                 }
-
-                $body.css({'overflow': 'hidden'});
             } else {
                 toPage.addClass('current in');
                 fromPage.removeClass('current');
@@ -233,8 +230,6 @@
 
             // Private navigationEnd callback
             function navigationEndHandler(event) {
-                console.warn('................');
-                $body.css({'overflow': false});
                 var bufferTime = tapBuffer;
 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
