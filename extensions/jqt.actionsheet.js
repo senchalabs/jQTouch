@@ -16,15 +16,102 @@
     Author: Thomas Yip
 */
 
+/*
+
+            _/    _/_/    _/_/_/_/_/                              _/
+               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
+          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
+         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
+        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
+       _/
+    _/
+
+    Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
+
+    (c) 2012 by jQTouch project members.
+    See LICENSE.txt for license.
+
+    Author: Thomas Yip
+*/
+
 (function($) {
+    var src = $("head script").last().attr("src") || '';
+    var scriptpath = src.split('?')[0].split('/').slice(0, -1).join('/')+'/';
+    var csspath = scriptpath + 'jqt.actionsheet.css';
+    var link = $('<link href="' + csspath + '" rel="stylesheet">');
+    $('head').append($(link));
+
+    function hide(callback) {
+        var $target = $(this);
+        var data = $(this).data('actionsheet');
+        var $source = data.source;
+
+        if (data.shown) {
+            $(this).data('actionsheet', {});
+            $target.one('webkitTransitionEnd', function() {
+                $source.removeClass('transition');
+                $target.removeClass('passe transition');
+                !callback || callback.apply(this, arguments);
+            });
+    
+            $source.addClass('transition');
+            $target.addClass('passe transition').removeClass('current');
+            $('#jqt').removeClass('actionopened');
+        }
+        return $target;
+    }
+      
+    function show(callback) {
+        var $target = $(this);
+        var data = $(this).data('actionsheet') || {};
+        if (!data.shown) {
+            var $source = $('#jqt .current:not(.actionsheet)');
+    
+            $target.one('webkitTransitionEnd', function() {
+                $source.removeClass('transition');
+                $target.removeClass('transition');
+                !callback || callback.apply(this, arguments);
+            });
+    
+            data.shown = true;
+            data.source = $source;
+            $(this).data('actionsheet', data);
+
+            $source.addClass('transition');
+            $target.addClass('passe transition');
+            $('#jqt').addClass('actionopened');
+            setTimeout(function() {
+                $target.addClass('current');
+            }, 50);
+        }
+        return $target;
+    }
+    
+    var methods = {
+        init: function(options) {
+            $(this).addClass('actionsheet');
+            $(this).data({shown: false});
+        },
+        show: show,
+        hide: hide
+    };
+    
+    $.fn.actionsheet = function(method) {
+      if (methods[method]) {
+          if ($(this).is('.actionsheet')) {
+              return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+          } else {
+              var msg = 'Target is not a `actionsheet`. Action `' + method + '` is ignored.';
+              console.warn(msg);
+          }
+      } else if ( typeof method === 'object' || ! method ) {
+          return methods.init.apply(this, arguments);
+      } else {
+          $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+      }        
+    };
+
     if ($.jQTouch) {
-        var src = $("head script").last().attr("src") || '';
-        var scriptpath = src.split('?')[0].split('/').slice(0, -1).join('/')+'/';
-        var csspath = scriptpath + 'jqt.actionsheet.css';
-
-        var link = $('<link href="' + csspath + '" rel="stylesheet">');
-        $('head').append($(link));
-
         $.jQTouch.addExtension(function ActionSheet(jQT) {
             jQT.addTapHandler({
                 name: 'open-actionsheet',
@@ -34,45 +121,35 @@
                 fn: function(e, params) {
                     params.$el.removeClass('active');
 
-                    var $source = $($('.current')[0]);
                     var $target = $(params.hash);
-                    $target.one('webkitAnimationEnd', function() {
-                        $target.removeClass('in slideup');                        
-                    });
+                    $target.actionsheet('show');
 
-                    $source.addClass('smokedglass');
-                    $target.data('referrer', params.$el);
-                    $target.addClass('current in slideup');
                     return false;
                 }
             });
             jQT.addTapHandler({
-                name: 'close-actionsheet',
+                name: 'follow-actionlink',
                 isSupported: function(e, params) {
-                    var $target = params.$el.closest('.current');
-                    if ($target.length > 0) {
-                        return params.$el.is('.actionsheet .actionchoices a');
+                    if ($('#jqt').hasClass('actionopened')) {
+                        return params.$el.is('.actionsheet a');
                     }
                     return false;
                 },
                 fn: function(e, params) {
                     params.$el.removeClass('active');
-
-                    var $target = params.$el.closest('.current');
-                    $target.one('webkitAnimationEnd', function() {
-                        $target.removeClass('current slidedown out');
-                        $('.smokedglass').removeClass('smokedglass');
-
+  
+                    var $target = params.$el.closest('.actionsheet');
+                    $target.actionsheet('hide', function() {
                         if (!params.$el.is('.dismiss')) {
-                            params.$el.trigger('tap');
+                          params.$el.trigger('tap');
                         }
                     });
-                    
-                    $target.addClass('slidedown out');
                     return false;
                 }
             });
             return {};
         });
+    } else {
+        console.error('Extension `jqt.actionsheet` failed to load. jQT not found');
     }
 })($);
