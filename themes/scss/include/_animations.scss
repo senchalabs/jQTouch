@@ -209,7 +209,7 @@
 }
 
 #jqt .slideleft, #jqt .slideright, #jqt .slideup, #jqt .slidedown {
-    -webkit-animation-timing-function: ease-out;
+    -webkit-animation-timing-function: ease-in-out;
 }
 
 @if $include-3d-animations {
@@ -230,6 +230,10 @@
 
     @-webkit-keyframes flipLeftIn {
         0% {
+            opacity: 0;
+        }
+        5% {
+            opacity: 1;
             -webkit-transform: rotateY(180deg) scale(.8);
         } 
         100% {
@@ -238,7 +242,7 @@
     }
 
     @-webkit-keyframes flipLeftOut {
-        0% {
+        5% {
             -webkit-transform: rotateY(0deg) scale(1);
         } 
         100% {
@@ -264,6 +268,9 @@
 
     @-webkit-keyframes flipRightIn {
         0% {
+            opacity: 0;
+        }
+        5% {
             -webkit-transform: rotateY(-180deg) scale(.8);
         } 
         100% {
@@ -272,7 +279,7 @@
     }
 
     @-webkit-keyframes flipRightOut {
-        0% {
+        5% {
             -webkit-transform: rotateY(0deg) scale(1);
         } 
         100% {
@@ -298,6 +305,9 @@
 
     @-webkit-keyframes swapRightIn {
         0% {
+            opacity: 0;
+        }
+        5% {
             -webkit-transform: translate3d(0px, 0px, -800px) rotateY(70deg);
             opacity: 0;
         }
@@ -305,14 +315,14 @@
             -webkit-transform: translate3d(-180px, 0px, -400px) rotateY(20deg);
             opacity: 1;
         }
-        100% {
+        95% {
             -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
             opacity: 1;
         }
     }
 
     @-webkit-keyframes swapRightOut {
-        0% {
+        5% {
             -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
             opacity: 1;
         }
@@ -320,7 +330,7 @@
             -webkit-transform:  translate3d(180px, 0px, -400px) rotateY(-20deg);
             opacity: .5;
         }
-        100% {
+        95% {
             -webkit-transform: translate3d(0px, 0px, -800px) rotateY(-70deg);
             opacity: 0;
         }
@@ -342,6 +352,9 @@
 
     @-webkit-keyframes swapLeftIn {
         0% {
+            opacity: 0;
+        }
+        5% {
             -webkit-transform: translate3d(0px, 0px, -800px) rotateY(-70deg);
             opacity: 0;
         }
@@ -349,14 +362,14 @@
             -webkit-transform: translate3d(180px, 0px, -400px) rotateY(-20deg);
             opacity: 1;
         }
-        100% {
+        95% {
             opacity: 1;
             -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
         }
     }
 
     @-webkit-keyframes swapLeftOut {
-        0% {
+        5% {
             -webkit-transform: translate3d(0px, 0px, 0px) rotateY(0deg);
             opacity: 1;
         }
@@ -364,7 +377,7 @@
             -webkit-transform: translate3d(-180px, 0px, -400px) rotateY(20deg);
             opacity: .5;
         }
-        100% {
+        95% {
             -webkit-transform:  translate3d(0px, 0px, -800px) rotateY(70deg);
             opacity: 0;
         }
@@ -397,21 +410,24 @@
 
     @-webkit-keyframes cubeLeftIn {
         0% {
+            opacity: 0;
+        }
+        5% {
             -webkit-transform: rotateY(90deg) translateZ(320px);
             opacity: .5;
         }
-        100% {
+        95% {
             -webkit-transform: rotateY(0deg) translateZ(0) translateX(0);
             opacity: 1;
         }
     }
 
     @-webkit-keyframes cubeLeftOut {
-        0% {
+        5% {
             -webkit-transform: rotateY(0deg) translateZ(0) translateX(0);
             opacity: 1;
         }
-        100% {
+        95% {
             -webkit-transform: rotateY(-90deg) translateZ(320px);
             opacity: .5;
         }
@@ -431,21 +447,24 @@
 
     @-webkit-keyframes cubeRightIn {
         0% {
+            opacity: 0;
+        }
+        5% {
             -webkit-transform: rotateY(-90deg) translateZ(320px);
             opacity: .5;
         }
-        100% {
+        95% {
             -webkit-transform: rotateY(0deg) translateZ(0) translateX(0);
             opacity: 1;
         }
     }
 
     @-webkit-keyframes cubeRightOut {
-        0% {
+        5% {
             -webkit-transform: rotateY(0deg) translateZ(0) translateX(0);
             opacity: 1;
         }
-        100% {
+        95% {
             -webkit-transform: rotateY(90deg) translateZ(320px);
             opacity: .5;
         }
