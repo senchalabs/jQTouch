@@ -17,40 +17,84 @@
 */
 
 (function($) {
-    if ($.jQTouch) {
+    function hide(callback) {
+        var $target = $(this);
+        var data = $(this).data('menusheet');
+        if (data.shown) {
+            $(this).data('menusheet', {});
+            var $source = data.source;
+            $source.unbind('touchstart mousedown', data.closehandler);
+            $source.one('webkitTransitionEnd', function() {
+                $source.removeClass('passe transition');
+                $target.removeClass('passe');
+                !callback || callback.apply(this, arguments);
+            });
+    
+            $source.addClass('passe transition');
+            $target.addClass('passe').removeClass('current');
+            $('#jqt').removeClass('menuopened');
+        }
+        return $target;
+    }
+      
+    function show(callback) {
+        var $target = $(this);
+        var data = $(this).data('menusheet') || {};
+        if (!data.shown) {
+            var $source = $('#jqt .current:not(.menusheet)');
+            var closehandler = function() {
+                $target.menusheet('hide');
+            };
+    
+            $source.one('touchstart mousedown', closehandler);
+            $source.one('webkitTransitionEnd', function() {
+                $source.removeClass('passe transition');
+                $target.removeClass('passe');
+                !callback || callback.apply(this, arguments);
+            });
+    
+            data.shown = true;
+            data.closehandler = closehandler;
+            data.source = $source;
+            $(this).data('menusheet', data);
+    
+            $source.addClass('passe transition');
+            $target.addClass('current');
+            $('#jqt').addClass('menuopened');
+        }
+        return $target;
+    }
+    
+    var methods = {
+        init: function(options) {
+            $(this).addClass('menusheet');
+            $(this).data({shown: false});
+        },
+        show: show,
+        hide: hide
+    };
+    
+    $.fn.menusheet = function(method) {
+      if (methods[method]) {
+          if ($(this).is('.menusheet')) {
+              return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+          } else {
+              var msg = 'Target is not a `menusheet`. Action `' + method + '` is ignored.';
+              console.warn(msg);
+          }
+      } else if ( typeof method === 'object' || ! method ) {
+          return methods.init.apply(this, arguments);
+      } else {
+          $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+      }        
+    };
 
+    if ($.jQTouch) {
         var scriptpath = $("script").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/';
         var csspath = scriptpath + 'jqt.menusheet.css';
 
         var link = $('<link href="' + csspath + '" rel="stylesheet">');
         $('head').append($(link));
-
-        function closemenu($source, $target, callback) {
-            $source.one('webkitTransitionEnd', function() {
-                $source.removeClass('passe');
-                $target.removeClass('passe');
-                !callback || callback.apply(this, arguments);
-            });
-
-            $source.addClass('passe');
-            $target.addClass('passe').removeClass('current');
-            $('#jqt').removeClass('menuopened');
-        }
-
-        function openmenu($source, $target, callback) {
-            $source.one('touchstart mousedown', function() {
-                closemenu($source, $target);
-            });
-            $source.one('webkitTransitionEnd', function() {
-                $source.removeClass('passe');
-                $target.removeClass('passe');
-                !callback || callback.apply(this, arguments);
-            });
-
-            $source.addClass('passe');
-            $target.addClass('current');
-            $('#jqt').addClass('menuopened');
-        }
 
         $.jQTouch.addExtension(function MenuSheet(jQT) {
             jQT.addTapHandler({
@@ -61,9 +105,8 @@
                 fn: function(e, params) {
                     params.$el.removeClass('active');
 
-                    var $source = $($('.current')[0]);
                     var $target = $(params.hash);
-                    openmenu($source, $target);
+                    $target.menusheet('show');
 
                     return false;
                 }
@@ -79,18 +122,18 @@
                 fn: function(e, params) {
                     params.$el.removeClass('active');
   
-                    var $source = $('#jqt .current:not(.menusheet)');
-                    var $target = params.$el.closest('.current');
-
-                    closemenu($source, $target, function() {
+                    var $target = params.$el.closest('.menusheet');
+                    $target.menusheet('hide', function() {
                         if (!params.$el.is('.dismiss')) {
-                            params.$el.trigger('tap');
+                          params.$el.trigger('tap');
                         }
                     });
+
                     return false;
                 }
             });
             return {};
         });
+    } else {
     }
 })($);

@@ -12,7 +12,7 @@
     overflow: hidden;
 }
 
-#jqt > .passe {
+#jqt > .transition {
     -webkit-transition-property: translate3d, opacity, background-color;
     -webkit-transition-duration: 250ms;
     -webkit-transition-fill-mode: both;

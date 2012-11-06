@@ -109,7 +109,6 @@
               && typeof(tapHandler.isSupported) === 'function'
               && typeof(tapHandler.fn) === 'function') {
             
-              console.warn('tapHandler: ' + tapHandler.name);
               tapHandlers.push(tapHandler);
           }
         }
@@ -204,7 +203,7 @@
                     toPage.css('top', window.pageYOffset - (toPage.data('lastScroll') || 0));
                 }
                 
-                toPage.addClass(finalAnimationName + ' in current passe');
+                toPage.addClass(finalAnimationName + ' in current');
                 fromPage.removeClass('current').addClass(finalAnimationName + ' out passe');
                 
                 if (jQTSettings.trackScrollPositions === true) {
@@ -234,8 +233,8 @@
 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
-                    fromPage.removeClass(finalAnimationName + ' out');
-                    toPage.removeClass(finalAnimationName);
+                    fromPage.removeClass(finalAnimationName + ' out passe');
+                    toPage.removeClass(finalAnimationName + ' in');
                     $body.removeClass('animating animating3d');
                     if (jQTSettings.trackScrollPositions === true) {
                         toPage.css('top', -toPage.data('lastScroll'));
@@ -251,14 +250,14 @@
                         }, 0);
                     }
                 } else {
-                    fromPage.removeClass(finalAnimationName + ' out');
+                    fromPage.removeClass(finalAnimationName + ' out passe');
+                    toPage.removeClass(finalAnimationName + ' in');
                     bufferTime += 260;
                 }
 
                 // In class is intentionally delayed, as it is our ghost click hack
                 setTimeout(function(){
-                    toPage.removeClass('in passe');
-                    fromPage.removeClass('passe');
+                    toPage.removeClass('in');
                     window.scroll(0,0);
                 }, bufferTime);
 
@@ -829,10 +828,6 @@
                 .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
             
-            $body.delegate('.passe', 'webkitAnimationEnd webkitTransitionEnd', function() {
-                //$(this).removeClass('passe');
-            });
-
             $(window).bind('hashchange', hashChangeHandler);
 
             var startHash = location.hash;
