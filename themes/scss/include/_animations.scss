@@ -42,6 +42,9 @@
 @-webkit-keyframes dissolveIn {
     0% {
         opacity: 0;
+    }
+    5% {
+        opacity: 0;
     } 
     100% {
         opacity: 1;
@@ -49,7 +52,7 @@
 }
 
 @-webkit-keyframes dissolveOut {
-    0% {
+    5% {
         opacity: 1;
     } 
     100% {
@@ -71,6 +74,9 @@
 
 @-webkit-keyframes popIn {
     0% {
+        opacity: 0;
+    }
+    5% {
         -webkit-transform: scale(.2);
         opacity: 0;
     } 
@@ -81,7 +87,7 @@
 }
 
 @-webkit-keyframes popOut {
-    0% {
+    5% {
         -webkit-transform: scale(1);
         opacity: 1;
     } 

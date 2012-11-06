@@ -25,13 +25,13 @@
             var $source = data.source;
             $source.unbind('touchstart mousedown', data.closehandler);
             $source.one('webkitTransitionEnd', function() {
-                $source.removeClass('passe transition');
-                $target.removeClass('passe');
+                $source.removeClass('passe transition in');
+                $target.removeClass('passe out');
                 !callback || callback.apply(this, arguments);
             });
     
-            $source.addClass('passe transition');
-            $target.addClass('passe').removeClass('current');
+            $source.addClass('passe transition in');
+            $target.addClass('passe out').removeClass('current');
             $('#jqt').removeClass('menuopened');
         }
         return $target;
@@ -44,12 +44,13 @@
             var $source = $('#jqt .current:not(.menusheet)');
             var closehandler = function() {
                 $target.menusheet('hide');
+                return false;
             };
     
-            $source.one('touchstart mousedown', closehandler);
             $source.one('webkitTransitionEnd', function() {
-                $source.removeClass('passe transition');
-                $target.removeClass('passe');
+                $source.one('touchstart mousedown', closehandler);
+                $source.removeClass('passe transition out');
+                $target.removeClass('passe in');
                 !callback || callback.apply(this, arguments);
             });
     
@@ -58,8 +59,8 @@
             data.source = $source;
             $(this).data('menusheet', data);
     
-            $source.addClass('passe transition');
-            $target.addClass('current');
+            $source.addClass('passe transition out');
+            $target.addClass('current in');
             $('#jqt').addClass('menuopened');
         }
         return $target;
@@ -128,7 +129,6 @@
                           params.$el.trigger('tap');
                         }
                     });
-
                     return false;
                 }
             });
