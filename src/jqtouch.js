@@ -21,9 +21,26 @@
 */
 (function() {
 
+    var fx;
+    if ('Zepto' in window) {
+        fx = window.Zepto;
+        fx.fn.prop = fx.fn.attr;
+        
+        Event.prototype.isDefaultPrevented = function() {
+          return this.defaultPrevented;
+        };
+    } else if ('jQuery' in window) {
+        fx = window.jQuery;
+
+        // trick to get Zepto/touch.js to work for jQuery
+        window.Zepto = $;
+    } else {
+        throw('Either Zepto or jQuery is required but neither can be found.');
+    }
+  
     $.jQTouch = function(options) {
         // Initialize internal jQT variables
-        var $ = fx(),
+        var $ = fx,
             $body,
             $head=$('head'),
             history=[],
@@ -74,25 +91,6 @@
                     {name:'slideleft', selector:'.slideleft, .slide, #jqt > * > ul li a'}
                 ]
             }; // end defaults
-
-        function fx() {
-            var fx;
-            if (!!window.Zepto) {
-                fx = window.Zepto;
-                fx.fn.prop = fx.fn.attr;
-                
-                Event.prototype.isDefaultPrevented = function() {
-                  return this.defaultPrevented;
-                };
-            } else if (!!window.jQuery) {
-                fx = window.jQuery;
-                // trick to get Zepto/touch.js to work for jQuery
-                // window.Zepto = $;
-            } else {
-                throw('Either Zepto or jQuery is required but neither can be found.');
-            }
-            return fx;
-        }
 
         function warn(message) {
             if (window.console !== undefined && jQTSettings.debug === true) {

@@ -1,3 +1,6 @@
 [submodule "themes/compass-recipes"]
 	path = themes/compass-recipes
 	url = git://github.com/senchalabs/compass-recipes.git
+[submodule "submodules/zepto"]
+	path = submodules/zepto
+	url = git://github.com/madrobby/zepto.git

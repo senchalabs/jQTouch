@@ -38,9 +38,27 @@
     <target name="git-modules-update">
         <echo message="Git submodules update"/>
         <exec executable="git" dir="./${dir.root}">
-            <arg line="submodule update --init" />
+            <arg line="submodule update --init --recursive" />
         </exec>
     </target>
+
+	
+	<target name="build-lib-zepto">
+        <echo message="Build zepto submodules, move to lib directory"/>
+        <exec executable="rake" dir="./${dir.root}/submodules/zepto">
+            <arg line="concat[fx:ajax:data:detect:event:form:polyfill:touch] dist" />
+        </exec>
+		<delete dir="./${dir.root}/lib/zepto"/>
+        <move file="./${dir.root}/submodules/zepto/dist"
+                tofile="./${dir.root}/lib/zepto"/>
+		<copy file="./${dir.root}/submodules/zepto/src/touch.js" 
+			    tofile="./${dir.root}/lib/zepto/touch.js"/>
+    </target>
+
+	<target name="build-libs" depends="
+            git-modules-update,
+		    build-lib-zepto
+		" description="Build all lib modules." />
 
     <!-- JSLint target, run separately -->
     <target name="jslint" description="Run JSLint on jQTouch source files.">
@@ -184,6 +202,7 @@
     <target name="build" depends="
         intro,
     	git-modules-update,
+    	build-libs,
         copy-files,
         make-htaccess,
         strip-warnings,
