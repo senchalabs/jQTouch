@@ -22,6 +22,7 @@
 
 (function($){
   var touch = {}, touchTimeout;
+  var jQT;
 
   function parentIfText(node){
     return 'tagName' in node ? node : node.parentNode;
@@ -50,6 +51,12 @@
     var MOVE_EVENT = SUPPORT_TOUCH? 'touchmove' : 'mousemove';
     var END_EVENT = SUPPORT_TOUCH? 'touchend' : 'mouseup';
     var CANCEL_EVENT = SUPPORT_TOUCH? 'touchcancel' : 'mouseout'; // mouseout on document
+
+    if ($.jQTouch) {
+      $.jQTouch.addExtension(function GetInstance(jqt) {
+        jQT = jqt;
+      });
+    }
 
     function isRightClick(e) {
       var rightclick = false;
@@ -133,6 +140,7 @@
 
           setTimeout(function() {
               $marked = $el;
+              var mySelectors = jQT.settings.selectors.join(', ');
               while ($marked.parent().is(mySelectors)) {
                 $marked = $marked.parent();
               }
@@ -141,7 +149,7 @@
           }, 50);
 
           setTimeout(function() {
-            $el.trigger("touch");
+              $el.trigger("touch");
           }, 50);
 
           setTimeout(function() {

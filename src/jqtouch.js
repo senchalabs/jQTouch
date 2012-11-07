@@ -133,7 +133,7 @@
             }
 
             // Prevent default if we found an internal link (relative or absolute)
-            if ($el && $el.prop('href') && !$el.isExternalLink()) {
+            if ($el && $el.attr('href') && !$el.isExternalLink()) {
                 warn('Need to prevent default click behavior');
                 e.preventDefault();
             } else {
@@ -584,7 +584,7 @@
             }
 
             // Make sure we have a tappable element
-            if ($el.length && $el.prop('href')) {
+            if ($el.length && $el.attr('href')) {
                 $el.addClass('active');
             }
 
@@ -613,7 +613,7 @@
             }
 
             // Make sure we have a tappable element
-            if (!$el.length || !$el.prop('href')) {
+            if (!$el.length || !$el.attr('href')) {
                 warn('Could not find a link related to tapped element');
                 return true;
             }
@@ -621,7 +621,7 @@
             // Init some vars
             var target = $el.attr('target'),
                 hash = $el.prop('hash'),
-                href = $el.prop('href');
+                href = $el.attr('href');
 
             var params = {
                 e: e,
@@ -722,7 +722,7 @@
       
                     // External href
                     params.$el.addClass('loading active');
-                    showPageByHref(params.$el.prop('href'), {
+                    showPageByHref(params.$el.attr('href'), {
                         animation: animation,
                         callback: function() {
                             params.$el.removeClass('loading');
@@ -865,7 +865,7 @@
     
     $.jQTouch.prototype.extensions = [];
             
-            // Extensions directly manipulate the jQTouch object, before it's initialized.
+    // Extensions directly manipulate the jQTouch object, before it's initialized.
     $.jQTouch.addExtension = function(extension) {
         $.jQTouch.prototype.extensions.push(extension);
     };
