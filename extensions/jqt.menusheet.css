@@ -4,7 +4,6 @@
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
     height: 100%;
     width: 260px;
-    z-index: -1;
 }
 
 #jqt.menuopened {
@@ -23,6 +22,7 @@
     -webkit-transform: translate3d(260px, 0, 0) rotate(0) scale(1);
     -webkit-box-shadow: -3px 0px 3px rgba(63, 63, 63, 0.5);
     border-left: 0.5px solid rgba(127, 127, 127, 0.01);
+    z-index: 20;
 }
 
 #jqt.menuopened > .current::after {
@@ -39,6 +39,7 @@
     -webkit-transform: translate3d(0, 0, 0) rotate(0) scale(1);  
     -webkit-box-shadow: none;
     border-left: none;
+    z-index: 0;
 }
 
 #jqt.menuopened > .menusheet.current::after {
