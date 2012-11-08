@@ -50,7 +50,7 @@ body {
         z-index: 10;
     }
 
-    > :not(.current):not(.passe) {
+    > :not(.current):not(.inmotion) {
         display: none;
     }
 
@@ -76,7 +76,11 @@ body {
     .in, .out {
         -webkit-animation-duration: 250ms;
         -webkit-animation-fill-mode: both;
-        -webkit-animation-timing-function: ease-in-out;
+        -webkit-animation-timing-function: ease-in-out;        
+    }
+
+    .in {
+        z-index: 10;
         
         &:after {
             @include pseudo-element($width: auto);
@@ -85,10 +89,6 @@ body {
             bottom: 0;
             right: 0;
         }
-    }
-
-    .in {
-        z-index: 10;
     }
     .out {
         z-index: 0 !important;

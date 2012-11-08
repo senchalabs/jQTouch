@@ -31,13 +31,13 @@
             var $source = data.source;
             $source.unbind('touchstart mousedown', data.closehandler);
             $source.one('webkitTransitionEnd', function() {
-                $source.removeClass('passe transition in');
-                $target.removeClass('passe out');
+                $source.removeClass('inmotion transition in');
+                $target.removeClass('inmotion out');
                 !callback || callback.apply(this, arguments);
             });
     
-            $source.addClass('passe transition in');
-            $target.addClass('passe out').removeClass('current');
+            $source.addClass('inmotion transition in');
+            $target.addClass('inmotion out').removeClass('current');
             $('#jqt').removeClass('menuopened');
         }
         return $target;
@@ -55,8 +55,8 @@
     
             $source.one('webkitTransitionEnd', function() {
                 $source.one('touchstart mousedown', closehandler);
-                $source.removeClass('passe transition out');
-                $target.removeClass('passe in');
+                $source.removeClass('inmotion transition out');
+                $target.removeClass('inmotion in');
                 !callback || callback.apply(this, arguments);
             });
     
@@ -65,7 +65,7 @@
             data.source = $source;
             $(this).data('menusheet', data);
     
-            $source.addClass('passe transition out');
+            $source.addClass('inmotion transition out');
             $target.addClass('current in');
             $('#jqt').addClass('menuopened');
         }

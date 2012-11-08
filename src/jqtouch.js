@@ -202,7 +202,7 @@
                 }
                 
                 toPage.addClass(finalAnimationName + ' in current');
-                fromPage.removeClass('current').addClass(finalAnimationName + ' out passe');
+                fromPage.removeClass('current').addClass(finalAnimationName + ' out inmotion');
                 
                 if (jQTSettings.trackScrollPositions === true) {
                     fromPage.data('lastScroll', lastScroll);
@@ -231,7 +231,7 @@
 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
-                    fromPage.removeClass(finalAnimationName + ' out passe');
+                    fromPage.removeClass(finalAnimationName + ' out inmotion');
                     toPage.removeClass(finalAnimationName + ' in');
                     $body.removeClass('animating animating3d');
                     if (jQTSettings.trackScrollPositions === true) {
@@ -248,7 +248,7 @@
                         }, 0);
                     }
                 } else {
-                    fromPage.removeClass(finalAnimationName + ' out passe');
+                    fromPage.removeClass(finalAnimationName + ' out inmotion');
                     toPage.removeClass(finalAnimationName + ' in');
                     bufferTime += 260;
                 }

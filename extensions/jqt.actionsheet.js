@@ -50,12 +50,12 @@
             $(this).data('actionsheet', {});
             $target.one('webkitTransitionEnd', function() {
                 $source.removeClass('transition');
-                $target.removeClass('passe transition');
+                $target.removeClass('inmotion transition');
                 !callback || callback.apply(this, arguments);
             });
     
             $source.addClass('transition');
-            $target.addClass('passe transition').removeClass('current');
+            $target.addClass('inmotion transition').removeClass('current');
             $('#jqt').removeClass('actionopened');
         }
         return $target;
@@ -78,7 +78,7 @@
             $(this).data('actionsheet', data);
 
             $source.addClass('transition');
-            $target.addClass('passe transition');
+            $target.addClass('inmotion transition');
             $('#jqt').addClass('actionopened');
             setTimeout(function() {
                 $target.addClass('current');
