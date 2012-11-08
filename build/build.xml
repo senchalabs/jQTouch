@@ -202,7 +202,6 @@
     <target name="build" depends="
         intro,
     	git-modules-update,
-    	build-libs,
         copy-files,
         make-htaccess,
         strip-warnings,
@@ -214,6 +213,7 @@
 
     <target name="build-for-checkin" depends="
         clean-for-checkin,
+        build-libs,
         build,
         reverse-copy-css" description="Build a jQTouch release and prepare for checkin." />
 
