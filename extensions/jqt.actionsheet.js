@@ -55,7 +55,7 @@
             });
     
             $source.addClass('transition');
-            $target.addClass('inmotion transition').removeClass('current');
+            $target.removeClass('current').addClass('inmotion transition');
             $('#jqt').removeClass('actionopened');
         }
         return $target;
@@ -69,7 +69,7 @@
     
             $target.one('webkitTransitionEnd', function() {
                 $source.removeClass('transition');
-                $target.removeClass('transition');
+                $target.removeClass('inmotion transition');
                 !callback || callback.apply(this, arguments);
             });
     

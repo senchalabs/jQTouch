@@ -1,25 +1,24 @@
 /* @group Action Sheet */
 
-#jqt > .transition, #jqt > .transition::after {
+#jqt > .transition {
     -webkit-transition-property: translateY, opacity, background-color;
     -webkit-transition-duration: 250ms;
     -webkit-transition-fill-mode: both;
     -webkit-transition-timing-function: ease-in-out;
 }
 
-#jqt.actionopened > .current::after {
-    display: block;
-    opacity: 1;
+#jqt > *::after {
+    display: none;
+    z-index: 0;
     position: absolute;
     content: "";
     top: 0; bottom: 0; left: 0; right: 0;
-    z-index: 20;
-    background-color: rgba(63, 63, 63, 0.6);
 }
 
-#jqt > .actionsheet.current::after {
-    display: none;
+#jqt.actionopened > .current:not(.actionsheet)::after {
+    display: block;
     background-color: rgba(63, 63, 63, 0.6);
+    z-index: 0;
 }
 
 #jqt > .actionsheet {
@@ -27,7 +26,7 @@
     background-color: transparent;
     background-image: none;
     -webkit-transform: translateY(90%);  
-    z-index: 50;
+    z-index: 30;
 }
 
 #jqt > .actionsheet.current {
