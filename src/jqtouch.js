@@ -262,8 +262,12 @@
                 fromPage.unselect();
 
                 // Trigger custom events
-                toPage.trigger('pageAnimationEnd', { direction:'in', animation: animation});
-                fromPage.trigger('pageAnimationEnd', { direction:'out', animation: animation});
+                toPage.trigger('pageAnimationEnd', {
+                    direction:'in', animation: animation, back: goingBack
+                });
+                fromPage.trigger('pageAnimationEnd', {
+                    direction:'out', animation: animation, back: goingBack
+                });
             }
 
             return true;
