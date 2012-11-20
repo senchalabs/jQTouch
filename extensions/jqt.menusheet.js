@@ -98,41 +98,43 @@
 
     if ($.jQTouch) {
         $.jQTouch.addExtension(function MenuSheet(jQT) {
-            jQT.addTapHandler({
-                name: 'open-menusheet',
-                isSupported: function(e, params) {
-                    return params.$el.is('.menu');
-                },
-                fn: function(e, params) {
-                    params.$el.removeClass('active');
-
-                    var $target = $(params.hash);
-                    $target.menusheet('show');
-
-                    return false;
-                }
-            });
-            jQT.addTapHandler({
-                name: 'follow-menulink',
-                isSupported: function(e, params) {
-                    if ($('#jqt').hasClass('menuopened')) {
-                        return params.$el.is('.menusheet a');
+            $(doument).bind('ready', function() {
+                jQT.addTapHandler({
+                    name: 'open-menusheet',
+                    isSupported: function(e, params) {
+                        return params.$el.is('.menu');
+                    },
+                    fn: function(e, params) {
+                        params.$el.removeClass('active');
+    
+                        var $target = $(params.hash);
+                        $target.menusheet('show');
+    
+                        return false;
                     }
-                    return false;
-                },
-                fn: function(e, params) {
-                    params.$el.removeClass('active');
-  
-                    var $target = params.$el.closest('.menusheet');
-                    $target.menusheet('hide', function() {
-                        if (!params.$el.is('.dismiss')) {
-                          params.$el.trigger('tap');
+                });
+                jQT.addTapHandler({
+                    name: 'follow-menulink',
+                    isSupported: function(e, params) {
+                        if ($('#jqt').hasClass('menuopened')) {
+                            return params.$el.is('.menusheet a');
                         }
-                    });
-                    return false;
-                }
+                        return false;
+                    },
+                    fn: function(e, params) {
+                        params.$el.removeClass('active');
+      
+                        var $target = params.$el.closest('.menusheet');
+                        $target.menusheet('hide', function() {
+                            if (!params.$el.is('.dismiss')) {
+                              params.$el.trigger('tap');
+                            }
+                        });
+                        return false;
+                    }
+                });
+                return {};
             });
-            return {};
         });
     } else {
         console.error('Extension `jqt.menusheet` failed to load. jQT not found');
