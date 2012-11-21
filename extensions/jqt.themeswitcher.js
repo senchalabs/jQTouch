@@ -100,6 +100,7 @@
                     e.stopPropagation();
 
                     var $a = $(this).closest('a');
+                    $a.removeClass('active');
                     switchStyle($a.attr('data-title'));
 
                     // poor-man simulation of radio button behaviour

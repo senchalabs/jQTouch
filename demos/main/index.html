@@ -7,15 +7,17 @@
         <link rel="stylesheet" href="../../themes/css/apple.css" title="Apple">
 
         <!-- Either, (1) Zepto:  Un-comment these 2 lines (order matters)  -->
-        <script src="../../src/lib/zepto.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
         
         <!-- Or,     (2) jQuery: Un-comment these 3 lines (order matters)  -->
-        <!-- <script src="../../src/lib/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script> -->
+        <!-- <script src="../../lib/jquery/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script> -->
         <!-- <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script> -->
         <!-- <script src="../../src/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> -->
 
         <script src="../../extensions/jqt.themeswitcher.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.actionsheet.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.menusheet.js" type="application/x-javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
@@ -106,16 +108,16 @@
         </style>
     </head>
     <body>
-        <div id="jqt">
+        <div id="jqt" class="touchscroll">
             <div id="about" class="selectable">
-                    <p><img src="jqtouch.png" /></p>
-                    <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
-                        <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
-                    <p><em>Create powerful mobile apps with<br> just HTML, CSS, and jQuery.</em></p>
-                    <p>
-                        <a target="_blank" href="http://twitter.com/jqtouch">@jQTouch on Twitter</a>
-                    </p>
-                    <p><br><br><a href="#" class="grayButton goback">Close</a></p>
+                <p><img src="jqtouch.png" /></p>
+                <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
+                    <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
+                <p><em>Create powerful mobile apps with<br> just HTML, CSS, and jQuery.</em></p>
+                <p>
+                    <a target="_blank" href="http://twitter.com/jqtouch">@jQTouch on Twitter</a>
+                </p>
+                <p><br><br><a href="#" class="grayButton goback">Close</a></p>
             </div>
             <div id="ajax">
                 <div class="toolbar">
@@ -215,7 +217,6 @@
                     <a class="back" href="#home">Home</a>
                 </div>
                 <div class="scroll">
- 
                     <ul class="rounded">
                         <li class="forward"><a target="_blank" href="../todo/">To-Do app</a></li>
                         <li class="forward"><a target="_blank" href="../clock/">Clock app</a></li>
@@ -331,9 +332,9 @@
                         <li><a target="_blank" href="http://twitter.com/!#/davidkaneda">@davidkaneda</a></li>
                         <li><a target="_blank" href="http://twitter.com/!#/beedesk">@beedesk</a></li>
                     </ul>
-                    <div class="info">
-                        <p>Add this page to your home screen <br>for a richer experience.</p>
-                    </div>
+                </div>
+                <div class="info">
+                    <p>Add this page to your home screen <br>for a richer experience.</p>
                 </div>
             </div>
             <div id="metal">
@@ -389,7 +390,37 @@
                     <ul class="rounded">
                         <li class="arrow"><a href="#forms">Forms</a></li>
                     </ul>
+                    <h2>Sheets</h2>
+                    <ul class="rounded">
+                        <li class="arrow"><a class="action" href="#actionsheet">Action</a></li>
+                        <li class="arrow"><a class="menu" href="#menusheet">Menu</a></li>
+                    </ul>
                 </div>
+            </div>
+            <div id="actionsheet" class="actionsheet">
+                <div class="actionchoices">
+                    <a href="#action_performed" class="whiteButton">Open in Safari</a>
+                    <a href="#action_performed" class="whiteButton">Plan B</a>
+                    <a href="#" class="redButton dismiss">Cancel</a>
+                </div>
+            </div>
+            <div id="action_performed">
+                <div class="toolbar">
+                    <h1>Action</h1>
+                    <a class="back" href="#">Back</a>
+                </div>
+                <div class="info">
+                    <p>You performed an action.</p>
+                </div>
+            </div>
+            <div id="menusheet" class="menusheet">
+                <ul class="edgetoedge scroll">
+                    <li><a href="#" class="dismiss">jQTouch</a></li>
+                    <li class="sep">Favorites</li>
+                    <li><a href="#edge">Edge to Edge</a></li>
+                    <li><a href="#plastic">Plastic</a></li>
+                    <li><a href="#metal">Metal</a></li>
+                </ul>
             </div>
             <form id="ajax_post" action="ajax_post.php" method="POST" class="form">
                 <div class="toolbar">
