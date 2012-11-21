@@ -177,6 +177,13 @@
 
                   swipped = true;
                   $el.trigger('swipe', {direction: (deltaX < 0) ? 'left' : 'right', deltaX: deltaX, deltaY: deltaY });
+              } else if (absY > (3 * absX) && (absY > 10) && deltaT < 1000) {
+                  inprogress = false;
+                  if ($marked) $marked.removeClass('active');
+                  unbindEvents($el);
+
+                  swipped = true;
+                  $el.trigger('swipe', {direction: (deltaY < 0) ? 'up' : 'down', deltaX: deltaX, deltaY: deltaY });
               }
           } else {
               // moved too much, can't swipe anymore
