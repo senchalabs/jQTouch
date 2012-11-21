@@ -119,44 +119,39 @@
     };
 
     if ($.jQTouch) {
-        $.jQTouch.addExtension(function ActionSheet(jQT) {
-            $(document).bind('ready', function() {
-                jQT.addTapHandler({
-                    name: 'open-actionsheet',
-                    isSupported: function(e, params) {
-                        return params.$el.is('.action');
-                    },
-                    fn: function(e, params) {
-                        params.$el.removeClass('active');
-    
-                        var $target = $(params.hash);
-                        $target.actionsheet('show');
-    
-                        return false;
+        $.jQTouch.addTapHandler({
+            name: 'open-actionsheet',
+            isSupported: function(e, params) {
+                return params.$el.is('.action');
+            },
+            fn: function(e, params) {
+                params.$el.removeClass('active');
+
+                var $target = $(params.hash);
+                $target.actionsheet('show');
+
+                return false;
+            }
+        });
+        $.jQTouch.addTapHandler({
+            name: 'follow-actionlink',
+            isSupported: function(e, params) {
+                if ($('#jqt').hasClass('actionopened')) {
+                    return params.$el.is('.actionsheet a');
+                }
+                return false;
+            },
+            fn: function(e, params) {
+                params.$el.removeClass('active');
+
+                var $target = params.$el.closest('.actionsheet');
+                $target.actionsheet('hide', function() {
+                    if (!params.$el.is('.dismiss')) {
+                      params.$el.trigger('tap');
                     }
                 });
-                jQT.addTapHandler({
-                    name: 'follow-actionlink',
-                    isSupported: function(e, params) {
-                        if ($('#jqt').hasClass('actionopened')) {
-                            return params.$el.is('.actionsheet a');
-                        }
-                        return false;
-                    },
-                    fn: function(e, params) {
-                        params.$el.removeClass('active');
-      
-                        var $target = params.$el.closest('.actionsheet');
-                        $target.actionsheet('hide', function() {
-                            if (!params.$el.is('.dismiss')) {
-                              params.$el.trigger('tap');
-                            }
-                        });
-                        return false;
-                    }
-                });
-                return {};
-            });
+                return false;
+            }
         });
     } else {
         console.error('Extension `jqt.actionsheet` failed to load. jQT not found');

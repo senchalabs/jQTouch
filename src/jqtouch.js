@@ -52,6 +52,7 @@
             publicObj={},
             tapBuffer=100, // High click delay = ~350, quickest animation (slide) = 250
             extensions=$.jQTouch.prototype.extensions,
+            extTapHandlers=$.jQTouch.prototype.tapHandlers,
             tapHandlers=[],
             animations=[],
             hairExtensions='',
@@ -784,7 +785,11 @@
                 }
             }
 
-            // Add tapHandlers
+            // Add extensions tapHandlers
+            for (var i=0, max=extTapHandlers.length; i < max; i++) {
+                addTapHandler(extTapHandlers[i]);
+            }
+            // Add default tapHandlers
             addDefaultTapHandlers();
 
             // Add animations
@@ -856,7 +861,6 @@
         // Expose public methods and properties
         publicObj = {
             addAnimation: addAnimation,
-            addTapHandler: addTapHandler,
             animations: animations,
             getOrientation: getOrientation,
             goBack: goBack,
@@ -870,9 +874,16 @@
     };
     
     $.jQTouch.prototype.extensions = [];
-            
+    $.jQTouch.prototype.tapHandlers = [];
+
     // Extensions directly manipulate the jQTouch object, before it's initialized.
     $.jQTouch.addExtension = function(extension) {
         $.jQTouch.prototype.extensions.push(extension);
     };
+    
+    // Experimental tap hanlders that can bypass default jQTouch tap handling
+    $.jQTouch.addTapHandler = function(extension) {
+        $.jQTouch.prototype.tapHandlers.push(extension);
+    };
+
 })(); // Double closure, ALL THE WAY ACROSS THE SKY
