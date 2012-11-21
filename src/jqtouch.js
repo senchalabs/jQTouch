@@ -232,7 +232,9 @@
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
                     fromPage.removeClass(finalAnimationName + ' out inmotion');
-                    toPage.removeClass(finalAnimationName);
+                    if (finalAnimationName) {
+                      toPage.removeClass(finalAnimationName);
+                    }
                     $body.removeClass('animating animating3d');
                     if (jQTSettings.trackScrollPositions === true) {
                         toPage.css('top', -toPage.data('lastScroll'));
@@ -249,7 +251,9 @@
                     }
                 } else {
                     fromPage.removeClass(finalAnimationName + ' out inmotion');
-                    toPage.removeClass(finalAnimationName);
+                    if (finalAnimationName) {
+                      toPage.removeClass(finalAnimationName);
+                    }
                     bufferTime += 260;
                 }
 
