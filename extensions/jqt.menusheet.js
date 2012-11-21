@@ -98,7 +98,7 @@
 
     if ($.jQTouch) {
         $.jQTouch.addExtension(function MenuSheet(jQT) {
-            $(doument).bind('ready', function() {
+            $(document).bind('ready', function() {
                 jQT.addTapHandler({
                     name: 'open-menusheet',
                     isSupported: function(e, params) {
