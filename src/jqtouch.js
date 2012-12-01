@@ -70,6 +70,7 @@
                 icon4: null, // available in iOS 4.2 and later.
                 preloadImages: false,
                 startupScreen: null,
+                startupSceen5: null, // available on iPhone 5
                 statusBar: 'default', // other options: black-translucent, black
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
@@ -387,10 +388,13 @@
             if (jQTSettings.startupScreen) {
                 hairExtensions += '<link rel="apple-touch-startup-image" href="' + jQTSettings.startupScreen + '" />';
             }
+            if (jQTSettings.startupScreen5) {
+                hairExtensions += '<link rel="apple-touch-startup-image" href="' + jQTSettings.startupScreen5 + '" sizes="640x1096">';
+            }
 
             // Set viewport
             if (jQTSettings.fixedViewport) {
-                hairExtensions += '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>';
+                hairExtensions += '<meta name="viewport" content="user-scalable=0, maximum-scale=1.0, initial-scale=1.0" />';
             }
 
             // Set full-screen
