@@ -1,0 +1,179 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>New and Noteworthy — jQTouch &beta;</title>
+        <link rel="stylesheet" href="../themes/css/jqtouch.css" title="jQTouch">
+        <link rel="stylesheet" href="../themes/css/apple.css" title="Apple">
+        <link href="http://alexgorbatchev.com/pub/sh/current/styles/shThemeDefault.css" rel="stylesheet" type="text/css" />
+        <style>
+            #jqt {
+                text-shadow: -1px -1px 1px rgba(31, 31, 31, 0.4);
+            }
+            #jqt a {
+                color: #EEE;
+            }
+            #jqt > * h1 {
+                color: #FFF;
+            }
+            #jqt > * h1 {
+                color: #EEE;
+            }
+            #jqt > * > * > p {
+                margin: 20px 10px;
+                padding: 0 10px;
+                color: #CCC;
+            }
+            #jqt p img {
+                float: left;
+                margin-right: 20px;
+                margin-bottom: 10px;
+                box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5), -1px -1px 1px rgba(127, 127, 127, 0.3);
+            }
+            .clearfix {
+                clear: both;
+            }
+            .codeelement {
+                background-color: #AAA;
+            }
+            .codecontainer {
+                margin: 20px 20px;
+                box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5), -1px -1px 1px rgba(127, 127, 127, 0.3);
+                white-space: nowrap;
+                overflow: scroll;
+                background-color: #AAA;
+                text-shadow: 1px 1px 1px rgba(191, 191, 191, 0.2);
+            }
+            .code {
+                margin: 0;
+                padding: 10px 20px;
+            }
+            .inlinecode {
+                font-family: monospace;
+                font-size: 1.1em;
+            }
+            .syntaxhighlighter, .syntaxhighlighter .line.alt2, .syntaxhighlighter .line.alt1 {
+                background-color: #AAA !important;
+            }
+        </style>
+        <script src="../lib/jquery/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../src/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script>
+
+        <script src="../extensions/jqt.themeswitcher.js" type="application/x-javascript" charset="utf-8"></script>
+
+        <script type="text/javascript" charset="utf-8">
+            var jQT = new $.jQTouch({
+                statusBar: 'black-translucent',
+                preloadImages: []
+            });
+        </script>
+    </head>
+    <body id="jqt" class="touchscroll">
+        <div id="v1_0beta5">
+            <div class="toolbar">
+                <h1>Noteworthy</h1>
+                <a class="back" href="#home">Home</a>
+            </div>
+            <div>
+                <br/>
+                <h1>New and Noteworthy (1.0 beta 5)</h1>
+                <br/>
+                <h2>Actionsheet</h2>
+                <p><img src="images/ActionSheet_Small.png"></img>
+                    Actionsheet is similar to iOS's 
+                    <a target="_blank" href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UIActionSheet_Class/Reference/Reference.html">UIActionSheet</a>.
+                    It is a modal sheet that can be used to prompt user for choices. 
+                </p>
+                <p>It is added to this version as an extension: 
+                   <span class="inlinecode">jqt.actionsheet.js.</span>
+                   When loaded, it attempts to load 
+                   <span class="inlinecode">jqt.actionsheet.css</span> from the 
+                   same directory. (If you use ASL, such as 
+                   <span class="inlinecode">require.js</span>, you might need to 
+                   include the css explicitly.)
+                </p>
+                <p>The actionsheet uses the same markup as a jQT page and must 
+                   be a direct child of <span class="inlinecode">&lt;div id="jqt"&gt;</span>.
+                </p>
+                <p>To trigger an actionsheet, use an anchor with class, 
+                <span class="inlinecode">action</span> (ie, <span class="inlinecode">&lt;a class="action"&gt;)
+                </p>
+                <p>Tapping on any anchor on the sheet causes the sheet
+                   to dismiss. After the sheet is dismissed, the original <span class="inlinecode">jQT</span>
+                   action will be triggered.
+                </p>
+                <div class="clearfix"></div>
+                <p>Here is an example sniplet:</p>
+                <div class="codecontainer">
+                  <pre class="brush: xml; gutter: false; toolbar: false;">
+                    &lt;div id="ui">
+                        &lt; ... &gt;
+                            &lt;ul class="rounded">
+                                &lt;li class="arrow"><a class="action" href="#actionsheet">Action</a></li>
+                            &lt;/ul>
+                        &lt; ... &gt;
+                    &lt;/div>
+                    &lt;div id="actionsheet" class="actionsheet">
+                        &lt;div class="actionchoices">
+                            &lt;a href="#action_performed" class="whiteButton">Open in Safari</a>
+                            &lt;a href="#action_performed" class="whiteButton">Plan B</a>
+                            &lt;a href="#" class="redButton dismiss">Cancel</a>
+                        &lt;/div>
+                    &lt;/div>
+                  </pre>
+                </div>
+                <p>Please refers to <a target="_blank" href="../demos/main/index.html#ui"><span class="inlinecode">demos/main/index.html#ui</span></a> for code sample.
+                <br/>
+                <h2>Menusheet</h2>
+                <p><img src="images/MenuSheet_Small.png"></img>
+                    Menusheet is first made popular by facebook app on iOS.
+                    The menusheet hides beneath the main page and is revealed by a
+                    slide animation when activated.</p>
+                <p>Its usage is very similar to <span class="inlinecode">actionsheet</span>.
+                <p>It is added to this version of jQT as an extension: 
+                   <span class="inlinecode">jqt.menusheet.js.</span>
+                   When loaded, it attempts to load 
+                   <span class="inlinecode">jqt.menusheet.css</span> from the 
+                   same directory. (If you use ASL, such as 
+                   <span class="inlinecode">require.js</span>, you might need to 
+                   include the css explicitly.)
+                </p>
+                <p>The menusheet uses the same markup as a jQT page and must 
+                   be a direct child of <span class="inlinecode">&lt;div id="jqt"&gt;</span>.
+                </p>
+                <p>To trigger an actionsheet, use an anchor with class, 
+                <span class="inlinecode">menu</span> (ie, <span class="inlinecode">&lt;a class="menu"&gt;)
+                </p>
+                <p>Tapping on any anchor on the sheet will cause the sheet
+                   to dismiss. After the sheet is dismissed, the original <span class="inlinecode">jQT</span>
+                   action will be triggered.
+                </p>
+                <p>Please refers to <a target="_blank" href="../demos/main/index.html#ui"><span class="inlinecode">demos/main/index.html#ui</span></a> for code sample.
+                <div class="clearfix"></div>
+                <br/>
+                <h2>Animation Fixes</h2>
+                <p>Prior to this release, rapid taps on anchor before page transition ended might cause page navigation to break. The problem is fixed in this release.</p>
+                <br/>
+            </div>
+        </div>        
+        <div id="home" class="current">
+            <div class="toolbar">
+                <h1>New and Noteworthy</h1>
+            </div>
+            <div class="scroll">
+                <div class="info">
+                    This page list all noteworthy items, grouped by release.
+                </div>
+                <ul class="edgetoedge">
+                    <li class="arrow"><a href="#v1_0beta5">Version 1.0 beta 5</a></li>
+                    <li class="arrow"><a href="#v1_0beta4">Version 1.0 beta 4</a></li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shCore.js" type="text/javascript"></script>
+    <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushJScript.js" type="text/javascript"></script>
+    <script src="http://alexgorbatchev.com/pub/sh/current/scripts/shBrushXml.js" type="text/javascript"></script>
+    <script type="text/javascript">SyntaxHighlighter.all();</script>
+</html>
