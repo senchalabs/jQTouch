@@ -6,10 +6,10 @@ Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
 
 jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and comes with smooth animations, navigation, and themes for mobile WebKit browsers (as found in iOS, Android, BlackBerry, and WebOS).
 
-- [Easy to install](http://wiki.github.com/senchalabs/jQTouch/gettingstarted). Get up and running in a few minutes.
-- [Entirely customizable](http://wiki.github.com/senchalabs/jQTouch/initoptions) with selector options
-- [Theme support](http://wiki.github.com/senchalabs/jQTouch/themingstyling), including default Apple and jQTouch custom themes
-- [Callback functions](http://wiki.github.com/senchalabs/jQTouch/callbackevents) throughout, including swipe and orientation change detection
+- [Easy to install](https://github.com/senchalabs/jQTouch/wiki/Getting-Started). Get up and running in a few minutes.
+- [Entirely customizable](https://github.com/senchalabs/jQTouch/wiki/Initialization-Options) with selector options
+- [Theme support](https://github.com/senchalabs/jQTouch/wiki/Theming), including default Apple and jQTouch custom themes
+- [Callback functions](https://github.com/senchalabs/jQTouch/wiki/Callback-Events) throughout, including swipe and orientation change detection
 - Page history management and CSS3 page transitions, including 3D flip, cube, and swap
 - Failover to 2D animations for devices that don't support 3D
 - Easily allow apps to run in fullscreen mode with custom icons and startup screens
