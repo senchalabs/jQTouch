@@ -29,18 +29,21 @@ jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and c
 
 ## Building / Contribute
 
-Depedencies: 
-- Java, Ant
+Dependencies:
+<table>
+<thead><tr>
+  <th>target</th><th>description</th><th>dependencies</th>
+</tr></thead>
+<tbody><tr>
+  <td>`ant -p`</td><td>List available targets.</td><td>Ant, Java</td>
+  <td>`ant test`</td><td>Run test in headless mode.</td><td>`phantomjs` + `ant -p` dependencies</td>
+  <td>`ant build`</td><td>Standard Build.</td><td>`git`, `compass` (`ruby`) + `ant -p` dependencies</td>
+  <td>`ant build-libs`</td><td>Build depended libs from sources.</td><td>`git`, `rake` + `ant -p` dependencies</td>
+  <td>`ant build-fully`</td><td>Run test and build all, refresh dist file.</td><td>`ant test build-libs build` dependencies</td>
+<tr/></tbody>
+</table>
 
-Exec: 
-
-```bash
-$ git submodule update --init
-$ cd build
-$ ant
-```
-
-The command above will build the folder structure under `jqtouch-${release.version}-${release.id}`.
+The command `ant build` or `ant build-fully` builds a folder structure under `jqtouch-${release.version}-${release.id}`.
 
 External Guides
 ---------------

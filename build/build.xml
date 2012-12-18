@@ -13,17 +13,20 @@
     </taskdef>
 
     <target name="intro">
-
-        <echo message="====================================================================="/>
-        <echo message="We are going to build a jQTouch release!"/>
-        <echo message=" "/>
-        <echo message="====================================================================="/>
-        <echo message=" "/>
-        <echo message=" "/>
-
+        <echo message="================================================="/>
+        <echo message="We are going to build a jQTouch release!         "/>
+        <echo message="                                                 "/>
+        <echo message="================================================="/>
+        <echo message="                                                 "/>
+        <echo message="                                                 "/>
     </target>
 
-    <!-- This is a private target -->
+    <target name="test" description="Run all tests.">
+        <exec executable="phantomjs" dir="./${dir.root}/" failonerror="true">
+            <arg line="test/runner.coffee" />
+        </exec>
+    </target>
+
     <target name="clean-start">
         <echo message="Removing previous build directory..."/>
         <delete dir="./${dir.publish}/"/>
@@ -37,15 +40,14 @@
 
     <target name="git-modules-update">
         <echo message="Git submodules update"/>
-        <exec executable="git" dir="./${dir.root}">
+        <exec executable="git" dir="./${dir.root}" failonerror="true">
             <arg line="submodule update --init --recursive" />
         </exec>
     </target>
-
     
     <target name="build-lib-zepto">
         <echo message="Build zepto submodules, move to lib directory"/>
-        <exec executable="rake" dir="./${dir.root}/submodules/zepto">
+        <exec executable="rake" dir="./${dir.root}/submodules/zepto" failonerror="true">
             <arg line="concat[fx:ajax:data:detect:event:form:polyfill:touch] dist" />
         </exec>
         <delete dir="./${dir.root}/lib/zepto"/>
@@ -55,11 +57,11 @@
                 tofile="./${dir.root}/lib/zepto/touch.js"/>
     </target>
 
-    <target name="build-libs" depends="
-            	git-modules-update,
-            	build-lib-zepto
-        " description="Build all lib modules." />
-u
+    <target name="build-libs" depends="git-modules-update, build-lib-zepto"
+            description="Build depended libs from sources.">
+    	<echo message="Build depended libs from sources"/>
+    </target>
+
     <!-- JSLint target, run separately -->
     <target name="jslint" description="Run JSLint on jQTouch source files.">
         <apply dir="${dir.root}/${dir.src}" executable="java" parallel="false" failonerror="true">
@@ -211,11 +213,13 @@ u
         switch-to-minified
         " description="Build a jQTouch release." />
 
-    <target name="build-for-checkin" depends="
+    <target name="build-fully" depends="
+        intro,
         clean-for-checkin,
         build-libs,
+        test,
         build,
-        reverse-copy-css" description="Build a jQTouch release and prepare for checkin." />
+        reverse-copy-css" description="Rebuild depended libs, run test on src, build a jQTouch release, refresh dist files." />
 
     <target name="review" depends="jslint, csslint" description="Runs CSSLint and JSLint on core jQTouch files." />
 
