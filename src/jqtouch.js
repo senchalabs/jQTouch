@@ -74,6 +74,7 @@
                 submitSelector: '.submit',
                 touchSelector: 'a, .touch',
                 trackScrollPositions: true,
+                updateHash: true,
                 useAnimations: true,
                 useFastTouch: true,
                 useTouchScroll: true,
@@ -468,7 +469,9 @@
         }
         function setHash(hash) {
             // Sanitize
-            location.hash = '#' + hash.replace(/^#/, '');
+            if (jQTSettings.updateHash) {
+                location.hash = '#' + hash.replace(/^#/, '');
+            }
         }
         function showPageByHref(href, options) {
 

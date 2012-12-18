@@ -164,7 +164,11 @@
 
 
                 <h2>Animation Fixes</h2>
-                <p>Prior to this release, rapid taps on anchor before page transition ended might cause page navigation to break. The problem is fixed in this release.</p>
+                <p>Prior to this release, rapid taps on anchor before page 
+                   transition ended might cause page navigation to break. 
+                   The problem is fixed in this release.</p>
+
+
                 <h2>Test</h2>
                 <p>We have added unit tests into this release.</p>
                 <p>They can be found under <span class="inlinecode">test/unit/</span>. 
@@ -172,6 +176,11 @@
                    and can be run by simply open it with a web browser.</p>
                 <p>The tests can also be run from a command line. Under 
                 <span class="inlinecode">build/</span>, exec <span class="inlinecode">ant test</span>.</p>
+
+                
+                <h2>Init Options: updateHash</h2>
+                <p>When <span class="inlinecode">updateHash</span> is set to 
+                  true (default), page navigation will cause the url hash(#) to be updated.</p>
                 <br/>
                 <br/>
             </div>
