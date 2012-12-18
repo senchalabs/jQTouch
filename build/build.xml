@@ -42,24 +42,24 @@
         </exec>
     </target>
 
-	
-	<target name="build-lib-zepto">
+    
+    <target name="build-lib-zepto">
         <echo message="Build zepto submodules, move to lib directory"/>
         <exec executable="rake" dir="./${dir.root}/submodules/zepto">
             <arg line="concat[fx:ajax:data:detect:event:form:polyfill:touch] dist" />
         </exec>
-		<delete dir="./${dir.root}/lib/zepto"/>
+        <delete dir="./${dir.root}/lib/zepto"/>
         <move file="./${dir.root}/submodules/zepto/dist"
                 tofile="./${dir.root}/lib/zepto"/>
-		<copy file="./${dir.root}/submodules/zepto/src/touch.js" 
-			    tofile="./${dir.root}/lib/zepto/touch.js"/>
+        <copy file="./${dir.root}/submodules/zepto/src/touch.js" 
+                tofile="./${dir.root}/lib/zepto/touch.js"/>
     </target>
 
-	<target name="build-libs" depends="
-            git-modules-update,
-		    build-lib-zepto
-		" description="Build all lib modules." />
-
+    <target name="build-libs" depends="
+            	git-modules-update,
+            	build-lib-zepto
+        " description="Build all lib modules." />
+u
     <!-- JSLint target, run separately -->
     <target name="jslint" description="Run JSLint on jQTouch source files.">
         <apply dir="${dir.root}/${dir.src}" executable="java" parallel="false" failonerror="true">
@@ -201,7 +201,7 @@
 
     <target name="build" depends="
         intro,
-    	git-modules-update,
+        git-modules-update,
         copy-files,
         make-htaccess,
         strip-warnings,
