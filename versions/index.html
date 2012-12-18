@@ -19,6 +19,16 @@
             #jqt > * h1 {
                 color: #EEE;
             }
+            #jqt > * > * > h1 {
+                -webkit-margin-top-collapse: separate;
+                margin-top: 30px;
+            }
+            #jqt > * > * > h2 {
+                margin-top: 30px;
+            }
+            #jqt > * > * > h2:not(:first-of-kind) {
+                border-top: 1px dotted rgba(127, 127, 127, 0.5);
+            }
             #jqt > * > * > p {
                 margin: 20px 10px;
                 padding: 0 10px;
@@ -75,10 +85,9 @@
                 <h1>Noteworthy</h1>
                 <a class="back" href="#home">Home</a>
             </div>
-            <div>
-                <br/>
+            <div class="scroll">
                 <h1>New and Noteworthy (1.0 beta 5)</h1>
-                <br/>
+
                 <h2>Actionsheet</h2>
                 <p><img src="images/ActionSheet_Small.png"></img>
                     Actionsheet is similar to iOS's 
@@ -123,9 +132,9 @@
                     &lt;/div>
                   </pre>
                 </div>
-                <p>Please refers to <a target="_blank" href="../demos/main/index.html#ui"><span class="inlinecode">demos/main/index.html#ui</span></a> for code sample.
-                <br/>
-                <br/>
+                <p>Please refers to <a target="_blank" href="../demos/main/index.html#ui"><span class="inlinecode">demos/main/index.html#ui</span></a> for code sample.</p>
+
+                
                 <h2>Menusheet</h2>
                 <p><img src="images/MenuSheet_Small.png"></img>
                     Menusheet is first made popular by facebook app on iOS.
@@ -152,12 +161,47 @@
                 </p>
                 <p>Please refers to <a target="_blank" href="../demos/main/index.html#ui"><span class="inlinecode">demos/main/index.html#ui</span></a> for code sample.
                 <div class="clearfix"></div>
-                <br/>
+
+
                 <h2>Animation Fixes</h2>
                 <p>Prior to this release, rapid taps on anchor before page transition ended might cause page navigation to break. The problem is fixed in this release.</p>
+                <h2>Test</h2>
+                <p>We have added unit tests into this release.</p>
+                <p>They can be found under <span class="inlinecode">test/unit/</span>. 
+                   Each test is a <span class="inlinecode">*.html</span> file 
+                   and can be run by simply open it with a web browser.</p>
+                <p>The tests can also be run from a command line. Under 
+                <span class="inlinecode">build/</span>, exec <span class="inlinecode">ant test</span>.</p>
+                <br/>
                 <br/>
             </div>
-        </div>        
+        </div>
+        <div id="v1_0beta4">
+            <div class="toolbar">
+                <h1>Noteworthy</h1>
+                <a class="back" href="#home">Home</a>
+            </div>
+            <div class="scroll">
+                <h1>New and Noteworthy (1.0 beta 4)</h1>
+
+                <h2>Improved Theming System</h2>
+                <p><img width="240" src="http://25.media.tumblr.com/tumblr_lwknln4IbI1qa206po1_500.png">
+                   See, <a href="http://blog.jqtouch.com/post/14579716419/improved-theming">jQTouch blog</a>
+                   for details.</p>
+                <div class="clearfix"></div>
+
+
+                <h2>iOS Native Scrolling</h2>
+                <p>See, <a href="http://blog.jqtouch.com/post/14586457670/ios5-scrolling">jQTouch blog</a>
+                   for details.</p>
+                <div class="clearfix"></div>
+
+
+                <h2>Zepto.js Integration</h2>
+                <p>See, <a href="http://blog.jqtouch.com/post/14576505296/zepto-js">jQTouch blog</a>
+                   for details.</p>
+            </div>
+        </div>
         <div id="home" class="current">
             <div class="toolbar">
                 <h1>New and Noteworthy</h1>

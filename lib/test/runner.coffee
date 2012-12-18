@@ -1,6 +1,6 @@
 # Test runner for PhantomJS <phantomjs.org>
 # Usage:
-#   $ phantomjs test/runner.coffee [<page1>, <page2>, ...]
+#   $ phantomjs lib/test/runner.coffee [<page1>, <page2>, ...]
 #
 # When no test pages specified, runs all automated tests.
 #
@@ -13,9 +13,9 @@ if system.args.length > 1
   # list of test pages to run
   suites = system.args.slice(1)
 else
-  # by default, run all test/*.html pages
+  # by default, run all test/unit/*.html pages
   modules = 'touch jquery-jqtouch'.split /\s+/
-  suites = modules.map (name)-> "test/#{name}.html"
+  suites = modules.map (name)-> "test/unit/#{name}.html"
 
 page = require('webpage').create()
 

@@ -23,7 +23,7 @@
 
     <target name="test" description="Run all tests.">
         <exec executable="phantomjs" dir="./${dir.root}/" failonerror="true">
-            <arg line="test/runner.coffee" />
+            <arg line="lib/test/runner.coffee" />
         </exec>
     </target>
 
