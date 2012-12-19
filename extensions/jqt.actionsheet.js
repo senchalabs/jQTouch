@@ -8,30 +8,15 @@
        _/
     _/
 
-    Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
+    Created by David Kaneda <http://www.davidkaneda.com>
+    Maintained by Thomas Yip <http://beedesk.com/>
+    Sponsored by Sencha Labs <http://www.sencha.com/>
+    Special thanks to Jonathan Stark <http://www.jonathanstark.com/>
 
-    (c) 2012 by jQTouch project members.
-    See LICENSE.txt for license.
+    Documentation and issue tracking on GitHub <http://github.com/senchalabs/jQTouch/>
 
-    Author: Thomas Yip
-*/
-
-/*
-
-            _/    _/_/    _/_/_/_/_/                              _/
-               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
-          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
-         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
-        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
-       _/
-    _/
-
-    Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
-
-    (c) 2012 by jQTouch project members.
-    See LICENSE.txt for license.
-
-    Author: Thomas Yip
+    (c) 2009-2012 Sencha Labs
+    jQTouch may be freely distributed under the MIT license.
 */
 
 (function($) {
@@ -114,7 +99,7 @@
       } else if ( typeof method === 'object' || ! method ) {
           return methods.init.apply(this, arguments);
       } else {
-          $.error( 'Method ' +  method + ' does not exist on jQuery.tooltip' );
+          $.error('Method "' + method + '" does not exist on jqt.actionsheet' );
       }        
     };
 

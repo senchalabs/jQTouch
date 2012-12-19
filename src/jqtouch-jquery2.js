@@ -140,7 +140,7 @@
 
           setTimeout(function() {
               $marked = $el;
-              var mySelectors = jQT.settings.selectors.join(', ');
+              var mySelectors = jQT.settings.touchSelector;
               while ($marked.parent().is(mySelectors)) {
                 $marked = $marked.parent();
               }
