@@ -356,7 +356,7 @@
                 goBack();
                 return true;
             } else {
-                if( (history[1] && location.hash === history[1].hash) ) {
+                if (history[1] && location.hash === history[1].hash) {
                     goBack();
                     return true;
                 } else {
