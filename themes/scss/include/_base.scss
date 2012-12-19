@@ -54,7 +54,7 @@ body {
         display: none;
     }
 
-    &.touchscroll:not(.animating3d) {
+    &.touchscroll:not(.animating3d), &.autoscroll:not(.animating3d) {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
 
@@ -68,6 +68,13 @@ body {
             -webkit-overflow-scrolling: touch;
         }
     }
+
+    &.touchscroll:not(.animating3d) {
+        .scroll {
+            overflow-y: scroll;
+        }
+    }
+
     // Ensure margins don't collapse
     .scroll {
         -webkit-margin-collapse: separate;

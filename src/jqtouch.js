@@ -459,20 +459,18 @@
         }
 
         function orientationChangeHandler() {
-            $body.css('minHeight', 1000);
             scrollTo(0,0);
-            var bodyHeight = window.innerHeight;
-            $body.css('minHeight', bodyHeight);
-
             orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
+
         function setHash(hash) {
             // Sanitize
             if (jQTSettings.updateHash) {
                 location.hash = '#' + hash.replace(/^#/, '');
             }
         }
+
         function showPageByHref(href, options) {
 
             var defaults = {
@@ -514,6 +512,7 @@
                 settings.$referrer.unselect();
             }
         }
+
         function submitHandler(e, callback) {
 
             $(':focus').trigger('blur');
@@ -533,6 +532,7 @@
             }
             return true;
         }
+
         function submitParentForm($el) {
 
             var $form = $el.closest('form');
@@ -545,6 +545,7 @@
             }
             return true;
         }
+
         function supportForTransform3d() {
 
             var head, body, style, div, result;
@@ -573,6 +574,7 @@
             warn('Support for 3d transforms: ' + result);
             return result;
         }
+
         function supportIOS5() {
             var support = false;
             var REGEX_IOS_VERSION = /OS (\d+)(_\d+)* like Mac OS X/i;
@@ -583,6 +585,7 @@
             }
             return support;
         }
+
         function touchStartHandler(e){
 
             var $el = $(e.target),
@@ -608,6 +611,7 @@
             });
 
         }
+
         function tapHandler(e){
 
             if (e.isDefaultPrevented()) {
@@ -652,6 +656,7 @@
                 }
             }
         }
+
         function addDefaultTapHandlers() {
             addTapHandler({
                 name: 'external-link',
@@ -823,16 +828,21 @@
             if ($.support.transform3d) {
                 anatomy_lessons.push('supports3d');
             }
-            if ($.support.ios5 && jQTSettings.useTouchScroll) {
-                anatomy_lessons.push('touchscroll');
+
+            if (jQTSettings.useTouchScroll) {
+                if ($.support.ios5) {
+                    anatomy_lessons.push('touchscroll');
+                } else {
+                    anatomy_lessons.push('autoscroll');
+                }
             }
 
             if (jQTSettings.fullScreenClass && window.navigator.standalone === true) {
                 anatomy_lessons.push(jQTSettings.fullScreenClass, jQTSettings.statusBar);
             }
 
-            // Bind events
-            
+
+            // Bind events            
             $body
                 .addClass(anatomy_lessons.join(' '))
                 .bind('click', clickHandler)
@@ -841,7 +851,7 @@
                 .bind('tap', tapHandler)
                 .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
-            
+
             $(window).bind('hashchange', hashChangeHandler);
 
             var startHash = location.hash;
@@ -852,7 +862,7 @@
             } else {
                 $currentPage = $('#jqt > .current');
             }
-            
+
             setHash($currentPage.attr('id'));
             addPageToHistory($currentPage);
 
