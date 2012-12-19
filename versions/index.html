@@ -25,14 +25,23 @@
             }
             #jqt > * > * > h2 {
                 margin-top: 30px;
+                color: #DDD;
             }
             #jqt > * > * > h2:not(:first-of-kind) {
                 border-top: 1px dotted rgba(127, 127, 127, 0.5);
+            }
+            #jqt > * > * > h3 {
+                color: #CCC;
+                margin: 0 20px;
+                font-size: 0.9em;
             }
             #jqt > * > * > p {
                 margin: 20px 10px;
                 padding: 0 10px;
                 color: #CCC;
+            }
+            #jqt > * > * > h3 + p {
+                margin-top: 10px;
             }
             #jqt p img {
                 float: left;
@@ -89,6 +98,7 @@
                 <h1>New and Noteworthy (1.0 beta 5)</h1>
 
                 <h2>Actionsheet</h2>
+                <h3>Oct, 2012 - master</h3>
                 <p><img src="images/ActionSheet_Small.png"></img>
                     Actionsheet is similar to iOS's 
                     <a target="_blank" href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UIActionSheet_Class/Reference/Reference.html">UIActionSheet</a>.
@@ -136,6 +146,7 @@
 
                 
                 <h2>Menusheet</h2>
+                <h3>Oct, 2012 - master</h3>
                 <p><img src="images/MenuSheet_Small.png"></img>
                     Menusheet is first made popular by facebook app on iOS.
                     The menusheet hides beneath the main page and is revealed by a
@@ -163,13 +174,8 @@
                 <div class="clearfix"></div>
 
 
-                <h2>Animation Fixes</h2>
-                <p>Prior to this release, rapid taps on anchor before page 
-                   transition ended might cause page navigation to break. 
-                   The problem is fixed in this release.</p>
-
-
-                <h2>Test</h2>
+                <h2>Unit Tests</h2>
+                <h3>Dec 18th, 2012 - master</h3>
                 <p>We have added unit tests into this release.</p>
                 <p>They can be found under <span class="inlinecode">test/unit/</span>. 
                    Each test is a <span class="inlinecode">*.html</span> file 
@@ -179,8 +185,26 @@
 
                 
                 <h2>Init Options: updateHash</h2>
+                <h3>Dec 18th, 2012 - master</h3>
                 <p>When <span class="inlinecode">updateHash</span> is set to 
                   true (default), page navigation will cause the url hash(#) to be updated.</p>
+                  
+
+                <h2>Fixed Tap During Animation Break Navigation Bug</h2>
+                <h3>Nov 2012 - master</h3>
+                <p>Prior to this release, rapid taps on anchor before page 
+                   transition ended might cause page navigation to break. 
+                   The problem is fixed in this release.</p>
+
+
+                <h2>Fixed intermittent <span class="inlinecode">touchscroll</span> not-scrollable problem</h2>
+                <h3>Dec 19th, 2012 - master</h3>
+                <p>For <span class="inlinecode">.scroll</span>, 
+                <span class="inlinecode">overflow-y: scroll</span> is used instead.
+                Some old workaround on <span class="inlinecode">minHeight</span> 
+                is removed. Tested on iPhone 4s, iPad 3, Nexus 7 and Safari</p>
+
+
                 <br/>
                 <br/>
             </div>
