@@ -57,7 +57,7 @@ Credits
 
 Created, and still occasionally maintained, by [David Kaneda](http://www.davidkaneda.com).
 
-Maintained by [Thomas Yip](http://www.linkedin.com/in/thomasyip).
+Maintained by [Thomas Yip](https://github.com/thomasyip).
 
 Special thanks to [pinch/zoom](http://www.pinchzoom.com/) and [Jonathan Stark](http://jonathanstark.com/).
 
