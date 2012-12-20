@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../lib/test/test.css">
+  <title>jQTouch with Zepto</title>
+  <script src="../../lib/test/evidence.js"></script>
+  <script src="../../lib/test/evidence_runner.js"></script>
+  <script src="../../lib/zepto/zepto.js"></script>
+  <script src="../../src/jqtouch.js"></script>
+</head>
+<body>
+  <h1>Touch tests</h1>
+  <p id="results">
+    Running… see browser console for results
+  </p>
+
+  <style>
+    #test {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100px;
+      height: 50px;
+    }
+  </style>
+
+  <script>
+  (function(){
+    Evidence('BaiscTest', {
+      setUp: function(){
+        var $body = $('body');
+        var $jqt = $('<div id="jqt"></div>');
+        $body.append($jqt);
+
+        $jqt.append($('<div id="home"></div>'));
+        $jqt.append($('<div id="page"></div>'));
+      },
+
+      tearDown: function(){
+        var $jqt = $('#jqt');
+        $jqt.remove();
+      },
+
+      testInitNone: function(t) {
+        try {
+          var jqt = $.jQTouch();
+          t.assert(jqt !== undefined && jqt !== null);
+        } catch (e) {
+          console.error(e);
+          t.fail('Init failed');
+        }
+      },
+      
+      testInitEmpty: function(t) {
+        try {
+          var jqt = $.jQTouch({});
+          t.assert(jqt !== undefined && jqt !== null);
+        } catch (e) {
+          console.error(e);
+          t.fail('Init failed');
+        }
+      }
+    })
+
+  })()
+  </script>
+</body>
+</html>
