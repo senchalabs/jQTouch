@@ -186,9 +186,38 @@
                 
                 <h2>Init Options: updateHash</h2>
                 <h3>Dec 18th, 2012 - master</h3>
-                <p>When <span class="inlinecode">updateHash</span> is set to 
+                <p>When options <span class="inlinecode">updateHash</span> is set to 
                   true (default), page navigation will cause the url hash(#) to be updated.</p>
-                  
+                <div class="codecontainer">
+                  <pre class="brush: js; gutter: false; toolbar: false;">
+                     var jQT = new $.jQTouch({updateHash: false});
+                  </pre>
+                </div>
+
+                <h2>Init Options: starter (Experimental)</h2>
+                <h3>Dec 23rd, 2012 - master</h3>
+                <p>Added init options, <span class="inlinecode">starter</span>. By 
+                defaults, jQTouch is started upon 
+                <span class="inlinecode">$(document).ready.</span></p>
+                <p>For example, this option can be overridden:</p>
+                <p>- to work with dynamically loaded body. The relevant part of 
+                   the dom might not be available at 
+                   <span class="inlinecode">$(document).ready.</span></p>
+                <p>- to react upon user action</p>
+                <p>Here is some code example:</p>
+                <div class="codecontainer">
+                  <pre class="brush: js; gutter: false; toolbar: false;">
+                     function starter(start) {
+                        $(document).bind('ready', function() {
+                           $('#magic_button').bind('touchstart mousedown', function() {
+                               start();
+                           });
+                        });
+                     }
+                     var jQT = new $.jQTouch({starter: starter});
+                  </pre>
+                </div>
+
 
                 <h2>Fixed Tap During Animation Break Navigation Bug</h2>
                 <h3>Nov 2012 - master</h3>
