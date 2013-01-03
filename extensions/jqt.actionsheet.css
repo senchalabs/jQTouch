@@ -18,7 +18,7 @@
 #jqt.actionopened > .current:not(.actionsheet)::after {
     display: block;
     background-color: rgba(63, 63, 63, 0.6);
-    z-index: 0;
+    z-index: 10;
 }
 
 #jqt > .actionsheet {
