@@ -19,7 +19,7 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true */
+/*jshint camelcase:true, curly:true, eqeqeq:true */
 (function() {
 
     var fx;
@@ -415,7 +415,7 @@
             // Define public jQuery functions
             $.fn.isExternalLink = function() {
                 var $el = $(this);
-                return ($el.attr('target') == '_blank' || $el.attr('rel') == 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
+                return ($el.attr('target') === '_blank' || $el.attr('rel') === 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
             };
             $.fn.makeActive = function() {
                 return $(this).addClass('active');
@@ -481,7 +481,7 @@
 
         function orientationChangeHandler() {
             scrollTo(0,0);
-            orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
+            orientation = Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
 
@@ -496,8 +496,8 @@
         function start() {
             // Store some properties in a support object
             if (!$.support) { $.support = {}; }
-            $.support.animationEvents = (typeof window.WebKitAnimationEvent != 'undefined');
-            $.support.touch = (typeof window.TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
+            $.support.animationEvents = (typeof window.WebKitAnimationEvent !== 'undefined');
+            $.support.touch = (typeof window.TouchEvent !== 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
             $.support.ios5 = supportIOS5();
 
@@ -606,7 +606,7 @@
 
             var settings = $.extend({}, defaults, options);
 
-            if (href != '#') {
+            if (href !== '#') {
                 $.ajax({
                     url: href,
                     data: settings.data,
@@ -614,7 +614,7 @@
                     success: function (data) {
                         var firstPage = insertPages(data, settings.animation);
                         if (firstPage) {
-                            if (settings.method == 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
+                            if (settings.method === 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
                                 settings.$referrer.attr('href', '#' + firstPage.attr('id'));
                             }
                             if (settings.callback) {
