@@ -19,7 +19,7 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true */
+/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false */
 (function() {
 
     var fx;
@@ -108,10 +108,7 @@
             }
         }
         function addTapHandler(tapHandler) {
-            if (typeof(tapHandler.name) === 'string' 
-              && typeof(tapHandler.isSupported) === 'function'
-              && typeof(tapHandler.fn) === 'function') {
-            
+            if (typeof(tapHandler.name) === 'string' && typeof(tapHandler.isSupported) === 'function' && typeof(tapHandler.fn) === 'function') {
                 tapHandlers.push(tapHandler);
             }
         }
