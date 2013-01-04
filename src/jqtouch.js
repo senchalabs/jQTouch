@@ -209,7 +209,7 @@
                 
                 if (jQTSettings.trackScrollPositions === true) {
                     fromPage.data('lastScroll', lastScroll);
-                    $('.scroll', fromPage).each(function(){
+                    $('.scroll', fromPage).each(function() {
                         $(this).data('lastScroll', this.scrollTop);
                     });
                 }
@@ -244,10 +244,10 @@
 
                         // Have to make sure the scroll/style resets
                         // are outside the flow of this function.
-                        setTimeout(function(){
+                        setTimeout(function() {
                             toPage.css('top', 0);
                             window.scroll(0, toPage.data('lastScroll'));
-                            $('.scroll', toPage).each(function(){
+                            $('.scroll', toPage).each(function() {
                                 this.scrollTop = - $(this).data('lastScroll');
                             });
                         }, 0);
@@ -261,7 +261,7 @@
                 }
 
                 // In class is intentionally delayed, as it is our ghost click hack
-                setTimeout(function(){
+                setTimeout(function() {
                     toPage.removeClass('in');
                     window.scroll(0,0);
                 }, bufferTime);
@@ -526,7 +526,7 @@
             // Add animations
             for (var k=0, max_anims=defaults.animations.length; k < max_anims; k++) {
                 var animation = defaults.animations[k];
-                if(jQTSettings[animation.name + 'Selector'] !== undefined){
+                if (jQTSettings[animation.name + 'Selector'] !== undefined) {
                     animation.selector = jQTSettings[animation.name + 'Selector'];
                 }
                 addAnimation(animation);
@@ -709,7 +709,7 @@
             return support;
         }
 
-        function touchStartHandler(e){
+        function touchStartHandler(e) {
 
             var $el = $(e.target),
                 selectors = touchSelectors.join(', ');
@@ -725,17 +725,17 @@
             }
 
             // Remove our active class if we move
-            $el.on($.support.touch ? 'touchmove' : 'mousemove', function(){
+            $el.on($.support.touch ? 'touchmove' : 'mousemove', function() {
                 $el.removeClass('active');
             });
 
-            $el.on('touchend', function(){
+            $el.on('touchend', function() {
                 $el.unbind('touchmove mousemove');
             });
 
         }
 
-        function tapHandler(e){
+        function tapHandler(e) {
 
             if (e.isDefaultPrevented()) {
                 return true;
