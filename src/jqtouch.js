@@ -19,8 +19,10 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true, trailing:true, indent:4, white:true */
+/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true, trailing:true, indent:4, white:true, strict:true, browser:true, devel:true, jquery:true, prototypejs:true */
 (function () {
+    'use strict';
+
     var fx;
 
     if ('Zepto' in window) {
