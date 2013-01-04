@@ -81,19 +81,19 @@
                 useFastTouch: true,
                 useTouchScroll: true,
                 animations: [ // highest to lowest priority
-                    {name: 'cubeleft', selector: '.cubeleft, .cube', is3d: true},
-                    {name: 'cuberight', selector: '.cuberight', is3d: true},
-                    {name: 'dissolve', selector: '.dissolve'},
-                    {name: 'fade', selector: '.fade'},
-                    {name: 'flipleft', selector: '.flipleft, .flip', is3d: true},
-                    {name: 'flipright', selector: '.flipright', is3d: true},
-                    {name: 'pop', selector: '.pop', is3d: true},
-                    {name: 'swapleft', selector: '.swapleft, .swap', is3d: true},
-                    {name: 'swapright', selector: '.swapright', is3d: true},
-                    {name: 'slidedown', selector: '.slidedown'},
-                    {name: 'slideright', selector: '.slideright'},
-                    {name: 'slideup', selector: '.slideup'},
-                    {name: 'slideleft', selector: '.slideleft, .slide, #jqt > * > ul li a'}
+                    { name: 'cubeleft', selector: '.cubeleft, .cube', is3d: true },
+                    { name: 'cuberight', selector: '.cuberight', is3d: true },
+                    { name: 'dissolve', selector: '.dissolve' },
+                    { name: 'fade', selector: '.fade' },
+                    { name: 'flipleft', selector: '.flipleft, .flip', is3d: true },
+                    { name: 'flipright', selector: '.flipright', is3d: true },
+                    { name: 'pop', selector: '.pop', is3d: true },
+                    { name: 'swapleft', selector: '.swapleft, .swap', is3d: true },
+                    { name: 'swapright', selector: '.swapright', is3d: true },
+                    { name: 'slidedown', selector: '.slidedown' },
+                    { name: 'slideright', selector: '.slideright' },
+                    { name: 'slideup', selector: '.slideup' },
+                    { name: 'slideleft', selector: '.slideleft, .slide, #jqt > * > ul li a' }
                 ]
             }; // end defaults
 
@@ -486,7 +486,7 @@
                 $('#' + $node.attr('id')).remove();
 
                 $body.append($node);
-                $body.trigger('pageInserted', {page: $node});
+                $body.trigger('pageInserted', { page: $node });
 
                 if ($node.hasClass('current') || !targetPage) {
                     targetPage = $node;
@@ -505,7 +505,7 @@
             orientation = (Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait');
 
             scrollTo(0,0);
-            $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
+            $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', { orientation: orientation });
         }
 
         function setHash(hash) {
