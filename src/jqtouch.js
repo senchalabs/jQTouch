@@ -343,15 +343,13 @@
             } else if (location.hash === '') {
                 goBack();
                 return true;
+            } else if (history[1] && location.hash === history[1].hash) {
+                goBack();
+                return true;
             } else {
-                if (history[1] && location.hash === history[1].hash) {
-                    goBack();
-                    return true;
-                } else {
-                    // Lastly, just try going to the ID...
-                    warn('Could not find ID in history, just forwarding to DOM element.');
-                    goTo($(location.hash), jQTSettings.defaultAnimation);
-                }
+                // Lastly, just try going to the ID...
+                warn('Could not find ID in history, just forwarding to DOM element.');
+                goTo($(location.hash), jQTSettings.defaultAnimation);
             }
         }
         function initHairExtensions(options) {
