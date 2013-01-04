@@ -327,7 +327,7 @@
 
             var fromPage = history[0].page;
 
-            if (typeof animation === 'string') {
+            if (typeof(animation) === 'string') {
                 for (var i=0, max=animations.length; i < max; i++) {
                     if (animations[i].name === animation) {
                         animation = animations[i];
@@ -336,7 +336,7 @@
                 }
             }
 
-            if (typeof toPage === 'string') {
+            if (typeof(toPage) === 'string') {
                 var nextPage = $(toPage);
 
                 if (nextPage.length < 1) {
@@ -496,8 +496,8 @@
         function start() {
             // Store some properties in a support object
             if (!$.support) { $.support = {}; }
-            $.support.animationEvents = (typeof window.WebKitAnimationEvent !== 'undefined');
-            $.support.touch = (typeof window.TouchEvent !== 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
+            $.support.animationEvents = (typeof(window.WebKitAnimationEvent) !== 'undefined');
+            $.support.touch = (typeof(window.TouchEvent) !== 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
             $.support.ios5 = supportIOS5();
 
