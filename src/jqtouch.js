@@ -19,15 +19,15 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true, trailing:true */
-(function() {
+/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true, trailing:true, indent:4, white:true */
+(function () {
     var fx;
 
     if ('Zepto' in window) {
         fx = window.Zepto;
         fx.fn.prop = fx.fn.attr;
 
-        Event.prototype.isDefaultPrevented = function() {
+        Event.prototype.isDefaultPrevented = function () {
             return this.defaultPrevented;
         };
     } else if ('jQuery' in window) {
@@ -39,7 +39,7 @@
         throw ('Either Zepto or jQuery is required but neither can be found.');
     }
 
-    $.jQTouch = function(options) {
+    $.jQTouch = function (options) {
         // Initialize internal jQT variables
         var $ = fx,
             $body,
@@ -174,10 +174,10 @@
 
                         // Have to make sure the scroll/style resets
                         // are outside the flow of this function.
-                        setTimeout(function() {
+                        setTimeout(function () {
                             toPage.css('top', 0);
                             window.scroll(0, toPage.data('lastScroll'));
-                            $('.scroll', toPage).each(function() {
+                            $('.scroll', toPage).each(function () {
                                 this.scrollTop = - $(this).data('lastScroll');
                             });
                         }, 0);
@@ -192,7 +192,7 @@
 
                 // 'in' class is intentionally delayed,
                 // as it is our ghost click hack
-                setTimeout(function() {
+                setTimeout(function () {
                     toPage.removeClass('in');
                     window.scroll(0, 0);
                 }, bufferTime);
@@ -268,7 +268,7 @@
 
                 if (jQTSettings.trackScrollPositions === true) {
                     fromPage.data('lastScroll', lastScroll);
-                    $('.scroll', fromPage).each(function() {
+                    $('.scroll', fromPage).each(function () {
                         $(this).data('lastScroll', this.scrollTop);
                     });
                 }
@@ -429,15 +429,15 @@
 
         function initFXExtensions() {
             // Define public jQuery functions
-            $.fn.isExternalLink = function() {
+            $.fn.isExternalLink = function () {
                 var $el = $(this);
 
                 return ($el.attr('target') === '_blank' || $el.attr('rel') === 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
             };
-            $.fn.makeActive = function() {
+            $.fn.makeActive = function () {
                 return $(this).addClass('active');
             };
-            $.fn.unselect = function(obj) {
+            $.fn.unselect = function (obj) {
                 if (obj) {
                     obj.removeClass('active');
                 } else {
@@ -475,7 +475,7 @@
             div = document.createElement('div');
             div.innerHTML = nodes;
 
-            $(div).children().each(function() {
+            $(div).children().each(function () {
                 var $node = $(this);
 
                 if (!$node.attr('id')) {
@@ -758,11 +758,11 @@
             }
 
             // Remove our active class if we move
-            $el.on(($.support.touch ? 'touchmove' : 'mousemove'), function() {
+            $el.on(($.support.touch ? 'touchmove' : 'mousemove'), function () {
                 $el.removeClass('active');
             });
 
-            $el.on('touchend', function() {
+            $el.on('touchend', function () {
                 $el.unbind('touchmove mousemove');
             });
         }
@@ -816,40 +816,40 @@
         function addDefaultTapHandlers() {
             addTapHandler({
                 name: 'external-link',
-                isSupported: function(e, params) {
+                isSupported: function (e, params) {
                     return params.$el.isExternalLink();
                 },
-                fn: function(e, params) {
+                fn: function (e, params) {
                     params.$el.unselect();
                     return true;
                 }
             });
             addTapHandler({
                 name: 'back-selector',
-                isSupported: function(e, params) {
+                isSupported: function (e, params) {
                     return params.$el.is(params.jQTSettings.backSelector);
                 },
-                fn: function(e, params) {
+                fn: function (e, params) {
                     // User clicked or tapped a back button
                     goBack(params.hash);
                 }
             });
             addTapHandler({
                 name: 'submit-selector',
-                isSupported: function(e, params) {
+                isSupported: function (e, params) {
                     return params.$el.is(params.jQTSettings.submitSelector);
                 },
-                fn: function(e, params) {
+                fn: function (e, params) {
                     // User clicked or tapped a submit element
                     submitParentForm(params.$el);
                 }
             });
             addTapHandler({
                 name: 'webapp',
-                isSupported: function(e, params) {
+                isSupported: function (e, params) {
                     return params.target === '_webapp';
                 },
-                fn: function(e, params) {
+                fn: function (e, params) {
                     // User clicked or tapped an internal link, fullscreen mode
                     window.location = params.href;
                     return false;
@@ -857,10 +857,10 @@
             });
             addTapHandler({
                 name: 'no-op',
-                isSupported: function(e, params) {
+                isSupported: function (e, params) {
                     return params.href === '#';
                 },
-                fn: function(e, params) {
+                fn: function (e, params) {
                     // Allow tap on item with no href
                     params.$el.unselect();
                     return true;
@@ -868,10 +868,10 @@
             });
             addTapHandler({
                 name: 'standard',
-                isSupported: function(e, params) {
+                isSupported: function (e, params) {
                     return params.hash && params.hash !== '#';
                 },
-                fn: function(e, params) {
+                fn: function (e, params) {
                     var animation = getAnimation(params.$el);
 
                     // Internal href
@@ -886,17 +886,17 @@
             });
             addTapHandler({
                 name: 'external',
-                isSupported: function() {
+                isSupported: function () {
                     return true;
                 },
-                fn: function(e, params) {
+                fn: function (e, params) {
                     var animation = getAnimation(params.$el);
 
                     // External href
                     params.$el.addClass('loading active');
                     showPageByHref(params.$el.attr('href'), {
                         animation: animation,
-                        callback: function() {
+                        callback: function () {
                             params.$el.removeClass('loading');
                             setTimeout($.fn.unselect, 250, params.$el);
                         },
@@ -936,13 +936,13 @@
 
     // Extensions directly manipulate the jQTouch object,
     // before it's initialized
-    $.jQTouch.addExtension = function(extension) {
+    $.jQTouch.addExtension = function (extension) {
         $.jQTouch.prototype.extensions.push(extension);
     };
 
     // Experimental tap handlers that can bypass
     // default jQTouch tap handling
-    $.jQTouch.addTapHandler = function(extension) {
+    $.jQTouch.addTapHandler = function (extension) {
         $.jQTouch.prototype.tapHandlers.push(extension);
     };
 
