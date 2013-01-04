@@ -118,17 +118,17 @@
 
             // Prevent default if we found an internal link (relative or absolute)
             if ($el && $el.attr('href') && !$el.isExternalLink()) {
-                warn('Need to prevent default click behavior');
+                warn('Need to prevent default click behavior.');
                 e.preventDefault();
             } else {
-                warn('No need to prevent default click behavior');
+                warn('No need to prevent default click behavior.');
             }
 
             // Trigger a tap event if touchstart is not on the job
             if ($.support.touch) {
-                warn('Not converting click to a tap event because touch handler is on the job');
+                warn('Not converting click to a tap event because touch handler is on the job.');
             } else {
-                warn('Converting click event to a tap event because touch handlers are not present or off');
+                warn('Converting click event to a tap event because touch handlers are not present or off.');
                 $(e.target).trigger('tap', e);
             }
 
@@ -160,7 +160,7 @@
             if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
                 // Fail over to 2d animation if need be
                 if (!$.support.transform3d && animation.is3d) {
-                    warn('Did not detect support for 3d animations, falling back to ' + jQTSettings.defaultAnimation);
+                    warn('Did not detect support for 3d animations, falling back to ' + jQTSettings.defaultAnimation + '.');
                     animation.name = jQTSettings.defaultAnimation;
                 }
 
@@ -172,7 +172,7 @@
                     finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation);
                 }
 
-                warn('finalAnimationName is ' + finalAnimationName);
+                warn('finalAnimationName is ' + finalAnimationName + '.');
 
                 // Bind internal 'cleanup' callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
@@ -338,7 +338,7 @@
         }
         function hashChangeHandler(e) {
             if (location.hash === history[0].hash) {
-                warn('We are on the right panel');
+                warn('We are on the right panel.');
                 return true;
             } else if (location.hash === '') {
                 goBack();
@@ -641,9 +641,9 @@
 
             var $form = $el.closest('form');
             if ($form.length === 0) {
-                warn('No parent form found');
+                warn('No parent form found.');
             } else {
-                warn('About to submit parent form');
+                warn('About to submit parent form.');
                 $form.trigger('submit');
                 return false;
             }
@@ -675,7 +675,7 @@
             div.parentNode.removeChild(div);
 
             // Pass back result
-            warn('Support for 3d transforms: ' + result);
+            warn('Support for 3d transforms: ' + result + '.');
             return result;
         }
 
@@ -732,7 +732,7 @@
 
             // Make sure we have a tappable element
             if (!$el.length || !$el.attr('href')) {
-                warn('Could not find a link related to tapped element');
+                warn('Could not find a link related to tapped element.');
                 return true;
             }
 
