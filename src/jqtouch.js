@@ -68,7 +68,7 @@
                 fullScreen: true,
                 fullScreenClass: 'fullscreen',
                 icon: null,
-                icon4: null, // available in iOS 4.2 and later.
+                icon4: null, // available in iOS 4.2 and later
                 preloadImages: false,
                 starter: $(document).ready,
                 startupScreen: null,
@@ -132,7 +132,8 @@
                 $el = $(e.target).closest(touchSelectors.join(', '));
             }
 
-            // Prevent default if we found an internal link (relative or absolute)
+            // Prevent default if we found an internal link
+            // (relative or absolute)
             if ($el && $el.attr('href') && !$el.isExternalLink()) {
                 warn('Need to prevent default click behavior.');
                 e.preventDefault();
@@ -161,7 +162,7 @@
                 return false;
             }
 
-            // Error check for fromPage===toPage
+            // Error check for fromPage === toPage
             if (toPage.hasClass('current')) {
                 $.fn.unselect();
                 warn('You are already on the page you are trying to navigate to.');
@@ -199,7 +200,8 @@
 
                 lastScroll = window.pageYOffset;
 
-                // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
+                // Position the incoming page so toolbar is at top of
+                // viewport regardless of scroll position on from page
                 if (jQTSettings.trackScrollPositions === true) {
                     toPage.css('top', window.pageYOffset - (toPage.data('lastScroll') || 0));
                 }
@@ -260,7 +262,8 @@
                     bufferTime += 260;
                 }
 
-                // In class is intentionally delayed, as it is our ghost click hack
+                // 'in' class is intentionally delayed,
+                // as it is our ghost click hack
                 setTimeout(function() {
                     toPage.removeClass('in');
                     window.scroll(0,0);
@@ -381,7 +384,8 @@
                 }
             }
 
-            // Set appropriate icon (retina display available in iOS 4.2 and later.)
+            // Set appropriate icon
+            // (retina display available in iOS 4.2 and later.)
             precomposed = (jQTSettings.addGlossToIcon ? '' : '-precomposed');
             if (jQTSettings.icon) {
                 hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
@@ -454,8 +458,9 @@
 
             targetPage = null;
 
-            // Call dom.createElement element directly instead of relying on $(nodes),
-            // to work around: https://github.com/madrobby/zepto/issues/312
+            // Call dom.createElement element directly
+            // instead of relying on $(nodes), to work around:
+            // https://github.com/madrobby/zepto/issues/312
             div = document.createElement('div');
             div.innerHTML = nodes;
 
@@ -915,12 +920,14 @@
     $.jQTouch.prototype.extensions = [];
     $.jQTouch.prototype.tapHandlers = [];
 
-    // Extensions directly manipulate the jQTouch object, before it's initialized.
+    // Extensions directly manipulate the jQTouch object,
+    // before it's initialized
     $.jQTouch.addExtension = function(extension) {
         $.jQTouch.prototype.extensions.push(extension);
     };
     
-    // Experimental tap handlers that can bypass default jQTouch tap handling
+    // Experimental tap handlers that can bypass
+    // default jQTouch tap handling
     $.jQTouch.addTapHandler = function(extension) {
         $.jQTouch.prototype.tapHandlers.push(extension);
     };
