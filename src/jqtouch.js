@@ -513,15 +513,15 @@
             }
 
             // Add extensions tapHandlers
-            for (var i=0, max=extTapHandlers.length; i < max; i++) {
-                addTapHandler(extTapHandlers[i]);
+            for (var j=0, max_tap=extTapHandlers.length; j < max_tap; j++) {
+                addTapHandler(extTapHandlers[j]);
             }
             // Add default tapHandlers
             addDefaultTapHandlers();
 
             // Add animations
-            for (var j=0, max_anims=defaults.animations.length; j < max_anims; j++) {
-                var animation = defaults.animations[j];
+            for (var k=0, max_anims=defaults.animations.length; k < max_anims; k++) {
+                var animation = defaults.animations[k];
                 if(jQTSettings[animation.name + 'Selector'] !== undefined){
                     animation.selector = jQTSettings[animation.name + 'Selector'];
                 }
