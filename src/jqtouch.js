@@ -36,7 +36,7 @@
         // trick to get Zepto/touch.js to work for jQuery
         window.Zepto = $;
     } else {
-        throw('Either Zepto or jQuery is required but neither can be found.');
+        throw ('Either Zepto or jQuery is required but neither can be found.');
     }
 
     $.jQTouch = function(options) {
@@ -194,7 +194,7 @@
                 // as it is our ghost click hack
                 setTimeout(function() {
                     toPage.removeClass('in');
-                    window.scroll(0,0);
+                    window.scroll(0, 0);
                 }, bufferTime);
 
                 fromPage.unselect();
@@ -504,7 +504,7 @@
         function orientationChangeHandler() {
             orientation = (Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait');
 
-            scrollTo(0,0);
+            scrollTo(0, 0);
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', { orientation: orientation });
         }
 
@@ -803,7 +803,7 @@
             };
 
             // Loop thru all handlers
-            for (i = 0, len = tapHandlers.length; i<len; i++) {
+            for (i = 0, len = tapHandlers.length; i < len; i++) {
                 handler = tapHandlers[i];
                 supported = handler.isSupported(e, params);
                 if (supported) {
