@@ -19,7 +19,7 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true */
+/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true, trailing:true */
 (function() {
     var fx;
 
@@ -258,10 +258,10 @@
                 if (jQTSettings.trackScrollPositions === true) {
                     toPage.css('top', window.pageYOffset - (toPage.data('lastScroll') || 0));
                 }
-                
+
                 toPage.addClass(finalAnimationName + ' in current');
                 fromPage.removeClass('current').addClass(finalAnimationName + ' out inmotion');
-                
+
                 if (jQTSettings.trackScrollPositions === true) {
                     fromPage.data('lastScroll', lastScroll);
                     $('.scroll', fromPage).each(function() {
@@ -273,7 +273,7 @@
                 fromPage.removeClass('current');
                 navigationEndHandler();
             }
-            
+
             // Housekeeping
             $currentPage = toPage;
             if (goingBack) {
@@ -575,7 +575,7 @@
                 anatomyLessons.push(jQTSettings.fullScreenClass, jQTSettings.statusBar);
             }
 
-            // Bind events            
+            // Bind events
             $body
                 .addClass(anatomyLessons.join(' '))
                 .bind('click', clickHandler)
@@ -783,7 +783,7 @@
                 href: href,
                 jQTSettings: jQTSettings
             };
-            
+
             // Loop thru all handlers
             for (i=0, len=tapHandlers.length; i<len; i++) {
                 handler = tapHandlers[i];
@@ -859,8 +859,8 @@
                     // Internal href
                     params.$el.addClass('active');
                     goTo(
-                        $(params.hash).data('referrer', params.$el), 
-                        animation, 
+                        $(params.hash).data('referrer', params.$el),
+                        animation,
                         params.$el.hasClass('reverse')
                     );
                     return false;
@@ -873,7 +873,7 @@
                 },
                 fn: function(e, params) {
                     var animation = getAnimation(params.$el);
-      
+
                     // External href
                     params.$el.addClass('loading active');
                     showPageByHref(params.$el.attr('href'), {
@@ -912,7 +912,7 @@
         };
         return publicObj;
     };
-    
+
     $.jQTouch.prototype.extensions = [];
     $.jQTouch.prototype.tapHandlers = [];
 
@@ -921,7 +921,7 @@
     $.jQTouch.addExtension = function(extension) {
         $.jQTouch.prototype.extensions.push(extension);
     };
-    
+
     // Experimental tap handlers that can bypass
     // default jQTouch tap handling
     $.jQTouch.addTapHandler = function(extension) {
