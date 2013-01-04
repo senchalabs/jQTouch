@@ -154,7 +154,7 @@
         }
         function doNavigation(fromPage, toPage, animation, goingBack) {
 
-            goingBack = goingBack ? goingBack : false;
+            goingBack = (goingBack ? goingBack : false);
 
             // Error check for target page
             if (toPage === undefined || toPage.length === 0) {
@@ -185,7 +185,7 @@
 
                 // Reverse animation if need be
                 var finalAnimationName = animation.name,
-                    is3d = animation.is3d ? 'animating3d' : '';
+                    is3d = (animation.is3d ? 'animating3d' : '');
 
                 if (goingBack) {
                     finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation);
@@ -380,7 +380,7 @@
             }
 
             // Set appropriate icon (retina display available in iOS 4.2 and later.)
-            var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
+            var precomposed = (jQTSettings.addGlossToIcon ? '' : '-precomposed');
             if (jQTSettings.icon) {
                 hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
             }
@@ -481,7 +481,7 @@
 
         function orientationChangeHandler() {
             scrollTo(0,0);
-            orientation = Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait';
+            orientation = (Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait');
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
 
@@ -572,7 +572,7 @@
                 .bind('orientationchange', orientationChangeHandler)
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
-                .bind($.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
+                .bind(($.support.touch ? 'touchstart' : 'mousedown'), touchStartHandler)
                 .trigger('orientationchange');
 
             $(window).bind('hashchange', hashChangeHandler);
@@ -642,7 +642,7 @@
 
             e.preventDefault();
 
-            var $form = (typeof(e)==='string') ? $(e).eq(0) : (e.target ? $(e.target) : $(e));
+            var $form = (typeof(e)==='string' ? $(e).eq(0) : (e.target ? $(e.target) : $(e)));
 
             if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
                 showPageByHref($form.attr('action'), {
@@ -725,7 +725,7 @@
             }
 
             // Remove our active class if we move
-            $el.on($.support.touch ? 'touchmove' : 'mousemove', function() {
+            $el.on(($.support.touch ? 'touchmove' : 'mousemove'), function() {
                 $el.removeClass('active');
             });
 
