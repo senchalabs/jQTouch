@@ -19,7 +19,7 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true */
+/*jshint camelcase:true, curly:true */
 (function() {
 
     var fx;
@@ -495,7 +495,7 @@
         // Document ready stuff
         function start() {
             // Store some properties in a support object
-            if (!$.support) $.support = {};
+            if (!$.support) { $.support = {}; }
             $.support.animationEvents = (typeof window.WebKitAnimationEvent != 'undefined');
             $.support.touch = (typeof window.TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
