@@ -148,7 +148,6 @@
             } else {
                 warn('Not converting click to a tap event because touch handler is on the job.');
             }
-
         }
         function doNavigation(fromPage, toPage, animation, goingBack) {
             goingBack = (goingBack ? goingBack : false);
@@ -323,7 +322,6 @@
                 warn('Could not go back.');
                 return false;
             }
-
         }
         function goTo(toPage, animation) {
             var fromPage, i, max, nextPage;
@@ -577,7 +575,6 @@
                 anatomyLessons.push(jQTSettings.fullScreenClass, jQTSettings.statusBar);
             }
 
-
             // Bind events            
             $body
                 .addClass(anatomyLessons.join(' '))
@@ -750,7 +747,6 @@
             $el.on('touchend', function() {
                 $el.unbind('touchmove mousemove');
             });
-
         }
 
         function tapHandler(e) {
