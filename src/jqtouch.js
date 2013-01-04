@@ -570,7 +570,7 @@
             if ($(startHash).length === 1) {
                 goTo(startHash);
             }
-        };
+        }
 
         function showPageByHref(href, options) {
 
@@ -849,7 +849,7 @@
                     return false;
                 }
             });
-        };
+        }
 
         // Get the party started
         jQTSettings = $.extend({}, defaults, options);
