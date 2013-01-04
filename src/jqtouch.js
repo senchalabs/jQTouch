@@ -883,7 +883,7 @@
         $.jQTouch.prototype.extensions.push(extension);
     };
     
-    // Experimental tap hanlders that can bypass default jQTouch tap handling
+    // Experimental tap handlers that can bypass default jQTouch tap handling
     $.jQTouch.addTapHandler = function(extension) {
         $.jQTouch.prototype.tapHandlers.push(extension);
     };
