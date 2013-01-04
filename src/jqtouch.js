@@ -150,7 +150,6 @@
 
         }
         function doNavigation(fromPage, toPage, animation, goingBack) {
-
             goingBack = (goingBack ? goingBack : false);
 
             // Error check for target page
@@ -477,8 +476,9 @@
         }
 
         function orientationChangeHandler() {
-            scrollTo(0,0);
             orientation = (Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait');
+
+            scrollTo(0,0);
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
 
