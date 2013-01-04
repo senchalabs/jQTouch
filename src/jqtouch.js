@@ -83,11 +83,13 @@
                 console.warn(message);
             }
         }
+
         function addAnimation(animation) {
             if (typeof(animation.selector) === 'string' && typeof(animation.name) === 'string') {
                 animations.push(animation);
             }
         }
+
         function addTapHandler(tapHandler) {
             if (typeof(tapHandler.name) === 'string'
               && typeof(tapHandler.isSupported) === 'function'
@@ -96,6 +98,7 @@
                 tapHandlers.push(tapHandler);
             }
         }
+
         function addPageToHistory(page, animation) {
             history.unshift({
                 page: page,
@@ -133,6 +136,7 @@
                 $(e.target).trigger('tap', e);
             }
         }
+
         function doNavigation(fromPage, toPage, animation, goingBack) {
 
             goingBack = goingBack ? goingBack : false;
@@ -268,6 +272,7 @@
 
             return true;
         }
+
         function reverseAnimation(animation) {
             var opposites={
                 'up' : 'down',
@@ -280,11 +285,12 @@
 
             return opposites[animation] || animation;
         }
+
         function getOrientation() {
             return orientation;
         }
-        function goBack() {
 
+        function goBack() {
             // Error checking
             if (history.length < 1) {
                 warn('History is empty.');
@@ -305,8 +311,8 @@
                 return false;
             }
         }
-        function goTo(toPage, animation) {
 
+        function goTo(toPage, animation) {
             var fromPage = history[0].page;
 
             if (typeof animation === 'string') {
@@ -337,6 +343,7 @@
                 return false;
             }
         }
+
         function hashChangeHandler(e) {
             if (location.hash === history[0].hash) {
                 warn('We are on the right panel.');
@@ -353,6 +360,7 @@
                 goTo($(location.hash), jQTSettings.defaultAnimation);
             }
         }
+
         function initHairExtensions(options) {
             // Preload images
             if (jQTSettings.preloadImages) {
