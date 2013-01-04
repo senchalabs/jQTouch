@@ -19,7 +19,7 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single */
+/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true */
 (function() {
 
     var fx;
@@ -231,7 +231,7 @@
             setHash($currentPage.attr('id'));
 
             // Private navigationEnd callback
-            function navigationEndHandler(event) {
+            function navigationEndHandler() {
                 var bufferTime = tapBuffer;
 
                 if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
@@ -355,7 +355,7 @@
                 return false;
             }
         }
-        function hashChangeHandler(e) {
+        function hashChangeHandler() {
             if (location.hash === history[0].hash) {
                 warn('We are on the right panel');
                 return true;
@@ -371,7 +371,7 @@
                 goTo($(location.hash), jQTSettings.defaultAnimation);
             }
         }
-        function initHairExtensions(options) {
+        function initHairExtensions() {
             // Preload images
             if (jQTSettings.preloadImages) {
                 for (var i = jQTSettings.preloadImages.length - 1; i >= 0; i--) {
@@ -455,7 +455,7 @@
             var div = document.createElement('div');
             div.innerHTML = nodes;
 
-            $(div).children().each(function(index, node) {
+            $(div).children().each(function() {
                 var $node = $(this);
                 if (!$node.attr('id')) {
                     $node.attr('id', 'page-' + (++newPageCount));
@@ -622,7 +622,7 @@
                             }
                         }
                     },
-                    error: function (data) {
+                    error: function () {
                         if (settings.$referrer) {
                             settings.$referrer.unselect();
                         }
@@ -852,7 +852,7 @@
             });
             addTapHandler({
                 name: 'external',
-                isSupported: function(e, params) {
+                isSupported: function() {
                     return true;
                 },
                 fn: function(e, params) {
@@ -876,7 +876,7 @@
         // Get the party started
         jQTSettings = $.extend({}, defaults, options);
 
-        initHairExtensions(options);
+        initHairExtensions();
 
         initFXExtensions();
 
