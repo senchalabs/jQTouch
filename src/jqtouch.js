@@ -143,11 +143,11 @@
             }
 
             // Trigger a tap event if touchstart is not on the job
-            if ($.support.touch) {
-                warn('Not converting click to a tap event because touch handler is on the job');
-            } else {
+            if (!$.support.touch) {
                 warn('Converting click event to a tap event because touch handlers are not present or off');
                 $(e.target).trigger('tap', e);
+            } else {
+                warn('Not converting click to a tap event because touch handler is on the job');
             }
 
         }
@@ -658,12 +658,12 @@
         function submitParentForm($el) {
 
             var $form = $el.closest('form');
-            if ($form.length === 0) {
-                warn('No parent form found');
-            } else {
+            if ($form.length !== 0) {
                 warn('About to submit parent form');
                 $form.trigger('submit');
                 return false;
+            } else {
+                warn('No parent form found');
             }
             return true;
         }
