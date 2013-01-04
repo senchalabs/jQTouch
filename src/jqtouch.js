@@ -19,7 +19,7 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true, trailing:true, indent:4, white:true, strict:true, browser:true, devel:true, jquery:true, prototypejs:true */
+/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true, trailing:true, indent:4, white:true, strict:true, browser:true, devel:true, jquery:true, prototypejs:true, undef:true */
 (function () {
     'use strict';
 
