@@ -186,7 +186,7 @@
                     is3d = animation.is3d ? 'animating3d' : '';
 
                 if (goingBack) {
-                    finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation );
+                    finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation);
                 }
 
                 warn('finalAnimationName is ' + finalAnimationName);
@@ -297,11 +297,11 @@
         function goBack() {
 
             // Error checking
-            if (history.length < 1 ) {
+            if (history.length < 1) {
                 warn('History is empty.');
             }
 
-            if (history.length === 1 ) {
+            if (history.length === 1) {
                 warn('You are on the first panel.');
                 window.history.go(-1);
             }
@@ -568,7 +568,7 @@
                 .bind('orientationchange', orientationChangeHandler)
                 .bind('submit', submitHandler)
                 .bind('tap', tapHandler)
-                .bind( $.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
+                .bind($.support.touch ? 'touchstart' : 'mousedown', touchStartHandler)
                 .trigger('orientationchange');
 
             $(window).bind('hashchange', hashChangeHandler);
