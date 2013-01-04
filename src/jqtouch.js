@@ -102,16 +102,19 @@
                 console.warn(message);
             }
         }
+
         function addAnimation(animation) {
             if (typeof(animation.selector) === 'string' && typeof(animation.name) === 'string') {
                 animations.push(animation);
             }
         }
+
         function addTapHandler(tapHandler) {
             if (typeof(tapHandler.name) === 'string' && typeof(tapHandler.isSupported) === 'function' && typeof(tapHandler.fn) === 'function') {
                 tapHandlers.push(tapHandler);
             }
         }
+
         function addPageToHistory(page, animation) {
             history.unshift({
                 page: page,
@@ -149,6 +152,7 @@
                 warn('Not converting click to a tap event because touch handler is on the job.');
             }
         }
+
         function doNavigation(fromPage, toPage, animation, goingBack) {
             goingBack = (goingBack ? goingBack : false);
 
@@ -285,6 +289,7 @@
 
             return true;
         }
+
         function reverseAnimation(animation) {
             var opposites={
                 'up' : 'down',
@@ -297,9 +302,11 @@
 
             return opposites[animation] || animation;
         }
+
         function getOrientation() {
             return orientation;
         }
+
         function goBack() {
             var from, to;
 
@@ -323,6 +330,7 @@
                 return false;
             }
         }
+
         function goTo(toPage, animation) {
             var fromPage, i, max, nextPage;
 
@@ -356,6 +364,7 @@
                 return false;
             }
         }
+
         function hashChangeHandler() {
             if (location.hash === history[0].hash) {
                 warn('We are on the right panel.');
@@ -372,6 +381,7 @@
                 goTo($(location.hash), jQTSettings.defaultAnimation);
             }
         }
+
         function initHairExtensions() {
             var i, precomposed;
 
