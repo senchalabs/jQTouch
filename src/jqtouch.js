@@ -88,12 +88,12 @@
             }
         }
         function addTapHandler(tapHandler) {
-          if (typeof(tapHandler.name) === 'string' 
+            if (typeof(tapHandler.name) === 'string' 
               && typeof(tapHandler.isSupported) === 'function'
               && typeof(tapHandler.fn) === 'function') {
             
-              tapHandlers.push(tapHandler);
-          }
+                tapHandlers.push(tapHandler);
+            }
         }
         function addPageToHistory(page, animation) {
             history.unshift({
@@ -218,7 +218,7 @@
                     fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
                     fromPage.removeClass(finalAnimationName + ' out inmotion');
                     if (finalAnimationName) {
-                      toPage.removeClass(finalAnimationName);
+                        toPage.removeClass(finalAnimationName);
                     }
                     $body.removeClass('animating animating3d');
                     if (jQTSettings.trackScrollPositions === true) {
@@ -237,7 +237,7 @@
                 } else {
                     fromPage.removeClass(finalAnimationName + ' out inmotion');
                     if (finalAnimationName) {
-                      toPage.removeClass(finalAnimationName);
+                        toPage.removeClass(finalAnimationName);
                     }
                     bufferTime += 260;
                 }
@@ -252,10 +252,14 @@
 
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', {
-                    direction:'in', animation: animation, back: goingBack
+                    direction:'in',
+                    animation: animation,
+                    back: goingBack
                 });
                 fromPage.trigger('pageAnimationEnd', {
-                    direction:'out', animation: animation, back: goingBack
+                    direction:'out',
+                    animation: animation,
+                    back: goingBack
                 });
             }
 
