@@ -19,10 +19,10 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false */
+/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true */
 (function() {
-
     var fx;
+
     if ('Zepto' in window) {
         fx = window.Zepto;
         fx.fn.prop = fx.fn.attr;
@@ -152,6 +152,8 @@
         function doNavigation(fromPage, toPage, animation, goingBack) {
             goingBack = (goingBack ? goingBack : false);
 
+            var finalAnimationName, is3d, lastScroll;
+
             // Error check for target page
             if (toPage === undefined || toPage.length === 0) {
                 $.fn.unselect();
@@ -180,8 +182,8 @@
                 }
 
                 // Reverse animation if need be
-                var finalAnimationName = animation.name,
-                    is3d = (animation.is3d ? 'animating3d' : '');
+                finalAnimationName = animation.name;
+                is3d = (animation.is3d ? 'animating3d' : '');
 
                 if (goingBack) {
                     finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation);
@@ -195,7 +197,7 @@
                 // Trigger animations
                 $body.addClass('animating ' + is3d);
 
-                var lastScroll = window.pageYOffset;
+                lastScroll = window.pageYOffset;
 
                 // Position the incoming page so toolbar is at top of viewport regardless of scroll position on from page
                 if (jQTSettings.trackScrollPositions === true) {
@@ -297,6 +299,7 @@
             return orientation;
         }
         function goBack() {
+            var from, to;
 
             // Error checking
             if (history.length < 1) {
@@ -308,8 +311,8 @@
                 window.history.go(-1);
             }
 
-            var from = history[0],
-                to = history[1];
+            from = history[0];
+            to = history[1];
 
             if (doNavigation(from.page, to.page, from.animation, true)) {
                 return publicObj;
@@ -320,11 +323,12 @@
 
         }
         function goTo(toPage, animation) {
+            var fromPage, i, max, nextPage;
 
-            var fromPage = history[0].page;
+            fromPage = history[0].page;
 
             if (typeof(animation) === 'string') {
-                for (var i=0, max=animations.length; i < max; i++) {
+                for (i=0, max=animations.length; i < max; i++) {
                     if (animations[i].name === animation) {
                         animation = animations[i];
                         break;
@@ -333,7 +337,7 @@
             }
 
             if (typeof(toPage) === 'string') {
-                var nextPage = $(toPage);
+                nextPage = $(toPage);
 
                 if (nextPage.length < 1) {
                     showPageByHref(toPage, {
@@ -368,15 +372,17 @@
             }
         }
         function initHairExtensions() {
+            var i, precomposed;
+
             // Preload images
             if (jQTSettings.preloadImages) {
-                for (var i = jQTSettings.preloadImages.length - 1; i >= 0; i--) {
+                for (i = jQTSettings.preloadImages.length - 1; i >= 0; i--) {
                     (new Image()).src = jQTSettings.preloadImages[i];
                 }
             }
 
             // Set appropriate icon (retina display available in iOS 4.2 and later.)
-            var precomposed = (jQTSettings.addGlossToIcon ? '' : '-precomposed');
+            precomposed = (jQTSettings.addGlossToIcon ? '' : '-precomposed');
             if (jQTSettings.icon) {
                 hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" href="' + jQTSettings.icon + '" />';
             }
@@ -411,6 +417,7 @@
             // Define public jQuery functions
             $.fn.isExternalLink = function() {
                 var $el = $(this);
+
                 return ($el.attr('target') === '_blank' || $el.attr('rel') === 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
             };
             $.fn.makeActive = function() {
@@ -426,9 +433,9 @@
         }
 
         function getAnimation(el) {
-            var animation;
+            var animation, i, max;
 
-            for (var i=0, max=animations.length; i < max; i++) {
+            for (i=0, max=animations.length; i < max; i++) {
                 if (el.is(animations[i].selector)) {
                     animation = animations[i];
                     break;
@@ -443,16 +450,18 @@
         }
 
         function insertPages(nodes, animation) {
+            var div, targetPage;
 
-            var targetPage = null;
+            targetPage = null;
 
             // Call dom.createElement element directly instead of relying on $(nodes),
             // to work around: https://github.com/madrobby/zepto/issues/312
-            var div = document.createElement('div');
+            div = document.createElement('div');
             div.innerHTML = nodes;
 
             $(div).children().each(function() {
                 var $node = $(this);
+
                 if (!$node.attr('id')) {
                     $node.attr('id', 'page-' + (++newPageCount));
                 }
@@ -491,6 +500,8 @@
 
         // Document ready stuff
         function start() {
+            var anatomyLessons, animation, fn, i, j, k, max, maxAnims, maxTap, startHash;
+
             // Store some properties in a support object
             if (!$.support) { $.support = {}; }
             $.support.animationEvents = (typeof(window.WebKitAnimationEvent) !== 'undefined');
@@ -506,23 +517,23 @@
             }
 
             // Add extensions
-            for (var i=0, max=extensions.length; i < max; i++) {
-                var fn = extensions[i];
+            for (i=0, max=extensions.length; i < max; i++) {
+                fn = extensions[i];
                 if ($.isFunction(fn)) {
                     $.extend(publicObj, fn(publicObj));
                 }
             }
 
             // Add extensions tapHandlers
-            for (var j=0, maxTap=extTapHandlers.length; j < maxTap; j++) {
+            for (j=0, maxTap=extTapHandlers.length; j < maxTap; j++) {
                 addTapHandler(extTapHandlers[j]);
             }
             // Add default tapHandlers
             addDefaultTapHandlers();
 
             // Add animations
-            for (var k=0, maxAnims=defaults.animations.length; k < maxAnims; k++) {
-                var animation = defaults.animations[k];
+            for (k=0, maxAnims=defaults.animations.length; k < maxAnims; k++) {
+                animation = defaults.animations[k];
                 if (jQTSettings[animation.name + 'Selector'] !== undefined) {
                     animation.selector = jQTSettings[animation.name + 'Selector'];
                 }
@@ -537,7 +548,7 @@
 
             // Make sure we have a jqt element
             $body = $('#jqt');
-            var anatomyLessons = [];
+            anatomyLessons = [];
 
             if ($body.length === 0) {
                 warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
@@ -574,7 +585,7 @@
 
             $(window).bind('hashchange', hashChangeHandler);
 
-            var startHash = location.hash;
+            startHash = location.hash;
 
             // Determine what the initial view should be
             if ($('#jqt > .current').length === 0) {
@@ -592,8 +603,9 @@
         }
 
         function showPageByHref(href, options) {
+            var defaults, settings;
 
-            var defaults = {
+            defaults = {
                 data: null,
                 method: 'GET',
                 animation: null,
@@ -601,7 +613,7 @@
                 $referrer: null
             };
 
-            var settings = $.extend({}, defaults, options);
+            settings = $.extend({}, defaults, options);
 
             if (href !== '#') {
                 $.ajax({
@@ -610,6 +622,7 @@
                     type: settings.method,
                     success: function (data) {
                         var firstPage = insertPages(data, settings.animation);
+
                         if (firstPage) {
                             if (settings.method === 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
                                 settings.$referrer.attr('href', '#' + firstPage.attr('id'));
@@ -634,12 +647,13 @@
         }
 
         function submitHandler(e, callback) {
+            var $form;
 
             $(':focus').trigger('blur');
 
             e.preventDefault();
 
-            var $form = (typeof(e)==='string' ? $(e).eq(0) : (e.target ? $(e.target) : $(e)));
+            $form = (typeof(e)==='string' ? $(e).eq(0) : (e.target ? $(e.target) : $(e)));
 
             if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
                 showPageByHref($form.attr('action'), {
@@ -654,8 +668,8 @@
         }
 
         function submitParentForm($el) {
-
             var $form = $el.closest('form');
+
             if ($form.length !== 0) {
                 warn('About to submit parent form');
                 $form.trigger('submit');
@@ -667,8 +681,7 @@
         }
 
         function supportForTransform3d() {
-
-            var head, body, style, div, result;
+            var body, div, head, result, style;
 
             head = document.getElementsByTagName('head')[0];
             body = document.body;
@@ -696,10 +709,12 @@
         }
 
         function supportIOS5() {
-            var support = false;
-            var REGEX_IOS_VERSION = /OS (\d+)(_\d+)* like Mac OS X/i;
-  
-            var agentString = window.navigator.userAgent;
+            var REGEX_IOS_VERSION, agentString, support;
+
+            support = false;
+            REGEX_IOS_VERSION = /OS (\d+)(_\d+)* like Mac OS X/i;
+            agentString = window.navigator.userAgent;
+
             if (REGEX_IOS_VERSION.test(agentString)) {
                 support = (REGEX_IOS_VERSION.exec(agentString)[1] >= 5);
             }
@@ -707,9 +722,10 @@
         }
 
         function touchStartHandler(e) {
+            var $el, selectors;
 
-            var $el = $(e.target),
-                selectors = touchSelectors.join(', ');
+            $el = $(e.target);
+            selectors = touchSelectors.join(', ');
 
             // Find the nearest tappable ancestor
             if (!$el.is(selectors)) {
@@ -733,13 +749,14 @@
         }
 
         function tapHandler(e) {
+            var $el, flag, handler, hash, href, i, len, params, supported, target;
 
             if (e.isDefaultPrevented()) {
                 return true;
             }
 
             // Grab the target element
-            var $el = $(e.target);
+            $el = $(e.target);
 
             // Find the nearest tappable ancestor
             if (!$el.is(touchSelectors.join(', '))) {
@@ -753,11 +770,11 @@
             }
 
             // Init some vars
-            var target = $el.attr('target'),
-                hash = $el.prop('hash'),
-                href = $el.attr('href');
+            target = $el.attr('target');
+            hash = $el.prop('hash');
+            href = $el.attr('href');
 
-            var params = {
+            params = {
                 e: e,
                 $el: $el,
                 target: target,
@@ -767,11 +784,11 @@
             };
             
             // Loop thru all handlers
-            for (var i=0, len=tapHandlers.length; i<len; i++) {
-                var handler = tapHandlers[i];
-                var supported = handler.isSupported(e, params);
+            for (i=0, len=tapHandlers.length; i<len; i++) {
+                handler = tapHandlers[i];
+                supported = handler.isSupported(e, params);
                 if (supported) {
-                    var flag = handler.fn(e, params);
+                    flag = handler.fn(e, params);
                     return flag;
                 }
             }
@@ -837,6 +854,7 @@
                 },
                 fn: function(e, params) {
                     var animation = getAnimation(params.$el);
+
                     // Internal href
                     params.$el.addClass('active');
                     goTo(
