@@ -43,20 +43,20 @@
         // Initialize internal jQT variables
         var $ = fx,
             $body,
-            $head=$('head'),
-            history=[],
-            newPageCount=0,
-            jQTSettings={},
-            $currentPage='',
-            orientation='portrait',
-            touchSelectors=[],
-            publicObj={},
-            tapBuffer=100, // High click delay = ~350, quickest animation (slide) = 250
-            extensions=$.jQTouch.prototype.extensions,
-            extTapHandlers=$.jQTouch.prototype.tapHandlers,
-            tapHandlers=[],
-            animations=[],
-            hairExtensions='',
+            $head = $('head'),
+            history = [],
+            newPageCount = 0,
+            jQTSettings = {},
+            $currentPage = '',
+            orientation = 'portrait',
+            touchSelectors = [],
+            publicObj = {},
+            tapBuffer = 100, // High click delay = ~350, quickest animation (slide) = 250
+            extensions = $.jQTouch.prototype.extensions,
+            extTapHandlers = $.jQTouch.prototype.tapHandlers,
+            tapHandlers = [],
+            animations = [],
+            hairExtensions = '',
             defaults = {
                 addGlossToIcon: true,
                 backSelector: '.back, .cancel, .goback',
@@ -291,7 +291,7 @@
         }
 
         function reverseAnimation(animation) {
-            var opposites={
+            var opposites = {
                 'up' : 'down',
                 'down' : 'up',
                 'left' : 'right',
@@ -337,7 +337,7 @@
             fromPage = history[0].page;
 
             if (typeof(animation) === 'string') {
-                for (i=0, max=animations.length; i < max; i++) {
+                for (i = 0, max = animations.length; i < max; i++) {
                     if (animations[i].name === animation) {
                         animation = animations[i];
                         break;
@@ -449,7 +449,7 @@
         function getAnimation(el) {
             var animation, i, max;
 
-            for (i=0, max=animations.length; i < max; i++) {
+            for (i = 0, max = animations.length; i < max; i++) {
                 if (el.is(animations[i].selector)) {
                     animation = animations[i];
                     break;
@@ -534,7 +534,7 @@
             }
 
             // Add extensions
-            for (i=0, max=extensions.length; i < max; i++) {
+            for (i = 0, max = extensions.length; i < max; i++) {
                 fn = extensions[i];
                 if ($.isFunction(fn)) {
                     $.extend(publicObj, fn(publicObj));
@@ -542,7 +542,7 @@
             }
 
             // Add extensions tapHandlers
-            for (j=0, maxTap=extTapHandlers.length; j < maxTap; j++) {
+            for (j = 0, maxTap = extTapHandlers.length; j < maxTap; j++) {
                 addTapHandler(extTapHandlers[j]);
             }
 
@@ -550,7 +550,7 @@
             addDefaultTapHandlers();
 
             // Add animations
-            for (k=0, maxAnims=defaults.animations.length; k < maxAnims; k++) {
+            for (k = 0, maxAnims = defaults.animations.length; k < maxAnims; k++) {
                 animation = defaults.animations[k];
                 if (jQTSettings[animation.name + 'Selector'] !== undefined) {
                     animation.selector = jQTSettings[animation.name + 'Selector'];
@@ -670,7 +670,7 @@
 
             e.preventDefault();
 
-            $form = (typeof(e)==='string' ? $(e).eq(0) : (e.target ? $(e.target) : $(e)));
+            $form = (typeof(e) === 'string' ? $(e).eq(0) : (e.target ? $(e.target) : $(e)));
 
             if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
                 showPageByHref($form.attr('action'), {
@@ -803,7 +803,7 @@
             };
 
             // Loop thru all handlers
-            for (i=0, len=tapHandlers.length; i<len; i++) {
+            for (i = 0, len = tapHandlers.length; i<len; i++) {
                 handler = tapHandlers[i];
                 supported = handler.isSupported(e, params);
                 if (supported) {
