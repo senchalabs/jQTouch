@@ -357,6 +357,7 @@
                     toPage = nextPage;
                 }
             }
+
             if (doNavigation(fromPage, toPage, animation)) {
                 return publicObj;
             } else {
@@ -401,6 +402,7 @@
             if (jQTSettings.icon4) {
                 hairExtensions += '<link rel="apple-touch-icon' + precomposed + '" sizes="114x114" href="' + jQTSettings.icon4 + '" />';
             }
+
             // Set startup screen
             if (jQTSettings.startupScreen) {
                 hairExtensions += '<link rel="apple-touch-startup-image" href="' + jQTSettings.startupScreen + '" />';
@@ -458,6 +460,7 @@
                 warn('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
                 animation = jQTSettings.defaultAnimation;
             }
+
             return animation;
         }
 
@@ -489,6 +492,7 @@
                     targetPage = $node;
                 }
             });
+
             if (targetPage !== null) {
                 goTo(targetPage, animation);
                 return targetPage;
@@ -541,6 +545,7 @@
             for (j=0, maxTap=extTapHandlers.length; j < maxTap; j++) {
                 addTapHandler(extTapHandlers[j]);
             }
+
             // Add default tapHandlers
             addDefaultTapHandlers();
 
@@ -676,6 +681,7 @@
                 });
                 return false;
             }
+
             return true;
         }
 
@@ -689,6 +695,7 @@
             } else {
                 warn('No parent form found.');
             }
+
             return true;
         }
 
@@ -730,6 +737,7 @@
             if (REGEX_IOS_VERSION.test(agentString)) {
                 support = (REGEX_IOS_VERSION.exec(agentString)[1] >= 5);
             }
+
             return support;
         }
 
