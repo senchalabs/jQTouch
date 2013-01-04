@@ -1,24 +1,4 @@
-/*
-
-            _/    _/_/    _/_/_/_/_/                              _/
-               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
-          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
-         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
-        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
-       _/
-    _/
-
-    Created by David Kaneda <http://www.davidkaneda.com>
-    Maintained by Thomas Yip <http://beedesk.com/>
-    Sponsored by Sencha Labs <http://www.sencha.com/>
-    Special thanks to Jonathan Stark <http://www.jonathanstark.com/>
-
-    Documentation and issue tracking on GitHub <http://github.com/senchalabs/jQTouch/>
-
-    (c) 2009-2011 Sencha Labs
-    jQTouch may be freely distributed under the MIT license.
-
-*/
+/*! jqtouch.com | (c) 2009-2013 Sencha Labs | MIT license */
 /*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true, trailing:true, indent:4, white:true, strict:true, browser:true, devel:true, jquery:true, prototypejs:true, undef:true */
 (function () {
     'use strict';
