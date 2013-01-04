@@ -19,7 +19,7 @@
     jQTouch may be freely distributed under the MIT license.
 
 */
-/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true */
+/*jshint camelcase:true, curly:true, eqeqeq:true, quotmark:single, unused:true, laxbreak:false, onevar:true, latedef:true */
 (function() {
     var fx;
 
@@ -155,6 +155,60 @@
 
             var finalAnimationName, is3d, lastScroll;
 
+            // Private navigationEnd callback
+            function navigationEndHandler() {
+                var bufferTime = tapBuffer;
+
+                if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
+                    fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
+                    fromPage.removeClass(finalAnimationName + ' out inmotion');
+                    if (finalAnimationName) {
+                        toPage.removeClass(finalAnimationName);
+                    }
+                    $body.removeClass('animating animating3d');
+                    if (jQTSettings.trackScrollPositions === true) {
+                        toPage.css('top', -toPage.data('lastScroll'));
+
+                        // Have to make sure the scroll/style resets
+                        // are outside the flow of this function.
+                        setTimeout(function() {
+                            toPage.css('top', 0);
+                            window.scroll(0, toPage.data('lastScroll'));
+                            $('.scroll', toPage).each(function() {
+                                this.scrollTop = - $(this).data('lastScroll');
+                            });
+                        }, 0);
+                    }
+                } else {
+                    fromPage.removeClass(finalAnimationName + ' out inmotion');
+                    if (finalAnimationName) {
+                        toPage.removeClass(finalAnimationName);
+                    }
+                    bufferTime += 260;
+                }
+
+                // 'in' class is intentionally delayed,
+                // as it is our ghost click hack
+                setTimeout(function() {
+                    toPage.removeClass('in');
+                    window.scroll(0,0);
+                }, bufferTime);
+
+                fromPage.unselect();
+
+                // Trigger custom events
+                toPage.trigger('pageAnimationEnd', {
+                    direction:'in',
+                    animation: animation,
+                    back: goingBack
+                });
+                fromPage.trigger('pageAnimationEnd', {
+                    direction:'out',
+                    animation: animation,
+                    back: goingBack
+                });
+            }
+
             // Error check for target page
             if (toPage === undefined || toPage.length === 0) {
                 $.fn.unselect();
@@ -229,60 +283,6 @@
                 addPageToHistory($currentPage, animation);
             }
             setHash($currentPage.attr('id'));
-
-            // Private navigationEnd callback
-            function navigationEndHandler() {
-                var bufferTime = tapBuffer;
-
-                if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
-                    fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
-                    fromPage.removeClass(finalAnimationName + ' out inmotion');
-                    if (finalAnimationName) {
-                        toPage.removeClass(finalAnimationName);
-                    }
-                    $body.removeClass('animating animating3d');
-                    if (jQTSettings.trackScrollPositions === true) {
-                        toPage.css('top', -toPage.data('lastScroll'));
-
-                        // Have to make sure the scroll/style resets
-                        // are outside the flow of this function.
-                        setTimeout(function() {
-                            toPage.css('top', 0);
-                            window.scroll(0, toPage.data('lastScroll'));
-                            $('.scroll', toPage).each(function() {
-                                this.scrollTop = - $(this).data('lastScroll');
-                            });
-                        }, 0);
-                    }
-                } else {
-                    fromPage.removeClass(finalAnimationName + ' out inmotion');
-                    if (finalAnimationName) {
-                        toPage.removeClass(finalAnimationName);
-                    }
-                    bufferTime += 260;
-                }
-
-                // 'in' class is intentionally delayed,
-                // as it is our ghost click hack
-                setTimeout(function() {
-                    toPage.removeClass('in');
-                    window.scroll(0,0);
-                }, bufferTime);
-
-                fromPage.unselect();
-
-                // Trigger custom events
-                toPage.trigger('pageAnimationEnd', {
-                    direction:'in',
-                    animation: animation,
-                    back: goingBack
-                });
-                fromPage.trigger('pageAnimationEnd', {
-                    direction:'out',
-                    animation: animation,
-                    back: goingBack
-                });
-            }
 
             return true;
         }
