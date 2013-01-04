@@ -81,19 +81,19 @@
                 useFastTouch: true,
                 useTouchScroll: true,
                 animations: [ // highest to lowest priority
-                    {name:'cubeleft', selector:'.cubeleft, .cube', is3d: true},
-                    {name:'cuberight', selector:'.cuberight', is3d: true},
-                    {name:'dissolve', selector:'.dissolve'},
-                    {name:'fade', selector:'.fade'},
-                    {name:'flipleft', selector:'.flipleft, .flip', is3d: true},
-                    {name:'flipright', selector:'.flipright', is3d: true},
-                    {name:'pop', selector:'.pop', is3d: true},
-                    {name:'swapleft', selector:'.swapleft, .swap', is3d: true},
-                    {name:'swapright', selector:'.swapright', is3d: true},
-                    {name:'slidedown', selector:'.slidedown'},
-                    {name:'slideright', selector:'.slideright'},
-                    {name:'slideup', selector:'.slideup'},
-                    {name:'slideleft', selector:'.slideleft, .slide, #jqt > * > ul li a'}
+                    {name: 'cubeleft', selector: '.cubeleft, .cube', is3d: true},
+                    {name: 'cuberight', selector: '.cuberight', is3d: true},
+                    {name: 'dissolve', selector: '.dissolve'},
+                    {name: 'fade', selector: '.fade'},
+                    {name: 'flipleft', selector: '.flipleft, .flip', is3d: true},
+                    {name: 'flipright', selector: '.flipright', is3d: true},
+                    {name: 'pop', selector: '.pop', is3d: true},
+                    {name: 'swapleft', selector: '.swapleft, .swap', is3d: true},
+                    {name: 'swapright', selector: '.swapright', is3d: true},
+                    {name: 'slidedown', selector: '.slidedown'},
+                    {name: 'slideright', selector: '.slideright'},
+                    {name: 'slideup', selector: '.slideup'},
+                    {name: 'slideleft', selector: '.slideleft, .slide, #jqt > * > ul li a'}
                 ]
             }; // end defaults
 
@@ -201,12 +201,12 @@
 
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', {
-                    direction:'in',
+                    direction: 'in',
                     animation: animation,
                     back: goingBack
                 });
                 fromPage.trigger('pageAnimationEnd', {
-                    direction:'out',
+                    direction: 'out',
                     animation: animation,
                     back: goingBack
                 });
@@ -292,12 +292,12 @@
 
         function reverseAnimation(animation) {
             var opposites = {
-                'up' : 'down',
-                'down' : 'up',
-                'left' : 'right',
-                'right' : 'left',
-                'in' : 'out',
-                'out' : 'in'
+                'up': 'down',
+                'down': 'up',
+                'left': 'right',
+                'right': 'left',
+                'in': 'out',
+                'out': 'in'
             };
 
             return opposites[animation] || animation;
