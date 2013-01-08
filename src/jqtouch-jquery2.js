@@ -45,18 +45,20 @@
     }
   }
 
+  if ($.jQTouch) {
+    $.jQTouch.addExtension(function GetInstance(jqt) {
+      jQT = jqt;
+    });
+  } else {
+    console.warn('Error: jQTouch not found.');
+  }
+
   $(document).ready(function(){    
     var SUPPORT_TOUCH = (typeof Touch != "undefined");
     var START_EVENT = SUPPORT_TOUCH? 'touchstart' : 'mousedown';
     var MOVE_EVENT = SUPPORT_TOUCH? 'touchmove' : 'mousemove';
     var END_EVENT = SUPPORT_TOUCH? 'touchend' : 'mouseup';
     var CANCEL_EVENT = SUPPORT_TOUCH? 'touchcancel' : 'mouseout'; // mouseout on document
-
-    if ($.jQTouch) {
-      $.jQTouch.addExtension(function GetInstance(jqt) {
-        jQT = jqt;
-      });
-    }
 
     function isRightClick(e) {
       var rightclick = false;
