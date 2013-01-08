@@ -78,7 +78,7 @@
     var methods = {
         init: function(options) {
             $(this).addClass('menusheet');
-            $(this).data({shown: false});
+            $(this).data('menusheet', {shown: false});
         },
         show: show,
         hide: hide
