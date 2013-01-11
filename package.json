@@ -1,0 +1,28 @@
+{
+  "author": "David Kaneda",
+  "name": "jQTouch",
+  "version": "1.0-b5",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/senchalabs/jQTouch.git"
+  },
+  "contributors": [{
+     "name": "David Kaneda",
+     "email": ""
+  }, {
+     "name": "Jonathan Stark",
+     "email": "" 
+  }, {
+     "name": "Thomas Yip",
+     "email": ""
+  }],
+  "engines": {
+    "node": "~0.6.5"
+  },
+  "dependencies": {},
+  "devDependencies": {
+     "grunt-coverjs": "",
+     "grunt-compass": "" 
+  },
+  "optionalDependencies": {}
+}
