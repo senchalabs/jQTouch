@@ -22,8 +22,8 @@
   },
   "dependencies": {},
   "devDependencies": {
-     "grunt-coverjs": "",
-     "grunt-contrib-copy": ""
+     "grunt-contrib": "",
+     "grunt-coverjs": ""
   },
   "optionalDependencies": {}
 }

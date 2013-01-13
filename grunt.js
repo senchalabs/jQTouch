@@ -1,55 +1,65 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
+  grunt.loadNpmTasks('grunt-contrib');
   grunt.loadNpmTasks('grunt-coverjs');
-  grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('intro', 'Introduction to build', function() {
     grunt.log.write('We are going to build a jQTouch release!');
   });
 
-  grunt.registerTask('compass', 'Simple Compass', function() {
-    var compass = grunt.config.get('compass');
-    var params = grunt.template.process(compass['params']);
-    var outoptions = compass['stdout'];
-    console.warn('compass: ' + params);
-
-    // Tell grunt the task is async
-    var cb = this.async();
+  grunt.registerMultiTask('compass', '', function() { 
+    /* roll our own, because I couldn't find -l options to the `contrib` version */
     
-    var exec = require("child_process").exec;
-    var child = exec('compass ' + params + '', function(error, stdout, stderr) {
-      if (outoptions !== false && !!stdout) {
+    var cb = this.async(); // Tell grunt the task is async
+    var options = this.data.options || {};
+    var params = grunt.template.process(this.data['params']);
+
+    var exec = require('child_process').exec;
+    console.log('compass ' + params + '');
+    var child = exec('compass ' + params + '', options, function(error, stdout, stderr) {
+      if (!!stdout) {
         console.log('stdout: ' + stdout);
       }
       if (error !== null) {
         console.log('error: ' + error);
         console.log('stderr: ' + stdout);
       }
-      // Execute the callback when the async task is done
-      cb();
+      cb(); // Execute the callback when the async task is done
     });
   });
 
-  grunt.registerTask('clean', 'Simple Delete Folders', function() {
-    var clean = grunt.config.get('clean');
-    var files = grunt.template.process(clean['files']);
-    console.warn('clean files: ' + files);
+  grunt.registerMultiTask('rake', 'Compile a Ruby Package with Rake', function() {
+    var cb = this.async(); // Tell grunt the task is async
 
-    // Tell grunt the task is async
-    var cb = this.async();
-    
-    var exec = require("child_process").exec;
-    var child = exec('rm -r -f ' + files + '', function(error, stdout, stderr) {
+    var options = this.data.options;
+    var params = grunt.template.process(this.data['params']);
+
+    var exec = require('child_process').exec;
+    var child = exec('rake ' + params + '', options, function(error, stdout, stderr) {
       if (!!stdout) {
         console.log('stdout: ' + stdout);
       }
-      if (!!error) {
+      if (error !== null) {
         console.log('error: ' + error);
         console.log('stderr: ' + stdout);
       }
-      // Execute the callback when the async task is done
-      cb();
+      cb(); // Execute the callback when the async task is done
+    });     
+  });
+
+  grunt.registerTask('gitupdate', 'Update all git submodules', function() {
+    var cb = this.async(); // Tell grunt the task is async
+    var exec = require('child_process').exec;
+    var child = exec('git submodule update --init --recursive', function(error, stdout, stderr) {
+      if (!!stdout) {
+        console.log('stdout: ' + stdout);
+      }
+      if (error !== null) {
+        console.log('error: ' + error);
+        console.log('stderr: ' + stdout);
+      }
+      cb(); // Execute the callback when the async task is done
     });
   });
 
@@ -85,25 +95,58 @@ module.exports = function(grunt) {
           src: 'src',
           dest: 'jqtouch-<%= pkg.version %>-<%= pkg.versionId %>'
         },
+        clean: {
+          zepto: ['zepto/lib'],
+          dist: ['<%= dirs.dest %>']
+        },
         copy: {
-          target: {
-            options: {
-              cwd: 'path/to/sources',
-              excludeEmpty: false,
-
-            },
+          prepare: {
             files: {
               '<%= dirs.dest %>/': ['dist/**', 'src/**', 'lib/**', 'themes/**',
                   'extensions/**', 'demos/**', 'versions/**', '*']
+            },
+            options: {
+              cwd: '',
+              excludeEmpty: false,
+
+            }
+          },
+          zepto: {
+            files: {
+              'lib/zepto/': ['submodules/zepto/dist/**'],
+              'lib/zepto/touch.js': ['submodules/zepto/src/touch.js'],
+            },
+            options: {
+              cwd: '',
+              excludeEmpty: false,
+
+            }
+          },
+          checkin: { /* replace checkin version to updated css */
+            files: {
+              'themes/css/': ['<%= dirs.dest %>/themes/css/**']
+            },
+            options: {
+              cwd: '',
+              excludeEmpty: false,
+
             }
           }
         },
-        clean: {
-          files: '<%= dirs.dest %>'
+        gitupdate: {
+        },
+        rake: {
+          zepto: {
+            params: 'concat[fx:ajax:data:detect:event:form:polyfill:touch] dist',
+            options: {
+              cwd: 'submodules/zepto'
+            }
+          }
         },
         compass: {
-          params: 'compile -l <%= dirs.dest %>/themes/compass-recipes/ --sass-dir <%= dirs.dest %>/themes/scss --css-dir <%= dirs.dest %>/themes/css --output-style compressed --environment production -q',
-          stdout: true
+          all: {
+            params: 'compile -l <%= dirs.dest %>/themes/compass-recipes/ --sass-dir <%= dirs.dest %>/themes/scss --css-dir <%= dirs.dest %>/themes/css --output-style compressed --environment production -q'
+          }
         },
         lint: {
           files: ['src/jqtouch.js']
@@ -118,9 +161,17 @@ module.exports = function(grunt) {
           }
         },
         min: {
-          dist: {
+          jqtouch: {
             src: ['<%= dirs.dest %>/src/jqtouch.js'],
             dest: '<%= dirs.dest %>/src/jqtouch.min.js'
+          },
+          'jquery-bridge': {
+            src: ['<%= dirs.dest %>/src/jqtouch-jquery.js'],
+            dest: '<%= dirs.dest %>/src/jqtouch-jquery.min.js'
+          },
+          'jquery-bridge2': {
+            src: ['<%= dirs.dest %>/src/jqtouch-jquery2.js'],
+            dest: '<%= dirs.dest %>/src/jqtouch-jquery2.min.js'
           }
         },
         cover: {
@@ -156,10 +207,12 @@ module.exports = function(grunt) {
       });
 
   // Tasks
-  grunt.registerTask('light', 'intro clean copy compass concat min');
+  grunt.registerTask('zepto', 'clean:zepto rake:zepto copy:zepto');
+
+  grunt.registerTask('light', 'intro clean copy:prepare gitupdate compass concat min');
 
   grunt.registerTask('default', 'intro qunit cover light');
 
-  grunt.registerTask('full', 'intro lint default');
+  grunt.registerTask('full', 'intro lint default copy:checkin');
 
 };
