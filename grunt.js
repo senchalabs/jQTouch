@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     /* roll our own, because I couldn't find -l options to the `contrib` version */
     
     var cb = this.async(); // Tell grunt the task is async
-    var options = this.data.options || {};
+    var options = this.data['options'] || {};
     var params = grunt.template.process(this.data['params']);
 
     var exec = require('child_process').exec;
@@ -32,7 +32,7 @@ module.exports = function(grunt) {
   grunt.registerMultiTask('rake', 'Compile a Ruby Package with Rake', function() {
     var cb = this.async(); // Tell grunt the task is async
 
-    var options = this.data.options;
+    var options = this.data['options'];
     var params = grunt.template.process(this.data['params']);
 
     var exec = require('child_process').exec;
@@ -48,19 +48,25 @@ module.exports = function(grunt) {
     });     
   });
 
-  grunt.registerTask('gitupdate', 'Update all git submodules', function() {
+  grunt.registerMultiTask('gitmodule', 'Update git submodules', function() {
     var cb = this.async(); // Tell grunt the task is async
+
+    var target = this.target || '';
+    var path = this.data['path'] || ('submodules/' + this.target);
+
     var exec = require('child_process').exec;
-    var child = exec('git submodule update --init --recursive', function(error, stdout, stderr) {
-      if (!!stdout) {
-        console.log('stdout: ' + stdout);
+    var child = exec('git submodule update --init --recursive ' + path, 
+      function(error, stdout, stderr) {
+        if (!!stdout) {
+          console.log('stdout: ' + stdout);
+        }
+        if (error !== null) {
+          console.log('error: ' + error);
+          console.log('stderr: ' + stdout);
+        }
+        cb(); // Execute the callback when the async task is done
       }
-      if (error !== null) {
-        console.log('error: ' + error);
-        console.log('stderr: ' + stdout);
-      }
-      cb(); // Execute the callback when the async task is done
-    });
+    );
   });
 
   // Project configuration.
@@ -133,7 +139,12 @@ module.exports = function(grunt) {
             }
           }
         },
-        gitupdate: {
+        gitmodule: {
+          zepto: {
+          },
+          recipes: {
+            path: 'submodules/compass-recipes'
+          }
         },
         rake: {
           zepto: {
@@ -209,10 +220,12 @@ module.exports = function(grunt) {
   // Tasks
   grunt.registerTask('zepto', 'clean:zepto rake:zepto copy:zepto');
 
-  grunt.registerTask('light', 'intro clean copy:prepare gitupdate compass concat min');
+  grunt.registerTask('css', 'clean:dist copy:prepare gitmodule:recipes compass');
+
+  grunt.registerTask('light', 'intro copy:prepare css concat min');
 
   grunt.registerTask('default', 'intro qunit cover light');
 
-  grunt.registerTask('full', 'intro lint default copy:checkin');
+  grunt.registerTask('full', 'intro lint zepto default copy:checkin');
 
 };
