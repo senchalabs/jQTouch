@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <link rel="stylesheet" href="../../lib/test/test.css">
   <title>jQTouch with Zepto</title>
-  <script src="../../lib/test/evidence.js"></script>
-  <script src="../../lib/test/evidence_runner.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" type="text/css" media="screen">  
+  <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>  
   <script src="../../lib/zepto/zepto.js"></script>
   <script src="../../src/jqtouch.js"></script>
 </head>
 <body>
-  <h1>Touch tests</h1>
-  <p id="results">
-    Running… see browser console for results
-  </p>
-
+  <h1 id="qunit-header">jQTouch with Zepto</h1>  
+  <h2 id="qunit-banner"></h2>  
+  <div id="qunit-testrunner-toolbar"></div>  
+  <h2 id="qunit-userAgent"></h2>  
+  <ol id="qunit-tests"></ol>
+  
   <style>
     #test {
       position: absolute;
@@ -27,9 +27,8 @@
   </style>
 
   <script>
-  (function(){
-    Evidence('BaiscTest', {
-      setUp: function(){
+    module('BaiscTest', {
+      setup: function(){
         var $body = $('body');
         var $jqt = $('<div id="jqt"></div>');
         $body.append($jqt);
@@ -37,34 +36,31 @@
         $jqt.append($('<div id="home"></div>'));
         $jqt.append($('<div id="page"></div>'));
       },
-
-      tearDown: function(){
+      teardown: function(){
         var $jqt = $('#jqt');
         $jqt.remove();
-      },
-
-      testInitNone: function(t) {
-        try {
-          var jqt = $.jQTouch();
-          t.assert(jqt !== undefined && jqt !== null);
-        } catch (e) {
-          console.error(e);
-          t.fail('Init failed');
-        }
-      },
-      
-      testInitEmpty: function(t) {
-        try {
-          var jqt = $.jQTouch({});
-          t.assert(jqt !== undefined && jqt !== null);
-        } catch (e) {
-          console.error(e);
-          t.fail('Init failed');
-        }
       }
-    })
+    });
 
-  })()
+	test('testInitNone', function(t) {
+	  try {
+	    var jqt = $.jQTouch();
+	    ok(jqt !== undefined && jqt !== null);
+	  } catch (e) {
+	    console.error(e);
+	    ok(false, 'Init failed');
+	  }
+	});
+	
+	test('testInitEmpty', function(t) {
+	  try {
+	    var jqt = $.jQTouch({});
+	    ok(jqt !== undefined && jqt !== null);
+	  } catch (e) {
+	    console.error(e);
+	    ok(false, 'Init failed');
+	  }
+	});
   </script>
 </body>
 </html>
