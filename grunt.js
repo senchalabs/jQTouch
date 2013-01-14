@@ -8,7 +8,7 @@ module.exports = function(grunt) {
     grunt.log.write('We are going to build a jQTouch release!');
   });
 
-  grunt.registerMultiTask('compass', '', function() { 
+  grunt.registerMultiTask('compass', 'Compile sass with compass', function() { 
     /* roll our own, because I couldn't find -l options to the `contrib` version */
     
     var cb = this.async(); // Tell grunt the task is async
