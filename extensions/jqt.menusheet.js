@@ -64,10 +64,10 @@
         if (!data.shown) {
             var $source = $('#jqt .current:not(.menusheet)');
             $target.trigger('pageAnimationStart', {
-                direction: 'in', animation: undefined, back: true
+                direction: 'in', animation: undefined, back: false
             });
             $source.trigger('pageAnimationStart', {
-                direction: 'out', animation: undefined, back: true
+                direction: 'out', animation: undefined, back: false
             });
             var closehandler = function() {
                 $target.menusheet('hide');
@@ -79,10 +79,10 @@
                 $source.removeClass('inmotion transition out');
                 $target.removeClass('inmotion in');
                 $target.trigger('pageAnimationEnd', {
-                    direction: 'in', animation: undefined, back: true
+                    direction: 'in', animation: undefined, back: false
                 });
                 $source.trigger('pageAnimationEnd', {
-                    direction: 'out', animation: undefined, back: true
+                    direction: 'out', animation: undefined, back: false
                 });
                 !callback || callback.apply(this, arguments);
             });
