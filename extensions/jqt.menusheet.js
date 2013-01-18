@@ -32,9 +32,6 @@
         if (data.shown) {
             $(this).data('menusheet', {});
             var $source = data.source;
-            $source.trigger('pageAnimationStart', {
-                direction: 'in', animation: undefined, back: true
-            });
             $target.trigger('pageAnimationStart', {
                 direction: 'out', animation: undefined, back: true
             });
@@ -42,9 +39,6 @@
             $source.one('webkitTransitionEnd', function() {
                 $source.removeClass('inmotion transition in');
                 $target.removeClass('inmotion out');
-                $source.trigger('pageAnimationEnd', {
-                    direction: 'in', animation: undefined, back: true
-                });
                 $target.trigger('pageAnimationEnd', {
                     direction: 'out', animation: undefined, back: true
                 });
@@ -66,9 +60,6 @@
             $target.trigger('pageAnimationStart', {
                 direction: 'in', animation: undefined, back: false
             });
-            $source.trigger('pageAnimationStart', {
-                direction: 'out', animation: undefined, back: false
-            });
             var closehandler = function() {
                 $target.menusheet('hide');
                 return false;
@@ -80,9 +71,6 @@
                 $target.removeClass('inmotion in');
                 $target.trigger('pageAnimationEnd', {
                     direction: 'in', animation: undefined, back: false
-                });
-                $source.trigger('pageAnimationEnd', {
-                    direction: 'out', animation: undefined, back: false
                 });
                 !callback || callback.apply(this, arguments);
             });
