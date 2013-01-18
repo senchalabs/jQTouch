@@ -32,10 +32,22 @@
         if (data.shown) {
             $(this).data('menusheet', {});
             var $source = data.source;
+            $source.trigger('pageAnimationStart', {
+                direction: 'in', animation: undefined, back: true
+            });
+            $target.trigger('pageAnimationStart', {
+                direction: 'out', animation: undefined, back: true
+            });
             $source.unbind('touchstart mousedown', data.closehandler);
             $source.one('webkitTransitionEnd', function() {
                 $source.removeClass('inmotion transition in');
                 $target.removeClass('inmotion out');
+                $source.trigger('pageAnimationEnd', {
+                    direction: 'in', animation: undefined, back: true
+                });
+                $target.trigger('pageAnimationEnd', {
+                    direction: 'out', animation: undefined, back: true
+                });
                 !callback || callback.apply(this, arguments);
             });
     
@@ -51,6 +63,12 @@
         var data = $(this).data('menusheet') || {};
         if (!data.shown) {
             var $source = $('#jqt .current:not(.menusheet)');
+            $target.trigger('pageAnimationStart', {
+                direction: 'in', animation: undefined, back: true
+            });
+            $source.trigger('pageAnimationStart', {
+                direction: 'out', animation: undefined, back: true
+            });
             var closehandler = function() {
                 $target.menusheet('hide');
                 return false;
@@ -60,6 +78,12 @@
                 $source.one('touchstart mousedown', closehandler);
                 $source.removeClass('inmotion transition out');
                 $target.removeClass('inmotion in');
+                $target.trigger('pageAnimationEnd', {
+                    direction: 'in', animation: undefined, back: true
+                });
+                $source.trigger('pageAnimationEnd', {
+                    direction: 'out', animation: undefined, back: true
+                });
                 !callback || callback.apply(this, arguments);
             });
     
