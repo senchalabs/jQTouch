@@ -3,6 +3,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib');
   grunt.loadNpmTasks('grunt-coverjs');
+  grunt.loadNpmTasks('grunt-text-replace');
 
   grunt.registerTask('intro', 'Introduction to build', function() {
     grunt.log.write('We are going to build a jQTouch release!');
@@ -99,17 +100,36 @@ module.exports = function(grunt) {
         },
         dirs: {
           src: 'src',
-          dest: 'jqtouch-<%= pkg.version %>-<%= pkg.versionId %>'
+          build: 'stage', /* change back to `build` when you port away from ant`. */
+          dist: 'jqtouch-<%= pkg.version %>-<%= pkg.versionId %>'
         },
         clean: {
           zepto: ['zepto/lib'],
-          dist: ['<%= dirs.dest %>']
+          build: ['<%= dirs.build %>'],
+          css: ['<%= dirs.build %>/css'],
+          dist: ['<%= dirs.dist %>'],
+          excluded: [
+            '<%= dirs.dist %>/.gitignore',
+            '<%= dirs.dist %>/*.sublime-project',
+            '<%= dirs.dist %>/*.sublime-workspace',
+            '<%= dirs.dist %>/**/.DS_STORE]'
+          ]
         },
         copy: {
           prepare: {
             files: {
-              '<%= dirs.dest %>/': ['dist/**', 'src/**', 'lib/**', 'themes/**',
-                  'extensions/**', 'demos/**', 'versions/**', '*']
+              '<%= dirs.build %>/': ['src/**', 'lib/**', 'themes/**',
+                  'extensions/**', 'demos/**', 'versions/**', 'test/**', '*']
+            },
+            options: {
+              cwd: '',
+              excludeEmpty: false,
+
+            }
+          },
+          dist: {
+            files: {
+              '<%= dirs.dist %>/': ['<%= dirs.build %>/**']
             },
             options: {
               cwd: '',
@@ -120,7 +140,7 @@ module.exports = function(grunt) {
           zepto: {
             files: {
               'lib/zepto/': ['submodules/zepto/dist/**'],
-              'lib/zepto/touch.js': ['submodules/zepto/src/touch.js'],
+              '<%= dirs.build %>/src/jqtouch-jquery.js': ['submodules/zepto/src/touch.js'],
             },
             options: {
               cwd: '',
@@ -128,15 +148,65 @@ module.exports = function(grunt) {
 
             }
           },
-          checkin: { /* replace checkin version to updated css */
+          'jquery-bridge': {
             files: {
-              'themes/css/': ['<%= dirs.dest %>/themes/css/**']
+              '<%= dirs.build %>/src/jqtouch-jquery.js': ['submodules/zepto/src/touch.js']
             },
             options: {
               cwd: '',
               excludeEmpty: false,
 
             }
+          },
+          checkin: { /* replace checkin version with updated css(es) */
+            files: {
+              'themes/css/': ['<%= dirs.dist %>/themes/css/**'],
+              'src/jqtouch-jquery.js': ['<%= dirs.dist %>/src/jqtouch-jquery.js']
+            },
+            options: {
+              cwd: '',
+              excludeEmpty: false,
+
+            }
+          },
+          htaccess: {
+            files: {
+              '<%= dirs.dist %>/.htaccess': ['<%= dirs.dist %>/sample.htaccess']
+            },
+            options: {
+              cwd: '',
+              excludeEmpty: false,
+
+            }
+          }
+        },
+        replace: {
+          'jquery-bridge': {
+            src: ['<%= dirs.build %>/src/jqtouch-jquery.js'],
+            overwrite: true,
+            replacements: [{ 
+              from: /e\.touches/g,
+              to: '(e.originalEvent || e).touches'
+            },{ 
+              from: /\(Zepto\)/g,
+              to: '(jQuery)'
+            }]
+          },
+          distpath: {
+            src: ['<%= dirs.dist %>/**/*.html'],
+            overwrite: true,
+            replacements: [{ 
+              from: /([\w-]*)\/src\/([\w-]*)(?!\.min)\.(js)/g,
+              to: '$1/src/$2.min.js'
+            }]
+          },
+          'strip-warnings': {
+            src: ['<%= dirs.dist %>/src/jqtouch.js', '<%= dirs.dist %>/src/jqtouch.min.js'],
+            overwrite: true,
+            replacements: [{ 
+              from: /\n\s*warn\(.*/g,
+              to: ''
+            }]
           }
         },
         gitmodule: {
@@ -156,44 +226,44 @@ module.exports = function(grunt) {
         },
         compass: {
           all: {
-            params: 'compile -l <%= dirs.dest %>/themes/compass-recipes/ --sass-dir <%= dirs.dest %>/themes/scss --css-dir <%= dirs.dest %>/themes/css --output-style compressed --environment production -q'
+            params: 'compile -l <%= dirs.build %>/themes/compass-recipes/ --sass-dir <%= dirs.build %>/themes/scss --css-dir <%= dirs.build %>/themes/css --output-style compressed --environment production -q'
           }
         },
         lint: {
           files: ['src/jqtouch.js']
         },
         qunit: {
-          files: ['test/unit/*.html']
+          files: ['<%= dirs.build %>/test/unit/*.html']
         },
         concat: {
           dist: {
             src: ['<banner>', '<file_strip_banner:src/jqtouch.js>'],
-            dest: '<%= dirs.dest %>/src/jqtouch.js'
+            dest: '<%= dirs.dist %>/src/jqtouch.js'
           }
         },
         min: {
           jqtouch: {
-            src: ['<%= dirs.dest %>/src/jqtouch.js'],
-            dest: '<%= dirs.dest %>/src/jqtouch.min.js'
+            src: ['<%= dirs.dist %>/src/jqtouch.js'],
+            dest: '<%= dirs.dist %>/src/jqtouch.min.js'
           },
           'jquery-bridge': {
-            src: ['<%= dirs.dest %>/src/jqtouch-jquery.js'],
-            dest: '<%= dirs.dest %>/src/jqtouch-jquery.min.js'
+            src: ['<%= dirs.dist %>/src/jqtouch-jquery.js'],
+            dest: '<%= dirs.dist %>/src/jqtouch-jquery.min.js'
           },
           'jquery-bridge2': {
-            src: ['<%= dirs.dest %>/src/jqtouch-jquery2.js'],
-            dest: '<%= dirs.dest %>/src/jqtouch-jquery2.min.js'
+            src: ['<%= dirs.dist %>/src/jqtouch-jquery2.js'],
+            dest: '<%= dirs.dist %>/src/jqtouch-jquery2.min.js'
           }
         },
         cover: {
           compile: {
             files: {
-              'test/instrumented/jqtouch.js': ['src/jqtouch.js']
+              '<%= dirs.build %>/test/instrumented/jqtouch.js': ['src/jqtouch.js']
             }
           }
         },
         watch: {
-          files: '<%= dirs.dest %>/themes/css',
+          files: '<%= dirs.build %>/themes/css',
           tasks: 'compass'
         },
         jshint: {
@@ -218,14 +288,22 @@ module.exports = function(grunt) {
       });
 
   // Tasks
-  grunt.registerTask('zepto', 'clean:zepto rake:zepto copy:zepto');
+  grunt.registerTask('nuke', 'clean:build clean:dist');
 
-  grunt.registerTask('css', 'clean:dist copy:prepare gitmodule:recipes compass');
+  grunt.registerTask('css', 'clean:css gitmodule:recipes compass');
 
-  grunt.registerTask('light', 'intro copy:prepare css concat min');
+  grunt.registerTask('zepto', 'clean:zepto gitmodule:zepto rake:zepto copy:zepto');
 
-  grunt.registerTask('default', 'intro qunit cover light');
+  grunt.registerTask('jquery-bridge', 'zepto gitmodule:zepto copy:jquery-bridge replace:jquery-bridge');
 
-  grunt.registerTask('full', 'intro lint zepto default copy:checkin');
+  grunt.registerTask('test', 'copy:prepare qunit');
+
+  grunt.registerTask('cq', 'lint light jshint csslint cover');
+
+  grunt.registerTask('light', 'intro nuke copy:prepare css concat');
+
+  grunt.registerTask('dist', 'intro nuke zepto jquery-bridge light test copy:dist replace:strip-warnings min replace:distpath copy:htaccess clean:excluded copy:checkin');
+
+  grunt.registerTask('full', 'intro nuke light cq dist');
 
 };

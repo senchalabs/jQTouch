@@ -23,7 +23,8 @@
   "dependencies": {},
   "devDependencies": {
      "grunt-contrib": "",
-     "grunt-coverjs": ""
+     "grunt-coverjs": "",
+     "grunt-text-replace": ""
   },
   "optionalDependencies": {}
 }
