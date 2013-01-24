@@ -70,12 +70,36 @@ module.exports = function(grunt) {
     );
   });
 
+  grunt.registerMultiTask('minjs', 'Minify all JS in a directory', function() {
+    var target = this.target || '';
+    var options = this.data['options'];
+
+    var src = this.data['src'] || '*.js';
+    var dest = this.data['src'] || '*.min.js';
+
+    var banner = '';
+    if (options && options['banner']) {
+      banner = grunt.template.process(grunt.config.get('meta')['banner']);      
+    }
+    grunt.file.expand({cwd: ''}, src).forEach(function(relpath) {
+      if (!/min.js$/g.test(relpath)) {
+        var dest = relpath.replace(/([\w-\.]*)\.js/g, '$1.min.js');
+        console.log('expanded: ' + relpath + ' dest: ' + dest);
+
+        var max = grunt.file.read(relpath);
+
+        var min = banner + grunt.helper('uglify', max, grunt.config('uglify'));
+        grunt.file.write(dest, min);
+      }
+    });
+  });
+
   // Project configuration.
   grunt
       .initConfig({
         pkg: '<json:package.json>',
         meta: {
-          version: '<%= pkg.version %>-<%= pkg.version %>',
+          version: '<%= pkg.version %>-<%= pkg.versionId %>',
           banner: '/*\n'
               + '          _/    _/_/    _/_/_/_/_/                              _/                		\n'
               + '             _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/ 					\n'
@@ -96,7 +120,7 @@ module.exports = function(grunt) {
               + '  Version: <%= meta.version %> - <%= grunt.template.today("yyyy-mm-dd") %>				\n'
               + '																						\n'
               + '  jQTouch may be freely distributed under the MIT license.								\n'
-              + '*/'
+              + '*/\n'
         },
         dirs: {
           src: 'src',
@@ -112,7 +136,7 @@ module.exports = function(grunt) {
             '<%= dirs.dist %>/.gitignore',
             '<%= dirs.dist %>/*.sublime-project',
             '<%= dirs.dist %>/*.sublime-workspace',
-            '<%= dirs.dist %>/**/.DS_STORE]'
+            '<%= dirs.dist %>/**/.DS_Store'
           ]
         },
         copy: {
@@ -196,8 +220,11 @@ module.exports = function(grunt) {
             src: ['<%= dirs.dist %>/**/*.html'],
             overwrite: true,
             replacements: [{ 
-              from: /([\w-]*)\/src\/([\w-]*)(?!\.min)\.(js)/g,
-              to: '$1/src/$2.min.js'
+              from: /([\w-\.]*)\.js/g,
+              to: '$1.min.js'
+            }, { 
+              from: /([\w-\.]*)\.min\.min\.js/g,
+              to: '$1.min.js'
             }]
           },
           'strip-warnings': {
@@ -239,6 +266,15 @@ module.exports = function(grunt) {
           dist: {
             src: ['<banner>', '<file_strip_banner:src/jqtouch.js>'],
             dest: '<%= dirs.dist %>/src/jqtouch.js'
+          }
+        },
+        minjs: {
+          extensions: {
+            src: ['<%= dirs.dist %>/extensions/*.js'],
+            dest: '<%= dirs.dist %>/extensions/*.min.js',
+            options: {
+              banner: true
+            }
           }
         },
         min: {
