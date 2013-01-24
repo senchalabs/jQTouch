@@ -36,8 +36,8 @@ Dependencies:
 </thead>
 <tbody>
   <tr><td>`grunt --help`</td><td>List available build targets.</td><td>nodejs, grunt: ex, `brew install node && npm install grunt -g && npm install`</td></tr>
-  <tr><td>`grunt css`</td><td>Build a distribution.</td><td>`ruby`, `compass` + `grunt --help` dependencies: ex, `gem install compass`</td></tr>
-  <tr><td>`grunt test`</td><td>Build a distribution.</td><td>`phantomjs` + `grunt --help` dependencies: ex, `brew install phantomjs`</td></tr>
+  <tr><td>`grunt css`</td><td>Build SASS resources into css.</td><td>`ruby`, `compass` + `grunt --help` dependencies: ex, `gem install compass`</td></tr>
+  <tr><td>`grunt test`</td><td>Run all unit tests.</td><td>`phantomjs` + `grunt --help` dependencies: ex, `brew install phantomjs`</td></tr>
   <tr><td>`grunt dist`</td><td>Build a distribution.</td><td>`grunt css` + `grunt test` dependencies</td></tr>
 </tbody>
 </table>
