@@ -105,7 +105,7 @@
             });
         }
 
-        // Unfortunately, we can not assume the "tap" event
+        // Unfortunately, we can not assume the 'tap' event
         // is being used for links, forms, etc.
         function clickHandler(e) {
             // Figure out whether to prevent default
@@ -174,7 +174,7 @@
 
                 warn('finalAnimationName is ' + finalAnimationName);
 
-                // Bind internal "cleanup" callback
+                // Bind internal 'cleanup' callback
                 fromPage.bind('webkitAnimationEnd', navigationEndHandler);
 
                 // Trigger animations
@@ -628,7 +628,7 @@
             if ($form.length && $form.is(jQTSettings.formSelector) && $form.attr('action')) {
                 showPageByHref($form.attr('action'), {
                     data: $form.serialize(),
-                    method: $form.attr('method') || "POST",
+                    method: $form.attr('method') || 'POST',
                     animation: getAnimation($form),
                     callback: callback
                 });
