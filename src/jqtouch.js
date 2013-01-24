@@ -477,8 +477,8 @@
         function start() {
             // Store some properties in a support object
             if (!$.support) $.support = {};
-            $.support.animationEvents = (typeof window.WebKitAnimationEvent != 'undefined');
-            $.support.touch = (typeof window.TouchEvent != 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
+            $.support.animationEvents = (typeof window.WebKitAnimationEvent !== 'undefined');
+            $.support.touch = (typeof window.TouchEvent !== 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
             $.support.transform3d = supportForTransform3d();
             $.support.ios5 = supportIOS5();
 
@@ -587,7 +587,7 @@
 
             var settings = $.extend({}, defaults, options);
 
-            if (href != '#') {
+            if (href !== '#') {
                 $.ajax({
                     url: href,
                     data: settings.data,
