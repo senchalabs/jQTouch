@@ -89,10 +89,10 @@
             }
         }
         function addTapHandler(tapHandler) {
-            if (typeof(tapHandler.name) === 'string' 
+            if (typeof(tapHandler.name) === 'string'
               && typeof(tapHandler.isSupported) === 'function'
               && typeof(tapHandler.fn) === 'function') {
-            
+
                 tapHandlers.push(tapHandler);
             }
         }
@@ -187,10 +187,10 @@
                 if (jQTSettings.trackScrollPositions === true) {
                     toPage.css('top', window.pageYOffset - (toPage.data('lastScroll') || 0));
                 }
-                
+
                 toPage.addClass(finalAnimationName + ' in current');
                 fromPage.removeClass('current').addClass(finalAnimationName + ' out inmotion');
-                
+
                 if (jQTSettings.trackScrollPositions === true) {
                     fromPage.data('lastScroll', lastScroll);
                     $('.scroll', fromPage).each(function() {
@@ -202,7 +202,7 @@
                 fromPage.removeClass('current');
                 navigationEndHandler();
             }
-            
+
             // Housekeeping
             $currentPage = toPage;
             if (goingBack) {
@@ -361,7 +361,7 @@
                 }
             }
 
-            // Set appropriate icon 
+            // Set appropriate icon
             // (retina display available in iOS 4.2 and later.)
             var precomposed = (jQTSettings.addGlossToIcon) ? '' : '-precomposed';
             if (jQTSettings.icon) {
@@ -548,7 +548,7 @@
                 anatomy_lessons.push(jQTSettings.fullScreenClass, jQTSettings.statusBar);
             }
 
-            // Bind events            
+            // Bind events
             $body
                 .addClass(anatomy_lessons.join(' '))
                 .bind('click', clickHandler)
@@ -684,7 +684,7 @@
         function supportIOS5() {
             var support = false;
             var REGEX_IOS_VERSION = /OS (\d+)(_\d+)* like Mac OS X/i;
-  
+
             var agentString = window.navigator.userAgent;
             if (REGEX_IOS_VERSION.test(agentString)) {
                 support = (REGEX_IOS_VERSION.exec(agentString)[1] >= 5);
@@ -750,7 +750,7 @@
                 href: href,
                 jQTSettings: jQTSettings
             };
-            
+
             // Loop thru all handlers
             for (var i=0, len=tapHandlers.length; i<len; i++) {
                 var handler = tapHandlers[i];
@@ -825,8 +825,8 @@
                     // Internal href
                     params.$el.addClass('active');
                     goTo(
-                        $(params.hash).data('referrer', params.$el), 
-                        animation, 
+                        $(params.hash).data('referrer', params.$el),
+                        animation,
                         params.$el.hasClass('reverse')
                     );
                     return false;
@@ -839,7 +839,7 @@
                 },
                 fn: function(e, params) {
                     var animation = getAnimation(params.$el);
-      
+
                     // External href
                     params.$el.addClass('loading active');
                     showPageByHref(params.$el.attr('href'), {
@@ -878,7 +878,7 @@
         };
         return publicObj;
     };
-    
+
     $.jQTouch.prototype.extensions = [];
     $.jQTouch.prototype.tapHandlers = [];
 
@@ -887,7 +887,7 @@
     $.jQTouch.addExtension = function(extension) {
         $.jQTouch.prototype.extensions.push(extension);
     };
-    
+
     // Experimental tap handlers that can bypass
     // default jQTouch tap handling
     $.jQTouch.addTapHandler = function(extension) {
