@@ -35,11 +35,10 @@ Dependencies:
   <tr><th>target</th><th>description</th><th>dependencies</th></tr>
 </thead>
 <tbody>
-  <tr><td>`ant -p`</td><td>List available targets.</td><td>Ant, Java</td></tr>
-  <tr><td>`ant test`</td><td>Run test in headless mode.</td><td>`phantomjs` + `ant -p` dependencies</td></tr>
-  <tr><td>`ant build`</td><td>Standard Build.</td><td>`git`, `compass` (`ruby`) + `ant -p` dependencies</td></tr>
-  <tr><td>`ant build-libs`</td><td>Build depended libs from sources.</td><td>`git`, `rake` + `ant -p` dependencies</td></tr>
-  <tr><td>`ant build-fully`</td><td>Run test and build all, refresh dist file.</td><td>`ant test build-libs build` dependencies</td></tr>
+  <tr><td>`grunt --help`</td><td>List available build targets.</td><td>nodejs, grunt: ex, `brew install node && npm install grunt -g && npm install`</td></tr>
+  <tr><td>`grunt css`</td><td>Build a distribution.</td><td>`ruby`, `compass` + `grunt --help` dependencies: ex, `gem install compass`</td></tr>
+  <tr><td>`grunt test`</td><td>Build a distribution.</td><td>`phantomjs` + `grunt --help` dependencies: ex, `brew install phantomjs`</td></tr>
+  <tr><td>`grunt dist`</td><td>Build a distribution.</td><td>`grunt css` + `grunt test` dependencies</td></tr>
 </tbody>
 </table>
 
