@@ -18,13 +18,17 @@
      "email": ""
   }],
   "engines": {
-    "node": "~0.6.5"
+    "node": "~0.8"
   },
   "dependencies": {},
   "devDependencies": {
+     "grunt": "",
      "grunt-contrib": "",
      "grunt-coverjs": "",
      "grunt-text-replace": ""
   },
-  "optionalDependencies": {}
+  "optionalDependencies": {},
+  "scripts": {
+     "test": "grunt dist --verbose"
+  }
 }

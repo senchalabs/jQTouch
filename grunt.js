@@ -338,7 +338,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('light', 'intro nuke copy:prepare css concat');
 
-  grunt.registerTask('dist', 'intro nuke zepto jquery-bridge light test copy:dist replace:strip-warnings min replace:distpath copy:htaccess clean:excluded copy:checkin');
+  grunt.registerTask('dist', 'intro nuke zepto jquery-bridge light test copy:dist replace:strip-warnings min minjs replace:distpath copy:htaccess clean:excluded copy:checkin');
 
   grunt.registerTask('full', 'intro nuke light cq dist');
 
