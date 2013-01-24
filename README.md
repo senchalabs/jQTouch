@@ -42,7 +42,7 @@ Dependencies:
 </tbody>
 </table>
 
-The command `ant build` or `ant build-fully` builds a folder structure under `jqtouch-${release.version}-${release.id}`.
+The command `grunt dist` builds a folder structure under `jqtouch-${release.version}-${release.id}`.
 
 External Guides
 ---------------
