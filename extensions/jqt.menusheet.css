@@ -5,7 +5,9 @@
     height: 100%;
     width: 260px;
 }
-
+#jqt.black-translucent > div.menusheet {
+    padding-top: 20px;
+}
 #jqt.menuopened {
     width: 100%;
     overflow: hidden;
