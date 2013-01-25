@@ -4,7 +4,7 @@
 
 ### Actionsheet
 
-##### Oct, 2012 - master
+##### Oct, 2012
 
 [Image][] Actionsheet is similar to iOS's [UIActionSheet][2]. It is a modal sheet that can be used to prompt user for choices. 
 
@@ -39,7 +39,7 @@ Please refers to [demos/main/index.html#ui][4] for code sample.
 
 ### Menusheet
 
-##### Oct, 2012 - master
+##### Oct, 2012
 
 [Image][5] Menusheet is first made popular by facebook app on iOS. The menusheet hides beneath the main page and is revealed by a slide animation when activated.
 
@@ -57,7 +57,7 @@ Please refers to [demos/main/index.html#ui][4] for code sample.
 
 ### Unit Tests
 
-##### Dec 18th, 2012 - master
+##### Dec 18th, 2012
 
 We have added unit tests into this release.
 
@@ -67,7 +67,7 @@ The tests can also be run from a command line. Under build/, exec ant test.
 
 ### Init Options: updateHash
 
-##### Dec 18th, 2012 - master
+##### Dec 18th, 2012
 
 When options updateHash is set to true (default), page navigation will cause the url hash(#) to be updated.
 
@@ -77,7 +77,7 @@ var jQT = new $.jQTouch({updateHash: false});
 
 ### Init Options: starter (Experimental)
 
-##### Dec 23rd, 2012 - master
+##### Dec 23rd, 2012
 
 Added init options, starter. By defaults, jQTouch is started upon $(document).ready.
 
@@ -102,22 +102,28 @@ function starter(start) {
 
 ### Fixed Tap During Animation Break Navigation Bug
 
-##### Nov 2012 - master
+##### Nov 2012
 
 Prior to this release, rapid taps on anchor before page transition ended might cause page navigation to break. The problem is fixed in this release.
 
 ### Fixed intermittent touchscroll not-scrollable problem
 
-##### Dec 19th, 2012 - master
+##### Dec 19th, 2012
 
 For .scroll, overflow-y: scroll is used instead. Some old workaround on minHeight is removed. Tested on iPhone 4s, iPad 3, Nexus 7 and Safari
 
 
 ### Grunt.js Build
 
-##### Jan 24th, 2012 - master
+##### Jan 24th, 2012
 
 We converted our build system from `Ant` into `Gruntjs`, for better dependeincies mangaement, build performance and flexibility. 
+
+### Travis CI Integration
+
+##### Jan 24th, 2012
+
+jQTouch repository is now connected to Travis CI.
 
 ## 1.0 - b4
 
