@@ -23,7 +23,7 @@ jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and c
 - Sass-based stylesheets, easily modified with variables, and optimized for size.
 - Image-less stylesheets -- Using [Compass Recipes](https://github.com/senchalabs/compass-recipes), we have recreated all of the gradients and background patterns with CSS. This way, they are resolution independent, dynamically theme-able, and lower bandwidth.
 
-See, [New and Noteworthy](VERSIONS.md) for Details.
+See, [New and Noteworthy](https://github.com/senchalabs/jQTouch/blob/master/VERSIONS.md) for Details.
 
 [Source code](http://github.com/senchalabs/jQTouch/archives/master), [issue tracking](http://github.com/senchalabs/jQTouch/issues), and [documentation](http://wiki.github.com/senchalabs/jQTouch/) are available on github.
 
