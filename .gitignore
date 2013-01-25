@@ -1,5 +1,11 @@
 .sass-cache
 **.sublime-project
 **.sublime-workspace
+.externalToolBuilders
+.project
+.settings
 .DS_Store
 .~*
+node_modules/
+stage/
+jqtouch-*/

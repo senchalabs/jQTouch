@@ -15,33 +15,15 @@
 
     Documentation and issue tracking on GitHub <http://github.com/senchalabs/jQTouch/>
 
-    (c) 2009-2011 Sencha Labs
+    (c) 2009-2013 Sencha Labs
     jQTouch may be freely distributed under the MIT license.
 
 */
 (function() {
 
-    var fx;
-    if ('Zepto' in window) {
-        fx = window.Zepto;
-        fx.fn.prop = fx.fn.attr;
-
-        Event.prototype.isDefaultPrevented = function() {
-          return this.defaultPrevented;
-        };
-    } else if ('jQuery' in window) {
-        fx = window.jQuery;
-
-        // trick to get Zepto/touch.js to work for jQuery
-        window.Zepto = $;
-    } else {
-        throw('Either Zepto or jQuery is required but neither can be found.');
-    }
-
     $.jQTouch = function(options) {
         // Initialize internal jQT variables
-        var $ = fx,
-            $body,
+        var $body,
             $head=$('head'),
             history=[],
             newPageCount=0,
