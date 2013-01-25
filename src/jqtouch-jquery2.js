@@ -23,6 +23,7 @@
 (function($){
   var touch = {}, touchTimeout;
   var jQT;
+  var touchSelector = 'a, .touch';
 
   function parentIfText(node){
     return 'tagName' in node ? node : node.parentNode;
@@ -48,6 +49,7 @@
   if ($.jQTouch) {
     $.jQTouch.addExtension(function GetInstance(jqt) {
       jQT = jqt;
+      touchSelector = jQT.settings.touchSelector;
     });
   } else {
     console.warn('Error: jQTouch not found.');
@@ -142,7 +144,7 @@
 
           setTimeout(function() {
               $marked = $el;
-              var mySelectors = jQT.settings.touchSelector;
+              var mySelectors = touchSelector;
               while ($marked.parent().is(mySelectors)) {
                 $marked = $marked.parent();
               }
