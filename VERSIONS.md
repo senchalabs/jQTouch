@@ -10,11 +10,11 @@
 
 Actionsheet is similar to iOS's [UIActionSheet][2]. It is a modal sheet that can be used to prompt user for choices. 
 
-It is added to this version as an extension: jqt.actionsheet.js. When loaded, it attempts to load jqt.actionsheet.css from the same directory. (If you use ASL, such as require.js, you might need to include the css explicitly.) 
+It is added to this version as an extension: `jqt.actionsheet.js`. When loaded, it attempts to load `jqt.actionsheet.css` from the same directory. (If you use ASL, such as require.js, you might need to include the css explicitly.) 
 
-The actionsheet uses the same markup as a jQT page and must be a direct child of `.actionsheet`.
+The actionsheet uses the same markup as a jQT page and must be a direct child of `<div id="jqt"/>`.
 
-To trigger an actionsheet, use an anchor with class, action (ie, `.action`) 
+To trigger an actionsheet, use an anchor with class, `action` (ie, `<a class="action">`) 
 
 Tapping on any anchor on the sheet causes the sheet to dismiss. After the sheet is dismissed, the original jQT action will be triggered. 
 
@@ -51,9 +51,9 @@ Its usage is very similar to actionsheet.
 
 It is added to this version of jQT as an extension: `jqt.menusheet.js`. When loaded, it attempts to load `jqt.menusheet.css` from the same directory. (If you use ASL, such as require.js, you might need to include the css explicitly.) 
 
-The menusheet uses the same markup as a jQT page and must be a direct child of `.menusheet`. 
+The menusheet uses the same markup as a jQT page and must be a direct child of `<div id="jqt">`. 
 
-To trigger an actionsheet, use an anchor with class, menu (ie, `.menu`) 
+To trigger an actionsheet, use an anchor with class, menu (ie, `<a class="menu">`) 
 
 Tapping on any anchor on the sheet will cause the sheet to dismiss. After the sheet is dismissed, the original jQT action will be triggered. 
 
@@ -83,11 +83,11 @@ var jQT = new $.jQTouch({updateHash: false});
 
 ###### Dec 23rd, 2012
 
-Added init options, starter. By defaults, jQTouch is started upon $(document).ready.
+Added init options, starter. By defaults, jQTouch is started upon `$(document).ready`.
 
 For example, this option can be overridden:
 
-- to work with dynamically loaded body. The relevant part of the dom might not be available at $(document).ready.
+- to work with dynamically loaded body. The relevant part of the dom might not be available at `$(document).ready`.
 
 - to react upon user action
 
