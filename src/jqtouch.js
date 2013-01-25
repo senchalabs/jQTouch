@@ -406,7 +406,7 @@
             // Define public jQuery functions
             $.fn.isExternalLink = function() {
                 var $el = $(this);
-                return ($el.attr('target') == '_blank' || $el.attr('rel') == 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
+                return ($el.attr('target') === '_blank' || $el.attr('rel') === 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
             };
             $.fn.makeActive = function() {
                 return $(this).addClass('active');
@@ -473,7 +473,7 @@
 
         function orientationChangeHandler() {
             scrollTo(0,0);
-            orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
+            orientation = Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
 
@@ -605,7 +605,7 @@
                     success: function (data) {
                         var firstPage = insertPages(data, settings.animation);
                         if (firstPage) {
-                            if (settings.method == 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
+                            if (settings.method === 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
                                 settings.$referrer.attr('href', '#' + firstPage.attr('id'));
                             }
                             if (settings.callback) {
