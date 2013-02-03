@@ -7,28 +7,34 @@
     "type": "git",
     "url": "git://github.com/senchalabs/jQTouch.git"
   },
-  "contributors": [{
-     "name": "David Kaneda",
-     "email": ""
-  }, {
-     "name": "Jonathan Stark",
-     "email": "" 
-  }, {
-     "name": "Thomas Yip",
-     "email": ""
-  }],
+  "contributors": [
+    {
+      "name": "David Kaneda",
+      "email": ""
+    },
+    {
+      "name": "Jonathan Stark",
+      "email": ""
+    },
+    {
+      "name": "Thomas Yip",
+      "email": ""
+    }
+  ],
   "engines": {
     "node": "~0.8"
   },
-  "dependencies": {},
+  "dependencies": {
+    "grunt-coverjs": "~0.1.0"
+  },
   "devDependencies": {
-     "grunt": "",
-     "grunt-contrib": "",
-     "grunt-coverjs": "",
-     "grunt-text-replace": ""
+    "grunt-text-replace": "~0.2.10",
+    "grunt": "~0.4.0rc7",
+    "grunt-contrib": "~0.3.0",
+    "grunt-contrib-qunit": "~0.1.0"
   },
   "optionalDependencies": {},
   "scripts": {
-     "test": "grunt dist --verbose"
+    "test": "grunt dist --verbose"
   }
 }

@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
   grunt.loadNpmTasks('grunt-contrib');
   grunt.loadNpmTasks('grunt-coverjs');
-  grunt.loadNpmTasks('grunt-text-replace');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
 
   grunt.registerTask('intro', 'Introduction to build', function() {
     grunt.log.write('We are going to build a jQTouch release!');
@@ -147,8 +147,7 @@ module.exports = function(grunt) {
             },
             options: {
               cwd: '',
-              excludeEmpty: false,
-
+              excludeEmpty: false
             }
           },
           dist: {
@@ -157,19 +156,17 @@ module.exports = function(grunt) {
             },
             options: {
               cwd: '',
-              excludeEmpty: false,
-
+              excludeEmpty: false
             }
           },
           zepto: {
             files: {
               'lib/zepto/': ['submodules/zepto/dist/**'],
-              '<%= dirs.build %>/src/jqtouch-jquery.js': ['submodules/zepto/src/touch.js'],
+              '<%= dirs.build %>/src/jqtouch-jquery.js': ['submodules/zepto/src/touch.js']
             },
             options: {
               cwd: '',
-              excludeEmpty: false,
-
+              excludeEmpty: false
             }
           },
           'jquery-bridge': {
@@ -324,22 +321,22 @@ module.exports = function(grunt) {
       });
 
   // Tasks
-  grunt.registerTask('nuke', 'clean:build clean:dist');
+  grunt.registerTask('nuke', ['clean:build', 'clean:dist']);
 
-  grunt.registerTask('css', 'clean:css gitmodule:recipes compass');
+  grunt.registerTask('css', ['clean:css','gitmodule:recipes','compass']);
 
-  grunt.registerTask('zepto', 'clean:zepto gitmodule:zepto rake:zepto copy:zepto');
+  grunt.registerTask('zepto', ['clean:zepto','gitmodule:zepto','rake:zepto','copy:zepto']);
 
-  grunt.registerTask('jquery-bridge', 'zepto gitmodule:zepto copy:jquery-bridge replace:jquery-bridge');
+  grunt.registerTask('jquery-bridge', ['zepto','gitmodule:zepto','copy:jquery-bridge','replace:jquery-bridge']);
 
-  grunt.registerTask('test', 'copy:prepare qunit');
+  grunt.registerTask('test', ['copy:prepare','qunit']);
 
-  grunt.registerTask('cq', 'lint light jshint csslint cover');
+  grunt.registerTask('cq', ['lint','light','jshint','csslint','cover']);
 
-  grunt.registerTask('light', 'intro nuke copy:prepare css concat');
+  grunt.registerTask('light', ['intro','nuke','copy:prepare','css','concat']);
 
-  grunt.registerTask('dist', 'intro nuke zepto jquery-bridge light test copy:dist replace:strip-warnings min minjs replace:distpath copy:htaccess clean:excluded copy:checkin');
+  grunt.registerTask('dist', ['intro','nuke','zepto','jquery-bridge','light','test','copy:dist','replace:strip-warnings','min','minjs','replace:distpath','copy:htaccess','clean:excluded','copy:checkin']);
 
-  grunt.registerTask('full', 'intro nuke light cq dist');
+  grunt.registerTask('full', ['intro','nuke','light','cq','dist']);
 
 };
