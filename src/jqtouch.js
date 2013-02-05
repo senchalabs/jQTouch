@@ -28,7 +28,6 @@
             history=[],
             newPageCount=0,
             jQTSettings={},
-            $currentPage='',
             orientation='portrait',
             touchSelectors=[],
             publicObj={},
@@ -36,47 +35,8 @@
             extensions=$.jQTouch.prototype.extensions,
             extTapHandlers=$.jQTouch.prototype.tapHandlers,
             tapHandlers=[],
-            animations=[],
             hairExtensions='',
-            defaults = {
-                addGlossToIcon: true,
-                backSelector: '.back, .cancel, .goback',
-                cacheGetRequests: true,
-                debug: true,
-                defaultAnimation: 'slideleft',
-                fixedViewport: true,
-                formSelector: 'form',
-                fullScreen: true,
-                fullScreenClass: 'fullscreen',
-                icon: null,
-                icon4: null, // available in iOS 4.2 and later
-                preloadImages: false,
-                starter: $(document).ready,
-                startupScreen: null,
-                statusBar: 'default', // other options: black-translucent, black
-                submitSelector: '.submit',
-                touchSelector: 'a, .touch',
-                trackScrollPositions: true,
-                updateHash: true,
-                useAnimations: true,
-                useFastTouch: true,
-                useTouchScroll: true,
-                animations: [ // highest to lowest priority
-                    {name:'cubeleft', selector:'.cubeleft, .cube', is3d: true},
-                    {name:'cuberight', selector:'.cuberight', is3d: true},
-                    {name:'dissolve', selector:'.dissolve'},
-                    {name:'fade', selector:'.fade'},
-                    {name:'flipleft', selector:'.flipleft, .flip', is3d: true},
-                    {name:'flipright', selector:'.flipright', is3d: true},
-                    {name:'pop', selector:'.pop', is3d: true},
-                    {name:'swapleft', selector:'.swapleft, .swap', is3d: true},
-                    {name:'swapright', selector:'.swapright', is3d: true},
-                    {name:'slidedown', selector:'.slidedown'},
-                    {name:'slideright', selector:'.slideright'},
-                    {name:'slideup', selector:'.slideup'},
-                    {name:'slideleft', selector:'.slideleft, .slide, #jqt > * > ul li a'}
-                ]
-            }; // end defaults
+            defaults = $.jQTouch.defaults;
 
         function warn(message) {
             if (window.console !== undefined && jQTSettings.debug === true) {
@@ -84,16 +44,10 @@
             }
         }
 
-        function addAnimation(animation) {
-            if (typeof(animation.selector) === 'string' && typeof(animation.name) === 'string') {
-                animations.push(animation);
-            }
-        }
-
         function addTapHandler(tapHandler) {
             if (typeof(tapHandler.name) === 'string'
-              && typeof(tapHandler.isSupported) === 'function'
-              && typeof(tapHandler.fn) === 'function') {
+                    && typeof(tapHandler.isSupported) === 'function'
+                    && typeof(tapHandler.fn) === 'function') {
 
                 tapHandlers.push(tapHandler);
             }
@@ -138,8 +92,7 @@
         }
 
         function doNavigation(fromPage, toPage, animation, goingBack) {
-
-            goingBack = goingBack ? goingBack : false;
+            goingBack = !!goingBack;
 
             // Error check for target page
             if (toPage === undefined || toPage.length === 0) {
@@ -161,54 +114,11 @@
             fromPage.trigger('pageAnimationStart', { direction: 'out', back: goingBack });
             toPage.trigger('pageAnimationStart', { direction: 'in', back: goingBack });
 
-            if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
-                // Fail over to 2d animation if need be
-                if (!$.support.transform3d && animation.is3d) {
-                    warn('Did not detect support for 3d animations, falling back to ' + jQTSettings.defaultAnimation + '.');
-                    animation.name = jQTSettings.defaultAnimation;
-                }
-
-                // Reverse animation if need be
-                var finalAnimationName = animation.name,
-                    is3d = animation.is3d ? 'animating3d' : '';
-
-                if (goingBack) {
-                    finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation);
-                }
-
-                warn('finalAnimationName is ' + finalAnimationName + '.');
-
-                // Bind internal 'cleanup' callback
-                fromPage.bind('webkitAnimationEnd', navigationEndHandler);
-
-                // Trigger animations
-                $body.addClass('animating ' + is3d);
-
-                var lastScroll = window.pageYOffset;
-
-                // Position the incoming page so toolbar is at top of
-                // viewport regardless of scroll position on from page
-                if (jQTSettings.trackScrollPositions === true) {
-                    toPage.css('top', window.pageYOffset - (toPage.data('lastScroll') || 0));
-                }
-
-                toPage.addClass(finalAnimationName + ' in current');
-                fromPage.removeClass('current').addClass(finalAnimationName + ' out inmotion');
-
-                if (jQTSettings.trackScrollPositions === true) {
-                    fromPage.data('lastScroll', lastScroll);
-                    $('.scroll', fromPage).each(function() {
-                        $(this).data('lastScroll', this.scrollTop);
-                    });
-                }
-            } else {
-                toPage.addClass('current in');
-                fromPage.removeClass('current');
-                navigationEndHandler();
-            }
+            jQTSettings.animator.animate(
+                    fromPage, toPage, animation, goingBack, callback);
 
             // Housekeeping
-            $currentPage = toPage;
+            var $currentPage = toPage;
             if (goingBack) {
                 history.shift();
             } else {
@@ -216,46 +126,19 @@
             }
             setHash($currentPage.attr('id'));
 
-            // Private navigationEnd callback
-            function navigationEndHandler(event) {
+            function callback(effected) {
+                fromPage.unselect();
+
                 var bufferTime = tapBuffer;
-
-                if ($.support.animationEvents && animation && jQTSettings.useAnimations) {
-                    fromPage.unbind('webkitAnimationEnd', navigationEndHandler);
-                    fromPage.removeClass(finalAnimationName + ' out inmotion');
-                    if (finalAnimationName) {
-                        toPage.removeClass(finalAnimationName);
-                    }
-                    $body.removeClass('animating animating3d');
-                    if (jQTSettings.trackScrollPositions === true) {
-                        toPage.css('top', -toPage.data('lastScroll'));
-
-                        // Have to make sure the scroll/style resets
-                        // are outside the flow of this function.
-                        setTimeout(function() {
-                            toPage.css('top', 0);
-                            window.scroll(0, toPage.data('lastScroll'));
-                            $('.scroll', toPage).each(function() {
-                                this.scrollTop = - $(this).data('lastScroll');
-                            });
-                        }, 0);
-                    }
-                } else {
-                    fromPage.removeClass(finalAnimationName + ' out inmotion');
-                    if (finalAnimationName) {
-                        toPage.removeClass(finalAnimationName);
-                    }
+                if (!effected) {
                     bufferTime += 260;
                 }
-
                 // 'in' class is intentionally delayed,
                 // as it is our ghost click hack
                 setTimeout(function() {
                     toPage.removeClass('in');
                     window.scroll(0,0);
                 }, bufferTime);
-
-                fromPage.unselect();
 
                 // Trigger custom events
                 toPage.trigger('pageAnimationEnd', {
@@ -271,19 +154,6 @@
             }
 
             return true;
-        }
-
-        function reverseAnimation(animation) {
-            var opposites={
-                'up' : 'down',
-                'down' : 'up',
-                'left' : 'right',
-                'right' : 'left',
-                'in' : 'out',
-                'out' : 'in'
-            };
-
-            return opposites[animation] || animation;
         }
 
         function getOrientation() {
@@ -406,7 +276,7 @@
             // Define public jQuery functions
             $.fn.isExternalLink = function() {
                 var $el = $(this);
-                return ($el.attr('target') === '_blank' || $el.attr('rel') === 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
+                return ($el.attr('target') == '_blank' || $el.attr('rel') == 'external' || $el.is('a[href^="http://maps.google.com"], a[href^="mailto:"], a[href^="tel:"], a[href^="javascript:"], a[href*="youtube.com/v"], a[href*="youtube.com/watch"]'));
             };
             $.fn.makeActive = function() {
                 return $(this).addClass('active');
@@ -420,25 +290,7 @@
             };
         }
 
-        function getAnimation(el) {
-            var animation;
-
-            for (var i=0, max=animations.length; i < max; i++) {
-                if (el.is(animations[i].selector)) {
-                    animation = animations[i];
-                    break;
-                }
-            }
-
-            if (!animation) {
-                warn('Animation could not be found. Using ' + jQTSettings.defaultAnimation + '.');
-                animation = jQTSettings.defaultAnimation;
-            }
-            return animation;
-        }
-
         function insertPages(nodes, animation) {
-
             var targetPage = null;
 
             // Call dom.createElement element directly
@@ -473,7 +325,7 @@
 
         function orientationChangeHandler() {
             scrollTo(0,0);
-            orientation = Math.abs(window.orientation) === 90 ? 'landscape' : 'portrait';
+            orientation = Math.abs(window.orientation) == 90 ? 'landscape' : 'portrait';
             $body.removeClass('portrait landscape').addClass(orientation).trigger('turn', {orientation: orientation});
         }
 
@@ -486,20 +338,6 @@
 
         // Document ready stuff
         function start() {
-            // Store some properties in a support object
-            if (!$.support) $.support = {};
-            $.support.animationEvents = (typeof window.WebKitAnimationEvent !== 'undefined');
-            $.support.touch = (typeof window.TouchEvent !== 'undefined') && (window.navigator.userAgent.indexOf('Mobile') > -1) && jQTSettings.useFastTouch;
-            $.support.transform3d = supportForTransform3d();
-            $.support.ios5 = supportIOS5();
-
-            if (!$.support.touch) {
-                warn('This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable.');
-            }
-            if (!$.support.transform3d) {
-                warn('This device does not support 3d animation. 2d animations will be used instead.');
-            }
-
             // Add extensions
             for (var i=0, max=extensions.length; i < max; i++) {
                 var fn = extensions[i];
@@ -571,6 +409,7 @@
             var startHash = location.hash;
 
             // Determine what the initial view should be
+            var $currentPage;
             if ($('#jqt > .current').length === 0) {
                 $currentPage = $('#jqt > *:first-child').addClass('current');
             } else {
@@ -605,7 +444,7 @@
                     success: function (data) {
                         var firstPage = insertPages(data, settings.animation);
                         if (firstPage) {
-                            if (settings.method === 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
+                            if (settings.method == 'GET' && jQTSettings.cacheGetRequests === true && settings.$referrer) {
                                 settings.$referrer.attr('href', '#' + firstPage.attr('id'));
                             }
                             if (settings.callback) {
@@ -648,7 +487,6 @@
         }
 
         function submitParentForm($el) {
-
             var $form = $el.closest('form');
             if ($form.length === 0) {
                 warn('No parent form found.');
@@ -660,48 +498,7 @@
             return true;
         }
 
-        function supportForTransform3d() {
-
-            var head, body, style, div, result;
-
-            head = document.getElementsByTagName('head')[0];
-            body = document.body;
-
-            style = document.createElement('style');
-            style.textContent = '@media (transform-3d),(-o-transform-3d),(-moz-transform-3d),(-webkit-transform-3d){#jqt-3dtest{height:3px}}';
-
-            div = document.createElement('div');
-            div.id = 'jqt-3dtest';
-
-            // Add to the page
-            head.appendChild(style);
-            body.appendChild(div);
-
-            // Check the result
-            result = div.offsetHeight === 3;
-
-            // Clean up
-            style.parentNode.removeChild(style);
-            div.parentNode.removeChild(div);
-
-            // Pass back result
-            warn('Support for 3d transforms: ' + result + '.');
-            return result;
-        }
-
-        function supportIOS5() {
-            var support = false;
-            var REGEX_IOS_VERSION = /OS (\d+)(_\d+)* like Mac OS X/i;
-
-            var agentString = window.navigator.userAgent;
-            if (REGEX_IOS_VERSION.test(agentString)) {
-                support = (REGEX_IOS_VERSION.exec(agentString)[1] >= 5);
-            }
-            return support;
-        }
-
         function touchStartHandler(e) {
-
             var $el = $(e.target),
                 selectors = touchSelectors.join(', ');
 
@@ -716,7 +513,7 @@
             }
 
             // Remove our active class if we move
-            $el.on($.support.touch ? 'touchmove' : 'mousemove', function() {
+            $el.on($.support.touch? 'touchmove': 'mousemove', function() {
                 $el.removeClass('active');
             });
 
@@ -874,7 +671,6 @@
 
         // Expose public methods and properties
         publicObj = {
-            addAnimation: addAnimation,
             animations: animations,
             getOrientation: getOrientation,
             goBack: goBack,
@@ -886,6 +682,31 @@
         };
         return publicObj;
     };
+
+    $.jQTouch.defaults = {
+        addGlossToIcon: true,
+        backSelector: '.back, .cancel, .goback',
+        cacheGetRequests: true,
+        debug: true,
+        defaultAnimation: 'slideleft',
+        fixedViewport: true,
+        formSelector: 'form',
+        fullScreen: true,
+        fullScreenClass: 'fullscreen',
+        icon: null,
+        icon4: null, // available in iOS 4.2 and later.
+        preloadImages: false,
+        starter: $(document).ready,
+        startupScreen: null,
+        statusBar: 'default', // other options: black-translucent, black
+        submitSelector: '.submit',
+        touchSelector: 'a, .touch',
+        trackScrollPositions: true,
+        updateHash: true,
+        useAnimations: true,
+        useFastTouch: true,
+        useTouchScroll: true
+    }; // end defaults
 
     $.jQTouch.prototype.extensions = [];
     $.jQTouch.prototype.tapHandlers = [];
