@@ -30,7 +30,7 @@ See, [New and Noteworthy](https://github.com/senchalabs/jQTouch/blob/master/VERS
 [Watch this video preview](http://www.jqtouch.com/) to see it in action.
 
 ## Building / Contribute
-[![Build Status](https://api.travis-ci.org/senchalabs/jQTouch.png)](http://travis-ci.org/senchalabs/jQTouch)
+[![Build Status](https://api.travis-ci.org/senchalabs/jQTouch.png?branch=master)](http://travis-ci.org/senchalabs/jQTouch)
 
 Dependencies:
 <table>
