@@ -244,11 +244,11 @@
       }
 
       handlestart(e);
-      } catch (e) {
-        console.error('tap error: ' + e);
+      } catch (err) {
+        console.error('tap error: ' + err);
       }
 
-    }; // End touch handler
+    } // End touch handler
 
     $(document.body).bind('touchstart', touchstartHandler);
   });
