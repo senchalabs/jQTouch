@@ -91,16 +91,17 @@ module.exports = (grunt) ->
       build: ["stage"]
       css: ["<%= dirs.build %>/css"]
       dist: ["<%= dirs.dist %>"]
-      excluded: ["<%= dirs.dist %>/.gitignore", "<%= dirs.dist %>/*.sublime-project", "<%= dirs.dist %>/*.sublime-workspace", "<%= dirs.dist %>/**/.DS_Store"]
 
     copy:
       prepare:
-        src: ["src/**", "lib/**", "themes/**", "extensions/**", "demos/**", "versions/**", "test/**", "*"]
-        dest: "<%= dirs.build %>/"
-
-        options:
-          cwd: ""
-          excludeEmpty: false
+        files: [
+          expand: true
+          src: ["*/**", "!{test,node_modules,build,submodules}/**", "*.{md,txt}"]
+          dest: "<%= dirs.build %>/"
+        ,
+          src: "<%= dirs.dist %>/.htaccess"
+          dest: "<%= dirs.dist %>/sample.htaccess"
+        ]
 
       dist:
         files:
@@ -266,5 +267,5 @@ module.exports = (grunt) ->
 
   # Full-build tasks
   grunt.registerTask "light", ["nuke", "copy:prepare", "css", "concat"]
-  grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "replace:strip-warnings", "min", "minjs", "replace:distpath", "copy:htaccess", "clean:excluded", "copy:checkin"]
+  grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "replace:strip-warnings", "min", "minjs", "replace:distpath", "copy:checkin"]
   grunt.registerTask "full", ["nuke", "light", "cq", "dist"]
