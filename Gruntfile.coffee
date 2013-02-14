@@ -137,14 +137,6 @@ module.exports = (grunt) ->
           cwd: ""
           excludeEmpty: false
 
-      htaccess:
-        files:
-          "<%= dirs.dist %>/.htaccess": ["<%= dirs.dist %>/sample.htaccess"]
-
-        options:
-          cwd: ""
-          excludeEmpty: false
-
     replace:
       "jquery-bridge":
         src: ["<%= dirs.build %>/src/jqtouch-jquery.js"]
