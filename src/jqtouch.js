@@ -91,10 +91,7 @@
         }
 
         function addTapHandler(tapHandler) {
-            if (typeof(tapHandler.name) === 'string'
-              && typeof(tapHandler.isSupported) === 'function'
-              && typeof(tapHandler.fn) === 'function') {
-
+            if (typeof(tapHandler.name) === 'string' && typeof(tapHandler.isSupported) === 'function' && typeof(tapHandler.fn) === 'function') {
                 tapHandlers.push(tapHandler);
             }
         }
@@ -509,14 +506,14 @@
             }
 
             // Add extensions tapHandlers
-            for (var i=0, max=extTapHandlers.length; i < max; i++) {
-                addTapHandler(extTapHandlers[i]);
+            for (var j=0, maxTapHandlers=extTapHandlers.length; j < maxTapHandlers; j++) {
+                addTapHandler(extTapHandlers[j]);
             }
             // Add default tapHandlers
             addDefaultTapHandlers();
 
             // Add animations
-            for (var k=0, max=defaults.animations.length; k < max; k++) {
+            for (var k=0, maxAnimations=defaults.animations.length; k < maxAnimations; k++) {
                 var animation = defaults.animations[k];
                 if (jQTSettings[animation.name + 'Selector'] !== undefined) {
                     animation.selector = jQTSettings[animation.name + 'Selector'];
@@ -532,7 +529,7 @@
 
             // Make sure we have a jqt element
             $body = $('#jqt');
-            var anatomy_lessons = [];
+            var anatomyLessons = [];
 
             if ($body.length === 0) {
                 warn('Could not find an element with the id "jqt", so the body id has been set to "jqt". If you are having any problems, wrapping your panels in a div with the id "jqt" might help.');
@@ -541,24 +538,24 @@
 
             // Add some specific css if need be
             if ($.support.transform3d) {
-                anatomy_lessons.push('supports3d');
+                anatomyLessons.push('supports3d');
             }
 
             if (jQTSettings.useTouchScroll) {
                 if ($.support.ios5) {
-                    anatomy_lessons.push('touchscroll');
+                    anatomyLessons.push('touchscroll');
                 } else {
-                    anatomy_lessons.push('autoscroll');
+                    anatomyLessons.push('autoscroll');
                 }
             }
 
             if (jQTSettings.fullScreenClass && window.navigator.standalone === true) {
-                anatomy_lessons.push(jQTSettings.fullScreenClass, jQTSettings.statusBar);
+                anatomyLessons.push(jQTSettings.fullScreenClass, jQTSettings.statusBar);
             }
 
             // Bind events
             $body
-                .addClass(anatomy_lessons.join(' '))
+                .addClass(anatomyLessons.join(' '))
                 .bind('click', clickHandler)
                 .bind('orientationchange', orientationChangeHandler)
                 .bind('submit', submitHandler)
