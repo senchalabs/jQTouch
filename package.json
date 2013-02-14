@@ -10,7 +10,7 @@
   "contributors": [
     {
       "name": "David Kaneda",
-      "email": ""
+      "email": "dk@morfunk.com"
     },
     {
       "name": "Jonathan Stark",
@@ -21,6 +21,11 @@
       "email": ""
     }
   ],
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
   "engines": {
     "node": "~0.8"
   },
@@ -28,10 +33,18 @@
     "grunt-coverjs": "~0.1.0"
   },
   "devDependencies": {
-    "grunt-text-replace": "~0.2.10",
     "grunt": "~0.4.0rc7",
-    "grunt-contrib": "~0.3.0",
-    "grunt-contrib-qunit": "~0.1.0"
+    "grunt-text-replace": "~0.2.10",
+    "grunt-contrib-qunit": "~0.1.1",
+    "grunt-contrib-clean": "~0.4.0rc6",
+    "grunt-contrib-coffee": "~0.4.0",
+    "grunt-contrib-compress": "~0.4.0",
+    "grunt-contrib-concat": "~0.1.2rc6",
+    "grunt-contrib-copy": "~0.4.0",
+    "grunt-contrib-lint": "~0.5.0",
+    "grunt-contrib-mincss": "~0.4.0",
+    "grunt-contrib-jshint": "~0.1.0",
+    "grunt-css": "~0.5.3"
   },
   "optionalDependencies": {},
   "scripts": {
