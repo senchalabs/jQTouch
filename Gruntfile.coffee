@@ -107,35 +107,19 @@ module.exports = (grunt) ->
         files:
           "<%= dirs.dist %>/": ["<%= dirs.build %>/**"]
 
-        options:
-          cwd: ""
-          excludeEmpty: false
-
       zepto:
         files:
           "lib/zepto/": ["submodules/zepto/dist/**"]
           "<%= dirs.build %>/src/jqtouch-jquery.js": ["submodules/zepto/src/touch.js"]
 
-        options:
-          cwd: ""
-          excludeEmpty: false
-
       "jquery-bridge":
         files:
           "<%= dirs.build %>/src/jqtouch-jquery.js": ["submodules/zepto/src/touch.js"]
-
-        options:
-          cwd: ""
-          excludeEmpty: false
 
       checkin: # replace checkin version with updated css(es)
         files:
           "themes/css/": ["<%= dirs.dist %>/themes/css/**"]
           "src/jqtouch-jquery.js": ["<%= dirs.dist %>/src/jqtouch-jquery.js"]
-
-        options:
-          cwd: ""
-          excludeEmpty: false
 
     replace:
       "jquery-bridge":
