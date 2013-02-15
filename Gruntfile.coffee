@@ -142,9 +142,6 @@ module.exports = (grunt) ->
           sassDir: 'themes/scss'
           cssDir: 'themes/css'
 
-    lint:
-      files: ["src/jqtouch.js"]
-
     qunit:
       files: ["<%= dirs.build %>/test/unit/*.html"]
 
