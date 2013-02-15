@@ -38,7 +38,7 @@ module.exports = (grunt) ->
 
   # Project configuration.
   grunt.initConfig
-    pkg: "<json:package.json>"
+    pkg: grunt.file.readJSON('package.json')
     meta:
       version: "<%= pkg.version %>-<%= pkg.versionId %>"
       banner:
