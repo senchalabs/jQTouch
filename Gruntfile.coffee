@@ -79,18 +79,29 @@ module.exports = (grunt) ->
 
     copy:
       prepare:
-        files: [
-          expand: true
-          src: ["*/**", "!{test,node_modules,build,submodules}/**", "*.{md,txt}"]
-          dest: "<%= dirs.build %>/"
-        ,
-          src: "<%= dirs.dist %>/.htaccess"
-          dest: "<%= dirs.dist %>/sample.htaccess"
-        ]
+        expand: true
+        src: ["*/**", "!{test,node_modules,build,submodules,jqtouch*}/**", "*.{md,txt,htaccess}"]
+        dest: "<%= dirs.build %>/"
 
       dist:
-        files:
-          "<%= dirs.dist %>/": ["<%= dirs.build %>/**"]
+        files: [
+          expand: yes
+          dest: '<%= dirs.dist %>/'
+          src: '**/*'
+          cwd: '<%= dirs.build %>'
+        ,
+          src: "<%= dirs.build %>/sample.htaccess"
+          dest: "<%= dirs.dist %>/.htaccess"
+        ]
+
+        options:
+          processContent: (content, path) ->
+            if path.match /\.js$/
+              content.replace /\n\s*warn\(.*/g, ''
+            else if path.match /\.html$/
+              content.replace /([\w-\.]*)(\.min)?\.js/g, '$1.min.js'
+            else
+              content
 
       zepto:
         files:
@@ -98,6 +109,13 @@ module.exports = (grunt) ->
           "<%= dirs.build %>/src/jqtouch-jquery.js": ["submodules/zepto/src/touch.js"]
 
       "jquery-bridge":
+        options:
+          # Convert Zepto's touch class to work for jQuery
+          processContent: (content) ->
+            content
+              .replace('e.touches', '(e.originalEvent||e).touches')
+              .replace('(Zepto)', '(jQuery)')
+
         files:
           "<%= dirs.build %>/src/jqtouch-jquery.js": ["submodules/zepto/src/touch.js"]
 
@@ -105,37 +123,6 @@ module.exports = (grunt) ->
         files:
           "themes/css/": ["<%= dirs.dist %>/themes/css/**"]
           "src/jqtouch-jquery.js": ["<%= dirs.dist %>/src/jqtouch-jquery.js"]
-
-    replace:
-      "jquery-bridge":
-        src: ["<%= dirs.build %>/src/jqtouch-jquery.js"]
-        overwrite: true
-        replacements: [
-          from: /e\.touches/g
-          to: "(e.originalEvent || e).touches"
-        ,
-          from: /\(Zepto\)/g
-          to: "(jQuery)"
-        ]
-
-      distpath:
-        src: ["<%= dirs.dist %>/**/*.html"]
-        overwrite: true
-        replacements: [
-          from: /([\w-\.]*)\.js/g
-          to: "$1.min.js"
-        ,
-          from: /([\w-\.]*)\.min\.min\.js/g
-          to: "$1.min.js"
-        ]
-
-      "strip-warnings":
-        src: ["<%= dirs.dist %>/src/jqtouch.js", "<%= dirs.dist %>/src/jqtouch.min.js"]
-        overwrite: true
-        replacements: [
-          from: /\n\s*warn\(.*/g
-          to: ""
-        ]
 
     gitmodule:
       zepto: {}
