@@ -4,26 +4,11 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-qunit"
   grunt.loadNpmTasks "grunt-contrib-clean"
   grunt.loadNpmTasks "grunt-contrib-coffee"
+  grunt.loadNpmTasks "grunt-contrib-compass"
   grunt.loadNpmTasks "grunt-contrib-copy"
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-css"
-
-  grunt.registerMultiTask "compass", "Compile sass with compass", ->
-    
-    # roll our own, because I couldn't find -l options to the `contrib` version 
-    cb = @async() # Tell grunt the task is async
-    options = @data["options"] or {}
-    params = grunt.template.process(@data["params"])
-    exec = require("child_process").exec
-    console.log "compass " + params + ""
-    child = exec("compass " + params + "", options, (error, stdout, stderr) ->
-      console.log "stdout: " + stdout  unless not stdout
-      if error isnt null
-        console.log "error: " + error
-        console.log "stderr: " + stdout
-      cb() # Execute the callback when the async task is done
-    )
 
   grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
     cb = @async() # Tell grunt the task is async
@@ -164,8 +149,11 @@ module.exports = (grunt) ->
           cwd: "submodules/zepto"
 
     compass:
-      all:
-        params: "compile -l <%= dirs.build %>/themes/compass-recipes/ --sass-dir <%= dirs.build %>/themes/scss --css-dir <%= dirs.build %>/themes/css --output-style compressed --environment production -q"
+      compile:
+        options:
+          load: 'themes/compass-recipes/'
+          sassDir: 'themes/scss'
+          cssDir: 'themes/css'
 
     lint:
       files: ["src/jqtouch.js"]

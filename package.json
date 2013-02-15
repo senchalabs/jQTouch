@@ -44,7 +44,8 @@
     "grunt-contrib-lint": "~0.5.0",
     "grunt-contrib-mincss": "~0.4.0",
     "grunt-contrib-jshint": "~0.1.0",
-    "grunt-css": "~0.5.3"
+    "grunt-css": "~0.5.3",
+    "grunt-contrib-compass": "~0.1.1rc8"
   },
   "optionalDependencies": {},
   "scripts": {
