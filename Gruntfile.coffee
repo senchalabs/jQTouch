@@ -212,10 +212,9 @@ module.exports = (grunt) ->
   grunt.registerTask "jquery-bridge", ["zepto", "copy:jquery-bridge"]
   
   # Tests & checks
-  grunt.registerTask "cq", ["jshint", "light", "jshint"]
   grunt.registerTask "test", ["copy:prepare", "copy:test", "qunit"]
 
   # Full-build tasks
   grunt.registerTask "light", ["nuke", "copy:prepare", "compass"]
   grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "uglify"]
-  grunt.registerTask "full", ['update_submodules', "nuke", "light", "cq", "dist"]
+  grunt.registerTask "full", ['update_submodules', "nuke", "light", "dist"]
