@@ -146,11 +146,6 @@ module.exports = (grunt) ->
     qunit:
       files: ["<%= dirs.build %>/test/unit/*.html"]
 
-    concat:
-      dist:
-        src: ["<banner>", "<file_strip_banner:src/jqtouch.js>"]
-        dest: "<%= dirs.dist %>/src/jqtouch.js"
-
     uglify:
 
       options:
