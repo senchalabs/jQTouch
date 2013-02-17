@@ -70,7 +70,7 @@ module.exports = (grunt) ->
     copy:
       prepare:
         expand: true
-        src: ["*/**", "!{test,node_modules,build,submodules,jqtouch*}/**", "*.{md,txt,htaccess}"]
+        src: ["*/**", "!{test,node_modules,build,submodules,jqtouch*,themes/compass-recipes,themes/scss}/**", "*.{md,txt,htaccess}"]
         dest: "<%= dirs.build %>/"
 
       dist:
