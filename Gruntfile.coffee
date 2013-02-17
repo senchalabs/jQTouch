@@ -126,7 +126,7 @@ module.exports = (grunt) ->
           # Convert Zepto's touch class to work for jQuery
           processContent: (content) ->
             content
-              .replace('e.touches', '(e.originalEvent||e).touches')
+              .replace(/e\.touches/g, '(e.originalEvent||e).touches')
               .replace('(Zepto)', '(jQuery)')
 
         files:
