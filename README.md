@@ -1,6 +1,8 @@
 jQTouch
 =======
 
+[![Build Status](https://api.travis-ci.org/senchalabs/jQTouch.png)](http://travis-ci.org/senchalabs/jQTouch)
+
 Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
 --------------------------------------------------------------------------
 
@@ -19,8 +21,8 @@ jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and c
 ## Upcoming Features
 *Note: Upcoming features are developed in the master branch, and are not to be considered stable. For official releases, please see the [version tags](https://github.com/senchalabs/jQTouch/tags).*
 
-- [Zepto](https://github.com/madrobby/zepto) integration - Use with Zepto.js instead of jQuery to cut down on precious bandwidth. Zepto.js is very similar API to jQuery, but optimized for WebKit and thus about 20kb smaller.
-- Sass-based stylesheets, easily modified with variables, and optimized for size.
+- [Zepto](https://github.com/madrobby/zepto) integration - Use Zepto.js instead of jQuery to cut down on precious bandwidth. Zepto.js features a similar API to jQuery, but optimized for WebKit and much smaller.
+- Sass-based stylesheets, easily modified with variables and optimized for size.
 - Image-less stylesheets -- Using [Compass Recipes](https://github.com/senchalabs/compass-recipes), we have recreated all of the gradients and background patterns with CSS. This way, they are resolution independent, dynamically theme-able, and lower bandwidth.
 
 See, [New and Noteworthy](https://github.com/senchalabs/jQTouch/blob/master/VERSIONS.md) for Details.
@@ -29,23 +31,41 @@ See, [New and Noteworthy](https://github.com/senchalabs/jQTouch/blob/master/VERS
 
 [Watch this video preview](http://www.jqtouch.com/) to see it in action.
 
-## Building / Contribute
-[![Build Status](https://api.travis-ci.org/senchalabs/jQTouch.png)](http://travis-ci.org/senchalabs/jQTouch)
+## Building your own version of jQTouch
 
-Dependencies:
-<table>
-<thead>
-  <tr><th>target</th><th>description</th><th>dependencies</th></tr>
-</thead>
-<tbody>
-  <tr><td>`grunt --help`</td><td>List available build targets.</td><td>nodejs, grunt: ex, `brew install node && npm install grunt -g && npm install`</td></tr>
-  <tr><td>`grunt css`</td><td>Build SASS resources into css.</td><td>`ruby`, `compass` + `grunt --help` dependencies: ex, `gem install compass`</td></tr>
-  <tr><td>`grunt test`</td><td>Run all unit tests.</td><td>`phantomjs` + `grunt --help` dependencies: ex, `brew install phantomjs`</td></tr>
-  <tr><td>`grunt dist`</td><td>Build a distribution.</td><td>`grunt css` + `grunt test` dependencies</td></tr>
-</tbody>
-</table>
+### Dependencies
 
-The command `grunt dist` builds a folder structure under `jqtouch-${release.version}-${release.id}`.
+We have quite a few dependencies at the moment, as we build certain features directly from Zepto (which uses Rake), and we use Compass for stylesheets, which is only available via Ruby. The actual build system, however, is built on Grunt.
+
+Please make sure you have the following installed:
+
+* [Ruby](http://www.ruby-lang.org) — Comes default on Macs, Windows users can use [RubyInstaller](http://rubyinstaller.org)
+* [Sass](http://sass-lang.com) & [Compass](http://compass-style.org) — Install both with `sudo gem install compass` once you have Ruby/RubyGems installed
+* [Node.js & NPM](http://nodejs.org) — `brew install node`
+* [Grunt CLI](http://gruntjs.com) — Install with `npm install -g grunt-cli` once you have Node.js as listed above.
+* Local node packages — Run `npm install` from this directory
+
+### Commands
+
+#### `grunt` (default)
+
+Will create a build of jQTouch in the `build/` directory, compiling any theme files and updating with source from the Zepto submodule. This must be run to preview jQTouch.
+
+#### `grunt watch`
+
+Will create the same build as above, but will continue to watch for file changes to theme and source files, compiling/copying them into build every time you save. If you have a livereload browser extension installed and enabled, the page will update live after every change.
+
+#### `grunt compass`
+
+Only build the theme files. Typically, you'll want to use `grunt watch` for developing a custom theme.
+
+#### `grunt test`
+
+Run our test suite.
+
+#### `grunt dist`
+
+This is typically used internally for creating releases — It does everything the standard build does, but then additionally minifies all JS/CSS and updates the paths in demo files.
 
 External Guides
 ---------------
@@ -63,7 +83,7 @@ Maintained by [Thomas Yip](https://github.com/thomasyip).
 
 Special thanks to [pinch/zoom](http://www.pinchzoom.com/) and [Jonathan Stark](http://jonathanstark.com/).
 
-(c) 2009-2012 Sencha Labs.
+(c) 2009-2013 Sencha Labs.
 
 jQTouch may be freely distributed under the MIT license.
 See LICENSE.txt for license.
