@@ -63,7 +63,6 @@ module.exports = (grunt) ->
       css: "<%= dirs.build %>/themes/css"
 
     clean:
-      zepto: ["zepto/lib"]
       build: ["stage"]
       dist: ["<%= dirs.dist %>"]
 
