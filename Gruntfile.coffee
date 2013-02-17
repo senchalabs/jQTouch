@@ -121,7 +121,7 @@ module.exports = (grunt) ->
 
     rake:
       zepto:
-        params: "concat[fx:ajax:data:detect:event:form:polyfill:touch] dist"
+        params: "concat[fx:ajax:data:detect:event:form:polyfill:touch]"
         options:
           cwd: "submodules/zepto"
 
