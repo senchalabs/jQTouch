@@ -33,31 +33,30 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON('package.json')
     meta:
       version: "<%= pkg.version %>-<%= pkg.versionId %>"
-      banner:
-        banner: """
-          /*
-                     _/    _/_/    _/_/_/_/_/                              _/
-                        _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
-                   _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
-                  _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
-                 _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
-                _/
-             _/
+      banner: """
+        /*
+                   _/    _/_/    _/_/_/_/_/                              _/
+                      _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
+                 _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
+                _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
+               _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
+              _/
+           _/
 
-             Created by David Kaneda <http://www.davidkaneda.com>
-             Maintained by Thomas Yip <http://beedesk.com/>
-             Sponsored by Sencha Labs <http://www.sencha.com/>
-             Special thanks to Jonathan Stark <http://www.jonathanstark.com/>
+           Created by David Kaneda <http://www.davidkaneda.com>
+           Maintained by Thomas Yip <http://beedesk.com/>
+           Sponsored by Sencha Labs <http://www.sencha.com/>
+           Special thanks to Jonathan Stark <http://www.jonathanstark.com/>
 
-             Documentation and issue tracking on GitHub <http://github.com/senchalabs/jQTouch/>
+           Documentation and issue tracking on GitHub <http://github.com/senchalabs/jQTouch/>
 
-             (c) 2009-<%= grunt.template.today("yyyy") %> Sencha Labs
+           (c) 2009-<%= grunt.template.today("yyyy") %> Sencha Labs
 
-             Version: <%= meta.version %> - <%= grunt.template.today("yyyy-mm-dd") %>
+           Version: <%= meta.version %> - <%= grunt.template.today("yyyy-mm-dd") %>
 
-             jQTouch may be freely distributed under the MIT license.
-          */
-        """
+           jQTouch may be freely distributed under the MIT license.
+        */\n
+      """
     dirs:
       src: "src"
       build: "build" # change back to `build` when you port away from ant`.
@@ -145,6 +144,18 @@ module.exports = (grunt) ->
           load: 'submodules/compass-recipes/'
           sassDir: 'themes/scss'
           cssDir: '<%= dirs.css %>'
+    
+    # Concat is only used to add our banner
+    concat:        
+      banner:
+        expand: yes
+        cwd: '<%= dirs.build %>/src/'
+        src: '**/*.js'
+        dest: '<%= dirs.build %>/src/'
+
+        options:
+          banner: "<%= meta.banner %>"
+
 
     qunit:
       files: ["test/unit/*.html"]
@@ -242,7 +253,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
 
   # Default (Build)
-  grunt.registerTask 'default', ['update_submodules', 'clean', 'zepto', 'copy:prepare', 'compass']
+  grunt.registerTask 'default', ['update_submodules', 'clean', 'copy:prepare', 'concat', 'zepto', 'compass']
 
   # Test from scratch
   grunt.registerTask 'test', ['default', 'copy:test', 'qunit']
