@@ -10,6 +10,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-css"
+  grunt.loadNpmTasks "grunt-update-submodules"
 
   grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
     cb = @async() # Tell grunt the task is async
@@ -17,20 +18,8 @@ module.exports = (grunt) ->
     params = grunt.template.process(@data["params"])
     exec = require("child_process").exec
     child = exec("rake " + params + "", options, (error, stdout, stderr) ->
-      console.log "stdout: " + stdout  unless not stdout
-      if error isnt null
-        console.log "error: " + error
-        console.log "stderr: " + stdout
-      cb() # Execute the callback when the async task is done
-    )
-
-  grunt.registerMultiTask "gitmodule", "Update git submodules", ->
-    cb = @async() # Tell grunt the task is async
-    target = @target or ""
-    path = @data["path"] or ("submodules/" + @target)
-    exec = require("child_process").exec
-    child = exec("git submodule update --init --recursive " + path, (error, stdout, stderr) ->
-      console.log "stdout: " + stdout  unless not stdout
+      console.log "stdout: " + stdout if stdout
+      
       if error isnt null
         console.log "error: " + error
         console.log "stderr: " + stdout
@@ -147,7 +136,6 @@ module.exports = (grunt) ->
       files: ["<%= dirs.build %>/test/unit/*.html"]
 
     uglify:
-
       options:
         globals:
           jQTouch: yes
@@ -193,21 +181,20 @@ module.exports = (grunt) ->
         globals:
           $: true
           console: true
-
   
   # Tasks
   grunt.registerTask "nuke", ["clean:build", "clean:dist"]
   
   # Git submodule updates
-  grunt.registerTask "css", ["clean:css", "gitmodule:recipes", "compass"]
-  grunt.registerTask "zepto", ["clean:zepto", "gitmodule:zepto", "rake:zepto", "copy:zepto"]
-  grunt.registerTask "jquery-bridge", ["zepto", "gitmodule:zepto", "copy:jquery-bridge", "replace:jquery-bridge"]
+  grunt.registerTask "css", ["clean:css", "update_submodules", "compass"]
+  grunt.registerTask "zepto", ["update_submodules", "rake", "copy:zepto"]
+  grunt.registerTask "jquery-bridge", ["zepto", "copy:jquery-bridge"]
   
   # Tests & checks
   grunt.registerTask "test", ["copy:prepare", "qunit"]
   grunt.registerTask "cq", ["jshint", "light", "jshint"]
 
   # Full-build tasks
-  grunt.registerTask "light", ["nuke", "copy:prepare", "css", "concat"]
-  grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "replace:strip-warnings", "uglify", "replace:distpath", "copy:checkin"]
-  grunt.registerTask "full", ["nuke", "light", "cq", "dist"]
+  grunt.registerTask "light", ["nuke", "copy:prepare", "compass"]
+  grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "uglify"]
+  grunt.registerTask "full", ['update_submodules', "nuke", "light", "cq", "dist"]
