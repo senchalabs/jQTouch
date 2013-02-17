@@ -96,7 +96,12 @@ module.exports = (grunt) ->
 
             else
               content
-
+      test:
+        expand: yes
+        cwd: '<%= dirs.build %>'
+        dest: 'test/build/'
+        src: '**/*'
+        
       zepto:
         files: [
           expand: yes
@@ -132,7 +137,7 @@ module.exports = (grunt) ->
           cssDir: '<%= dirs.css %>'
 
     qunit:
-      files: ["<%= dirs.build %>/test/unit/*.html"]
+      files: ["test/unit/*.html"]
 
     uglify:
       options:
@@ -208,8 +213,8 @@ module.exports = (grunt) ->
   grunt.registerTask "jquery-bridge", ["zepto", "copy:jquery-bridge"]
   
   # Tests & checks
-  grunt.registerTask "test", ["copy:prepare", "qunit"]
   grunt.registerTask "cq", ["jshint", "light", "jshint"]
+  grunt.registerTask "test", ["copy:prepare", "copy:test", "qunit"]
 
   # Full-build tasks
   grunt.registerTask "light", ["nuke", "copy:prepare", "compass"]
