@@ -73,6 +73,12 @@ module.exports = (grunt) ->
         src: ["*/**", "!{test,node_modules,build,submodules,jqtouch*,themes/compass-recipes,themes/scss}/**", "*.{md,txt,htaccess}"]
         dest: "<%= dirs.build %>/"
 
+      source:
+        expand: yes
+        cwd: 'src'
+        src: ["**/*.js"]
+        dest: "<%= dirs.build %>/src/"
+
       dist:
         files: [
           expand: yes
@@ -183,8 +189,11 @@ module.exports = (grunt) ->
 
     watch:
       theming:
-        files: "themes/scss/**/*.scss"
-        tasks: ["compass"]
+        files: 'themes/scss/**/*.scss'
+        tasks: ['compass']
+      source:
+        files: 'src/**/*.js'
+        tasks: ['copy:source']
 
     livereload:
       options:
