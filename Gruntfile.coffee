@@ -9,6 +9,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-uglify"
+  grunt.loadNpmTasks "grunt-contrib-watch"
   grunt.loadNpmTasks "grunt-update-submodules"
 
   grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
@@ -180,8 +181,9 @@ module.exports = (grunt) ->
           "<%= dirs.build %>/test/instrumented/jqtouch.js": ["src/jqtouch.js"]
 
     watch:
-      files: "<%= dirs.build %>/themes/css"
-      tasks: "compass"
+      theming:
+        files: "themes/scss/**/*.scss"
+        tasks: ["compass"]
 
     jshint:
       src: "<%= dirs.src %>/**/*.js"
