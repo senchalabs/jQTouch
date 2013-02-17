@@ -162,6 +162,24 @@ module.exports = (grunt) ->
         src: '**/*.js'
         dest: "<%= dirs.dist %>/extensions/"
 
+      lib:
+        expand: yes
+        cwd: "<%= dirs.dist %>/lib/"
+        src: '**/*.js'
+        dest: "<%= dirs.dist %>/lib/"
+        ext: '.min.js'
+
+        options:
+          preserveComments: (comment) ->
+            
+            # Preserve comments near the top of the file.
+            # Loosey-goosey, I know, but I want to make sure we keep any
+            # Zepto and jQuery lines about (c) and license
+            if comment.start.line < 4
+              yes
+            else
+              no
+
     cover:
       compile:
         files:
