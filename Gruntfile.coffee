@@ -86,17 +86,26 @@ module.exports = (grunt) ->
 
         options:
           processContent: (content, path) ->
+            # Strip warnings from JavaScript
             if path.match /\.js$/
               content.replace /\n\s*warn\(.*/g, ''
+
+            # Update to minified JS paths in HTML
             else if path.match /\.html$/
               content.replace /([\w-\.]*)(\.min)?\.js/g, '$1.min.js'
+
             else
               content
 
       zepto:
-        files:
-          "lib/zepto/": ["submodules/zepto/dist/**"]
+        files: [
+          expand: yes
+          cwd: 'submodules/zepto/dist/'
+          src: 'zepto.js'
+          dest: 'lib/zepto'
+        ,
           "<%= dirs.build %>/src/jqtouch-jquery.js": ["submodules/zepto/src/touch.js"]
+        ]          
 
       "jquery-bridge":
         options:
