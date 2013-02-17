@@ -8,6 +8,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-copy"
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-jshint"
+  grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-css"
 
   grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
@@ -150,25 +151,24 @@ module.exports = (grunt) ->
         src: ["<banner>", "<file_strip_banner:src/jqtouch.js>"]
         dest: "<%= dirs.dist %>/src/jqtouch.js"
 
-    minjs:
-      extensions:
-        src: ["<%= dirs.dist %>/extensions/*.js"]
-        dest: "<%= dirs.dist %>/extensions/*.min.js"
-        options:
-          banner: true
+    uglify:
 
-    min:
+      options:
+        globals:
+          jQTouch: yes
+
       jqtouch:
-        src: ["<%= dirs.dist %>/src/jqtouch.js"]
-        dest: "<%= dirs.dist %>/src/jqtouch.min.js"
+        expand: yes
+        cwd: '<%= dirs.dist %>/src/'
+        src: '**/*.js'
+        dest: "<%= dirs.dist %>/src/"
+        ext: '.min.js'
 
-      "jquery-bridge":
-        src: ["<%= dirs.dist %>/src/jqtouch-jquery.js"]
-        dest: "<%= dirs.dist %>/src/jqtouch-jquery.min.js"
-
-      "jquery-bridge2":
-        src: ["<%= dirs.dist %>/src/jqtouch-jquery2.js"]
-        dest: "<%= dirs.dist %>/src/jqtouch-jquery2.min.js"
+      extensions:
+        expand: yes
+        cwd: "<%= dirs.dist %>/extensions/"
+        src: '**/*.js'
+        dest: "<%= dirs.dist %>/extensions/"
 
     cover:
       compile:
@@ -199,7 +199,6 @@ module.exports = (grunt) ->
           $: true
           console: true
 
-    uglify: {}
   
   # Tasks
   grunt.registerTask "nuke", ["clean:build", "clean:dist"]
@@ -215,5 +214,5 @@ module.exports = (grunt) ->
 
   # Full-build tasks
   grunt.registerTask "light", ["nuke", "copy:prepare", "css", "concat"]
-  grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "replace:strip-warnings", "min", "minjs", "replace:distpath", "copy:checkin"]
+  grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "replace:strip-warnings", "uglify", "replace:distpath", "copy:checkin"]
   grunt.registerTask "full", ["nuke", "light", "cq", "dist"]
