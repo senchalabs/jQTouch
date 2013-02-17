@@ -8,6 +8,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-copy"
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-jshint"
+  grunt.loadNpmTasks "grunt-contrib-mincss"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-watch"
   grunt.loadNpmTasks "grunt-livereload"
@@ -96,9 +97,11 @@ module.exports = (grunt) ->
             if path.match /\.js$/
               content.replace /\n\s*warn\(.*/g, ''
 
-            # Update to minified JS paths in HTML
+            # Update to minified JS/CSS paths in HTML
             else if path.match /\.html$/
-              content.replace /([\w-\.]*)(\.min)?\.js/g, '$1.min.js'
+              content
+                .replace(/([\w-\.]*)(\.min)?\.js/g, '$1.min.js')
+                .replace(/(themes\/css\/[\w-\.]*)(\.min)?\.css/g, '$1.min.css')
 
             else
               content
@@ -163,13 +166,16 @@ module.exports = (grunt) ->
         cwd: "<%= dirs.dist %>/extensions/"
         src: '**/*.js'
         dest: "<%= dirs.dist %>/extensions/"
+        rename: (dest, path) ->
+          dest + path.replace /\.js$/, '.min.js'
 
       lib:
         expand: yes
         cwd: "<%= dirs.dist %>/lib/"
         src: '**/*.js'
         dest: "<%= dirs.dist %>/lib/"
-        ext: '.min.js'
+        rename: (dest, path) ->
+          dest + path.replace /\.js$/, '.min.js'
 
         options:
           preserveComments: (comment) ->
@@ -181,6 +187,14 @@ module.exports = (grunt) ->
               yes
             else
               no
+    
+    mincss:
+      themes:
+        expand: yes
+        cwd: "<%= dirs.dist %>/themes/css"
+        src: '**/*.css'
+        dest: "<%= dirs.dist %>/themes/css"
+        ext: '.min.css'
 
     cover:
       compile:
@@ -234,4 +248,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'test', ['default', 'copy:test', 'qunit']
 
   # Builds, then copies to versioned dist dir and minifies all JS
-  grunt.registerTask 'dist', ['clean', 'default', 'copy:dist', 'uglify']
+  grunt.registerTask 'dist', ['clean', 'default', 'copy:dist', 'uglify', 'mincss']
