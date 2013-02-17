@@ -252,11 +252,13 @@ module.exports = (grunt) ->
   # Git submodule updates
   grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
 
+  grunt.registerTask 'scripts', ['update_submodules', 'clean', 'copy:prepare', 'concat', 'zepto']
+
   # Default (Build)
-  grunt.registerTask 'default', ['update_submodules', 'clean', 'copy:prepare', 'concat', 'zepto', 'compass']
+  grunt.registerTask 'default', ['scripts', 'compass']
 
   # Test from scratch
-  grunt.registerTask 'test', ['default', 'copy:test', 'qunit']
+  grunt.registerTask 'test', ['scripts', 'copy:test', 'qunit']
 
   # Builds, then copies to versioned dist dir and minifies all JS
   grunt.registerTask 'dist', ['clean', 'default', 'copy:dist', 'uglify', 'mincss']

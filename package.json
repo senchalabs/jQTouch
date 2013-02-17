@@ -51,6 +51,6 @@
   },
   "optionalDependencies": {},
   "scripts": {
-    "test": "grunt dist --verbose"
+    "test": "grunt test --verbose"
   }
 }
