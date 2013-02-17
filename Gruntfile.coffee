@@ -10,6 +10,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-watch"
+  grunt.loadNpmTasks "grunt-livereload"
   grunt.loadNpmTasks "grunt-update-submodules"
 
   grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
@@ -185,6 +186,11 @@ module.exports = (grunt) ->
         files: "themes/scss/**/*.scss"
         tasks: ["compass"]
 
+    livereload:
+      options:
+        base: 'build'
+      files: ['build/**/*.{js,css,html}']
+
     jshint:
       src: "<%= dirs.src %>/**/*.js"
       options:
@@ -204,7 +210,11 @@ module.exports = (grunt) ->
         globals:
           $: true
           console: true
-    
+  
+  grunt.renameTask 'watch', 'watch_files'
+
+  grunt.registerTask 'watch', ['livereload', 'watch_files']
+
   # Git submodule updates
   grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
 
