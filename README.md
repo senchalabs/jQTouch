@@ -1,7 +1,7 @@
 jQTouch
 =======
 
-[![Build Status](https://api.travis-ci.org/senchalabs/jQTouch.png)](http://travis-ci.org/senchalabs/jQTouch)
+[![Build Status](https://api.travis-ci.org/senchalabs/jQTouch.png?branch=master)](http://travis-ci.org/senchalabs/jQTouch)
 
 Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
 --------------------------------------------------------------------------
