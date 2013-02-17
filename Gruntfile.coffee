@@ -118,16 +118,6 @@ module.exports = (grunt) ->
         files:
           "<%= dirs.build %>/src/jqtouch-jquery.js": ["submodules/zepto/src/touch.js"]
 
-      checkin: # replace checkin version with updated css(es)
-        files:
-          "themes/css/": ["<%= dirs.dist %>/themes/css/**"]
-          "src/jqtouch-jquery.js": ["<%= dirs.dist %>/src/jqtouch-jquery.js"]
-
-    gitmodule:
-      zepto: {}
-      recipes:
-        path: "submodules/compass-recipes"
-
     rake:
       zepto:
         params: "concat[fx:ajax:data:detect:event:form:polyfill:touch]"
