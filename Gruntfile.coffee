@@ -203,19 +203,15 @@ module.exports = (grunt) ->
         globals:
           $: true
           console: true
-  
-  # Tasks
-  grunt.registerTask "nuke", ["clean:build", "clean:dist"]
-  
+    
   # Git submodule updates
-  grunt.registerTask "css", ["clean:css", "update_submodules", "compass"]
-  grunt.registerTask "zepto", ["update_submodules", "rake", "copy:zepto"]
-  grunt.registerTask "jquery-bridge", ["zepto", "copy:jquery-bridge"]
-  
-  # Tests & checks
-  grunt.registerTask "test", ["copy:prepare", "copy:test", "qunit"]
+  grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
 
-  # Full-build tasks
-  grunt.registerTask "light", ["nuke", "copy:prepare", "compass", "copy:zepto"]
-  grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "uglify"]
-  grunt.registerTask "full", ['update_submodules', "nuke", "light", "dist"]
+  # Default (Build)
+  grunt.registerTask 'default', ['update_submodules', 'clean', 'zepto', 'copy:prepare', 'compass']
+
+  # Test from scratch
+  grunt.registerTask 'test', ['default', 'copy:test', 'qunit']
+
+  # Builds, then copies to versioned dist dir and minifies all JS
+  grunt.registerTask 'dist', ['clean', 'default', 'copy:dist', 'uglify']
