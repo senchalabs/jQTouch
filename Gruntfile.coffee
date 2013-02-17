@@ -62,7 +62,7 @@ module.exports = (grunt) ->
       css: "<%= dirs.build %>/themes/css"
 
     clean:
-      build: ["stage"]
+      build: ["<%= dirs.build %>"]
       dist: ["<%= dirs.dist %>"]
 
     copy:
