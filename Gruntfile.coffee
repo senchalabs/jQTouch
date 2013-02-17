@@ -60,11 +60,11 @@ module.exports = (grunt) ->
       src: "src"
       build: "build" # change back to `build` when you port away from ant`.
       dist: "jqtouch-<%= pkg.version %>-<%= pkg.versionId %>"
+      css: "<%= dirs.build %>/themes/css"
 
     clean:
       zepto: ["zepto/lib"]
       build: ["stage"]
-      css: ["<%= dirs.build %>/css"]
       dist: ["<%= dirs.dist %>"]
 
     copy:
@@ -127,9 +127,9 @@ module.exports = (grunt) ->
     compass:
       compile:
         options:
-          load: 'themes/compass-recipes/'
+          load: 'submodules/compass-recipes/'
           sassDir: 'themes/scss'
-          cssDir: 'themes/css'
+          cssDir: '<%= dirs.css %>'
 
     qunit:
       files: ["<%= dirs.build %>/test/unit/*.html"]
