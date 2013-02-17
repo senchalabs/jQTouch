@@ -106,10 +106,11 @@ module.exports = (grunt) ->
           expand: yes
           cwd: 'submodules/zepto/dist/'
           src: 'zepto.js'
-          dest: 'lib/zepto'
+          dest: '<%= dirs.build %>/lib/zepto'
         ,
-          "<%= dirs.build %>/src/jqtouch-jquery.js": ["submodules/zepto/src/touch.js"]
-        ]          
+          src: 'submodules/zepto/src/touch.js'
+          dest: '<%= dirs.build %>/src/jqtouch-jquery.js'
+        ]
 
       "jquery-bridge":
         options:
@@ -215,6 +216,6 @@ module.exports = (grunt) ->
   grunt.registerTask "test", ["copy:prepare", "copy:test", "qunit"]
 
   # Full-build tasks
-  grunt.registerTask "light", ["nuke", "copy:prepare", "compass"]
+  grunt.registerTask "light", ["nuke", "copy:prepare", "compass", "copy:zepto"]
   grunt.registerTask "dist", ["nuke", "zepto", "jquery-bridge", "light", "test", "copy:dist", "uglify"]
   grunt.registerTask "full", ['update_submodules', "nuke", "light", "dist"]
