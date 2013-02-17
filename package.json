@@ -7,28 +7,50 @@
     "type": "git",
     "url": "git://github.com/senchalabs/jQTouch.git"
   },
-  "contributors": [{
-     "name": "David Kaneda",
-     "email": ""
-  }, {
-     "name": "Jonathan Stark",
-     "email": "" 
-  }, {
-     "name": "Thomas Yip",
-     "email": ""
-  }],
+  "contributors": [
+    {
+      "name": "David Kaneda",
+      "email": "dk@morfunk.com"
+    },
+    {
+      "name": "Jonathan Stark",
+      "email": ""
+    },
+    {
+      "name": "Thomas Yip",
+      "email": ""
+    }
+  ],
+  "licenses": [
+    {
+      "type": "MIT"
+    }
+  ],
   "engines": {
     "node": "~0.8"
   },
-  "dependencies": {},
+  "dependencies": {
+    "grunt-coverjs": "~0.1.0"
+  },
   "devDependencies": {
-     "grunt": "",
-     "grunt-contrib": "",
-     "grunt-coverjs": "",
-     "grunt-text-replace": ""
+    "grunt": "~0.4.0rc7",
+    "grunt-text-replace": "~0.2.10",
+    "grunt-contrib-qunit": "~0.1.1",
+    "grunt-contrib-clean": "~0.4.0rc6",
+    "grunt-contrib-coffee": "~0.4.0",
+    "grunt-contrib-compress": "~0.4.0",
+    "grunt-contrib-concat": "~0.1.2rc6",
+    "grunt-contrib-copy": "0.4.0rc7",
+    "grunt-contrib-mincss": "~0.4.0",
+    "grunt-contrib-jshint": "~0.1.0",
+    "grunt-contrib-uglify": "~0.1.1rc6",
+    "grunt-contrib-compass": "~0.1.1rc8",
+    "grunt-update-submodules": "~0.2.0",
+    "grunt-contrib-watch": "~0.1.4",
+    "grunt-livereload": "~0.1.3"
   },
   "optionalDependencies": {},
   "scripts": {
-     "test": "grunt dist --verbose"
+    "test": "grunt test --verbose"
   }
 }
