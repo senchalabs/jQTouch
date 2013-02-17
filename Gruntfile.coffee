@@ -9,7 +9,6 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-jshint"
   grunt.loadNpmTasks "grunt-contrib-uglify"
-  grunt.loadNpmTasks "grunt-css"
   grunt.loadNpmTasks "grunt-update-submodules"
 
   grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
