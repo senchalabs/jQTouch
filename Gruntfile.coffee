@@ -67,6 +67,13 @@ module.exports = (grunt) ->
       build: ["<%= dirs.build %>"]
       dist: ["<%= dirs.dist %>"]
 
+    coffee:
+      jqt:
+        expand: yes
+        cwd: 'src'
+        src: ['**.coffee']
+        dest: '<%= dirs.build %>/src/'
+        ext: '.js'
     copy:
       prepare:
         expand: true
@@ -252,7 +259,7 @@ module.exports = (grunt) ->
   # Git submodule updates
   grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
 
-  grunt.registerTask 'scripts', ['update_submodules', 'clean', 'copy:prepare', 'concat', 'zepto']
+  grunt.registerTask 'scripts', ['update_submodules', 'clean', 'coffee', 'copy:prepare', 'concat', 'zepto']
 
   # Default (Build)
   grunt.registerTask 'default', ['scripts', 'compass']
