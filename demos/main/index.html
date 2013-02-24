@@ -4,14 +4,20 @@
         <meta charset="UTF-8" />
         <title>jQTouch &beta;</title>
         <link rel="stylesheet" href="../../themes/css/jqtouch.css" title="jQTouch">
+        <link rel="stylesheet" href="../../themes/css/apple.css" title="Apple">
 
-        <script src="../../src/lib/zepto.js" type="text/javascript" charset="utf-8"></script>
+        <!-- Either, (1) Zepto:  Un-comment these 2 lines (order matters)  -->
+        <script src="../../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
-        <!-- Uncomment the following two lines (and comment out the previous two) to use jQuery instead of Zepto. -->
-        <!-- <script src="../../src/lib/jquery-1.7.min.js" type="application/x-javascript" charset="utf-8"></script> -->
+        
+        <!-- Or,     (2) jQuery: Un-comment these 3 lines (order matters)  -->
+        <!-- <script src="../../lib/jquery/jquery-1.7.js" type="application/x-javascript" charset="utf-8"></script> -->
+        <!-- <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script> -->
         <!-- <script src="../../src/jqtouch-jquery.js" type="application/x-javascript" charset="utf-8"></script> -->
 
         <script src="../../extensions/jqt.themeswitcher.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.actionsheet.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../extensions/jqt.menusheet.js" type="application/x-javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
             var jQT = new $.jQTouch({
@@ -59,8 +65,10 @@
                 
                 // Page animations end with AJAX callback event, example 1 (load remote HTML only first time)
                 $('#callback').bind('pageAnimationEnd', function(e, info){
+
                     // Make sure the data hasn't already been loaded (we'll set 'loaded' to true a couple lines further down)
                     if (!$(this).data('loaded')) {
+                        
                         // Append a placeholder in case the remote HTML takes its sweet time making it back
                         // Then, overwrite the "Loading" placeholder text with the remote HTML
                         $(this).append($('<div>Loading</div>').load('ajax.html .info', function() {        
@@ -100,16 +108,16 @@
         </style>
     </head>
     <body>
-        <div id="jqt">
+        <div id="jqt" class="">
             <div id="about" class="selectable">
-                    <p><img src="jqtouch.png" /></p>
-                    <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
-                        <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
-                    <p><em>Create powerful mobile apps with<br> just HTML, CSS, and jQuery.</em></p>
-                    <p>
-                        <a target="_blank" href="http://twitter.com/jqtouch">@jQTouch on Twitter</a>
-                    </p>
-                    <p><br><br><a href="#" class="grayButton goback">Close</a></p>
+                <p><img src="jqtouch.png" /></p>
+                <p><strong>jQTouch</strong><br>Version 1.0 beta<br>
+                    <a href="http://www.davidkaneda.com">By David Kaneda</a></p>
+                <p><em>Create powerful mobile apps with<br> just HTML, CSS, and jQuery.</em></p>
+                <p>
+                    <a target="_blank" href="http://twitter.com/jqtouch">@jQTouch on Twitter</a>
+                </p>
+                <p><br><br><a href="#" class="grayButton goback">Close</a></p>
             </div>
             <div id="ajax">
                 <div class="toolbar">
@@ -140,23 +148,14 @@
                     </ul>
                     <h2>3d Transitions</h2>
                     <ul class="rounded">
-                        <li><a href="#animdemo" class="flip">Flip</a></li>
+                        <li><a href="#animdemo" class="flipright">Flip right</a></li>
+                        <li><a href="#animdemo" class="flipleft">Flip left</a></li>
                         <li><a href="#animdemo" class="cube">Cube</a></li>
                         <li><a href="#animdemo" class="swap">Swap</a></li>
                     </ul>
                 </div>
                 <div class="info">
                     Custom animations are also <a target="_blank" href="http://code.google.com/p/jqtouch/wiki/Animations">easy to write</a>. <br>View the source in <code>demos/customanimation</code> to see how.
-                </div>
-            </div>
-            <div id="animations2">
-                <div class="toolbar">
-                    <h1>Animations</h1>
-                    <a href="#" class="back">Animations</a>
-                </div>
-                <div class="scroll">
-                    <ul class="rounded">
-                    </ul>
                 </div>
             </div>
             <div id="animdemo">
@@ -178,6 +177,8 @@
                     <a href="#" class="redButton">Red</a>
                     <br>
                     <a href="#" class="greenButton">Green</a>
+                    <br>
+                    <a href="#" class="blueButton">Blue</a>
                 </div>
             </div>
             <div id="callback">
@@ -206,7 +207,6 @@
                     <a class="back" href="#home">Home</a>
                 </div>
                 <div class="scroll">
- 
                     <ul class="rounded">
                         <li class="forward"><a target="_blank" href="../todo/">To-Do app</a></li>
                         <li class="forward"><a target="_blank" href="../clock/">Clock app</a></li>
@@ -272,7 +272,8 @@
                         <li><input type="text" name="name" placeholder="Text" id="some_name" /></li>
                         <li><input type="search" name="search" placeholder="Search" id="some_name" /></li>
                         <li><input type="tel" name="phone" placeholder="Phone" id="some_name"  /></li>
-                        <li><input type="number" name="zip" placeholder="Numbers" id="some_name" /></li>                    
+                        <li><input type="number" pattern="[0-9]*" name="number" placeholder="Numbers" id="some_name" /></li>
+                        <li><input type="number" name="zip" placeholder="Numbers 2" id="some_name" /></li>
                         <li><input type="email" name="email" placeholder="Email" id="some_name" /></li>
                         <li><input type="url" name="url" placeholder="Url" id="some_name" /></li>
                         <li><textarea placeholder="Textarea" ></textarea></li>
@@ -310,21 +311,21 @@
                         <li class="arrow"><a href="#callbacks">Events <small class="counter">4</small></a></li>
                         <li class="arrow"><a href="#extensions">Extensions <small class="counter">4</small></a> </li>
                         <li class="arrow"><a href="#demos">Demos <small class="counter">2</small></a></li>
-                        <li class="arrow"><a href="#themes">Themes <small class="counter">2</small></a></li>
+                        <li class="arrow"><a href="#themes">Themes <small class="counter">3</small></a></li>
                     </ul>
                     <h2>External Links</h2>
                     <ul class="rounded">
                         <li class="forward"><a target="_blank" href="http://www.jqtouch.com/">Homepage</a></li>
-                        <li class="forward"><a target="_blank" href="http://www.twitter.com/jqtouch">Twitter</a></li>
-                        <li class="forward"><a target="_blank" href="http://code.google.com/p/jqtouch/w/list">Google Code</a></li>
+                        <li class="forward"><a target="_blank" href="http://twitter.com/#!/jqtouch">Twitter</a></li>
+                        <li class="forward"><a target="_blank" href="http://github.com/senchalabs/jQTouch">GitHub</a></li>
                     </ul>
                     <ul class="individual">
-                        <li><a href="&#109;&#097;&#105;&#108;&#116;&#111;:&#100;&#107;&#064;&#109;&#111;&#114;&#102;&#117;&#110;&#107;&#046;&#099;&#111;&#109;">Email</a></li>
-                        <li><a target="_blank" href="http://tinyurl.com/support-jqt">Donate</a></li>
+                        <li><a target="_blank" href="http://twitter.com/davidkaneda">@davidkaneda</a></li>
+                        <li><a target="_blank" href="http://twitter.com/beedesk">@beedesk</a></li>
                     </ul>
-                    <div class="info">
-                        <p>Add this page to your home screen to view the custom icon, startup screen, and full screen mode.</p>
-                    </div>
+                </div>
+                <div class="info">
+                    <p>Add this page to your home screen <br>for a richer experience.</p>
                 </div>
             </div>
             <div id="metal">
@@ -334,7 +335,7 @@
                 </div>
                 <ul class="metal scroll">
                     <li class="arrow"><a href="#"><small>AM</small> 9:40 <em>Buenos Aires</em></a></li>
-                    <li class="arrow"><a href="#"><small>PM</small> 19:40 <em>Singapur</em></a></li>
+                    <li class="arrow"><a href="#"><small>PM</small> 19:40 <em>Singapore</em></a></li>
                     <li class="arrow"><a href="#"><small>PM</small> 22:40 <em>Japan</em></a></li>
                     <li class="arrow"><a href="#"><small>PM</small> 11:40 <em>New York</em></a></li>
                     <li class="arrow"><a href="#"><small>PM</small> 9:40 <em>Ontario</em></a></li>
@@ -380,7 +381,37 @@
                     <ul class="rounded">
                         <li class="arrow"><a href="#forms">Forms</a></li>
                     </ul>
+                    <h2>Sheets</h2>
+                    <ul class="rounded">
+                        <li class="arrow"><a class="action" href="#actionsheet">Action</a></li>
+                        <li class="arrow"><a class="menu" href="#menusheet">Menu</a></li>
+                    </ul>
                 </div>
+            </div>
+            <div id="actionsheet" class="actionsheet">
+                <div class="actionchoices">
+                    <a href="#action_performed" class="whiteButton">Open in Safari</a>
+                    <a href="#action_performed" class="whiteButton">Plan B</a>
+                    <a href="#" class="redButton dismiss">Cancel</a>
+                </div>
+            </div>
+            <div id="action_performed">
+                <div class="toolbar">
+                    <h1>Action</h1>
+                    <a class="back" href="#">Back</a>
+                </div>
+                <div class="info">
+                    <p>You performed an action.</p>
+                </div>
+            </div>
+            <div id="menusheet" class="menusheet">
+                <ul class="edgetoedge scroll">
+                    <li><a href="#" class="dismiss">jQTouch</a></li>
+                    <li class="sep">Favorites</li>
+                    <li><a href="#edge" class="dissolve">Edge to Edge</a></li>
+                    <li><a href="#plastic" class="dissolve">Plastic</a></li>
+                    <li><a href="#metal" class="dissolve">Metal</a></li>
+                </ul>
             </div>
             <form id="ajax_post" action="ajax_post.php" method="POST" class="form">
                 <div class="toolbar">

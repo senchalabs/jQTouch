@@ -50,11 +50,11 @@ body {
         z-index: 10;
     }
 
-    > :not(.current) {
+    > :not(.current):not(.inmotion) {
         display: none;
     }
 
-    &.touchscroll:not(.animating3d) {
+    &.touchscroll:not(.animating3d), &.autoscroll:not(.animating3d) {
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
 
@@ -68,28 +68,34 @@ body {
             -webkit-overflow-scrolling: touch;
         }
     }
+
+    &.touchscroll:not(.animating3d) {
+        .scroll {
+            overflow-y: scroll;
+        }
+    }
+
     // Ensure margins don't collapse
     .scroll {
         -webkit-margin-collapse: separate;
     }
 
-    .in, .out {
+    .in, .out, .inmotion {
         -webkit-animation-duration: 250ms;
         -webkit-animation-fill-mode: both;
         -webkit-animation-timing-function: ease-in-out;
-    }
-
-    .in {
-        z-index: 10;
-
+        
         &:after {
             @include pseudo-element($width: auto);
             top: 0;
             left: 0;
             bottom: 0;
             right: 0;
-            // background-color: red;
         }
+    }
+
+    .in {
+        z-index: 10;        
     }
     .out {
         z-index: 0 !important;

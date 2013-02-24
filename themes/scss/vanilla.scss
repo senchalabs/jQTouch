@@ -1,0 +1,9 @@
+$base-color: #eee;
+$highlight-color: #f6f6f6;
+$base-button-gradient: flat;
+$include-highlights: false;
+$include-back-arrow: false;
+// $default-border-radius: 0;
+$theme: vanilla;
+
+@import 'include/core';

@@ -29,7 +29,9 @@
                     themeStyleSelector: 'link[rel="stylesheet"][title]',
                     themeIncluded: [
                         {title: 'jQTouch', href: scriptpath + '../themes/css/jqtouch.css'},
-                        {title: 'Apple', href: scriptpath + '../themes/css/apple.css'}
+                        {title: 'Apple', href: scriptpath + '../themes/css/apple.css'},
+                        {title: 'Vanilla', href: scriptpath + '../themes/css/vanilla.css'}
+
                     ]
                 },
                 options = $.extend({}, defaults, jQT.settings);
@@ -44,7 +46,7 @@
                   item.disabled = true; // workaround for Firefox on Zepto
                   $item.attr('disabled', true);
                 }
-            };
+            }
 
             function initializeStyleState(item, title) {
               // and, workaround for WebKit by initializing the 'disabled' attribute
@@ -60,7 +62,7 @@
                 $(options.themeStyleSelector).each(function(i, item) {
                     setStyleState(item, title);
                 });
-            };
+            }
 
             // collect title names, from <head>
             $(options.themeStyleSelector).each(function(i, item) {
@@ -93,20 +95,23 @@
                 }
 
                 // bind to UI items
-                $(options.themeSelectionSelector).delegate('* > a', 'tap', function() {
+                $(options.themeSelectionSelector).delegate('* > a', 'tap', function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
                     var $a = $(this).closest('a');
+                    $a.removeClass('active');
                     switchStyle($a.attr('data-title'));
 
                     // poor-man simulation of radio button behaviour
-                    setTimeout(function() {
-                        $a.addClass('active');
-                    }, 0);
+                    $(options.themeSelectionSelector).find('a').removeClass('selected');
+                    $a.addClass('selected');
                 });
 
                 // poor-man simulation of radio button behaviour
                 $(options.themeSelectionSelector).closest('#jqt > *').bind('pageAnimationEnd', function(e, data){
                     if (data.direction === 'in') {
-                        $(options.themeSelectionSelector).find('a[data-title="' + current + '"]').addClass('active');
+                        $(options.themeSelectionSelector).find('a[data-title="' + current + '"]').addClass('selected');
                     }
                 });
             }
