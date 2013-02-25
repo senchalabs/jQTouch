@@ -86,7 +86,7 @@ class $.jQT
   constructor: (options) ->
 
     # Public methods
-    @addAnimation = ->
+    @addAnimation = (animation) ->
       @animations.push animation if typeof (animation.selector) is "string" and typeof (animation.name) is "string"
 
     @addTapHandler = (tapHandler) =>
