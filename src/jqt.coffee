@@ -89,7 +89,7 @@ class $.jQT
     @addAnimation = (animation) ->
       @animations.push animation if typeof (animation.selector) is "string" and typeof (animation.name) is "string"
 
-    @addTapHandler = (tapHandler) =>
+    @addTapHandler = (tapHandler) ->
       @tapHandlers.push tapHandler  if typeof (tapHandler.name) is "string" and typeof (tapHandler.isSupported) is "function" and typeof (tapHandler.fn) is "function"
 
     @addExtension = (extension) ->
