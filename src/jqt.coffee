@@ -48,6 +48,7 @@ class $.jQT
     selector: ".slideleft, .slide, #jqt > * > ul li a"
   ]
   orientation: 'portrait'
+  tapHandlers: []
   defaults:
     addGlossToIcon: true
     backSelector: ".back, .cancel, .goback"
@@ -72,6 +73,16 @@ class $.jQT
     useFastTouch: true
     useTouchScroll: true
 
+
+  @addExtension = (extension) ->
+    @::extensions.push extension
+
+  @addTapHandler = (tapHandler) ->
+    @::tapHandlers.push tapHandler  if typeof (tapHandler.name) is "string" and typeof (tapHandler.isSupported) is "function" and typeof (tapHandler.fn) is "function"
+
+  @addAnimation = (animation) ->
+    @animations.push animation if typeof (animation.selector) is "string" and typeof (animation.name) is "string"
+
   # PRIVATE DATA
 
   $body = undefined
@@ -84,19 +95,7 @@ class $.jQT
   tapBuffer = 100
 
   constructor: (options) ->
-
-    # Public methods
-    @addAnimation = (animation) ->
-      @animations.push animation if typeof (animation.selector) is "string" and typeof (animation.name) is "string"
-
-    @addTapHandler = (tapHandler) ->
-      @tapHandlers.push tapHandler  if typeof (tapHandler.name) is "string" and typeof (tapHandler.isSupported) is "function" and typeof (tapHandler.fn) is "function"
-
-    @addExtension = (extension) ->
-      @extensions.push extension
-
-
-    @tapHandlers = [
+    @tapHandlers = @tapHandlers.concat [
       name: "external-link"
       isSupported: (e, params) -> isExternalLink params.$el
       fn: (e, params) ->
@@ -303,10 +302,10 @@ class $.jQT
         console.warn "We are on the right panel."
         true
       else if location.hash is ""
-        goBack()
+        @goBack()
         true
       else if customHistory[1] and location.hash is customHistory[1].hash
-        goBack()
+        @goBack()
         true
       else
         # Lastly, just try going to the ID...
@@ -389,9 +388,8 @@ class $.jQT
       console.warn "This device does not support 3d animation. 2d animations will be used instead."  unless $.support.transform3d
       
       # Add extensions
-      for i in @extensions
-        fn = extensions[i]
-        $.extend @, fn(@) if $.isFunction(fn)
+      for extFn in @extensions
+        $.extend @, extFn(@) if $.isFunction(extFn)
       
       # Create an array of stuff that needs touch event handling
       touchSelectors.push @settings.touchSelector.concat(@settings.backSelentor,@settings.submitSelector)
@@ -485,6 +483,7 @@ class $.jQT
         true
 
     tapHandler = (e) =>
+      # Exit out if the user has already called preventDefault on this event.
       return true if e.isDefaultPrevented()
 
       $el = $(e.target)
@@ -510,12 +509,8 @@ class $.jQT
         href: href
 
       # Loop thru all handlers
-      for handler in @tapHandlers
-        supported = handler.isSupported(e, params)
-        if supported
-          console.log handler
-          flag = handler.fn(e, params)
-          return flag
+      for handler in @tapHandlers        
+        return flag = handler.fn(e, params) if handler.isSupported(e, params)
 
     touchStartHandler = (e) ->
       $el = $(e.target)
