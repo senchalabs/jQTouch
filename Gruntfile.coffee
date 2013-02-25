@@ -224,8 +224,14 @@ module.exports = (grunt) ->
         files: 'themes/scss/**/*.scss'
         tasks: ['compass']
       source:
-        files: 'src/**/*.js'
+        files: ['src/**/*.js']
         tasks: ['copy:source']
+      coffee: 
+        files: 'src/**/*.coffee'
+        tasks: ['coffee']
+      demos:
+        files: ['{demos,extensions}/**/*.{html,js,css}']
+        tasks: ['copy:prepare']
 
     livereload:
       options:
@@ -254,7 +260,7 @@ module.exports = (grunt) ->
   
   grunt.renameTask 'watch', 'watch_files'
 
-  grunt.registerTask 'watch', ['livereload', 'watch_files']
+  grunt.registerTask 'watch', ['default', 'livereload', 'watch_files']
 
   # Git submodule updates
   grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
