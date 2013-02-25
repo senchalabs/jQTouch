@@ -1,28 +1,7 @@
-/*
-
-            _/    _/_/    _/_/_/_/_/                              _/       
-               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/    
-          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/   
-         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/    
-        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/     
-       _/                                                                  
-    _/
-
-    Created by David Kaneda <http://www.davidkaneda.com>
-    Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
-    
-    Special thanks to Jonathan Stark <http://jonathanstark.com/>
-    and pinch/zoom <http://www.pinchzoom.com/>
-    
-    (c) 2009 by jQTouch project members.
-    See LICENSE.txt for license.
-
-*/
-
 (function($) {
-    if ($.jQTouch)
+    if ($.jQT)
     {
-        $.jQTouch.addExtension(function Floaty(jQT){
+        $.jQT.addExtension(function Floaty(jQT){
             
             $.fn.makeFloaty = function(options){
                 var defaults = {
@@ -55,8 +34,6 @@
             };
 
             $.fn.scrollFloaty = function(){
-
-
                 return this.each(function(){
                     var $el = $(this);
                     var settings = $el.data('settings'); // Settings not being set as object w/Zepto

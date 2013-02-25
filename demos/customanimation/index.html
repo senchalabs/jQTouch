@@ -4,12 +4,11 @@
         <meta charset="UTF-8" />
         <title>jQTouch &beta;</title>
         <style type="text/css" media="screen">@import "../../themes/css/jqtouch.css";</style>
-        <script src="../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
-
+        <script src="../../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../src/jqt.js" type="text/javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
-            var jQT = new $.jQTouch({
+            var jQT = new $.jQT({
                 icon: 'jqtouch.png',
                 addGlossToIcon: false,
                 startupScreen: 'jqt_startup.png',
@@ -24,30 +23,28 @@
                     ]
             });
 
-            $(function(){
-                jQT.addAnimation({
-                    name: 'reveal',
-                    selector: '.revealme'
-                });
+            jQT.addAnimation({
+                name: 'reveal',
+                selector: '.revealme'
             });
         </script>
         <style type="text/css" media="screen">
-            div#jqt .reveal.in {
+            #jqt .reveal.in {
             	-webkit-animation-name: dontmove;
             	z-index: 0;
             }
 
-            div#jqt .reveal.out {
+            #jqt .reveal.out {
             	-webkit-animation-name: revealout;
             	z-index: 10;
             }
 
-            div#jqt .reveal.out.reverse {
+            #jqt .reveal.out.reverse {
             	z-index: 0;
             	-webkit-animation-name: dontmove;
             }
 
-            div#jqt .reveal.in.reverse {
+            #jqt .reveal.in.reverse {
             	z-index: 10;
             	-webkit-animation-name: revealin;
             }

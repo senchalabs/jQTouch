@@ -1,30 +1,7 @@
-/*
-
-            _/    _/_/    _/_/_/_/_/                              _/       
-               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/    
-          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/   
-         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/    
-        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/     
-       _/                                                                  
-    _/
-
-    Created by David Kaneda <http://www.davidkaneda.com>
-    Documentation and issue tracking on Google Code <http://code.google.com/p/jqtouch/>
-    
-    Special thanks to Jonathan Stark <http://jonathanstark.com/>
-
-    Lots of this code is specifically derived from Jonathan's book,
-    "Building iPhone Apps with HTML, CSS, and JavaScript"
-    
-    (c) 2009 by jQTouch project members.
-    See LICENSE.txt for license.
-
-*/
-
 (function($) {
-    if ($.jQTouch)
+    if ($.jQT)
     {
-        $.jQTouch.addExtension(function Offline(){
+        $.jQT.addExtension(function Offline(){
             
             // Convenience array of status values
             var cacheStatusValues = [];
@@ -66,7 +43,7 @@
             }
             
             if (!$('html').attr('manifest')) {
-                console.log('No Cache Manifest listed on the <html> tag.')
+                console.log('No Cache Manifest listed on the <html> tag.');
             }
 
             // Swap in newly download files when update is ready
@@ -76,22 +53,21 @@
                         cache.swapCache();
                         console.log('Swapped/updated the Cache Manifest.');
                     }
-                }
-            , false);
+                }, false);
 
             // These two functions check for updates to the manifest file
             function checkForUpdates(){
                 cache.update();
             }
             function autoCheckForUpdates(){
-                setInterval(function(){cache.update()}, 10000);
+                setInterval(function(){cache.update();}, 10000);
             }
 
             return {
                 isOnline: isOnline,
                 checkForUpdates: checkForUpdates,
                 autoCheckForUpdates: autoCheckForUpdates
-            }
+            };
         });
     }
-})(jQuery);
+})($);

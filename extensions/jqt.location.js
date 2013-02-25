@@ -1,7 +1,7 @@
 (function($) {
-    if ($.jQTouch)
+    if ($.jQT)
     {
-        $.jQTouch.addExtension(function Location(){
+        $.jQT.addExtension(function Location(){
             
             var latitude, longitude, callback, callback2;
             
