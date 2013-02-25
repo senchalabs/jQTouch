@@ -16,11 +16,11 @@
 */
 
 (function($) {
-    if ($.jQTouch) {
+    if ($.jQT) {
 
         var scriptpath = $("script").last().attr("src").split('?')[0].split('/').slice(0, -1).join('/')+'/';
 
-        $.jQTouch.addExtension(function ThemeSwitcher(jQT) {
+        $.jQT.addExtension(function ThemeSwitcher(jQT) {
 
             var current,
                 link,
