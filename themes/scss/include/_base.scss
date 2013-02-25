@@ -50,7 +50,7 @@ body {
         z-index: 10;
     }
 
-    > :not(.current):not(.inmotion) {
+    > *:not(.current):not(.in):not(.out) {
         display: none;
     }
 
@@ -80,11 +80,12 @@ body {
         -webkit-margin-collapse: separate;
     }
 
-    .in, .out, .inmotion {
+    .in, .out {
         -webkit-animation-duration: 250ms;
         -webkit-animation-fill-mode: both;
         -webkit-animation-timing-function: ease-in-out;
         
+        // Make sure elements that are animating are not tapable
         &:after {
             @include pseudo-element($width: auto);
             top: 0;

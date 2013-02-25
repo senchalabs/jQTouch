@@ -192,7 +192,7 @@ class $.jQT
         console.warn "Could not animate pages."
         false
 
-    @goBack = ->
+    @goBack = =>
       # Error checking
       console.warn "History is empty." if customHistory.length < 1
       if customHistory.length is 1
@@ -236,10 +236,7 @@ class $.jQT
       # Attach hair extensions
       $head.prepend hairExtensions.join '' if hairExtensions.length
 
-
-
-
-    insertPages = (nodes, animation) ->    
+    insertPages = (nodes, animation) =>
       # Call dom.createElement element directly
       # instead of relying on $(nodes), to work around:
       # https://github.com/madrobby/zepto/issues/312
@@ -247,8 +244,9 @@ class $.jQT
       # DK: This is allegedly fixed...
       # div = document.createElement("div")
       # div.innerHTML = nodes
+      targetPage = null
 
-      $(nodes).children().each (index, node) ->
+      $(nodes).each (index, node) ->
         $node = $(this)
         $node.attr "id", "page-" + (++newPageCount) unless $node.attr("id")
         
@@ -331,31 +329,30 @@ class $.jQT
 
     showPageByHref = (href, options) =>
 
-      settings = $.extend {}, 
+      options = $.extend {}, 
         data: null
         method: "GET"
         animation: null
-        # callback: null
         $referrer: null
       , options
 
       unless href is '#'
         $.ajax
           url: href
-          data: settings.data
-          type: settings.method
+          data: options.data
+          type: options.method
           success: (data) =>
-            firstPage = insertPages(data, settings.animation)
+            firstPage = insertPages(data, options.animation)
 
             if firstPage
-              settings.$referrer.attr "href", "#" + firstPage.attr("id") if settings.method is "GET" and @settings.cacheGetRequests is true and settings.$referrer
+              options.$referrer.attr "href", "#" + firstPage.attr("id") if options.method is "GET" and @settings.cacheGetRequests is true and options.$referrer
               # settings.callback true  if settings.callback
 
           error: (data) ->
-            settings.$referrer.removeClass('active') if settings.$referrer
+            options.$referrer.removeClass('active') if options.$referrer
             # settings.callback false  if settings.callback
 
-      else settings.$referrer.removeClass('active') if settings.$referrer
+      else options.$referrer.removeClass('active') if options.$referrer
 
     start = =>
       
@@ -396,11 +393,6 @@ class $.jQT
         fn = extensions[i]
         $.extend @, fn(@) if $.isFunction(fn)
       
-      # Add extensions tapHandlers
-      # addTapHandler @tapHandlers[i] for i in @tapHandlers
-      
-      # Add default tapHandlers
-
       # Create an array of stuff that needs touch event handling
       touchSelectors.push @settings.touchSelector.concat(@settings.backSelentor,@settings.submitSelector)
       $touchSelectors = $(touchSelectors.join(', ')).css '-webkit-touch-callout', 'none'
@@ -440,15 +432,11 @@ class $.jQT
       else
         $currentPage = $("#jqt > .current")
 
-      console.log $currentPage
       setHash $currentPage.attr("id")
 
       addPageToHistory $currentPage
 
-      if $(startHash).length
-        @goTo startHash  
-      else
-
+      @goTo(startHash) if $(startHash).length
 
     orientationChangeHandler = ->
       scrollTo 0, 0
@@ -551,7 +539,7 @@ class $.jQT
       navigationEndHandler = (event) =>
         if $.support.animationEvents and animation and @settings.useAnimations
           fromPage.unbind "webkitAnimationEnd", navigationEndHandler
-          fromPage.removeClass finalAnimationName + " out inmotion"
+          fromPage.removeClass finalAnimationName + " out"
           toPage.removeClass finalAnimationName  if finalAnimationName
           $body.removeClass "animating animating3d"
 
@@ -569,17 +557,17 @@ class $.jQT
                 @scrollTop = -$(this).data("lastScroll")
             , 0
         else
-          fromPage.removeClass finalAnimationName + " out inmotion"
+          fromPage.removeClass finalAnimationName + " out"
           toPage.removeClass finalAnimationName if finalAnimationName
 
         # 'in' class is intentionally delayed,
         # as it is our ghost click hack
         setTimeout ->
-          toPage.removeClass "in"
+          toPage.removeClass 'in'
           window.scroll 0, 0
         , tapBuffer
 
-        fromPage.removeClass 'active'
+        fromPage.find('.active').removeClass 'active'
         
         # Trigger custom events
         toPage.trigger "pageAnimationEnd",
@@ -635,7 +623,7 @@ class $.jQT
 
         # Trigger animations
         toPage.addClass finalAnimationName + " in current"
-        fromPage.removeClass("current").addClass finalAnimationName + " out inmotion"
+        fromPage.removeClass("current").addClass finalAnimationName + " out"
 
         if @settings.trackScrollPositions
           fromPage.data "lastScroll", lastScroll
