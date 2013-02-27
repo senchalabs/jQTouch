@@ -299,7 +299,7 @@ class $.jQT
     # Fires when the history state changes
     hashChangeHandler = (e) =>
       if location.hash is customHistory[0].hash
-        console.warn "We are on the right panel."
+        console.log "We are on the right panel."
         true
       else if location.hash is ""
         @goBack()
@@ -437,7 +437,9 @@ class $.jQT
       @goTo(startHash) if $(startHash).length
 
     orientationChangeHandler = ->
+      # Scroll to top if we change orientation
       scrollTo 0, 0
+      
       orientation = (if Math.abs(window.orientation) is 90 then "landscape" else "portrait")
       $body.removeClass("portrait landscape").addClass(orientation).trigger "turn",
         orientation: orientation
