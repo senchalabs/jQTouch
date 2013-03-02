@@ -11,7 +11,7 @@ body {
 #jqt {
     -webkit-text-size-adjust: none;
     @include user-select(none);
-    font-family: "Helvetica Neue", Helvetica;
+    font-family: $base-font-family;
     position: absolute;
     right: 0;
     top: 0;
