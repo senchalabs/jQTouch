@@ -3,8 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>jQTouch &beta;</title>
-        <link rel="stylesheet" href="../../themes/css/jqtouch.css" title="jQTouch">
-        <link rel="stylesheet" href="../../themes/css/apple.css" title="Apple">
+        <link rel="stylesheet" href="../../themes/css/jqtouch.css" data-jqt-theme>
 
         <!-- Either, (1) Zepto:  Un-comment these 2 lines (order matters)  -->
         <script src="../../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
@@ -26,7 +25,6 @@
                 addGlossToIcon: false,
                 startupScreen: 'jqt_startup.png',
                 statusBar: 'black-translucent',
-                themeSelectionSelector: '#jqt #themes ul',
                 preloadImages: []
             });
 
@@ -240,9 +238,13 @@
             <div id="themes">
                 <div class="toolbar">
                     <h1>Themes</h1>
+                    
                     <a href="#" class="back">Back</a>
                 </div>
                 <ul class="rounded">
+                    <li><a data-switch-stylesheet="../../themes/css/jqtouch.css" class="selected" href="#">jQTouch</a></li>
+                    <li><a data-switch-stylesheet="../../themes/css/apple.css" href="#">Apple</a></li>
+                    <li><a data-switch-stylesheet="../../themes/css/vanilla.css" href="#">Vanilla</a></li>
                 </ul>
             </div>
             <div id="extensions">
