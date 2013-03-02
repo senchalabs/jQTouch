@@ -53,7 +53,6 @@ class $.jQT
     addGlossToIcon: true
     backSelector: ".back, .cancel, .goback"
     cacheGetRequests: true
-    debug: true
     defaultAnimation: "slideleft"
     fixedViewport: true
     formSelector: "form"
