@@ -67,12 +67,10 @@ class $.jQT
     statusBar: "default"
     submitSelector: ".submit"
     touchSelector: "a, .touch"
-    trackScrollPositions: true
     updateHash: true
     useAnimations: true
     useFastTouch: true
     useTouchScroll: true
-
 
   @addExtension = (extension) ->
     @::extensions.push extension
@@ -540,19 +538,6 @@ class $.jQT
           toPage.removeClass finalAnimationName  if finalAnimationName
           $body.removeClass "animating animating3d"
 
-          # Position the incoming page so toolbar is at top of
-          # viewport regardless of scroll position on from page
-          if @settings.trackScrollPositions is true
-            toPage.css "top", -toPage.data("lastScroll")
-            
-            # Have to make sure the scroll/style resets
-            # are outside the flow of this function.
-            setTimeout ->
-              toPage.css "top", 0
-              window.scroll 0, toPage.data("lastScroll")
-              $(".scroll", toPage).each ->
-                @scrollTop = -$(this).data("lastScroll")
-            , 0
         else
           fromPage.removeClass finalAnimationName + " out"
           toPage.removeClass finalAnimationName if finalAnimationName
@@ -615,17 +600,10 @@ class $.jQT
         # Bind internal 'cleanup' callback
         fromPage.bind "webkitAnimationEnd", navigationEndHandler
         $body.addClass "animating " + is3d
-        lastScroll = window.pageYOffset
-        toPage.css "top", window.pageYOffset - (toPage.data("lastScroll") or 0)  if @settings.trackScrollPositions is true
 
         # Trigger animations
         toPage.addClass finalAnimationName + " in current"
         fromPage.removeClass("current").addClass finalAnimationName + " out"
-
-        if @settings.trackScrollPositions
-          fromPage.data "lastScroll", lastScroll
-          $(".scroll", fromPage).each ->
-            $(this).data "lastScroll", @scrollTop
 
       else
         toPage.addClass "current in"
@@ -638,6 +616,7 @@ class $.jQT
         addPageToHistory $currentPage, animation
       setHash $currentPage.attr("id")
       true
+
     # FINAL PART OF CONSTRUCTOR
 
     # Apply the options against our defaults
