@@ -583,22 +583,24 @@ class $.jQT
         back: goingBack
 
       if $.support.animationEvents and animation and @settings.useAnimations
+
+        finalAnimationName = animation.name
+        is3d = if animation.is3d then " animating3d" else ""
+
         # Fail over to 2d animation if need be
         if not $.support.transform3d and animation.is3d
           console.warn "Did not detect support for 3d animations, falling back to " + @settings.defaultAnimation + "."
-          animation.name = @settings.defaultAnimation
-
-        finalAnimationName = animation.name
-        is3d = (if animation.is3d then "animating3d" else "")
+          finalAnimationName = @settings.defaultAnimation
+          is3d = ''
 
         # Reverse animation if need be
-        finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation)  if goingBack
+        finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation) if goingBack
         
-        console.warn "finalAnimationName is " + finalAnimationName + "."
+        console.warn "finalAnimationName:", finalAnimationName
 
         # Bind internal 'cleanup' callback
         fromPage.bind "webkitAnimationEnd", navigationEndHandler
-        $body.addClass "animating " + is3d
+        $body.addClass "animating#{is3d}"
 
         # Trigger animations
         toPage.addClass finalAnimationName + " in current"
