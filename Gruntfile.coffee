@@ -74,6 +74,15 @@ module.exports = (grunt) ->
         src: ['**.coffee']
         dest: '<%= dirs.build %>/src/'
         ext: '.js'
+
+      extensions:
+        expand: yes
+        cwd: 'extensions'
+        src: ['**.coffee']
+        dest: '<%= dirs.build %>/extensions/'
+        rename: (dest, path) ->
+          dest + path.replace /\.coffee$/, '.js'
+
     copy:
       prepare:
         expand: true
@@ -232,6 +241,9 @@ module.exports = (grunt) ->
       demos:
         files: ['{demos,extensions}/**/*.{html,js,css}']
         tasks: ['copy:prepare']
+      extensions:
+        files: ['extensions/**/*.coffee']
+        tasks: ['coffee:extensions']
 
     livereload:
       options:
