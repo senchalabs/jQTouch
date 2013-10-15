@@ -418,7 +418,7 @@ class $.jQT
         .bind((if $.support.touch then "touchstart" else "mousedown"), touchStartHandler)
         .trigger "orientationchange"
 
-      $(window).bind "hashchange", hashChangeHandler
+      $(window).bind("hashchange", hashChangeHandler) if @updateHash
       startHash = location.hash
 
       # Determine what the initial view should be
@@ -431,7 +431,7 @@ class $.jQT
 
       addPageToHistory $currentPage
 
-      @goTo(startHash) if $(startHash).length
+      @goTo(startHash) if @updateHash and $(startHash).length
 
     orientationChangeHandler = ->
       # Scroll to top if we change orientation
