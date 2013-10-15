@@ -455,20 +455,19 @@ class $.jQT
     setHash = (hash) =>
       location.hash = "#" + hash.replace(/^#/, "") if @settings.updateHash
     
-    submitHandler = (e, callback) ->
+    submitHandler = (e, callback) =>
       $(":focus").trigger "blur"
-      e.preventDefault()
+      
       $form = (if (typeof (e) is "string") then $(e).eq(0) else ((if e.target then $(e.target) else $(e))))
 
       if $form.length and $form.is(@settings.formSelector) and $form.attr("action")
+        e.preventDefault()
+
         showPageByHref $form.attr("action"),
           data: $form.serialize()
           method: $form.attr("method") or "POST"
           animation: getAnimation($form)
           callback: callback
-
-        return false
-      true
 
     submitParentForm = ($el) ->
       $form = $el.closest("form")
