@@ -389,7 +389,7 @@ class $.jQT
         $.extend @, extFn(@) if $.isFunction(extFn)
       
       # Create an array of stuff that needs touch event handling
-      touchSelectors.push @settings.touchSelector.concat(@settings.backSelentor,@settings.submitSelector)
+      touchSelectors.push @settings.touchSelector.concat(@settings.backSelector,@settings.submitSelector)
       $touchSelectors = $(touchSelectors.join(', ')).css '-webkit-touch-callout', 'none'
       
       # Make sure we have a jqt element
