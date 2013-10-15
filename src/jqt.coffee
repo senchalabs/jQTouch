@@ -332,7 +332,7 @@ class $.jQT
         $referrer: null
       , options
 
-      unless href is '#'
+      unless href.charAt(0) is '#'
         $.ajax
           url: href
           data: options.data
