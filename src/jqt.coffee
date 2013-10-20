@@ -595,6 +595,7 @@ class $.jQT
         # Reverse animation if need be
         finalAnimationName = finalAnimationName.replace(/left|right|up|down|in|out/, reverseAnimation) if goingBack
         
+        finalAnimationName ?= @settings.defaultAnimation
         console.warn "finalAnimationName:", finalAnimationName
 
         # Bind internal 'cleanup' callback
