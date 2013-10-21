@@ -193,7 +193,7 @@ class $.jQT
       console.warn "History is empty." if customHistory.length < 1
       if customHistory.length is 1
         console.warn "You are on the first panel."
-        window.customHistory.go -1
+        window.history.go -1
       from = customHistory[0]
       to = customHistory[1]
       if doNavigation(from.page, to.page, from.animation, true)
