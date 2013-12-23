@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" type="text/css" media="screen">  
   <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>  
   <script src="../build/lib/zepto/zepto.js"></script>
-  <script src="../build/src/jqtouch.js"></script>
+  <script src="../build/src/jqt.js"></script>
 </head>
 <body>
   <h1 id="qunit-header">jQTouch with Zepto</h1>  
@@ -27,7 +27,7 @@
   </style>
 
   <script>
-    module('BaiscTest', {
+    module('BasicTest', {
       setup: function(){
         var $body = $('body');
         var $jqt = $('<div id="jqt"></div>');
@@ -44,7 +44,7 @@
 
 	test('testInitNone', function(t) {
 	  try {
-	    var jqt = $.jQTouch();
+	    var jqt = new $.jQT();
 	    ok(jqt !== undefined && jqt !== null);
 	  } catch (e) {
 	    console.error(e);
@@ -54,7 +54,7 @@
 	
 	test('testInitEmpty', function(t) {
 	  try {
-	    var jqt = $.jQTouch({});
+	    var jqt = new $.jQT({});
 	    ok(jqt !== undefined && jqt !== null);
 	  } catch (e) {
 	    console.error(e);

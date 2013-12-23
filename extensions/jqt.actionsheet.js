@@ -103,8 +103,8 @@
       }        
     };
 
-    if ($.jQTouch) {
-        $.jQTouch.addTapHandler({
+    if ($.jQT) {
+        $.jQT.addTapHandler({
             name: 'open-actionsheet',
             isSupported: function(e, params) {
                 return params.$el.is('.action');
@@ -118,7 +118,7 @@
                 return false;
             }
         });
-        $.jQTouch.addTapHandler({
+        $.jQT.addTapHandler({
             name: 'follow-actionlink',
             isSupported: function(e, params) {
                 if ($('#jqt').hasClass('actionopened')) {
