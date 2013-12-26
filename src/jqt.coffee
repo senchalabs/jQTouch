@@ -105,6 +105,7 @@ class $.jQT
       fn: (e, params) =>
         # User clicked or tapped a back button
         @goBack params.hash
+        false
     ,
       name: "submit-selector"
       isSupported: (e, params) =>
@@ -112,13 +113,13 @@ class $.jQT
       fn: (e, params) ->
         # User clicked or tapped a submit element
         submitParentForm params.$el
+        return
     ,
       name: "webapp"
       isSupported: (e, params) ->
         params.target is "_webapp"
 
       fn: (e, params) ->
-        
         # User clicked or tapped an internal link, fullscreen mode
         window.location = params.href
         false
@@ -186,7 +187,9 @@ class $.jQT
         @
       else
         console.warn "Could not animate pages."
-        false
+        return false
+
+      return
 
     @goBack = =>
       # Error checking
@@ -203,7 +206,9 @@ class $.jQT
         @
       else
         console.warn "Could not go back."
-        false
+        return false
+
+      return
 
     # PRIVATE METHODS
 
@@ -262,7 +267,9 @@ class $.jQT
         @goTo targetPage, animation
         targetPage
       else
-        false
+        return false
+
+      return
 
     # Private functions
 
@@ -292,25 +299,29 @@ class $.jQT
         console.warn "No need to prevent default click behavior."
       
       # Trigger a tap event if touchstart is not on the job
-      unless $.support.touch
+      unless support.touch
         console.warn "Converting click event to a tap event because touch handlers are not present or off."
         $(e.target).trigger "tap", e
+
+      return
 
     # Fires when the history state changes
     hashChangeHandler = (e) =>
       if location.hash is customHistory[0].hash
         console.log "We are on the right panel."
-        true
+        return true
       else if location.hash is ""
         @goBack()
-        true
+        return true
       else if customHistory[1] and location.hash is customHistory[1].hash
         @goBack()
-        true
+        return true
       else
         # Lastly, just try going to the ID...
         console.warn "Could not find ID in history, just forwarding to DOM element."
         @goTo $(location.hash), @settings.defaultAnimation
+
+      return
     
     isExternalLink = ($el) ->
       $el.attr("target") is "_blank" or $el.attr("rel") is "external" or $el.is("a[href^=\"http://maps.google.com\"], a[href^=\"mailto:\"], a[href^=\"tel:\"], a[href^=\"javascript:\"], a[href*=\"youtube.com/v\"], a[href*=\"youtube.com/watch\"]")
@@ -353,12 +364,14 @@ class $.jQT
 
       else options.$referrer.removeClass('active') if options.$referrer
 
-    start = =>
-      
-      # Store some properties in a support object
-      $.support ||= {}
+    support = undefined
 
-      $.extend $.support,
+    start = =>
+
+      # Store some properties in a support object
+      support = $.support || {}
+
+      $.extend support,
         animationEvents: (typeof window.WebKitAnimationEvent isnt "undefined")
         touch: (typeof window.TouchEvent isnt "undefined") and (window.navigator.userAgent.indexOf("Mobile") > -1) and @settings.useFastTouch
         transform3d: ->
@@ -384,8 +397,8 @@ class $.jQT
           console.warn "Support for 3d transforms: " + result + "."
           result
 
-      console.warn "This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable." unless $.support.touch
-      console.warn "This device does not support 3d animation. 2d animations will be used instead."  unless $.support.transform3d
+      console.warn "This device does not support touch interaction, or it has been deactivated by the developer. Some features might be unavailable." unless support.touch
+      console.warn "This device does not support 3d animation. 2d animations will be used instead."  unless support.transform3d
       
       # Add extensions
       for extFn in @extensions
@@ -403,7 +416,7 @@ class $.jQT
         console.warn "Could not find an element with the id “jqt”, so the body id has been set to \"jqt\". If you are having any problems, wrapping your panels in a div with the id “jqt” might help."
         $body = $(document.body).attr("id", "jqt")
       
-      anatomyLessons.push "supports3d" if $.support.transform3d
+      anatomyLessons.push "supports3d" if support.transform3d
 
       anatomyLessons.push if @settings.useTouchScroll
         'touchscroll'
@@ -418,7 +431,7 @@ class $.jQT
         .bind("orientationchange", orientationChangeHandler)
         .bind("submit", submitHandler)
         .bind("tap", tapHandler)
-        .bind((if $.support.touch then "touchstart" else "mousedown"), touchStartHandler)
+        .bind((if support.touch then "touchstart" else "mousedown"), touchStartHandler)
         .trigger "orientationchange"
 
       $(window).bind("hashchange", hashChangeHandler) if @updateHash
@@ -510,8 +523,10 @@ class $.jQT
         href: href
 
       # Loop thru all handlers
-      for handler in @tapHandlers        
+      for handler in @tapHandlers
         return flag = handler.fn(e, params) if handler.isSupported(e, params)
+
+      return
 
     touchStartHandler = (e) ->
       $el = $(e.target)
@@ -524,7 +539,7 @@ class $.jQT
       $el.addClass "active" if $el.length and $el.attr("href")
       
       # Remove our active class if we move
-      $el.on (if $.support.touch then "touchmove" else "mousemove"), ->
+      $el.on (if support.touch then "touchmove" else "mousemove"), ->
         $el.removeClass "active"
       $el.on "touchend", ->
         $el.unbind "touchmove mousemove"
@@ -533,8 +548,9 @@ class $.jQT
 
       # Private navigationEnd callback
       navigationEndHandler = (event) =>
-        if $.support.animationEvents and animation and @settings.useAnimations
+        if support.animationEvents and animation and @settings.useAnimations
           fromPage.unbind "webkitAnimationEnd", navigationEndHandler
+          console.error('removing: ' + finalAnimationName)
           fromPage.removeClass finalAnimationName + " out"
           toPage.removeClass finalAnimationName  if finalAnimationName
           $body.removeClass "animating animating3d"
@@ -584,13 +600,13 @@ class $.jQT
         direction: "in"
         back: goingBack
 
-      if $.support.animationEvents and animation and @settings.useAnimations
+      if support.animationEvents and animation and @settings.useAnimations
 
         finalAnimationName = animation.name
         is3d = if animation.is3d then " animating3d" else ""
 
         # Fail over to 2d animation if need be
-        if not $.support.transform3d and animation.is3d
+        if not support.transform3d and animation.is3d
           console.warn "Did not detect support for 3d animations, falling back to " + @settings.defaultAnimation + "."
           finalAnimationName = @settings.defaultAnimation
           is3d = ''
@@ -630,3 +646,6 @@ class $.jQT
     initHairExtensions()
 
     @settings.starter start
+
+# Added for backward-compatibility
+$.jQTouch = $.jQT
