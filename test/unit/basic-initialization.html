@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>jQTouch with Zepto</title>
+  <link rel="stylesheet" href="../build/themes/css/jqtouch.css" data-jqt-theme>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="../runner/overlay-report.css" type="text/css" media="screen">
+  <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>
+
+  <!--                             -->
+  <!--        JS to be tested      -->
+  <!--                             -->
+  <script src="../../build/lib/zepto/zepto.js"></script>
+  <script src="../../build/src/jqt.js"></script>
+  <!--       /JS to be tested      -->
+
+</head>
+<body>
+  <div id="test-report" class="hide">
+    <h1 id="qunit-header">jQTouch with Zepto</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+  </div>
+
+  <!--                             -->
+  <!--       DOM to be tested      -->
+  <!--                             -->
+  <div id="jqt" class="">
+    <div id="animations">
+      <div class="toolbar">
+        <h1>Animations</h1>
+        <a class="back" href="#">Home</a>
+      </div>
+      <div class="scroll">
+        <h2>Most Popular</h2>
+        <ul class="rounded">
+          <li><a href="#animdemo">Slide</a></li>
+          <li><a href="#animdemo" class="slideup">Slide Up</a></li>
+          <li><a href="#animdemo" class="dissolve">Dissolve</a></li>
+          <li><a href="#animdemo" class="pop">Pop</a></li>
+        </ul>
+        <h2>3d Transitions</h2>
+        <ul class="rounded">
+          <li><a href="#animdemo" class="flipright">Flip right</a></li>
+          <li><a href="#animdemo" class="flipleft">Flip left</a></li>
+          <li><a href="#animdemo" class="cube">Cube</a></li>
+          <li><a href="#animdemo" class="swap">Swap</a></li>
+        </ul>
+      </div>
+      <div class="info">
+        Custom animations are also <a target="_blank" href="http://code.google.com/p/jqtouch/wiki/Animations">easy to write</a>. <br>View the source in <code>demos/customanimation</code> to see how.
+      </div>
+    </div>
+    <div id="buttons">
+      <div class="toolbar">
+        <h1>Buttons!</h1>
+        <a href="#" class="back">Home</a>
+      </div>
+      <div style="margin-top: 10px;" class="scroll">
+        <a href="#" class="whiteButton">White</a>
+        <br>
+        <a href="#" class="grayButton">Gray</a>
+        <br>
+        <a href="#" class="redButton">Red</a>
+        <br>
+        <a href="#" class="greenButton">Green</a>
+        <br>
+        <a href="#" class="blueButton">Blue</a>
+      </div>
+    </div>
+  </div>
+  <!--       /DOM to be tested      -->
+
+
+  <!--                             -->
+  <!--           The tests         -->
+  <!--                             -->
+  <script>
+    module('BasicTest', {
+      setup: function(){
+      },
+      teardown: function(){
+      }
+    });
+
+    test('testInitNone', function(t) {
+      try {
+        var jqt = new $.jQT();
+        ok(jqt !== undefined && jqt !== null);
+      } catch (e) {
+        console.error(e);
+        ok(false, 'Init failed');
+      }
+    });
+
+    test('testInitEmpty', function(t) {
+      try {
+        var jqt = new $.jQT({});
+        ok(jqt !== undefined && jqt !== null);
+      } catch (e) {
+        console.error(e);
+        ok(false, 'Init failed');
+      }
+    });
+
+    test('testCurrentPageAdded', function(t) {
+      try {
+        var jqt = new $.jQT({});
+
+        ok($('#animations').hasClass('current'));
+        ok(!$('#buttons').hasClass('current'));
+        ok($('#jqt > .current').length === 1);
+      } catch (e) {
+        console.error(e);
+        ok(false, 'Init failed');
+      }
+    });
+
+    QUnit.done(function() {
+      $('#test-report').removeClass('hide');
+    });
+  </script>
+  <!--          / The tests         -->
+
+</body>
+</html>

@@ -35,6 +35,7 @@
 
   $(document).ready(function(){
     var SUPPORT_TOUCH = 'ontouchstart' in window;
+    console.log('==== SUPPORT_TOUCH? ' + SUPPORT_TOUCH);
     var START_EVENT = SUPPORT_TOUCH? 'touchstart' : 'mousedown';
     var MOVE_EVENT = SUPPORT_TOUCH? 'touchmove' : 'mousemove';
     var END_EVENT = SUPPORT_TOUCH? 'touchend' : 'mouseup';
@@ -184,7 +185,7 @@
           unbindEvents($el);
           if (!tapped && (absX <= 1 && absY <= 1) && (elX === 0 && elY === 0)) {
               tapped = true;
-              SUPPORT_TOUCH && $oel.trigger('tap');
+              $oel.trigger('tap');
               setTimeout(function() {
                 if ($marked) $marked.removeClass('active');
             }, 1000);

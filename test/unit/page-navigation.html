@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>jQTouch Tests</title>
+  <link rel="stylesheet" href="../build/themes/css/jqtouch.css" data-jqt-theme>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="../runner/overlay-report.css" type="text/css" media="screen">
+  <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>
+
+  <!--                             -->
+  <!--        JS to be tested      -->
+  <!--                             -->
+  <script src="../../build/lib/zepto/zepto.js"></script>
+  <script src="../../build/src/jqt.js"></script>
+  <!--       /JS to be tested      -->
+
+</head>
+<body>
+  <div id="test-report">
+    <h1 id="qunit-header">jQTouch Tests</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+  </div>
+
+  <!--                             -->
+  <!--       DOM to be tested      -->
+  <!--                             -->
+  <div id="jqt" class="">
+    <div id="home" class="current">
+      <div class="toolbar">
+        <h1>jQTouch</h1>
+        <a class="button slideup" id="infoButton" href="#about">About</a>
+      </div>
+      <div class="scroll">
+        <ul class="rounded">
+          <li class="arrow"><a href="#ui">User Interface <small class="counter">5</small></a> </li>
+          <li class="arrow"><a href="#animations">Animations <small class="counter">7</small></a></li>
+          <li class="arrow"><a href="#ajax">AJAX <small class="counter">4</small></a></li>
+          <li class="arrow"><a href="#callbacks">Events <small class="counter">4</small></a></li>
+          <li class="arrow"><a href="#extensions">Extensions <small class="counter">4</small></a> </li>
+          <li class="arrow"><a href="#demos">Demos <small class="counter">2</small></a></li>
+          <li class="arrow"><a href="#themes">Themes <small class="counter">3</small></a></li>
+        </ul>
+        <h2>External Links</h2>
+        <ul class="rounded">
+          <li class="forward"><a target="_blank" href="http://www.jqtouch.com/">Homepage</a></li>
+          <li class="forward"><a target="_blank" href="http://twitter.com/#!/jqtouch">Twitter</a></li>
+          <li class="forward"><a target="_blank" href="http://github.com/senchalabs/jQTouch">GitHub</a></li>
+        </ul>
+        <ul class="individual">
+          <li><a target="_blank" href="http://twitter.com/davidkaneda">@davidkaneda</a></li>
+          <li><a target="_blank" href="http://twitter.com/beedesk">@beedesk</a></li>
+        </ul>
+      </div>
+      <div class="info">
+        <p>Add this page to your home screen <br>for a richer experience.</p>
+      </div>
+    </div>
+    <div id="ui">
+      <div class="toolbar">
+        <h1>UI Demos</h1>
+        <a class="back" href="#">Home</a>
+      </div>
+      <div class="scroll">
+        <h2>Lists</h2>
+        <ul class="rounded">
+          <li class="arrow"><a href="#edge">Edge to Edge</a></li>
+          <li class="arrow"><a href="#plastic">Plastic</a></li>
+          <li class="arrow"><a href="#metal">Metal</a></li>
+        </ul>
+        <h2>Buttons</h2>
+        <ul class="rounded">
+          <li class="arrow"><a href="#buttons">Buttons</a></li>
+        </ul>
+        <h2>Forms</h2>
+        <ul class="rounded">
+          <li class="arrow"><a href="#forms">Forms</a></li>
+        </ul>
+        <h2>Sheets</h2>
+        <ul class="rounded">
+          <li class="arrow"><a class="action" href="#actionsheet">Action</a></li>
+          <li class="arrow"><a class="menu" href="#menusheet">Menu</a></li>
+        </ul>
+      </div>
+    </div>
+    <div id="animations">
+      <div class="toolbar">
+        <h1>Animations</h1>
+        <a class="back" href="#">Home</a>
+      </div>
+      <div class="scroll">
+        <h2>Most Popular</h2>
+        <ul class="rounded">
+          <li><a href="#animdemo">Slide</a></li>
+          <li><a href="#animdemo" class="slideup">Slide Up</a></li>
+          <li><a href="#animdemo" class="dissolve">Dissolve</a></li>
+          <li><a href="#animdemo" class="pop">Pop</a></li>
+        </ul>
+        <h2>3d Transitions</h2>
+        <ul class="rounded">
+          <li><a href="#animdemo" class="flipright">Flip right</a></li>
+          <li><a href="#animdemo" class="flipleft">Flip left</a></li>
+          <li><a href="#animdemo" class="cube">Cube</a></li>
+          <li><a href="#animdemo" class="swap">Swap</a></li>
+        </ul>
+      </div>
+      <div class="info">
+        Custom animations are also <a target="_blank" href="http://code.google.com/p/jqtouch/wiki/Animations">easy to write</a>. <br>View the source in <code>demos/customanimation</code> to see how.
+      </div>
+    </div>
+    <div id="themes">
+      <div class="toolbar">
+        <h1>Themes</h1>
+
+        <a href="#" class="back">Back</a>
+      </div>
+      <ul class="rounded">
+        <li><a data-switch-stylesheet="../../themes/css/jqtouch.css" class="selected" href="#">jQTouch</a></li>
+        <li><a data-switch-stylesheet="../../themes/css/apple.css" href="#">Apple</a></li>
+        <li><a data-switch-stylesheet="../../themes/css/vanilla.css" href="#">Vanilla</a></li>
+      </ul>
+    </div>
+    <div id="animdemo">
+      <div style="font-size: 1.5em; text-align: center; margin: 160px 0 90px; font-family: Marker felt;">
+        Pretty smooth, eh?
+      </div>
+      <a style="margin-bottom: 120px;color:rgba(0,0,0,.9)" href="#" class="whiteButton goback">Go back</a>
+    </div>
+    <div id="buttons">
+      <div class="toolbar">
+        <h1>Buttons!</h1>
+        <a href="#" class="back">Home</a>
+      </div>
+      <div style="margin-top: 10px;" class="scroll">
+        <a href="#" class="whiteButton">White</a>
+        <br>
+        <a href="#" class="grayButton">Gray</a>
+        <br>
+        <a href="#" class="redButton">Red</a>
+        <br>
+        <a href="#" class="greenButton">Green</a>
+        <br>
+        <a href="#" class="blueButton">Blue</a>
+      </div>
+    </div>
+  </div>
+  <!--       /DOM to be tested      -->
+
+
+  <!--                             -->
+  <!--           The tests         -->
+  <!--                             -->
+  <script>
+    module('BasicTest', {
+      setup: function(){
+      },
+      teardown: function(){
+      }
+    });
+
+    asyncTest('Test Page Navigation and Back with Tap', function(t) {
+      expect(8);
+
+      start();
+      try {
+        var jqt = new $.jQT({});
+
+        // initial condition
+        ok($('#home').hasClass('current'));
+
+        // tap on a link
+        var $link = $('#home a[href="#animations"]');
+        ok($link.length === 1);
+        ok($link.trigger('tap'));
+
+        // verify
+        ok(!$('#home').hasClass('current'));
+        ok($('#animations').hasClass('current'));
+        stop();
+
+        // wait for page transition
+        setTimeout(function() {
+          start();
+
+          // tap back
+          $('#animations .toolbar a.back').trigger('tap');
+
+          // verify
+          ok($('#home').hasClass('current'));
+          ok(!$('#animations').hasClass('current'));
+          stop();
+
+          setTimeout(function() {
+            start();
+            ok(true, 'wait for transition');
+          }, 200);
+        }, 550);
+
+      } catch (e) {
+        console.error(e);
+        ok(false, 'Init failed');
+      }
+    });
+
+    asyncTest('Test Navigation during navigation with Tap', function(t) {
+      expect(12);
+
+      start();
+      try {
+        var jqt = new $.jQT({});
+
+        // initial condition
+        ok($('#home').hasClass('current'));
+
+        // tap on a link
+        var $link = $('#home a[href="#animations"]');
+        ok($link.length === 1);
+        ok($link.trigger('tap'));
+
+        // second tap
+        $('#home a[href="#themes"]').trigger('tap');
+        stop();
+
+        setTimeout(function() {
+          // verify we are the page of second tap
+          start();
+          ok(!$('#home').hasClass('current'));
+          ok($('#themes').hasClass('current'));
+          stop();
+
+          setTimeout(function() {
+            start();
+
+            // go back 1
+            $('.current .toolbar a.back').trigger('tap');
+            ok(!$('#home').hasClass('current'));
+            ok(!$('#themes').hasClass('current'));
+            ok($('#animations').hasClass('current'));
+
+            // go back twice
+            $('.current .toolbar a.back').trigger('tap');
+            ok(!$('#themes').hasClass('current'));
+            ok(!$('#animations').hasClass('current'));
+            ok($('#home').hasClass('current'), 'last assert');
+            stop();
+
+            setTimeout(function() {
+              start();
+              ok(true, 'wait for transition to end');
+            }, 550);
+          }, 50);
+        }, 50);
+      } catch (e) {
+        console.error(e);
+        ok(false, 'Init failed');
+      }
+    });
+
+    asyncTest('Test Page Navigation and Back with goTo() / goBack() with animation and no animation', function(t) {
+      expect(8);
+
+      start();
+      try {
+        var jqt = new $.jQT({});
+
+        // initial condition
+        ok($('#home').hasClass('current'));
+
+        // go to a link with animation as param
+        jqt.goTo('#animations', 'slideup');
+
+        // verify
+        ok(!$('#home').hasClass('current'));
+        ok($('#animations').hasClass('current'));
+        stop();
+
+        // wait for page transition
+        setTimeout(function() {
+          start();
+
+          jqt.goBack();
+
+          // verify
+          ok($('#home').hasClass('current'));
+          ok(!$('#animations').hasClass('current'));
+          stop();
+
+          setTimeout(function() {
+            start();
+
+            // tap on a link, with no-animation as param
+            jqt.goTo('#ui');
+            // verify
+            ok(!$('#home').hasClass('current'));
+            ok($('#ui').hasClass('current'));
+
+            jqt.goBack();
+            stop();
+
+            setTimeout(function() {
+              start();
+              ok(true, 'wait for transition');
+            }, 50);
+
+          }, 550);
+
+        }, 550);
+
+      } catch (e) {
+        console.error(e);
+        ok(false, 'Init failed');
+      }
+    });
+
+    QUnit.done(function() {
+    });
+  </script>
+  <!--          / The tests         -->
+
+</body>
+</html>

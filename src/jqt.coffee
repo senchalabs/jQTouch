@@ -550,7 +550,6 @@ class $.jQT
       navigationEndHandler = (event) =>
         if support.animationEvents and animation and @settings.useAnimations
           fromPage.unbind "webkitAnimationEnd", navigationEndHandler
-          console.error('removing: ' + finalAnimationName)
           fromPage.removeClass finalAnimationName + " out"
           toPage.removeClass finalAnimationName  if finalAnimationName
           $body.removeClass "animating animating3d"

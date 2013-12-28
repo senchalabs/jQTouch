@@ -174,7 +174,7 @@ module.exports = (grunt) ->
 
 
     qunit:
-      files: ["test/unit/*.html"]
+      files: ['test/unit/**/*.html', '!**/disabled/**']
 
     uglify:
       options:
@@ -283,7 +283,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'default', ['scripts', 'compass']
 
   # Test from scratch
-  grunt.registerTask 'test', ['scripts', 'copy:test', 'qunit']
+  grunt.registerTask 'test', ['scripts', 'compass', 'copy:test', 'qunit']
 
   # Builds, then copies to versioned dist dir and minifies all JS
   grunt.registerTask 'dist', ['clean', 'default', 'copy:dist', 'uglify', 'mincss']
