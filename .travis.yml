@@ -5,4 +5,5 @@ notifications:
   email:
     on_success: never
     on_failure: change
-before_install: npm install -g grunt-cli
+before_install: npm install -g grunt-cli && gem install compass
+
