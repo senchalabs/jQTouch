@@ -44,6 +44,7 @@
           <li class="arrow"><a href="#extensions">Extensions <small class="counter">4</small></a> </li>
           <li class="arrow"><a href="#demos">Demos <small class="counter">2</small></a></li>
           <li class="arrow"><a href="#themes">Themes <small class="counter">3</small></a></li>
+          <li class="arrow"><a href="#unreachable">Unreachable <small class="counter">3</small></a></li>
         </ul>
         <h2>External Links</h2>
         <ul class="rounded">
@@ -155,7 +156,7 @@
   <!--           The tests         -->
   <!--                             -->
   <script>
-    module('BasicTest', {
+    module('Navigation Tests', {
       setup: function(){
       },
       teardown: function(){
@@ -206,7 +207,7 @@
       }
     });
 
-    asyncTest('Test Navigation during navigation with Tap', function(t) {
+    asyncTest('Test Overlapped Navigation with Tap', function(t) {
       expect(12);
 
       start();
@@ -305,9 +306,70 @@
               start();
               ok(true, 'wait for transition');
             }, 50);
-
           }, 550);
+        }, 550);
 
+      } catch (e) {
+        console.error(e);
+        ok(false, 'Init failed');
+      }
+    });
+
+    asyncTest('Test Page Navigate Unreachable Pages', function(t) {
+      expect(9);
+
+      start();
+      try {
+        var jqt = new $.jQT({});
+
+        // initial condition
+        ok($('#home').hasClass('current'));
+
+        // go to a link with animation as param
+        jqt.goTo('#unknown', 'slideup');
+
+        // verify
+        ok($('#home').hasClass('current'));
+
+        // go to reachable page to ensure that the app is still functioning otherwise
+        jqt.goTo('#animations', 'slideup');
+        ok(!$('#home').hasClass('current'));
+        ok($('#animations').hasClass('current'));
+        stop();
+
+        // wait for page transition
+        setTimeout(function() {
+          start();
+
+          jqt.goBack();
+
+          // verify
+          ok($('#home').hasClass('current'));
+          ok(!$('#animations').hasClass('current'));
+          stop();
+
+          setTimeout(function() {
+            start();
+
+            // tap on un-reachable link
+            $('#home a[href="#unreachable"]').trigger('tap');
+
+            // verify
+            ok($('#home').hasClass('current'));
+
+            // go to reachable page to ensure that the app is still functioning otherwise
+            $('#home a[href="#ui"]').trigger('tap');
+
+            // verify
+            ok($('#ui').hasClass('current'));
+            jqt.goBack();
+            stop();
+
+            setTimeout(function() {
+              start();
+              ok(true, 'wait for transition');
+            }, 50);
+          }, 550);
         }, 550);
 
       } catch (e) {
