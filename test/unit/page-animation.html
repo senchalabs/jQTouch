@@ -78,32 +78,42 @@
   <!--           The tests         -->
   <!--                             -->
   <script>
-    /*
+
     var ANIMATION_NAMES = [
       'cubeleft', 'cuberight',
       'flipleft', 'flipright',
       'swapleft', 'swapright',
       'slidedown', 'slideup', 'slideleft', 'slideright',
       'dissolve', 'fade', 'pop'
-    ]; */
-    var ANIMATION_NAMES = [
-      'cubeleft'
     ];
 
     module('Navigation Tests', {
       setup: function(){
+        jqt = new $.jQT({}); // global
       },
       teardown: function(){
+        for (var i=0, n=10; i<n; i++) {
+          if (!$('#animations').hasClass('current')) {
+            ok(false, 'Page failed to reset.');
+            jqt.goBack();
+          }
+        }
+        delete window.jqt;
       }
     });
 
-    function testAnimation(name) {
+    function inspectAnimationClasses($page, animname, json, tag) {
+      setTimeout(function() {
+        json.inclass = $page.hasClass('in');
+        json.outclass = $page.hasClass('out');
+        json.animationclass = $page.hasClass(animname);
+      }, 100);
+    }
+    function testAnimation(name, useGoto) {
       var calls = {};
 
-      expect(30);
-
+      expect(42);
       start();
-      var jqt = new $.jQT({});
 
       // verify initial condition
       ok($('#animations').hasClass('current'));
@@ -111,19 +121,27 @@
       // listen for page transition
       $('#animations').bind('pageAnimationStart', function(event, info) {
         calls['from-start'] = {info: info};
+        inspectAnimationClasses($(this), name, calls['from-start'], 'from-start');
       });
       $('#animdemo').bind('pageAnimationStart', function(event, info) {
         calls['to-start'] = {info: info};
+        inspectAnimationClasses($(this), name, calls['to-start'], 'to-start');
       });
       $('#animations').bind('pageAnimationEnd', function(event, info) {
         calls['from-end'] = {info: info};
+        inspectAnimationClasses($(this), name, calls['from-end'], 'from-end');
       });
       $('#animdemo').bind('pageAnimationEnd', function(event, info) {
         calls['to-end'] = {info: info};
+        inspectAnimationClasses($(this), name, calls['to-end'], 'to-end');
       });
 
       // go
-      $('.current a[href="#animdemo"].' + name).trigger('tap');
+      if (!useGoto) {
+        $('.current a[href="#animdemo"].' + name).trigger('tap');
+      } else {
+        jqt.goTo('#animdemo', name);
+      }
 
       // verify
       ok(!$('#animations').hasClass('current'));
@@ -155,6 +173,16 @@
         ok(calls['from-end'].info && calls['from-end'].info.direction === 'out');
         ok(calls['to-end'].info && calls['to-end'].info.direction === 'in');
 
+        ok(calls['from-start'].info && !calls['from-start'].inclass && calls['from-start'].outclass);
+        ok(calls['to-start'].info && calls['to-start'].inclass && !calls['to-start'].outclass);
+        ok(calls['from-end'].info && !calls['from-end'].inclass && !calls['from-end'].outclass);
+        ok(calls['to-end'].info && !calls['to-end'].inclass && !calls['to-end'].outclass);
+
+        ok(calls['from-start'].info && calls['from-start'].animationclass);
+        ok(calls['to-start'].info && calls['to-start'].animationclass);
+        ok(calls['from-end'].info && !calls['from-end'].animationclass);
+        ok(calls['to-end'].info && !calls['to-end'].animationclass);
+
         ok(!calls['from-start'].info.back);
         ok(!calls['to-start'].info.back);
         ok(!calls['from-end'].info.back);
@@ -162,7 +190,11 @@
 
         // go back
         calls = {};
-        $('.current a.goback').trigger('tap');
+        if (!useGoto) {
+          $('.current a.goback').trigger('tap');
+        } else {
+          jqt.goBack();
+        }
 
         // verify after transition
         ok($('#animations').hasClass('current'));
@@ -174,68 +206,31 @@
           ok($('#animations').hasClass('current'));
           ok(!$('#animdemo').hasClass('current'));
 
+          ok(calls['from-start'].info && calls['from-start'].info.direction === 'in');
+          ok(calls['to-start'].info && calls['to-start'].info.direction === 'out');
+          ok(calls['from-end'].info && calls['from-end'].info.direction === 'in');
+          ok(calls['to-end'].info && calls['to-end'].info.direction === 'out');
+
           ok(calls['from-start'].info.back);
           ok(calls['to-start'].info.back);
           ok(calls['from-end'].info.back);
           ok(calls['to-end'].info.back);
 
-          ok(true, 'wait for transition');
-        }, 775);
-      }, 775);
+          ok(true, 'wait for transition end');
+        }, 900);
+      }, 900);
     };
 
     ANIMATION_NAMES.some(function(name, n) {
       asyncTest('Test Page Anmation: ' + name, function(t) {
-        testAnimation(name);
+        testAnimation(name, false);
       });
     });
-
-    /*
-    asyncTest('Test Overlapped Navigation with Tap', function(t) {
-      expect(12);
-
-      start();
-      try {
-
-        // initial condition
-        ok($('#home').hasClass('current'));
-
-        // tap on a link
-        var $link = $('#home a[href="#animations"]');
-        ok($link.length === 1);
-        ok($link.trigger('tap'));
-
-        // second tap
-        $('#home a[href="#themes"]').trigger('tap');
-        stop();
-
-        setTimeout(function() {
-          // verify we are the page of second tap
-          start();
-          ok(!$('#home').hasClass('current'));
-          ok($('#themes').hasClass('current'));
-          stop();
-
-          setTimeout(function() {
-            start();
-
-            // go back
-            $('.current .toolbar a.back').trigger('tap');
-            ok(!$('#home').hasClass('current'));
-            ok(!$('#themes').hasClass('current'));
-            ok($('#animations').hasClass('current'));
-
-            setTimeout(function() {
-              start();
-              ok(true, 'wait for transition to end');
-            }, 550);
-          }, 550);
-        }, 50);
-      } catch (e) {
-        console.error(e);
-        ok(false, 'Init failed');
-      }
-    });*/
+    ANIMATION_NAMES.some(function(name, n) {
+      asyncTest('Test Page Anmation: ' + name, function(t) {
+        testAnimation(name, true);
+      });
+    });
 
     QUnit.done(function() {
     });
