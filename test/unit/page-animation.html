@@ -99,6 +99,8 @@
           }
         }
         delete window.jqt;
+        $('#animations').off();
+        $('#animdemo').off();
       }
     });
 
@@ -112,7 +114,7 @@
     function testAnimation(name, useGoto) {
       var calls = {};
 
-      expect(42);
+      expect(45);
       start();
 
       // verify initial condition
@@ -135,6 +137,11 @@
         calls['to-end'] = {info: info};
         inspectAnimationClasses($(this), name, calls['to-end'], 'to-end');
       });
+      $('#animations').bind('transitionend oTransitionEnd webkitTransitionEnd animationend oAnimationEnd webkitAnimationEnd', function(event) {
+        if (event.target === $(this)[0]) {
+          calls['transitionend'] = (calls['transitionend'] || 0) + 1;
+        }
+      });
 
       // go
       if (!useGoto) {
@@ -152,6 +159,7 @@
       ok('to-start' in calls);
       ok('from-end' in calls == false);
       ok('to-end' in calls == false);
+      ok('transitionend' in calls == false);
 
       stop();
 
@@ -167,11 +175,13 @@
         ok('to-start' in calls);
         ok('from-end' in calls);
         ok('to-end' in calls);
+        ok('transitionend' in calls);
 
         ok(calls['from-start'].info && calls['from-start'].info.direction === 'out');
         ok(calls['to-start'].info && calls['to-start'].info.direction === 'in');
         ok(calls['from-end'].info && calls['from-end'].info.direction === 'out');
         ok(calls['to-end'].info && calls['to-end'].info.direction === 'in');
+        ok(calls['transitionend'] && calls['transitionend'] === 1);
 
         ok(calls['from-start'].info && !calls['from-start'].inclass && calls['from-start'].outclass);
         ok(calls['to-start'].info && calls['to-start'].inclass && !calls['to-start'].outclass);
