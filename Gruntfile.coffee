@@ -156,6 +156,9 @@ module.exports = (grunt) ->
 
     compass:
       compile:
+        files: [
+          src: 'themes/scss/**/*.scss'
+        ]
         options:
           load: 'submodules/compass-recipes/'
           sassDir: 'themes/scss'
@@ -175,7 +178,8 @@ module.exports = (grunt) ->
 
     qunit:
       files: ['test/unit/**/*.html', '!**/disabled/**']
-
+      options:
+        timeout: 15000
     uglify:
       options:
         globals:
