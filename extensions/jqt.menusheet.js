@@ -20,6 +20,12 @@
 */
 
 (function($) {
+    var src = $("head script").last().attr("src") || '';
+    var scriptpath = src.split('?')[0].split('/').slice(0, -1).join('/')+'/';
+    var csspath = scriptpath + 'jqt.menusheet.css';
+    var link = $('<link href="' + csspath + '" rel="stylesheet">');
+    $('head').append($(link));
+
     function hide(callback) {
         var $target = $(this);
         var data = $(this).data('menusheet');

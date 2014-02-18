@@ -228,7 +228,7 @@ module.exports = (grunt) ->
         files:
           "<%= dirs.build %>/test/instrumented/jqtouch.js": ["src/jqtouch.js"]
 
-    watch:
+    watch_files:
       theming:
         files: 'themes/scss/**/*.scss'
         tasks: ['compass']
@@ -244,6 +244,9 @@ module.exports = (grunt) ->
       extensions:
         files: ['extensions/**/*.coffee']
         tasks: ['coffee:extensions']
+      extensions_js:
+        files: ['extensions/**/*.js']
+        tasks: ['copy:source']
 
     livereload:
       options:
