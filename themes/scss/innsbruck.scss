@@ -1,7 +1,10 @@
-$base-color: #768BA7;
-$page-background-color: #CBD2D8;
+$base-color: white;
+$page-background-color: #efeff4;
+$toolbar-background-color: #f7f7f8;
 $highlight-color: #3366CC;
-$theme: apple;
+$theme: innsbruck;
+$base-font-family: Helvetica Neue Interface M3, Helvetica;
+$include-back-arrow: false;
 
 $list-background-color: #fff;
 
@@ -11,22 +14,39 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
 @import 'include/core';
 
 #jqt {
+
     > * {
-        @include background-striped(
-            $angle: left,
-            $minorsize: 1px,
-            $majorsize: 7px,
-            $bgcolor: $page-background-color,
-            $stripe-color: darken($page-background-color, 2)
-        )
+        background-color: $page-background-color;
     }
 
+
     .toolbar {
-        @include background-image(
-            linear-gradient(rgba(#fff, .15), rgba(#fff, 0)),
-            glossy-gradient($toolbar-background-color, $contrast: .6)
-        );
+        border-bottom: 1px solid #a7a7ab;
+        font-weight: bold;
         @include box-shadow(rgba(#fff, .3) 0 1px 0 inset);
+
+        .button, .back, .cancel, .add {
+            background-image: none;
+            background-color: transparent;
+            border: 0px solid transparent;
+            box-shadow: none;
+            color: #007aff;
+            font-weight: lighter;
+            font-size: 16px;
+            text-shadow: none;
+
+            &.active {
+                background-image: none;
+                background-color: transparent;
+            }
+        }
+        .back, .cancel {
+            &:before {
+              content: " < ";
+              font-size: 20px;
+              font-weight: bold;
+            }
+        }
     }
 
     ul {
@@ -35,6 +55,36 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
             input[type="checkbox"], input[type="radio"] {
                 color: rgb(50,79,133);
             }
+
+            &.forward::after {
+                content: "i ";
+                color: #007aff;
+                font-size: 14px;
+                font-weight: ligher;
+                text-shadow: none;
+                top: 1.5px;
+            }
+
+            &.forward::before {
+                border: 1px solid #007aff;
+                background-image: none;
+                background-color: transparent;
+                width: 20px; height: 20px;
+                right: 10px;
+                box-shadow: none;
+                text-shadow: none;
+                top: 55%;
+            }
+            a.active, a.selected {
+                border-top: 0px solid transparent;
+                background-image: none;
+                background-color: #d9d9d9;
+                color: #222;
+                text-shadow: none;
+                box-shadow: none;
+                -webkit-box-shadow: none;
+            }
+
         }
 
         .toggle input[type="checkbox"] {
@@ -52,6 +102,26 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
             @include color-by-background($page-background-color);
             border-bottom: 1px solid #b5c1c9;
             border-top: 1px solid #b5c1c9;
+        }
+
+        &.rounded {
+            margin: 20px 0;
+            padding: 0 0;
+            border-radius: 0;
+
+            li {
+                &:first-child, &:last-child {
+                    a.active {
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                        border-bottom-left-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+                a.active {
+                    border-radius: 0;
+                }
+            }
         }
     }
 
