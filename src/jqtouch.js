@@ -266,7 +266,7 @@
             return orientation;
         }
 
-        function goBack() {
+        function goBack(toPage) {
             // Error checking
             if (history.length < 1) {
                 warn('History is empty.');
@@ -276,6 +276,18 @@
                 warn('You are on the first panel.');
                 window.history.go(-1);
             }
+
+			if (typeof toPage === 'string' && toPage !== '') {
+				for (var i = 0; i < history.length; i++) {
+					if (history[i].hash == toPage) {
+						toPage = i;
+						break;
+					}
+				}
+			}
+			if (typeof toPage === 'number' && toPage >= 1 && typeof history[toPage] !== 'undefined') {
+				history = [history[0]].concat(history.slice(toPage));
+			}
 
             var from = history[0],
                 to = history[1];
