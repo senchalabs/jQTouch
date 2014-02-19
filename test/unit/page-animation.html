@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>jQTouch Tests</title>
+  <link rel="stylesheet" href="../build/themes/css/jqtouch.css" data-jqt-theme>
+  <link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" type="text/css" media="screen">
+  <link rel="stylesheet" href="../runner/overlay-report.css" type="text/css" media="screen">
+  <script type="text/javascript" src="http://code.jquery.com/qunit/qunit-git.js"></script>
+
+  <!--                             -->
+  <!--        JS to be tested      -->
+  <!--                             -->
+  <script src="../../build/lib/zepto/zepto.js"></script>
+  <script src="../../build/src/jqt.js"></script>
+  <!--       /JS to be tested      -->
+
+</head>
+<body>
+  <div id="test-report">
+    <h1 id="qunit-header">jQTouch Tests</h1>
+    <h2 id="qunit-banner"></h2>
+    <div id="qunit-testrunner-toolbar"></div>
+    <h2 id="qunit-userAgent"></h2>
+    <ol id="qunit-tests"></ol>
+  </div>
+
+  <!--                             -->
+  <!--       DOM to be tested      -->
+  <!--                             -->
+  <div id="jqt" class="">
+    <div id="animations" class="current">
+      <div class="toolbar">
+        <h1>Animations</h1>
+        <a class="back" href="#">Home</a>
+      </div>
+      <div class="scroll">
+        <h2>Most Popular</h2>
+        <ul class="rounded">
+          <li><a href="#animdemo">Slide</a></li>
+          <li><a href="#animdemo" class="dissolve">Dissolve</a></li>
+          <li><a href="#animdemo" class="pop">Pop</a></li>
+          <li><a href="#animdemo" class="fade">Fade</a></li>
+        </ul>
+        <h2>Slide</h2>
+        <ul class="rounded">
+          <li><a href="#animdemo" class="slideup">Slide up</a></li>
+          <li><a href="#animdemo" class="slidedown">Slide down</a></li>
+          <li><a href="#animdemo" class="slideleft">Slide left</a></li>
+          <li><a href="#animdemo" class="slideright">Slide right</a></li>
+        </ul>
+        <h2>3d Transitions</h2>
+        <ul class="rounded">
+          <li><a href="#animdemo" class="flipright">Flip right</a></li>
+          <li><a href="#animdemo" class="flipleft">Flip left</a></li>
+          <li><a href="#animdemo" class="cubeleft">Cube left</a></li>
+          <li><a href="#animdemo" class="cuberight">Cube right</a></li>
+          <li><a href="#animdemo" class="swapleft">Swap left</a></li>
+          <li><a href="#animdemo" class="swapright">Swap left</a></li>
+        </ul>
+      </div>
+      <div class="info">
+        Custom animations are also <a target="_blank" href="http://code.google.com/p/jqtouch/wiki/Animations">easy to write</a>. <br>View the source in <code>demos/customanimation</code> to see how.
+      </div>
+    </div>
+    <div id="animdemo">
+      <div style="font-size: 1.5em; text-align: center; margin: 160px 0 90px; font-family: Marker felt;">
+        Pretty smooth, eh?
+      </div>
+      <a style="margin-bottom: 120px;color:rgba(0,0,0,.9)" href="#" class="whiteButton goback">Go back</a>
+    </div>
+  </div>
+  <!--       /DOM to be tested      -->
+
+
+  <!--                             -->
+  <!--           The tests         -->
+  <!--                             -->
+  <script>
+
+    var ANIMATION_NAMES = [
+      'cubeleft', 'cuberight',
+      'flipleft', 'flipright',
+      'swapleft', 'swapright',
+      'slidedown', 'slideup', 'slideleft', 'slideright',
+      'dissolve', 'fade', 'pop'
+    ];
+
+    module('Navigation Tests', {
+      setup: function(){
+        jqt = new $.jQT({}); // global
+      },
+      teardown: function(){
+        for (var i=0, n=10; i<n; i++) {
+          if (!$('#animations').hasClass('current')) {
+            ok(false, 'Page failed to reset.');
+            jqt.goBack();
+          }
+        }
+        delete window.jqt;
+        $('#animations').off();
+        $('#animdemo').off();
+      }
+    });
+
+    function inspectAnimationClasses($page, animname, json, tag) {
+      setTimeout(function() {
+        json.inclass = $page.hasClass('in');
+        json.outclass = $page.hasClass('out');
+        json.animationclass = $page.hasClass(animname);
+      }, 100);
+    }
+    function testAnimation(name, useGoto) {
+      var calls = {};
+
+      expect(45);
+      start();
+
+      // verify initial condition
+      ok($('#animations').hasClass('current'));
+
+      // listen for page transition
+      $('#animations').bind('pageAnimationStart', function(event, info) {
+        calls['from-start'] = {info: info};
+        inspectAnimationClasses($(this), name, calls['from-start'], 'from-start');
+      });
+      $('#animdemo').bind('pageAnimationStart', function(event, info) {
+        calls['to-start'] = {info: info};
+        inspectAnimationClasses($(this), name, calls['to-start'], 'to-start');
+      });
+      $('#animations').bind('pageAnimationEnd', function(event, info) {
+        calls['from-end'] = {info: info};
+        inspectAnimationClasses($(this), name, calls['from-end'], 'from-end');
+      });
+      $('#animdemo').bind('pageAnimationEnd', function(event, info) {
+        calls['to-end'] = {info: info};
+        inspectAnimationClasses($(this), name, calls['to-end'], 'to-end');
+      });
+      $('#animations').bind('transitionend oTransitionEnd webkitTransitionEnd animationend oAnimationEnd webkitAnimationEnd', function(event) {
+        if (event.target === $(this)[0]) {
+          calls['transitionend'] = (calls['transitionend'] || 0) + 1;
+        }
+      });
+
+      // go
+      if (!useGoto) {
+        $('.current a[href="#animdemo"].' + name).trigger('tap');
+      } else {
+        jqt.goTo('#animdemo', name);
+      }
+
+      // verify
+      ok(!$('#animations').hasClass('current'));
+      ok($('#animdemo').hasClass('current'));
+
+      // verify callbacks during the wait
+      ok('from-start' in calls);
+      ok('to-start' in calls);
+      ok('from-end' in calls == false);
+      ok('to-end' in calls == false);
+      ok('transitionend' in calls == false);
+
+      stop();
+
+      setTimeout(function() {
+        start();
+
+        // verify page state again after transition
+        ok(!$('#animations').hasClass('current'));
+        ok($('#animdemo').hasClass('current'));
+
+        // verify callbacks during the wait
+        ok('from-start' in calls);
+        ok('to-start' in calls);
+        ok('from-end' in calls);
+        ok('to-end' in calls);
+        ok('transitionend' in calls);
+
+        ok(calls['from-start'].info && calls['from-start'].info.direction === 'out');
+        ok(calls['to-start'].info && calls['to-start'].info.direction === 'in');
+        ok(calls['from-end'].info && calls['from-end'].info.direction === 'out');
+        ok(calls['to-end'].info && calls['to-end'].info.direction === 'in');
+        ok(calls['transitionend'] && calls['transitionend'] === 1);
+
+        ok(calls['from-start'].info && !calls['from-start'].inclass && calls['from-start'].outclass);
+        ok(calls['to-start'].info && calls['to-start'].inclass && !calls['to-start'].outclass);
+        ok(calls['from-end'].info && !calls['from-end'].inclass && !calls['from-end'].outclass);
+        ok(calls['to-end'].info && !calls['to-end'].inclass && !calls['to-end'].outclass);
+
+        ok(calls['from-start'].info && calls['from-start'].animationclass);
+        ok(calls['to-start'].info && calls['to-start'].animationclass);
+        ok(calls['from-end'].info && !calls['from-end'].animationclass);
+        ok(calls['to-end'].info && !calls['to-end'].animationclass);
+
+        ok(!calls['from-start'].info.back);
+        ok(!calls['to-start'].info.back);
+        ok(!calls['from-end'].info.back);
+        ok(!calls['to-end'].info.back);
+
+        // go back
+        calls = {};
+        if (!useGoto) {
+          $('.current a.goback').trigger('tap');
+        } else {
+          jqt.goBack();
+        }
+
+        // verify after transition
+        ok($('#animations').hasClass('current'));
+        ok(!$('#animdemo').hasClass('current'));
+        stop();
+
+        setTimeout(function() {
+          start();
+          ok($('#animations').hasClass('current'));
+          ok(!$('#animdemo').hasClass('current'));
+
+          ok(calls['from-start'].info && calls['from-start'].info.direction === 'in');
+          ok(calls['to-start'].info && calls['to-start'].info.direction === 'out');
+          ok(calls['from-end'].info && calls['from-end'].info.direction === 'in');
+          ok(calls['to-end'].info && calls['to-end'].info.direction === 'out');
+
+          ok(calls['from-start'].info.back);
+          ok(calls['to-start'].info.back);
+          ok(calls['from-end'].info.back);
+          ok(calls['to-end'].info.back);
+
+          ok(true, 'wait for transition end');
+        }, 900);
+      }, 900);
+    };
+
+    ANIMATION_NAMES.some(function(name, n) {
+      asyncTest('Test Page Anmation: ' + name, function(t) {
+        testAnimation(name, false);
+      });
+    });
+    ANIMATION_NAMES.some(function(name, n) {
+      asyncTest('Test Page Anmation: ' + name, function(t) {
+        testAnimation(name, true);
+      });
+    });
+
+    QUnit.done(function() {
+    });
+  </script>
+  <!--          / The tests         -->
+
+</body>
+</html>

@@ -1,37 +1,57 @@
-/* @group Action Sheet */
+/* @group Modal */
 
-#jqt > .transition {
-    -webkit-transition-property: translateY, opacity, background-color;
-    -webkit-transition-duration: 250ms;
-    -webkit-transition-fill-mode: both;
-    -webkit-transition-timing-function: ease-in-out;
-}
-
-#jqt > *::after {
+#jqt > .current::after {
+	/* semi-transparent overlay */
     display: none;
     z-index: 0;
     position: absolute;
     content: "";
     top: 0; bottom: 0; left: 0; right: 0;
+    background-color: rgba(63, 63, 63, 0.6);
+    opacity: 0;
+    -webkit-transition: opacity 375ms ease-out;
 }
 
-#jqt.actionopened > .current:not(.actionsheet)::after {
+#jqt.modal > .current::after, 
+#jqt.transition > .current::after {
     display: block;
-    background-color: rgba(63, 63, 63, 0.6);
     z-index: 10;
+}
+
+#jqt.modal > .current::after {
+	opacity: 1;
+}
+
+/* @end group Modal */
+
+
+/* @group Action Sheet */
+
+#jqt > .actionsheet {
+    z-index: 30;
+	-webkit-transform: translateY(90%);  
+    -webkit-transition: -webkit-transform 375ms linear;
+}
+
+#jqt > .actionsheet.shown,
+#jqt > .actionsheet.transition {
+    display: block;
+}
+
+#jqt > .actionsheet.shown:not(.current):not(.in):not(.out),
+#jqt > .actionsheet.transition:not(.current):not(.in):not(.out) {
+    /* workaround long css in jqt/_base.scss */
+    display: block;
+}
+
+#jqt > .actionsheet.shown {
+    -webkit-transform: translateY(0);  
 }
 
 #jqt > .actionsheet {
     height: 100%; min-height: 100%;
     background-color: transparent;
     background-image: none;
-    -webkit-transform: translateY(90%);  
-    z-index: 30;
-}
-
-#jqt > .actionsheet.current {
-    -webkit-transform: translateY(0);
-    opacity: 1;
 }
 
 #jqt > .actionsheet > div.actionchoices {
@@ -60,5 +80,4 @@
     border-top: 1px solid #CCC;
     width: 100%;
 }
-
-/* @end */
+/* @end group Action Sheet */

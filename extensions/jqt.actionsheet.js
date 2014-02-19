@@ -20,6 +20,7 @@
 */
 
 (function($) {
+    // load css
     var src = $("head script").last().attr("src") || '';
     var scriptpath = src.split('?')[0].split('/').slice(0, -1).join('/')+'/';
     var csspath = scriptpath + 'jqt.actionsheet.css';
@@ -27,62 +28,72 @@
     $('head').append($(link));
 
     function hide(callback) {
-        var $target = $(this);
-        var data = $(this).data('actionsheet');
-        var $source = data.source;
+        var $target = $(this),
+            $jqt = $('#jqt');
 
-        var timeout;
+        $target
+            .addClass('transition')
+            .removeClass('shown')
+            .one('webkitTransitionEnd', function(event) {
+                if (event.target === this) {
+                    $target.removeClass('transition');              
+                    !callback || callback.apply(this, arguments);
+                }
+            });
 
-        function cleanup() {
-          clearTimeout(timeout);
+        $jqt
+            .addClass('transition') 
+            .removeClass('modal')
+            .find('.current')
+                .one('webkitTransitionEnd watchdog', function(event) {
+                    if (event.target === this) {
+                        $jqt.removeClass('transition');
+                    }
+                })
+                .each(function() {
+                    // to take care of the case where .current
+                    // become display: none and animation ceased
+                    var $current = $(this);
+                    setTimeout(function() {
+                        $current.trigger('watchdog');
+                    }, 500);                  
+                });
 
-          $source.removeClass('transition');
-          $target.removeClass('inmotion transition');
-          !callback || callback.apply(this, arguments);
-        };
-        timeout = setTimeout(cleanup, 500);
-
-        if (data.shown) {
-            $(this).data('actionsheet', {});
-            $target.one('webkitTransitionEnd', cleanup);
-    
-            $source.addClass('transition');
-            $target.removeClass('current').addClass('inmotion transition');
-            $('#jqt').removeClass('actionopened');
-        }
         return $target;
     }
       
     function show(callback) {
-        var $target = $(this);
-        var data = $(this).data('actionsheet') || {};
-        if (!data.shown) {
-            var $source = $('#jqt .current:not(.actionsheet)');
-    
-            $target.one('webkitTransitionEnd', function() {
-                $source.removeClass('transition');
-                $target.removeClass('inmotion transition');
-                !callback || callback.apply(this, arguments);
-            });
-    
-            data.shown = true;
-            data.source = $source;
-            $(this).data('actionsheet', data);
+        var $target = $(this),
+            $jqt = $('#jqt');
 
-            $source.addClass('transition');
-            $target.addClass('inmotion transition');
-            $('#jqt').addClass('actionopened');
-            setTimeout(function() {
-                $target.addClass('current');
-            }, 50);
-        }
+        $target
+            .addClass('transition')
+            .one('webkitTransitionEnd', function(event) {
+                if (event.target === this) {
+                    $target.removeClass('transition');              
+                    !callback || callback.apply(this, arguments);
+                }
+            });
+
+        $jqt
+            .addClass('transition')
+            .find('.current')
+                .one('webkitTransitionEnd', function(event) {
+                    if (event.target === this) {
+                        $jqt.removeClass('transition');
+                    }
+                });
+
+        setTimeout(function() {
+            $target.addClass('shown');
+            $jqt.addClass('modal');
+        }, 25);
         return $target;
     }
     
     var methods = {
         init: function(options) {
             $(this).addClass('actionsheet');
-            $(this).data({shown: false});
         },
         show: show,
         hide: hide
@@ -103,14 +114,14 @@
       }        
     };
 
-    if ($.jQTouch) {
-        $.jQTouch.addTapHandler({
+    if ($.jQT) {
+        $.jQT.addTapHandler({
             name: 'open-actionsheet',
             isSupported: function(e, params) {
                 return params.$el.is('.action');
             },
             fn: function(e, params) {
-                params.$el.removeClass('active');
+                params.$el.closest('.active').removeClass('active');
 
                 var $target = $(params.hash);
                 $target.actionsheet('show');
@@ -118,21 +129,24 @@
                 return false;
             }
         });
-        $.jQTouch.addTapHandler({
+        $.jQT.addTapHandler({
             name: 'follow-actionlink',
             isSupported: function(e, params) {
-                if ($('#jqt').hasClass('actionopened')) {
+                if ($('#jqt > .actionsheet.shown').length > 0) {
                     return params.$el.is('.actionsheet a');
                 }
                 return false;
             },
             fn: function(e, params) {
-                params.$el.removeClass('active');
+                params.$el.closest('.active').removeClass('active');
 
                 var $target = params.$el.closest('.actionsheet');
                 $target.actionsheet('hide', function() {
                     if (!params.$el.is('.dismiss')) {
                       params.$el.trigger('tap');
+                      setTimeout(function() {
+                        params.$el.removeClass('active');
+                      }, 100);
                     }
                 });
                 return false;

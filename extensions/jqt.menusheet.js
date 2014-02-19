@@ -111,8 +111,8 @@
       }        
     };
 
-    if ($.jQTouch) {
-        $.jQTouch.addTapHandler({
+    if ($.jQT) {
+        $.jQT.addTapHandler({
             name: 'open-menusheet',
             isSupported: function(e, params) {
                 return params.$el.is('.menu');
@@ -126,7 +126,7 @@
                 return false;
             }
         });
-        $.jQTouch.addTapHandler({
+        $.jQT.addTapHandler({
             name: 'follow-menulink',
             isSupported: function(e, params) {
                 if ($('#jqt').hasClass('menuopened')) {

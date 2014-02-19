@@ -1,0 +1,24 @@
+#test-report {
+    position: fixed;
+    display: block;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 15px;
+    left: 0; right: 0;
+    top: auto;
+    bottom: 0;
+    max-height: 50%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 1px 1px 5px rgba(255, 255, 255, 0.7);
+    opacity: 0.9;
+    background-color: rgba(127, 127, 127, 0.7);
+    z-index: 10;
+}
+#test-report > div, ol {
+    overflow: hidden;
+}
+.hide {
+    display: none;
+}

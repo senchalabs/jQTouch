@@ -3,14 +3,14 @@
     <head>
         <meta charset="UTF-8" />
         <title>jQT.Floaty</title>
-        <style type="text/css" media="screen">@import "../../themes/css/apple.css";</style>
+        <style type="text/css" media="screen">@import "../../themes/css/jqtouch.css";</style>
 
         <script src="../../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../src/jqtouch.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../src/jqt.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../extensions/jqt.floaty.js" type="text/javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
-            var jQT = new $.jQTouch({
+            var jQT = new $.jQT({
                 icon: 'jqtouch.png',
                 addGlossToIcon: false,
                 startupScreen: 'jqt_startup.png',
@@ -22,13 +22,11 @@
                 
                 $('#togglefloaty').click(function(){
                     $('.floaty').toggleFloaty();
-                    $(this).removeClass('active');
                     return false;
                 });
 
                 $('#hidefloaty').click(function(){
                     $('.floaty').hideFloaty();
-                    $(this).removeClass('active');
                     return false;
                 });
                 
@@ -48,6 +46,9 @@
                 padding: 5px 10px;
                 background: rgba(255,255,255,.7);
                 color: #000;
+                -webkit-box-flex: 0;
+                display: block;
+                height: auto !important;
                 z-index:20;
             }
         </style>
