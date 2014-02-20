@@ -2,13 +2,15 @@ $base-color: white;
 $body-color: #efeff4;
 $page-background-color: #efeff4;
 $toolbar-background-color: #f7f7f8;
-$highlight-color: #3366CC;
+$highlight-color: #d9d9d9;
 $theme: innsbruck;
 $base-font-family: Helvetica Neue Ultra Light, Helvetica Neue Interface M3, Helvetica;
-$base-font: normal 18px $base-font-family;
+$base-font: normal 17px $base-font-family;
+$base-button-gradient: flat;
 $include-back-arrow: false;
 
 $list-background-color: #fff;
+$include-highlights: false;
 
 $toolbar-background-color: $base-color;
 $toolbar-button-color: saturate(darken($base-color, 10), 10);
@@ -43,25 +45,37 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
             box-shadow: none;
             color: #007aff;
             font-weight: lighter;
-            font-size: 16px;
+            font-size: 15px;
             text-shadow: none;
+            padding: 0 7px;
+            margin: 0 0px;
 
             &.active {
                 background-image: none;
                 background-color: transparent;
             }
         }
+
         .back, .cancel {
+            left: 2px;
+
             &::before {
-              @include pseudo-chervon($direction: 3, $thickness: 0.2em, $left: 0.5em, $ratio: 0.95);
-              margin-right: 10px;
+              @include pseudo-chervon($direction: 3, $thickness: 0.2em, $ratio: 0.9);
+              margin-right: 5px;
             }
+        }
+
+        h1 {
+            font-size: 17px;
         }
     }
 
     ul {
+        overflow: hidden;
 
         li {
+            overflow: visible;
+
             input[type="checkbox"], input[type="radio"] {
                 color: rgb(50,79,133);
             }
@@ -81,10 +95,10 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
                 color: #040404;
 
                 &.active, &.selected {
-                    border-top: 0px solid transparent;
                     background-image: none;
-                    background-color: #d9d9d9;
                     color: #222;
+                    margin-left: -20px;
+                    padding-left: 20px;
                     text-shadow: none;
                     box-shadow: none;
                     -webkit-box-shadow: none;
@@ -104,10 +118,8 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
 
         // Edge to edge
         &.edgetoedge li.sep {
-            @include background-gradient($page-background-color, recessed);
-            @include color-by-background($page-background-color);
-            border-bottom: 1px solid #b5c1c9;
-            border-top: 1px solid #b5c1c9;
+            color: black;
+            background-color: #f7f7f7;
         }
 
         &.rounded {
@@ -163,10 +175,64 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
         }
     }
 
+    .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
+        font-weight: normal;
+        font-size: 22px;
+        line-height: 66px;
+        padding: 0;
+        text-shadow: none;
+        margin: 0 20px;
+
+        &.active, &:active {
+            text-shadow: none;
+        }
+    }
+
+    .whiteButton {
+        background-color: rgba(255, 255, 255, 0.95);
+
+        &.active, &:active {
+          $active-color: #dcdcdd;
+          color: black;
+          @include background-gradient($active-color, $base-button-gradient);
+        }
+    }
+
+    .grayButton {
+        background-color: #1d1e1d;
+
+        &.active, &:active {
+          $active-color: black;
+          color: white;
+          @include background-gradient($active-color, $base-button-gradient);
+        }
+    }
+
+    .redButton {
+        background-color: #e0544c;
+
+        &.active, &:active {
+            $active-color: darken(#e0544c, 16);
+            @include background-gradient($active-color, $base-button-gradient);
+        }
+    }
+
+    .blueButton {
+    }
+
+    .greenButton {
+      background-color: #4cd964;
+
+      &.active, &:active {
+        $active-color: darken(#4cd964, 16);
+        @include background-gradient($active-color, $base-button-gradient);
+      }
+    }
+
     .info {
-        background: #dcdcdc;
+        background: #dcdcdf;
         text-shadow: rgba(255,255,255,.8) 0 1px 0;
         color: rgb(108, 108, 108);
-        border-top: 1px solid rgba(86, 86, 86, .3);
+        border-top: 1px solid rgba(86, 86, 89, .3);
     }
 }

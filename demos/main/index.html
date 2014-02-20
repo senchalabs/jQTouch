@@ -242,10 +242,10 @@
                     <a href="#" class="back">Back</a>
                 </div>
                 <ul class="rounded">
-                    <li><a data-switch-stylesheet="../../themes/css/jqtouch.css" class="selected" href="#">jQTouch</a></li>
-                    <li><a data-switch-stylesheet="../../themes/css/innsbruck.css" href="#">iOS 7</a></li>
-                    <li><a data-switch-stylesheet="../../themes/css/vanilla.css" href="#">Vanilla</a></li>
-                    <li><a data-switch-stylesheet="../../themes/css/apple.css" href="#">Apple</a></li>
+                    <li><a data-stylesheet-title="jqtouch" data-switch-stylesheet="../../themes/css/jqtouch.css" class="selected" href="#">jQTouch</a></li>
+                    <li><a data-stylesheet-title="innsbruck" data-switch-stylesheet="../../themes/css/innsbruck.css" href="#">iOS 7</a></li>
+                    <li><a data-stylesheet-title="vanilla" data-switch-stylesheet="../../themes/css/vanilla.css" href="#">Vanilla</a></li>
+                    <li><a data-stylesheet-title="apple" data-switch-stylesheet="../../themes/css/apple.css" href="#">Apple</a></li>
                 </ul>
             </div>
             <div id="extensions">
@@ -314,7 +314,7 @@
                         <li class="arrow"><a href="#callbacks">Events <small class="counter">4</small></a></li>
                         <li class="arrow"><a href="#extensions">Extensions <small class="counter">4</small></a> </li>
                         <li class="arrow"><a href="#demos">Demos <small class="counter">2</small></a></li>
-                        <li class="arrow"><a href="#themes">Themes <small class="counter">3</small></a></li>
+                        <li class="arrow"><a href="#themes">Themes <small class="counter">4</small></a></li>
                     </ul>
                     <h2>External Links</h2>
                     <ul class="rounded">
@@ -393,8 +393,10 @@
             </div>
             <div id="actionsheet" class="actionsheet">
                 <div class="actionchoices">
-                    <a href="#action_performed" class="whiteButton">Open in Safari</a>
-                    <a href="#action_performed" class="whiteButton">Plan B</a>
+                    <fieldset>
+                        <a href="#action_performed" class="whiteButton">Open in Safari</a>
+                        <a href="#action_performed" class="whiteButton">Plan B</a>
+                    </fieldset>
                     <a href="#" class="redButton dismiss">Cancel</a>
                 </div>
             </div>

@@ -178,30 +178,7 @@ body {
     }
 
     .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
-        display: block;
-        font-size: 20px;
-        font-weight: bold;
-        margin: 10px 20px;
-        padding: 10px;
-        text-align: center;
-        text-decoration: inherit;
-        @include border-radius;
-
-        @if $include-highlights {
-            @include box-shadow(
-                rgba(#000, .4) 0 1px 3px,
-                rgba(#000, .4) 0 0 0 5px,
-                rgba(#fff, .3) 0 1px 0 5px
-            );
-        } @else {
-            border: 1px solid darken($base-color, 10);
-        }
-
-        &.active, &:active {
-            $active-color: darken($highlight-color, 10);
-            @include background-gradient($active-color, $base-button-gradient);
-            @include color-by-background($active-color);
-        }
+        @include bordered-button($include-highlights: $include-highlights);
     }
 
     .whiteButton {
