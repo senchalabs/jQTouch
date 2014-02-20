@@ -16,6 +16,7 @@ $blue-color: #2F7CE3 !default;
 
 // Default colors
 $base-color: #555658 !default;
+$body-color: rgb(0,0,0) !default;
 $highlight-color: #53b401 !default; // bright green
 $toolbar-background-color: darken($base-color, 15%) !default;
 $page-background-color: $base-color !default;
@@ -23,6 +24,7 @@ $list-background-color: $page-background-color !default;
 $toolbar-button-color: darken($toolbar-background-color, 15%) !default;
 $toolbar-button-active-color: darken($toolbar-button-color, 5%) !default;
 $base-font-family: "Helvetica Neue", Helvetica !default;
+$base-font: bold 18px $base-font-family !default;
 $base-button-gradient: glossy !default;
 $default-border-radius: 8px !default;
 

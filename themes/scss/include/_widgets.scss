@@ -1,0 +1,18 @@
+
+@mixin pseudo_chervon($size: 0.6em, $thickness: 0.2em, $ratio: 1, $direction: 0, $top: 30%, $left: false) {
+  border-style: solid;
+  border-width: $thickness $thickness 0 0;
+  position: relative;
+  display: inline-block;
+  @if $top != false {
+    top: $top;
+  }
+  @if $left != false {
+    left: $left;
+  }
+  content: '';
+  height: $size;
+  width: $size;
+  -webkit-transform: scale($ratio, 1) rotate($direction * 90deg - 45deg) ;
+  vertical-align: top;
+}

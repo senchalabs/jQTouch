@@ -1,5 +1,5 @@
 body {
-    background: rgb(0,0,0);
+    background: $body-color;
 }
 
 .base-chevron {
@@ -258,7 +258,7 @@ body {
             background-color: $list-background-color;
             @include color-by-background($list-background-color, 50);
             border: 1px solid darken($list-background-color, 15%);
-            font: bold 18px $base-font-family;
+            font: $base-font;
         }
         
         padding: 0;
