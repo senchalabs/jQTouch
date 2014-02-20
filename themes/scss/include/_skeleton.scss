@@ -1,3 +1,5 @@
+@import 'include/widgets';
+
 body {
     background: $body-color;
 }
@@ -33,7 +35,7 @@ body {
     }
 
     h1, h2 {
-        font: bold 18px $base-font-family;
+        font: $base-font;
         margin: 10px 20px 6px;
         @include color-by-background($page-background-color, 40);
     }
@@ -406,25 +408,8 @@ body {
             $chevron-size: 24px;
 
             &.forward {
-                &:before {
-                    @include pseudo-element($chevron-size, $chevron-size);
-                    top: 50%;
-                    right: 6px;
-                    margin-top: -$chevron-size/2;
-                    @include circle($chevron-size);
-                    @include background-gradient($highlight-color, $base-button-gradient);
-                    border: 2px solid #fff;
-                    -webkit-box-sizing: border-box;
-                    padding: 0;
-                    z-index: 10;
-                    line-height: 0;
-                    pointer-events: none;
-
-                    @if $include-highlights {
-                        @include box-shadow(0 1px 2px rgba(#000, .3));
-                    }
-                }
                 &:after {
+                    @include pseudo-circle($chevron-size);
                     @include color-by-background($highlight-color);
                     @include opacity(1);
                     font-size: 24px;

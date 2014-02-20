@@ -1,18 +1,47 @@
 
-@mixin pseudo_chervon($size: 0.6em, $thickness: 0.2em, $ratio: 1, $direction: 0, $top: 30%, $left: false) {
-  border-style: solid;
-  border-width: $thickness $thickness 0 0;
-  position: relative;
-  display: inline-block;
-  @if $top != false {
-    top: $top;
-  }
-  @if $left != false {
-    left: $left;
-  }
-  content: '';
-  height: $size;
-  width: $size;
-  -webkit-transform: scale($ratio, 1) rotate($direction * 90deg - 45deg) ;
-  vertical-align: top;
+@mixin pseudo-chervon($size: 0.6em, $thickness: 0.2em, $ratio: 1, $direction: 0, $top: 30%, $left: false) {
+    border-style: solid;
+    border-width: $thickness $thickness 0 0;
+    position: relative;
+    display: inline-block;
+    @if $top != false {
+        top: $top;
+    }
+    @if $left != false {
+        left: $left;
+    }
+    content: '';
+    height: $size;
+    width: $size;
+    -webkit-transform: scale($ratio, 1) rotate($direction * 90deg - 45deg) ;
+    vertical-align: top;
+}
+
+@mixin pseudo-circle($size: 24px, $border-width: 2px, $color: #fff, $content: '›',
+          $include-highlights: true, $include-gradient: true) {
+    @include pseudo-element($size, $size, $content);
+    @include circle($size);
+    top: 50%;
+    right: 6px;
+    margin-top: -$size/2;
+    border: $border-width solid $color;
+    -webkit-box-sizing: border-box;
+    padding: 0;
+    z-index: 10;
+    line-height: $size - 11;
+    color: $color;
+    text-indent: 5px;
+    pointer-events: none;
+
+    @if $include-gradient {
+        @include background-gradient($highlight-color, $base-button-gradient);
+    } @else {
+        @include background-image(none);
+        background-color: transparent;
+    }
+    @if $include-highlights {
+        @include box-shadow(0 1px 2px rgba(#000, .3));
+    } @else {
+        @include box-shadow(none);
+    }
 }
