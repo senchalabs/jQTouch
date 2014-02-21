@@ -86,16 +86,19 @@
     cursor: pointer;
     margin: 0px;
     vertical-align: middle;
+    border: 0px solid transparent;
     box-shadow: inset 0px 0px 0px 1px #e6e6e6;
     transition: all .3s ease-out;
 
     &:before {
         content: '';
         position: absolute;
-        width: $height - 3;
-        height: $height - 3;
+        width: $height - 2;
+        height: $height - 2;
         border-radius: ($height - 3 / 2);
+        top: 1px;
         box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,.2), -1px 2px 5px rgba(0, 0, 0, 0.1);
+        border: 0px solid transparent;
         cursor: pointer;
         background-color: #fff;
         transition: left 0.1s ease-in .1s, box-shadow 0.2s ease-in .2s;

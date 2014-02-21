@@ -110,9 +110,15 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
                 }
             }
 
-            &.arrow small,
-            &.forward small {
+            &.arrow small {
                 margin-right: 14px;
+            }
+            &.forward small {
+                margin-right: 25px;
+
+                &.counter {
+                  margin-right: 32px;
+                }
             }
         }
 
@@ -158,6 +164,16 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
         &.edgetoedge li,
         &.metal li {
             @include border-radius(0);
+
+            &.arrow small.counter {
+                margin-right: 20px;
+            }
+        }
+
+        &.plastic li {
+            a.active, a:active {
+                background-color: #c9c9c9;
+            }
         }
 
         &.edgetoedge li em {
