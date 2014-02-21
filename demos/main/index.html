@@ -5,6 +5,9 @@
         <title>jQTouch &beta;</title>
         <link rel="stylesheet" href="../../themes/css/jqtouch.css" data-jqt-theme>
 
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
         <!-- Either, (1) Zepto:  Un-comment these 2 lines (order matters)  -->
         <script src="../../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../src/jqt.js" type="text/javascript" charset="utf-8"></script>
@@ -439,4 +442,9 @@
             </form>
         </div>
     </body>
+    <script>
+      if (window.navigator.standalone) {
+        $("meta[name='apple-mobile-web-app-status-bar-style']").remove();
+      }
+    </script>
 </html>
