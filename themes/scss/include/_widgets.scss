@@ -95,14 +95,14 @@
         width: $height - 3;
         height: $height - 3;
         border-radius: ($height - 3 / 2);
-        box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,.2);
+        box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,.2), -1px 2px 5px rgba(0, 0, 0, 0.1);
         cursor: pointer;
         background-color: #fff;
         transition: left 0.1s ease-in .1s, box-shadow 0.2s ease-in .2s;
     }
 
     &:checked {
-        box-shadow: inset 0px 0px 0px 20px #53d76a;
+        box-shadow: inset 0px 0px 0px 20px #53d76a, -1px 2px 5px rgba(0, 0, 0, 0.1);
 
         &:before {
             left: 22px;
