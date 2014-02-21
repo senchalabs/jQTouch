@@ -549,7 +549,7 @@ body {
         }
     }
 
-    .toggle {
+    div.toggle, span.toggle {
         width: 94px;
         position: relative;
         height: 27px;
@@ -577,7 +577,19 @@ body {
         }
     }
 
-    .info {
+    input[type="checkbox"].toggle, li input[type="radio"].toggle {
+        @include toggle-button();
+    }
+
+    li input[type="checkbox"].toggle {
+        position: absolute;
+        right: 10px;
+        left: auto;
+        margin-top: 6px;
+        top: 0px;
+    }
+
+  .info {
         font-size: 12px;
         line-height: 16px;
         text-align: center;

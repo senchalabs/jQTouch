@@ -75,6 +75,8 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
 
         li {
             overflow: visible;
+            padding-right: 10px;
+            box-sizing: border-box;
 
             input[type="checkbox"], input[type="radio"] {
                 color: rgb(50,79,133);
@@ -89,6 +91,7 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
                 font-weight: bold;
                 text-indent: 7.5px;
                 line-height: 19px;
+                right: 13px;
             }
 
             a {
@@ -99,12 +102,18 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
                     color: #222;
                     margin-left: -20px;
                     padding-left: 20px;
+                    margin-right: -16px;
+                    padding-right: 16px;
                     text-shadow: none;
                     box-shadow: none;
                     -webkit-box-shadow: none;
                 }
             }
 
+            &.arrow small,
+            &.forward small {
+                margin-right: 14px;
+            }
         }
 
         .toggle input[type="checkbox"] {
@@ -129,8 +138,8 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
 
             li {
                 padding-left: 0;
-                padding-right: 0;
                 margin-left: 20px;
+                padding-right: 16px;
 
                 &:first-child, &:last-child {
                     a.active {
@@ -146,33 +155,38 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
                 }
             }
         }
+        &.edgetoedge li,
+        &.metal li {
+            @include border-radius(0);
+        }
+
+        &.edgetoedge li em {
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        &.metal li {
+            border-top: 1px solid rgb(238,238,238);
+            border-bottom: 1px solid rgb(156,158,165);
+            font-size: 26px;
+            text-shadow: #fff 0 1px 0;
+
+            a:hover {
+              color: #000;
+            }
+            em {
+              color: #444;
+            }
+        }
+
+        li input[type="checkbox"].toggle {
+          margin-top: 4px;
+          right: 16px;
+        }
     }
 
     h1 + ul.rounded, h2 + ul.rounded {
         margin-top: 0;
-    }
-
-    ul.edgetoedge li, .metal li {
-        @include border-radius(0);
-    }
-
-    ul.edgetoedge li em {
-        font-weight: normal;
-        font-style: normal;
-    }
-
-    ul.metal li {
-        border-top: 1px solid rgb(238,238,238);
-        border-bottom: 1px solid rgb(156,158,165);
-        font-size: 26px;
-        text-shadow: #fff 0 1px 0;
-
-        a:hover {
-            color: #000;
-        }
-        em {
-            color: #444;
-        }
     }
 
     .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
@@ -228,6 +242,7 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
         @include background-gradient($active-color, $base-button-gradient);
       }
     }
+
 
     .info {
         background: #dcdcdf;
