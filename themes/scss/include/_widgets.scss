@@ -1,0 +1,114 @@
+
+@mixin pseudo-chervon($size: 0.6em, $thickness: 0.2em, $ratio: 1, $direction: 0, $top: 30%, $left: false) {
+    border-style: solid;
+    border-width: $thickness $thickness 0 0;
+    position: relative;
+    display: inline-block;
+    @if $top != false {
+        top: $top;
+    }
+    @if $left != false {
+        left: $left;
+    }
+    content: '';
+    height: $size;
+    width: $size;
+    -webkit-transform: scale($ratio, 1) rotate($direction * 90deg - 45deg) ;
+    vertical-align: top;
+}
+
+@mixin pseudo-circle($size: 24px, $border-width: 2px, $color: #fff, $content: '›',
+          $include-highlights: true, $include-gradient: true) {
+    @include pseudo-element($size, $size, $content);
+    @include circle($size);
+    top: 50%;
+    right: 6px;
+    margin-top: -$size/2;
+    border: $border-width solid $color;
+    -webkit-box-sizing: border-box;
+    padding: 0;
+    z-index: 10;
+    line-height: $size - 11;
+    color: $color;
+    text-indent: 5px;
+    pointer-events: none;
+
+    @if $include-gradient {
+        @include background-gradient($highlight-color, $base-button-gradient);
+    } @else {
+        @include background-image(none);
+        background-color: transparent;
+    }
+    @if $include-highlights {
+        @include box-shadow(0 1px 2px rgba(#000, .3));
+    } @else {
+        @include box-shadow(none);
+    }
+}
+
+@mixin bordered-button($include-highlights: true) {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 20px;
+    padding: 10px;
+    text-align: center;
+    text-decoration: inherit;
+    @include border-radius;
+
+    @if $include-highlights {
+        @include box-shadow(
+            rgba(#000, .4) 0 1px 3px,
+            rgba(#000, .4) 0 0 0 5px,
+            rgba(#fff, .3) 0 1px 0 5px
+        );
+    } @else {
+        border: 1px solid darken($base-color, 10);
+    }
+
+    &.active, &:active {
+        $active-color: darken($highlight-color, 10);
+        @include background-gradient($active-color, $base-button-gradient);
+        @include color-by-background($active-color);
+    }
+}
+
+@mixin toggle-button($height: 32px, $width: 52px) {
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    display: inline-block;
+    border-radius: $height / 2;
+    background-color: #fff;
+    padding: 1px;
+    width: $width;
+    height: $height;
+    cursor: pointer;
+    margin: 0px;
+    vertical-align: middle;
+    border: 0px solid transparent;
+    box-shadow: inset 0px 0px 0px 1px #e6e6e6;
+    transition: all .3s ease-out;
+
+    &:before {
+        content: '';
+        position: absolute;
+        width: $height - 2;
+        height: $height - 2;
+        border-radius: ($height - 3 / 2);
+        top: 1px;
+        box-shadow: inset 0px 0px 0px 1px rgba(0,0,0,.2), -1px 2px 5px rgba(0, 0, 0, 0.1);
+        border: 0px solid transparent;
+        cursor: pointer;
+        background-color: #fff;
+        transition: left 0.1s ease-in .1s, box-shadow 0.2s ease-in .2s;
+    }
+
+    &:checked {
+        box-shadow: inset 0px 0px 0px 20px #53d76a, -1px 2px 5px rgba(0, 0, 0, 0.1);
+
+        &:before {
+            left: 22px;
+        }
+    }
+}

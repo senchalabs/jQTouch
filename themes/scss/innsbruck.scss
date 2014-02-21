@@ -1,0 +1,269 @@
+$base-color: white;
+$body-color: #efeff4;
+$page-background-color: #efeff4;
+$toolbar-background-color: #f7f7f8;
+$highlight-color: #d9d9d9;
+$theme: innsbruck;
+$base-font-family: Helvetica Neue Ultra Light, Helvetica Neue Interface M3, Helvetica;
+$base-font: normal 17px $base-font-family;
+$base-button-gradient: flat;
+$include-back-arrow: false;
+
+$list-background-color: #fff;
+$include-highlights: false;
+
+$toolbar-background-color: $base-color;
+$toolbar-button-color: saturate(darken($base-color, 10), 10);
+
+@import 'include/core';
+@import 'include/widgets';
+
+#jqt {
+
+    > * {
+        background-color: $page-background-color;
+    }
+
+    h1, h2 {
+        color: #4d4d4d;
+    }
+
+    h2 {
+      text-transform: uppercase;
+      font-size: 0.9em;
+    }
+
+  .toolbar {
+        border-bottom: 1px solid #a7a7ab;
+        font-weight: bold;
+        @include box-shadow(rgba(#fff, .3) 0 1px 0 inset);
+
+        .button, .back, .cancel, .add {
+            background-image: none;
+            background-color: transparent;
+            border: 0px solid transparent;
+            box-shadow: none;
+            color: #007aff;
+            font-weight: lighter;
+            font-size: 15px;
+            text-shadow: none;
+            padding: 0 7px;
+            margin: 0 0px;
+
+            &.active {
+                background-image: none;
+                background-color: transparent;
+            }
+        }
+
+        .back, .cancel {
+            left: 2px;
+
+            &::before {
+              @include pseudo-chervon($direction: 3, $thickness: 0.2em, $ratio: 0.9);
+              margin-right: 5px;
+            }
+        }
+
+        h1 {
+            font-size: 17px;
+        }
+    }
+
+    ul {
+        overflow: hidden;
+
+        li {
+            overflow: visible;
+            padding-right: 10px;
+            box-sizing: border-box;
+
+            input[type="checkbox"], input[type="radio"] {
+                color: rgb(50,79,133);
+            }
+
+            &.forward::after {
+                @include pseudo-circle(
+                    $color: #007aff, $size: 20px, $border-width: 1px, $content: 'i',
+                    $include-highlights: false, $include-gradient: false
+                );
+                font-size: 13px;
+                font-weight: bold;
+                text-indent: 7.5px;
+                line-height: 19px;
+                right: 13px;
+            }
+
+            a {
+                color: #040404;
+
+                &.active, &.selected {
+                    background-image: none;
+                    color: #222;
+                    margin-left: -20px;
+                    padding-left: 20px;
+                    margin-right: -16px;
+                    padding-right: 16px;
+                    text-shadow: none;
+                    box-shadow: none;
+                    -webkit-box-shadow: none;
+                }
+            }
+
+            &.arrow small {
+                margin-right: 14px;
+            }
+            &.forward small {
+                margin-right: 25px;
+
+                &.counter {
+                  margin-right: 32px;
+                }
+            }
+        }
+
+        .toggle input[type="checkbox"] {
+            background: transparent url(../img/apple/on_off.png) 0 0 no-repeat;
+        }
+
+        input[type='submit'] {
+            background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
+            border: 1px outset #aaa;
+        }
+
+        // Edge to edge
+        &.edgetoedge li.sep {
+            color: black;
+            background-color: #f7f7f7;
+        }
+
+        &.rounded {
+            margin: 20px 0;
+            padding: 0 0;
+            border-radius: 0;
+
+            li {
+                padding-left: 0;
+                margin-left: 20px;
+                padding-right: 16px;
+
+                &:first-child, &:last-child {
+                    a.active {
+                        border-top-left-radius: 0;
+                        border-top-right-radius: 0;
+                        border-bottom-left-radius: 0;
+                        border-bottom-right-radius: 0;
+                    }
+                }
+
+                a.active {
+                    border-radius: 0;
+                }
+            }
+        }
+        &.edgetoedge li,
+        &.metal li {
+            @include border-radius(0);
+
+            &.arrow small.counter {
+                margin-right: 20px;
+            }
+        }
+
+        &.plastic li {
+            a.active, a:active {
+                background-color: #c9c9c9;
+            }
+        }
+
+        &.edgetoedge li em {
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        &.metal li {
+            border-top: 1px solid rgb(238,238,238);
+            border-bottom: 1px solid rgb(156,158,165);
+            font-size: 26px;
+            text-shadow: #fff 0 1px 0;
+
+            a:hover {
+              color: #000;
+            }
+            em {
+              color: #444;
+            }
+        }
+
+        li input[type="checkbox"].toggle {
+          margin-top: 4px;
+          right: 16px;
+        }
+    }
+
+    h1 + ul.rounded, h2 + ul.rounded {
+        margin-top: 0;
+    }
+
+    .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
+        font-weight: normal;
+        font-size: 22px;
+        line-height: 66px;
+        padding: 0;
+        text-shadow: none;
+        margin: 0 20px;
+
+        &.active, &:active {
+            text-shadow: none;
+        }
+    }
+
+    .whiteButton {
+        background-color: rgba(255, 255, 255, 0.95);
+
+        &.active, &:active {
+          $active-color: #dcdcdd;
+          color: black;
+          @include background-gradient($active-color, $base-button-gradient);
+        }
+    }
+
+    .grayButton {
+        background-color: #1d1e1d;
+
+        &.active, &:active {
+          $active-color: black;
+          color: white;
+          @include background-gradient($active-color, $base-button-gradient);
+        }
+    }
+
+    .redButton {
+        background-color: #e0544c;
+
+        &.active, &:active {
+            $active-color: darken(#e0544c, 16);
+            @include background-gradient($active-color, $base-button-gradient);
+        }
+    }
+
+    .blueButton {
+    }
+
+    .greenButton {
+      background-color: #4cd964;
+
+      &.active, &:active {
+        $active-color: darken(#4cd964, 16);
+        @include background-gradient($active-color, $base-button-gradient);
+      }
+    }
+
+
+    .info {
+        background: #dcdcdf;
+        text-shadow: rgba(255,255,255,.8) 0 1px 0;
+        color: rgb(108, 108, 108);
+        border-top: 1px solid rgba(86, 86, 89, .3);
+    }
+}

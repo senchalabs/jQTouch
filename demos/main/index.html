@@ -5,6 +5,9 @@
         <title>jQTouch &beta;</title>
         <link rel="stylesheet" href="../../themes/css/jqtouch.css" data-jqt-theme>
 
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
         <!-- Either, (1) Zepto:  Un-comment these 2 lines (order matters)  -->
         <script src="../../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../src/jqt.js" type="text/javascript" charset="utf-8"></script>
@@ -242,9 +245,10 @@
                     <a href="#" class="back">Back</a>
                 </div>
                 <ul class="rounded">
-                    <li><a data-switch-stylesheet="../../themes/css/jqtouch.css" class="selected" href="#">jQTouch</a></li>
-                    <li><a data-switch-stylesheet="../../themes/css/apple.css" href="#">Apple</a></li>
-                    <li><a data-switch-stylesheet="../../themes/css/vanilla.css" href="#">Vanilla</a></li>
+                    <li><a data-stylesheet-title="jqtouch" data-switch-stylesheet="../../themes/css/jqtouch.css" class="selected" href="#">jQTouch</a></li>
+                    <li><a data-stylesheet-title="innsbruck" data-switch-stylesheet="../../themes/css/innsbruck.css" href="#">iOS 7</a></li>
+                    <li><a data-stylesheet-title="vanilla" data-switch-stylesheet="../../themes/css/vanilla.css" href="#">Vanilla</a></li>
+                    <li><a data-stylesheet-title="apple" data-switch-stylesheet="../../themes/css/apple.css" href="#">Apple</a></li>
                 </ul>
             </div>
             <div id="extensions">
@@ -280,6 +284,7 @@
                         <li><input type="url" name="url" placeholder="Url" id="some_name" /></li>
                         <li><textarea placeholder="Textarea" ></textarea></li>
                         <li>Sample Toggle <span class="toggle"><input type="checkbox" /></span></li>
+                        <li>Toggle Style 2<input type="checkbox" class="toggle"/></li>
                         <li class="arrow">
                             <select id="lol">
                                 <optgroup label="Swedish Cars">
@@ -313,7 +318,7 @@
                         <li class="arrow"><a href="#callbacks">Events <small class="counter">4</small></a></li>
                         <li class="arrow"><a href="#extensions">Extensions <small class="counter">4</small></a> </li>
                         <li class="arrow"><a href="#demos">Demos <small class="counter">2</small></a></li>
-                        <li class="arrow"><a href="#themes">Themes <small class="counter">3</small></a></li>
+                        <li class="arrow"><a href="#themes">Themes <small class="counter">4</small></a></li>
                     </ul>
                     <h2>External Links</h2>
                     <ul class="rounded">
@@ -392,8 +397,10 @@
             </div>
             <div id="actionsheet" class="actionsheet">
                 <div class="actionchoices">
-                    <a href="#action_performed" class="whiteButton">Open in Safari</a>
-                    <a href="#action_performed" class="whiteButton">Plan B</a>
+                    <fieldset>
+                        <a href="#action_performed" class="whiteButton">Open in Safari</a>
+                        <a href="#action_performed" class="whiteButton">Plan B</a>
+                    </fieldset>
                     <a href="#" class="redButton dismiss">Cancel</a>
                 </div>
             </div>
@@ -435,4 +442,9 @@
             </form>
         </div>
     </body>
+    <script>
+      if (window.navigator.standalone) {
+        $("meta[name='apple-mobile-web-app-status-bar-style']").remove();
+      }
+    </script>
 </html>

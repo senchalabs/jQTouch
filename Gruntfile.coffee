@@ -1,33 +1,5 @@
 module.exports = (grunt) ->
 
-  grunt.loadNpmTasks "grunt-coverjs"
-  grunt.loadNpmTasks "grunt-contrib-qunit"
-  grunt.loadNpmTasks "grunt-contrib-clean"
-  grunt.loadNpmTasks "grunt-contrib-coffee"
-  grunt.loadNpmTasks "grunt-contrib-compass"
-  grunt.loadNpmTasks "grunt-contrib-copy"
-  grunt.loadNpmTasks "grunt-contrib-concat"
-  grunt.loadNpmTasks "grunt-contrib-jshint"
-  grunt.loadNpmTasks "grunt-contrib-mincss"
-  grunt.loadNpmTasks "grunt-contrib-uglify"
-  grunt.loadNpmTasks "grunt-contrib-watch"
-  grunt.loadNpmTasks "grunt-livereload"
-  grunt.loadNpmTasks "grunt-update-submodules"
-
-  grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
-    cb = @async() # Tell grunt the task is async
-    options = @data["options"]
-    params = grunt.template.process(@data["params"])
-    exec = require("child_process").exec
-    child = exec("rake " + params + "", options, (error, stdout, stderr) ->
-      console.log "stdout: " + stdout if stdout
-      
-      if error isnt null
-        console.log "error: " + error
-        console.log "stderr: " + stdout
-      cb() # Execute the callback when the async task is done
-    )
-
   # Project configuration.
   grunt.initConfig
     pkg: grunt.file.readJSON('package.json')
@@ -171,15 +143,14 @@ module.exports = (grunt) ->
         cwd: '<%= dirs.build %>/src/'
         src: '**/*.js'
         dest: '<%= dirs.build %>/src/'
-
         options:
           banner: "<%= meta.banner %>"
-
 
     qunit:
       files: ['test/unit/**/*.html', '!**/disabled/**']
       options:
         timeout: 15000
+
     uglify:
       options:
         globals:
@@ -233,29 +204,25 @@ module.exports = (grunt) ->
           "<%= dirs.build %>/test/instrumented/jqtouch.js": ["src/jqtouch.js"]
 
     watch_files:
+      build:
+        files: ['build/**', '!.*', '!.**/*']
+        options:
+          livereload: true  # default port: 35729
       theming:
         files: 'themes/scss/**/*.scss'
         tasks: ['compass']
+      coffee:
+        files: 'src/**/*.coffee'
+        tasks: ['coffee']
       source:
         files: ['src/**/*.js']
         tasks: ['copy:source']
-      coffee: 
-        files: 'src/**/*.coffee'
-        tasks: ['coffee']
       demos:
         files: ['{demos,extensions}/**/*.{html,js,css}']
         tasks: ['copy:prepare']
       extensions:
-        files: ['extensions/**/*.coffee']
+        files: ['extensions/**/*.{coffee}']
         tasks: ['coffee:extensions']
-      extensions_js:
-        files: ['extensions/**/*.js']
-        tasks: ['copy:source']
-
-    livereload:
-      options:
-        base: 'build'
-      files: ['build/**/*.{js,css,html}']
 
     jshint:
       src: "<%= dirs.src %>/**/*.js"
@@ -276,15 +243,46 @@ module.exports = (grunt) ->
         globals:
           $: true
           console: true
-  
+
+  # Task definitions
+  grunt.loadNpmTasks "grunt-coverjs"
+  grunt.loadNpmTasks "grunt-contrib-qunit"
+  grunt.loadNpmTasks "grunt-contrib-clean"
+  grunt.loadNpmTasks "grunt-contrib-coffee"
+  grunt.loadNpmTasks "grunt-contrib-compass"
+  grunt.loadNpmTasks "grunt-contrib-copy"
+  grunt.loadNpmTasks "grunt-contrib-concat"
+  grunt.loadNpmTasks "grunt-contrib-jshint"
+  grunt.loadNpmTasks "grunt-contrib-mincss"
+  grunt.loadNpmTasks "grunt-contrib-uglify"
+  grunt.loadNpmTasks "grunt-contrib-watch"
+  grunt.loadNpmTasks "grunt-update-submodules"
+
+  grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
+    cb = @async() # Tell grunt the task is async
+    options = @data["options"]
+    params = grunt.template.process(@data["params"])
+    exec = require("child_process").exec
+    child = exec("rake " + params + "", options, (error, stdout, stderr) ->
+      console.log "stdout: " + stdout if stdout
+
+      if error isnt null
+        console.log "error: " + error
+        console.log "stderr: " + stdout
+      cb() # Execute the callback when the async task is done
+    )
+
   grunt.renameTask 'watch', 'watch_files'
 
-  grunt.registerTask 'watch', ['default', 'livereload', 'watch_files']
+  grunt.registerTask 'watch', ['default', 'watch_files']
 
   # Git submodule updates
   grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
 
-  grunt.registerTask 'scripts', ['update_submodules', 'clean', 'coffee', 'copy:prepare', 'concat', 'zepto']
+  grunt.registerTask 'scripts', ['coffee', 'copy:prepare', 'concat', 'zepto']
+
+  # Default (Clean and Build)
+  grunt.registerTask 'full', ['update_submodules', 'clean', 'default']
 
   # Default (Build)
   grunt.registerTask 'default', ['scripts', 'compass']

@@ -1,5 +1,7 @@
+@import 'include/widgets';
+
 body {
-    background: rgb(0,0,0);
+    background: $body-color;
 }
 
 .base-chevron {
@@ -33,7 +35,7 @@ body {
     }
 
     h1, h2 {
-        font: bold 18px $base-font-family;
+        font: $base-font;
         margin: 10px 20px 6px;
         @include color-by-background($page-background-color, 40);
     }
@@ -176,30 +178,7 @@ body {
     }
 
     .whiteButton, .grayButton, .redButton, .blueButton, .greenButton {
-        display: block;
-        font-size: 20px;
-        font-weight: bold;
-        margin: 10px 20px;
-        padding: 10px;
-        text-align: center;
-        text-decoration: inherit;
-        @include border-radius;
-
-        @if $include-highlights {
-            @include box-shadow(
-                rgba(#000, .4) 0 1px 3px,
-                rgba(#000, .4) 0 0 0 5px,
-                rgba(#fff, .3) 0 1px 0 5px
-            );
-        } @else {
-            border: 1px solid darken($base-color, 10);
-        }
-
-        &.active, &:active {
-            $active-color: darken($highlight-color, 10);
-            @include background-gradient($active-color, $base-button-gradient);
-            @include color-by-background($active-color);
-        }
+        @include bordered-button($include-highlights: $include-highlights);
     }
 
     .whiteButton {
@@ -258,7 +237,7 @@ body {
             background-color: $list-background-color;
             @include color-by-background($list-background-color, 50);
             border: 1px solid darken($list-background-color, 15%);
-            font: bold 18px $base-font-family;
+            font: $base-font;
         }
         
         padding: 0;
@@ -406,25 +385,8 @@ body {
             $chevron-size: 24px;
 
             &.forward {
-                &:before {
-                    @include pseudo-element($chevron-size, $chevron-size);
-                    top: 50%;
-                    right: 6px;
-                    margin-top: -$chevron-size/2;
-                    @include circle($chevron-size);
-                    @include background-gradient($highlight-color, $base-button-gradient);
-                    border: 2px solid #fff;
-                    -webkit-box-sizing: border-box;
-                    padding: 0;
-                    z-index: 10;
-                    line-height: 0;
-                    pointer-events: none;
-
-                    @if $include-highlights {
-                        @include box-shadow(0 1px 2px rgba(#000, .3));
-                    }
-                }
                 &:after {
+                    @include pseudo-circle($chevron-size);
                     @include color-by-background($highlight-color);
                     @include opacity(1);
                     font-size: 24px;
@@ -587,7 +549,7 @@ body {
         }
     }
 
-    .toggle {
+    div.toggle, span.toggle {
         width: 94px;
         position: relative;
         height: 27px;
@@ -615,7 +577,19 @@ body {
         }
     }
 
-    .info {
+    input[type="checkbox"].toggle, li input[type="radio"].toggle {
+        @include toggle-button();
+    }
+
+    li input[type="checkbox"].toggle {
+        position: absolute;
+        right: 10px;
+        left: auto;
+        margin-top: 6px;
+        top: 0px;
+    }
+
+  .info {
         font-size: 12px;
         line-height: 16px;
         text-align: center;
