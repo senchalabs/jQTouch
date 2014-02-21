@@ -1,5 +1,24 @@
 # New and Noteworthy — jQTouch
 
+## 1.0rc7
+
+### Innsbruck (iOS 7) Theme 
+
+###### Dec, 2013
+
+A new theme that resemble to iOS 7 is added.
+
+![Innsbruck Screenshot 1][11] | ![Innsbruck Screenshot 2][12] | ![Innsbruck Screenshot 3][13] | ![Innsbruck Screenshot 4][14]
+
+## 1.0rc6
+
+### Coffee Script
+
+###### Feb, 2013 -- Dec, 2013
+
+The main JavaScript file was ported / rewritten in CoffeeScript. Dave simplified the codebase and fixed a good number of bugs.
+
+
 ## 1.0.0 - b5
 
 ### Actionsheet
@@ -154,3 +173,7 @@ See, [jQTouch blog][8] for details.
  [8]: http://blog.jqtouch.com/post/14576505296/zepto-js
  [9]: https://raw.github.com/senchalabs/jQTouch/gh-pages/screenshots/ActionSheet_Small.png
  [10]: https://raw.github.com/senchalabs/jQTouch/gh-pages/screenshots/MenuSheet_Small.png
+ [11]: https://raw.github.com/senchalabs/jQTouch/gh-pages/screenshots/Innsbruck_Main_Small.png
+ [12]: https://raw.github.com/senchalabs/jQTouch/gh-pages/screenshots/Innsbruck_EdgetoEdge_List_Small.png
+ [13]: https://raw.github.com/senchalabs/jQTouch/gh-pages/screenshots/Innsbruck_Buttons_Small.png
+ [14]: https://raw.github.com/senchalabs/jQTouch/gh-pages/screenshots/Innsbruck_Actionsheet_Small.png
