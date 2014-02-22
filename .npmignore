@@ -8,6 +8,7 @@ submodules/
 test/
 themes/
 build/
+archive/
 .git*
 .travis.xml
 Gruntfile.coffee

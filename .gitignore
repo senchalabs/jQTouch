@@ -11,3 +11,4 @@ jqtouch-*/
 npm-debug.log
 build/
 dist/
+archive/

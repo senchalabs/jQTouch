@@ -5,6 +5,10 @@ module.exports = (grunt) ->
     pkg: grunt.file.readJSON('package.json')
     meta:
       version: "<%= pkg.version %>-<%= pkg.versionId %>"
+      tag: "v<%= pkg.version %><%= pkg.versionId %>"
+      build: "jqt-<%= meta.tag %>"
+      dist: "<%= meta.build %>"
+      demo: "jqt-demo-<%= meta.tag %>"
       banner: """
         /*
                    _/    _/_/    _/_/_/_/_/                              _/
@@ -32,16 +36,16 @@ module.exports = (grunt) ->
     dirs:
       src: "src"
       etc: "etc"
-      build: "build" # change back to `build` when you port away from ant`.
+      build: "build"
       dist: "dist"
+      archive: "archive"
+      package: "<%= dirs.archive %>/package"
       css: "<%= dirs.build %>/themes/css"
-
-    desc:
-      dist: "jqt-<%= pkg.version %>-<%= pkg.versionId %>"
 
     clean:
       build: ["<%= dirs.build %>"]
       dist: ["<%= dirs.dist %>"]
+      package: ["<%= dirs.package%>"]
 
     coffee:
       jqt:
@@ -62,7 +66,7 @@ module.exports = (grunt) ->
     copy:
       prepare:
         expand: true
-        src: ["*/**", "!{src/reference,test,node_modules,build,submodules,etc,jqtouch*,themes/compass-recipes,themes/scss}/**", "*.{md,txt,htaccess}"]
+        src: ["*/**", "!{src/reference,test,node_modules,build,dist,archive,submodules,etc,jqtouch*,themes/compass-recipes,themes/scss}/**", "*.{md,txt,htaccess}"]
         dest: "<%= dirs.build %>/"
 
       source:
@@ -75,14 +79,32 @@ module.exports = (grunt) ->
         files: [
           expand: yes
           dest: '<%= dirs.dist %>/'
-          src: ["{src,extensions,themes}/**"]
+          src: ["{src,extensions,themes}/**","build"]
+          cwd: '<%= dirs.package %>'
+        ]
+
+        options:
+          processContent: (content, path) ->
+
+      package:
+        files: [
+          expand: yes
+          dest: '<%= dirs.package %>'
+          src: ["*/**","build"]
           cwd: '<%= dirs.build %>'
         ,
-          src: '<%= dirs.etc %>/build'
-          dest: "<%= dirs.dist %>/build"
+          expand: yes
+          dest: '<%= dirs.package %>'
+          src: ["README.md","VERSIONS.md","LICENSE.txt","package.json"]
+          cwd: ''
         ,
           src: "<%= dirs.etc %>/sample.htaccess"
-          dest: "<%= dirs.dist %>/.htaccess"
+          dest: "<%= dirs.package %>/.htaccess"
+          cwd: ''
+        ,
+          src: "<%= dirs.etc %>/build"
+          dest: "<%= dirs.package %>/build"
+          cwd: ''
         ]
 
         options:
@@ -97,20 +119,18 @@ module.exports = (grunt) ->
                 .replace(/([\w-\.]*)(\.min)?\.js/g, '$1.min.js')
                 .replace(/(themes\/css\/[\w-\.]*)(\.min)?\.css/g, '$1.min.css')
 
-            else if path.match /build$/
+            else if path.match /\/build$/
               content
-                .replace(/\{build_id\}/, grunt.config('desc.dist'))
-                .replace(/\{build_git_revision\}/, grunt.config('meta.revision'))
-                .replace(/\{build_date\}/, grunt.template.today('yyyy-mm-dd hh:mm'))
+              .replace(/\{build_id\}/, grunt.config('meta.build'))
+              .replace(/\{build_git_revision\}/, grunt.config('meta.revision'))
+              .replace(/\{build_date\}/, grunt.template.today('yyyy-mm-dd hh:mmZ'))
 
-            else
-              content
       test:
         expand: yes
         cwd: '<%= dirs.build %>'
         dest: 'test/build/'
         src: '**/*'
-        
+
       zepto:
         files: [
           expand: yes
@@ -132,6 +152,17 @@ module.exports = (grunt) ->
 
         files:
           "<%= dirs.build %>/src/jqtouch-jquery.js": ["submodules/zepto/src/touch.js"]
+
+    compress:
+      archive:
+        options:
+          archive: "<%= dirs.archive %>/<%= meta.demo %>.tgz"
+        files: [
+          src: ["package/**/*"]
+          dest: ""
+          cwd: '<%= dirs.archive %>'
+          expand: true
+        ]
 
     rake:
       zepto:
@@ -171,24 +202,24 @@ module.exports = (grunt) ->
 
       jqtouch:
         expand: yes
-        cwd: '<%= dirs.dist %>/src/'
+        cwd: '<%= dirs.package %>/src/'
         src: '**/*.js'
-        dest: "<%= dirs.dist %>/src/"
+        dest: "<%= dirs.package %>/src/"
         ext: '.min.js'
 
       extensions:
         expand: yes
-        cwd: "<%= dirs.dist %>/extensions/"
+        cwd: "<%= dirs.package %>/extensions/"
         src: '**/*.js'
-        dest: "<%= dirs.dist %>/extensions/"
+        dest: "<%= dirs.package %>/extensions/"
         rename: (dest, path) ->
           dest + path.replace /\.js$/, '.min.js'
 
       lib:
         expand: yes
-        cwd: "<%= dirs.dist %>/lib/"
+        cwd: "<%= dirs.package %>/lib/"
         src: '**/*.js'
-        dest: "<%= dirs.dist %>/lib/"
+        dest: "<%= dirs.package %>/lib/"
         rename: (dest, path) ->
           dest + path.replace /\.js$/, '.min.js'
 
@@ -202,13 +233,13 @@ module.exports = (grunt) ->
               yes
             else
               no
-    
+
     cssmin:
       themes:
         expand: yes
-        cwd: "<%= dirs.dist %>/themes/css"
+        cwd: "<%= dirs.build %>/themes/css"
         src: '**/*.css'
-        dest: "<%= dirs.dist %>/themes/css"
+        dest: "<%= dirs.package %>/themes/css"
         ext: '.min.css'
 
     cover:
@@ -257,14 +288,6 @@ module.exports = (grunt) ->
           $: true
           console: true
 
-    "git-describe":
-        options:
-          failOnError: true
-          abbrev: 40
-          prop: 'meta.revision'
-        task:
-          {}
-
   # Task definitions
   grunt.loadNpmTasks "grunt-coverjs"
   grunt.loadNpmTasks "grunt-contrib-qunit"
@@ -277,6 +300,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-cssmin"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-watch"
+  grunt.loadNpmTasks "grunt-contrib-compress"
   grunt.loadNpmTasks "grunt-update-submodules"
 
   grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
@@ -296,30 +320,56 @@ module.exports = (grunt) ->
   grunt.registerTask "git-describe", "Describes current git commit", ->
     # prefer to use our own task for better control over cmd line args
     done = this.async();
-    args = ["describe", "--tags", "--always", "--long", "--dirty=*", "--abbrev=40"]
+    args = ["describe", "--tags", "--always", "--long", "--dirty=*", "--abbrev=12"]
     grunt.util.spawn cmd: "git", args: args, (err, result) ->
-      return done(false) if err
-
+      if err
+        grunt.log.error err
+        return done(false)
       grunt.config("meta.revision", result)
+      grunt.config("meta.dist", 'jqt-' + result)
+      grunt.config("meta.demo", 'jqt-demo-' + result)
+      return done(result)
+
+  grunt.registerTask "git-tag", "Tag the current git commit", ->
+    done = this.async();
+    args = ["tag", grunt.config("meta.tag")]
+    console.log('$ git ' + args.join(' '))
+    grunt.util.spawn cmd: "git", args: args, (err, result) ->
+      if err
+        grunt.log.error err
+        return done(false)
       return done(result)
 
   grunt.renameTask 'watch', 'watch_files'
 
-  grunt.registerTask 'watch', ['default', 'watch_files']
-
   # Git submodule updates
   grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
 
+  # Compile Scripts
   grunt.registerTask 'scripts', ['coffee', 'copy:prepare', 'concat', 'zepto']
 
-  # Default (Clean and Build)
-  grunt.registerTask 'full', ['update_submodules', 'clean', 'default']
+  # Minify Assets
+  grunt.registerTask 'minify', ['uglify', 'cssmin']
 
   # Default (Build)
   grunt.registerTask 'default', ['scripts', 'compass']
 
-  # Test from scratch
-  grunt.registerTask 'test', ['scripts', 'compass', 'copy:test', 'qunit']
+  grunt.registerTask 'watch', ['default', 'watch_files']
 
-  # Builds, then copies to versioned dist dir and minifies all JS
-  grunt.registerTask 'dist', ['clean', 'default', 'test', 'git-describe', 'copy:dist', 'uglify', 'cssmin']
+  # Default (Clean and Build)
+  grunt.registerTask 'full', ['clean', 'update_submodules', 'default']
+
+  # Test
+  grunt.registerTask 'test', ['default', 'copy:test', 'qunit']
+
+  # Build full, and and minifies all artifacts
+  grunt.registerTask 'pack', ['full', 'git-describe', 'copy:package', 'minify']
+
+  # Pack and compress into a versioned archive
+  grunt.registerTask 'archive', ['pack', 'compress:archive']
+
+  # Select the core from package to make a `dist` structure
+  grunt.registerTask 'dist', ['archive', 'test', 'copy:dist']
+
+  # Npm Prepublish
+  grunt.registerTask 'prepublish', ['git-tag', 'dist']
