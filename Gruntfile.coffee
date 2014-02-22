@@ -31,9 +31,13 @@ module.exports = (grunt) ->
       """
     dirs:
       src: "src"
+      etc: "etc"
       build: "build" # change back to `build` when you port away from ant`.
-      dist: "jqtouch-<%= pkg.version %>-<%= pkg.versionId %>"
+      dist: "dist"
       css: "<%= dirs.build %>/themes/css"
+
+    desc:
+      dist: "jqt-<%= pkg.version %>-<%= pkg.versionId %>"
 
     clean:
       build: ["<%= dirs.build %>"]
@@ -58,7 +62,7 @@ module.exports = (grunt) ->
     copy:
       prepare:
         expand: true
-        src: ["*/**", "!{test,node_modules,build,submodules,jqtouch*,themes/compass-recipes,themes/scss}/**", "*.{md,txt,htaccess}"]
+        src: ["*/**", "!{src/reference,test,node_modules,build,submodules,etc,jqtouch*,themes/compass-recipes,themes/scss}/**", "*.{md,txt,htaccess}"]
         dest: "<%= dirs.build %>/"
 
       source:
@@ -71,10 +75,13 @@ module.exports = (grunt) ->
         files: [
           expand: yes
           dest: '<%= dirs.dist %>/'
-          src: '**/*'
+          src: ["{src,extensions,themes}/**"]
           cwd: '<%= dirs.build %>'
         ,
-          src: "<%= dirs.build %>/sample.htaccess"
+          src: '<%= dirs.etc %>/build'
+          dest: "<%= dirs.dist %>/build"
+        ,
+          src: "<%= dirs.etc %>/sample.htaccess"
           dest: "<%= dirs.dist %>/.htaccess"
         ]
 
@@ -89,6 +96,12 @@ module.exports = (grunt) ->
               content
                 .replace(/([\w-\.]*)(\.min)?\.js/g, '$1.min.js')
                 .replace(/(themes\/css\/[\w-\.]*)(\.min)?\.css/g, '$1.min.css')
+
+            else if path.match /build$/
+              content
+                .replace(/\{build_id\}/, grunt.config('desc.dist'))
+                .replace(/\{build_git_revision\}/, grunt.config('meta.revision'))
+                .replace(/\{build_date\}/, grunt.template.today('yyyy-mm-dd hh:mm'))
 
             else
               content
@@ -190,7 +203,7 @@ module.exports = (grunt) ->
             else
               no
     
-    mincss:
+    cssmin:
       themes:
         expand: yes
         cwd: "<%= dirs.dist %>/themes/css"
@@ -244,6 +257,14 @@ module.exports = (grunt) ->
           $: true
           console: true
 
+    "git-describe":
+        options:
+          failOnError: true
+          abbrev: 40
+          prop: 'meta.revision'
+        task:
+          {}
+
   # Task definitions
   grunt.loadNpmTasks "grunt-coverjs"
   grunt.loadNpmTasks "grunt-contrib-qunit"
@@ -253,7 +274,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-copy"
   grunt.loadNpmTasks "grunt-contrib-concat"
   grunt.loadNpmTasks "grunt-contrib-jshint"
-  grunt.loadNpmTasks "grunt-contrib-mincss"
+  grunt.loadNpmTasks "grunt-contrib-cssmin"
   grunt.loadNpmTasks "grunt-contrib-uglify"
   grunt.loadNpmTasks "grunt-contrib-watch"
   grunt.loadNpmTasks "grunt-update-submodules"
@@ -271,6 +292,16 @@ module.exports = (grunt) ->
         console.log "stderr: " + stdout
       cb() # Execute the callback when the async task is done
     )
+
+  grunt.registerTask "git-describe", "Describes current git commit", ->
+    # prefer to use our own task for better control over cmd line args
+    done = this.async();
+    args = ["describe", "--tags", "--always", "--long", "--dirty=*", "--abbrev=40"]
+    grunt.util.spawn cmd: "git", args: args, (err, result) ->
+      return done(false) if err
+
+      grunt.config("meta.revision", result)
+      return done(result)
 
   grunt.renameTask 'watch', 'watch_files'
 
@@ -291,4 +322,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'test', ['scripts', 'compass', 'copy:test', 'qunit']
 
   # Builds, then copies to versioned dist dir and minifies all JS
-  grunt.registerTask 'dist', ['clean', 'default', 'copy:dist', 'uglify', 'mincss']
+  grunt.registerTask 'dist', ['clean', 'default', 'test', 'git-describe', 'copy:dist', 'uglify', 'cssmin']

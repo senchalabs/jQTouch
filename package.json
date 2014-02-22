@@ -1,8 +1,8 @@
 {
   "author": "David Kaneda",
-  "name": "jQTouch",
-  "version": "1.0.0",
-  "versionId": "b5",
+  "name": "jqt",
+  "version": "0.0.1",
+  "versionId": "rc8",
   "repository": {
     "type": "git",
     "url": "git://github.com/senchalabs/jQTouch.git"
@@ -18,7 +18,7 @@
     },
     {
       "name": "Thomas Yip",
-      "email": ""
+      "email": "thomasleaf@gmail.com"
     }
   ],
   "licenses": [
@@ -43,7 +43,6 @@
     "grunt-contrib-qunit": "~0.4.0",
     "grunt-contrib-uglify": "~0.3.2",
     "grunt-contrib-coffee": "~0.10.1",
-    "grunt-contrib-cssmin": "~0.7.0",
     "grunt-contrib-watch": "~0.5.3",
     "grunt-contrib-csslint": "~0.2.0",
     "grunt-contrib-jshint": "~0.8.0",
@@ -59,11 +58,13 @@
     "grunt-contrib-less": "~0.9.0",
     "grunt-contrib-yuidoc": "~0.5.0",
     "grunt-contrib": "~0.9.0",
-    "grunt-contrib-mincss": "~0.3.2",
-    "grunt-coverjs": "~0.1.0"
+    "grunt-coverjs": "~0.1.0",
+    "grunt-contrib-cssmin": "~0.7.0",
+    "grunt-git-describe": "~2.3.2"
   },
   "optionalDependencies": {},
   "scripts": {
-    "test": "grunt test --verbose"
+    "test": "grunt test --verbose",
+    "prepublish": "grunt dist --verbose"
   }
 }

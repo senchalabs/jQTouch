@@ -1,0 +1,26 @@
+# Source and Build Files
+demos/
+etc/
+extensions/
+lib/
+src/
+submodules/
+test/
+themes/
+build/
+.git*
+.travis.xml
+Gruntfile.coffee
+sample.htaccess
+
+# Temp Files
+.~*
+.sass-cache
+
+# IDE and OS Files
+**.sublime-project
+**.sublime-workspace
+.externalToolBuilders
+.project
+.settings
+.DS_Store

@@ -1,9 +1,8 @@
-jQTouch
-=======
+# jQTouch
+## Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
 
 [![Build Status](https://api.travis-ci.org/senchalabs/jQTouch.png?branch=master)](http://travis-ci.org/senchalabs/jQTouch)
 
-Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
 --------------------------------------------------------------------------
 
 jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and comes with smooth animations, navigation, and themes for mobile WebKit browsers (as found in iOS, Android, BlackBerry, and WebOS).
