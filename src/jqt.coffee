@@ -489,11 +489,11 @@ class $.jQT
       $form = $el.closest("form")
         
       if $form.length
-        warn "About to submit parent form."
+        console.warn "About to submit parent form."
         $form.trigger "submit"
         false
       else
-        warn "No parent form found."
+        console.warn "No parent form found."
         true
 
     tapHandler = (e) =>
