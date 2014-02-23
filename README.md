@@ -1,4 +1,6 @@
-# jQT -- Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
+# jQT
+
+## Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).
 
 [![Build Status](https://api.travis-ci.org/senchalabs/jQTouch.png?branch=master)](http://travis-ci.org/senchalabs/jQTouch)
 

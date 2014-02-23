@@ -66,7 +66,7 @@ module.exports = (grunt) ->
     copy:
       prepare:
         expand: true
-        src: ["*/**", "!{src/reference,test,node_modules,build,dist,archive,submodules,etc,jqtouch*,themes/compass-recipes,themes/scss}/**", "*.{md,txt,htaccess}"]
+        src: ["*/**", "!{src/reference,test,node_modules,build,dist,archive,submodules,etc,jqtouch*,themes/compass-recipes,themes/scss}/**", "!*.{md,txt,htaccess}", "!.*"]
         dest: "<%= dirs.build %>/"
 
       source:
@@ -78,36 +78,38 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: yes
-          dest: '<%= dirs.dist %>/'
-          src: ["{src,extensions,themes}/**","build"]
+          src: ["{src,extensions,themes}/**"]
+          dest: '<%= dirs.dist %>'
           cwd: '<%= dirs.package %>'
+        ,
+          src: "<%= dirs.package %>/fingerprint"
+          dest: "<%= dirs.dist %>/fingerprint"
+          cwd: ''
         ]
-
-        options:
-          processContent: (content, path) ->
 
       package:
         files: [
           expand: yes
+          src: ["*/**"]
           dest: '<%= dirs.package %>'
-          src: ["*/**","build"]
           cwd: '<%= dirs.build %>'
         ,
           expand: yes
-          dest: '<%= dirs.package %>'
           src: ["README.md","VERSIONS.md","LICENSE.txt","package.json"]
+          dest: '<%= dirs.package %>'
           cwd: ''
         ,
           src: "<%= dirs.etc %>/sample.htaccess"
           dest: "<%= dirs.package %>/.htaccess"
           cwd: ''
         ,
-          src: "<%= dirs.etc %>/build"
-          dest: "<%= dirs.package %>/build"
+          src: "<%= dirs.etc %>/fingerprint"
+          dest: "<%= dirs.package %>/fingerprint"
           cwd: ''
         ]
 
         options:
+          processContentExclude: ['**/*.{png,gif,jpg,ico,psd}']
           processContent: (content, path) ->
             # Strip warnings from JavaScript
             if path.match /\.js$/
@@ -119,11 +121,14 @@ module.exports = (grunt) ->
                 .replace(/([\w-\.]*)(\.min)?\.js/g, '$1.min.js')
                 .replace(/(themes\/css\/[\w-\.]*)(\.min)?\.css/g, '$1.min.css')
 
-            else if path.match /\/build$/
+            else if path.match /\/fingerprint$/
               content
-              .replace(/\{build_id\}/, grunt.config('meta.build'))
-              .replace(/\{build_git_revision\}/, grunt.config('meta.revision'))
-              .replace(/\{build_date\}/, grunt.template.today('yyyy-mm-dd hh:mmZ'))
+                .replace(/\{build_id\}/, grunt.config('meta.build'))
+                .replace(/\{build_git_revision\}/, grunt.config('meta.revision'))
+                .replace(/\{build_date\}/, grunt.template.today('yyyy-mm-dd hh:mmZ'))
+
+            else
+              content
 
       test:
         expand: yes
@@ -161,6 +166,15 @@ module.exports = (grunt) ->
           src: ["package/**/*"]
           dest: ""
           cwd: '<%= dirs.archive %>'
+          expand: true
+        ]
+      dist:
+        options:
+          archive: "<%= dirs.archive %>/<%= meta.dist %>.tgz"
+        files: [
+          src: ["dist/**/*"]
+          dest: ""
+          cwd: ''
           expand: true
         ]
 
@@ -352,7 +366,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'minify', ['uglify', 'cssmin']
 
   # Default (Build)
-  grunt.registerTask 'default', ['scripts', 'compass']
+  grunt.registerTask 'default', ['zepto', 'scripts', 'compass']
 
   grunt.registerTask 'watch', ['default', 'watch_files']
 
@@ -369,7 +383,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'archive', ['pack', 'compress:archive']
 
   # Select the core from package to make a `dist` structure
-  grunt.registerTask 'dist', ['archive', 'test', 'copy:dist']
+  grunt.registerTask 'dist', ['test', 'archive', 'copy:dist', 'compress:dist']
 
   # Npm Prepublish
   grunt.registerTask 'prepublish', ['git-tag', 'dist']
