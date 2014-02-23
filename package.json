@@ -2,8 +2,8 @@
   "author": "David Kaneda",
   "name": "jqt",
   "description": "Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).",
-  "version": "0.99.2",
-  "versionId": "rc8",
+  "version": "0.99.3",
+  "versionId": "rc9",
   "repository": {
     "type": "git",
     "url": "git://github.com/senchalabs/jQTouch.git"
@@ -50,6 +50,6 @@
   "optionalDependencies": {},
   "scripts": {
     "test": "grunt test --verbose",
-    "prepublish": "grunt prepublish --verbose"
+    "prepublish": "grunt dist --verbose"
   }
 }

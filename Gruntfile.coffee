@@ -386,4 +386,4 @@ module.exports = (grunt) ->
   grunt.registerTask 'dist', ['test', 'archive', 'copy:dist', 'compress:dist']
 
   # Npm Prepublish
-  grunt.registerTask 'prepublish', ['git-tag', 'dist']
+  grunt.registerTask 'release', ['git-tag', 'dist']
