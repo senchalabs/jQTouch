@@ -78,7 +78,7 @@ module.exports = (grunt) ->
       dist:
         files: [
           expand: yes
-          src: ["{src,extensions,themes}/**"]
+          src: ["{src,extensions,themes}/**","lib/zepto/**"]
           dest: '<%= dirs.dist %>'
           cwd: '<%= dirs.package %>'
         ,
@@ -172,8 +172,8 @@ module.exports = (grunt) ->
         options:
           archive: "<%= dirs.archive %>/<%= meta.dist %>.tgz"
         files: [
-          src: ["dist/**/*"]
-          dest: ""
+          src: ["dist/**/*","README.md","LICENSE.txt","VERSIONS.md","package.json"]
+          dest: "package"
           cwd: ''
           expand: true
         ]

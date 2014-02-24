@@ -2,7 +2,7 @@
   "author": "David Kaneda",
   "name": "jqt",
   "description": "Create powerful mobile apps with just HTML, CSS, and Zepto.js (or jQuery).",
-  "version": "0.99.3",
+  "version": "0.99.4",
   "versionId": "rc9",
   "repository": {
     "type": "git",

@@ -2,7 +2,7 @@
 demos/
 etc/
 extensions/
-lib/
+lib/jquery
 src/
 submodules/
 test/

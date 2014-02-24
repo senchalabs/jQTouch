@@ -83,7 +83,7 @@
             $(function(){
                 function submitForm(){
                     $el = $('#add form');
-                    if ($('#todo', $el).val().length > 1) {
+                    if ($('#todo', $el).val().length >= 1) {
                         var itemid = $('#home ul li').length + 1;
                         $('#home .incomplete').append($('<li><input type="checkbox" /> <span>' + $('#todo', $el).val() + '</span></li>'));
                     }
