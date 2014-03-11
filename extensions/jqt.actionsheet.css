@@ -1,7 +1,7 @@
 /* @group Modal */
 
 #jqt > .current::after {
-	/* semi-transparent overlay */
+    /* semi-transparent overlay */
     display: none;
     z-index: 0;
     position: absolute;
@@ -12,14 +12,14 @@
     -webkit-transition: opacity 375ms ease-out;
 }
 
-#jqt.modal > .current::after, 
+#jqt.modal > .current::after,
 #jqt.transition > .current::after {
     display: block;
     z-index: 10;
 }
 
 #jqt.modal > .current::after {
-	opacity: 1;
+    opacity: 1;
 }
 
 /* @end group Modal */
@@ -29,7 +29,7 @@
 
 #jqt > .actionsheet {
     z-index: 30;
-	-webkit-transform: translateY(90%);  
+    -webkit-transform: translateY(90%);
     -webkit-transition: -webkit-transform 375ms linear;
 }
 
@@ -45,7 +45,7 @@
 }
 
 #jqt > .actionsheet.shown {
-    -webkit-transform: translateY(0);  
+    -webkit-transform: translateY(0);
 }
 
 #jqt > .actionsheet {
@@ -75,17 +75,17 @@
     border: 0;
 }
 
-#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices a,
-#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices a,
-#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices a,
-#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices a {
+#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices > *,
+#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices > *,
+#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices > *,
+#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices > * {
     margin-top: 25px;
 }
 
-#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices a.dismiss,
-#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices a.dismiss,
-#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices a.dismiss,
-#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices a.dismiss {
+#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices > .dismiss,
+#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices > .dismiss,
+#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices > .dismiss,
+#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices > .dismiss {
     margin-top: 30px;
 }
 
@@ -101,36 +101,77 @@
     width: 100%;
 }
 
+#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices > fieldset > div,
+#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices > fieldset > div,
+#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices > fieldset > div,
+#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices > fieldset > div {
+    color: white;
+    margin: -10px 20px 20px 20px;
+    text-align: center;
+}
+
 /* temp solution until we have a theme-base extension mechanism in place */
 #jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices {
     padding-bottom: 8px;
 }
-#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices a {
-    line-height: 44px;
-    color: #007aff;
-    border: none;
-    margin: 0px 8px 0px 8px;
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > div,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > div {
+    display: block;
     font-size: 20px;
+    font-weight: normal;
+    margin: 10px 20px;
+    text-align: center;
+    text-decoration: inherit;
+    background-image: none;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #777;
+    text-shadow: none;
+    font-size: 1em;
+    line-height: 54px;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > a,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a {
+    font-size: 20px;
+    color: #007aff;
+    line-height: 44px;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > a,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > div,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > div {
+    margin: 0px 8px 0px 8px;
     border-radius: 4px;
 }
 
-#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a {
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > div {
     border-radius: 0px;
-    border-bottom: 1px solid #aeaeb2;
 }
 
-#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a:first-child {
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > * {
+    border: 0px solid transparent;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > :first-child {
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
 }
 
-#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a:last-child {
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > :last-child {
     border-bottom-left-radius: 4px;
     border-bottom-right-radius: 4px;
     border-bottom: 0px solid transparent;
 }
 
-#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > a.dismiss {
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset .caution {
+    color: #fd472a;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > .dismiss {
     margin-top: 8px;
     margin-bottom: 0px;
     border: none;
@@ -139,8 +180,8 @@
     font-weight: bold;
 }
 
-#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > a.dismiss:active,
-#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > a.dismiss.active {
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > .dismiss:active,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > .dismiss.active {
     background-color: #dcdcdd;
 }
 
