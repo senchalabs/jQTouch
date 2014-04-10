@@ -10,20 +10,28 @@ jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and c
 - [Entirely customizable](https://github.com/senchalabs/jQTouch/wiki/Initialization-Options) with selector options
 - [Theme support](https://github.com/senchalabs/jQTouch/wiki/Theming), including default Apple and jQTouch custom themes
 - [Callback functions](https://github.com/senchalabs/jQTouch/wiki/Callback-Events) throughout, including swipe and orientation change detection
+- [Zepto](https://github.com/madrobby/zepto) integration - Use Zepto.js instead of jQuery to cut down on precious bandwidth. Zepto.js features a similar API to jQuery, but optimized for WebKit and much smaller.
+- Sass-based stylesheets, easily modified with variables and optimized for size.
+- Image-less stylesheets -- Using [Compass Recipes](https://github.com/senchalabs/compass-recipes), we have recreated all of the gradients and background patterns with CSS. This way, they are resolution independent, dynamically theme-able, and lower bandwidth.
 - Page history management and CSS3 page transitions, including 3D flip, cube, and swap
 - Failover to 2D animations for devices that don't support 3D
 - Easily allow apps to run in fullscreen mode with custom icons and startup screens
 - The power of jQuery to build AJAX applications
 - New demos: Clock and Todo
 
-## Upcoming Features
-*Note: Upcoming features are developed in the master branch, and are not to be considered stable. For official releases, please see the [version tags](https://github.com/senchalabs/jQTouch/tags).*
+## Getting Started
 
-- [Zepto](https://github.com/madrobby/zepto) integration - Use Zepto.js instead of jQuery to cut down on precious bandwidth. Zepto.js features a similar API to jQuery, but optimized for WebKit and much smaller.
-- Sass-based stylesheets, easily modified with variables and optimized for size.
-- Image-less stylesheets -- Using [Compass Recipes](https://github.com/senchalabs/compass-recipes), we have recreated all of the gradients and background patterns with CSS. This way, they are resolution independent, dynamically theme-able, and lower bandwidth.
+The easiest way to try out jQT is with the demo archive. They can be found in the release tab on Github:
 
-See, [New and Noteworthy](https://github.com/senchalabs/jQTouch/blob/master/VERSIONS.md) for Details.
+  [jQT Releases](https://github.com/senchalabs/jQTouch/releases)
+
+Please look for the download (green button) with filename prefixed with `jqt-demo` (ie, `jqt-demo-<< version >>.tar.gz`.)
+
+Once unzipped and untar, you can open `package/demons/index.html` with any WebkitBrowser on a desktop. 
+
+## Links
+
+Recently added features can be found at [New and Noteworthy](https://github.com/senchalabs/jQTouch/blob/master/VERSIONS.md) page.
 
 [Source code](http://github.com/senchalabs/jQTouch/archives/master), [issue tracking](http://github.com/senchalabs/jQTouch/issues), and [documentation](http://wiki.github.com/senchalabs/jQTouch/) are available on github.
 
