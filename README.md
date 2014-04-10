@@ -21,9 +21,9 @@ jQTouch is a JavaScript plugin which works with either Zepto.js or jQuery, and c
 
 ## Getting Started
 
-The easiest way to try out jQT is with the demo archive. They can be found in the release tab on Github:
+The easiest way to try out jQT is with the demo archive, which can be found in the release tab on Github:
 
-  [jQT Releases](https://github.com/senchalabs/jQTouch/releases)
+- [jQT Releases](https://github.com/senchalabs/jQTouch/releases)
 
 Please look for the download (green button) with filename prefixed with `jqt-demo` (ie, `jqt-demo-<< version >>.tar.gz`.)
 
