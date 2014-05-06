@@ -4,6 +4,7 @@
 .externalToolBuilders
 .project
 .settings
+.buildpath
 .DS_Store
 .~*
 node_modules/
