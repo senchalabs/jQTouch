@@ -191,15 +191,27 @@ class $.jQT
 
       return
 
-    @goBack = =>
+    @goBack = (toPage) =>
       # Error checking
       console.warn "History is empty." if customHistory.length < 1
       if customHistory.length is 1
         console.warn "You are on the first panel."
         window.history.go -1
+        
+      # Go back an arbitrary number of internal pages.
+      if /^#.+/.test toPage
+        end = 0
+        
+        for h, i in customHistory
+          if h.hash == toPage
+            end = i
+            break
+            
+        customHistory.splice 1, end - 1
+
       from = customHistory[0]
       to = customHistory[1]
-
+      
       return unless from? and to?
       
       if doNavigation(from.page, to.page, from.animation, true)
