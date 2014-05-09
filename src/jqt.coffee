@@ -199,7 +199,14 @@ class $.jQT
         window.history.go -1
         
       # Go back an arbitrary number of internal pages.
-      if /^#.+/.test toPage
+      if typeof toPage == 'number'
+        toPage = Math.abs toPage
+        
+        if toPage > 1 then customHistory.splice 1, toPage - 1
+      
+      # Go back to a specific page defined by a hash
+      # independent of its place in history.
+      else if /^#.+/.test toPage
         end = 0
         
         for h, i in customHistory
