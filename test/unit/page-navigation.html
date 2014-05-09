@@ -315,6 +315,60 @@
       }
     });
 
+asyncTest('Test Page Navigation and Back with param', function(t) {
+      expect(9);
+
+      start();
+      try {
+        var jqt = new $.jQT({updateHash: false});
+
+        // initial condition
+        ok($('#home').hasClass('current'));
+
+        // go to a link with animation as param
+        jqt.goTo('#animations');
+        jqt.goTo('#ui');
+
+        // verify
+        ok(!$('#home').hasClass('current'));
+        ok($('#ui').hasClass('current'));
+        stop();
+
+        // wait for page transition
+        setTimeout(function() {
+          start();
+          jqt.goBack('#home');
+
+          // verify
+          ok($('#home').hasClass('current'), '#home has .current class');
+          ok(!$('#animations').hasClass('current'), '#animations has no .current class');
+          ok(!$('#ui').hasClass('current'), '#ui has no .current class');
+
+          stop();
+          setTimeout(function() {
+            start();
+
+            // go to a link with animation as param
+            jqt.goTo('#ui');
+            jqt.goTo('#animations');
+
+            stop();
+            setTimeout(function() {
+              start();
+              jqt.goBack(2);
+
+              ok($('#home').hasClass('current'));
+              ok(!$('#ui').hasClass('current'));
+              ok(!$('#animations').hasClass('current'));
+            }, 550);
+          }, 550);
+        }, 550);
+      } catch (e) {
+        console.error(e);
+        ok(false, 'Init failed');
+      }
+    });
+
     asyncTest('Test Page Navigate Unreachable Pages', function(t) {
       expect(9);
 
