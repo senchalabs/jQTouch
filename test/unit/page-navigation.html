@@ -316,7 +316,7 @@
     });
 
 asyncTest('Test Page Navigation and Back with param', function(t) {
-      expect(9);
+      expect(23);
 
       start();
       try {
@@ -325,7 +325,7 @@ asyncTest('Test Page Navigation and Back with param', function(t) {
         // initial condition
         ok($('#home').hasClass('current'));
 
-        // go to a link with animation as param
+        // Visit two pages.
         jqt.goTo('#animations');
         jqt.goTo('#ui');
 
@@ -337,6 +337,8 @@ asyncTest('Test Page Navigation and Back with param', function(t) {
         // wait for page transition
         setTimeout(function() {
           start();
+          
+          // Go back to a specific page in history.
           jqt.goBack('#home');
 
           // verify
@@ -348,18 +350,65 @@ asyncTest('Test Page Navigation and Back with param', function(t) {
           setTimeout(function() {
             start();
 
-            // go to a link with animation as param
+            // Visit some pages to build up history.
             jqt.goTo('#ui');
             jqt.goTo('#animations');
+            jqt.goTo('#themes');
+            jqt.goTo('#animdemo');
+            jqt.goTo('#buttons');
 
             stop();
             setTimeout(function() {
               start();
-              jqt.goBack(2);
+              
+              // Go back 2! pages (zero-based index)
+              jqt.goBack(1);
 
+              // verify
+              ok($('#themes').hasClass('current'));
+              ok(!$('#animdemo').hasClass('current'));
+              ok(!$('#buttons').hasClass('current'));
+              
+              // Go back 1 page, should yield same result as without argument.
+              jqt.goBack(0);
+                  
+              // verify
+              ok($('#animations').hasClass('current'));
+              ok(!$('#themes').hasClass('current'));
+              
+              // Visit some pages to build up history.
+              jqt.goTo('#themes');
+              jqt.goTo('#animdemo');
+              jqt.goTo('#buttons');
+              
+              // Go back to the first page in history.
+              jqt.goBack(-1);
+              
+              // verify
               ok($('#home').hasClass('current'));
               ok(!$('#ui').hasClass('current'));
               ok(!$('#animations').hasClass('current'));
+              ok(!$('#themes').hasClass('current'));
+              ok(!$('#animdemo').hasClass('current'));
+              ok(!$('#buttons').hasClass('current'));
+              
+              // Visit some pages to build up history.
+              jqt.goTo('#ui');
+              jqt.goTo('#animations');
+              jqt.goTo('#themes');
+              jqt.goTo('#animdemo');
+              jqt.goTo('#buttons');
+              
+              // Go back to the third page in history.
+              jqt.goBack(-3);
+              
+              // verify
+              ok(!$('#home').hasClass('current'));
+              ok(!$('#ui').hasClass('current'));
+              ok($('#animations').hasClass('current'));
+              ok(!$('#themes').hasClass('current'));
+              ok(!$('#animdemo').hasClass('current'));
+              ok(!$('#buttons').hasClass('current'));
             }, 550);
           }, 550);
         }, 550);
