@@ -53,7 +53,7 @@ Please make sure you have the following installed:
 
 ### Commands
 
-#### `grunt` (default)
+#### `grunt full`
 
 Will create a build of jQTouch in the `build/` directory, compiling any theme files and updating with source from the Zepto submodule. This must be run to preview jQTouch.
 
@@ -72,6 +72,11 @@ Run our test suite.
 #### `grunt dist`
 
 This is typically used internally for creating releases — It does everything the standard build does, but then additionally minifies all JS/CSS and updates the paths in demo files.
+
+#### 'grunt` default
+
+This task is used only for iterative development. It does not update submodule, nor clean the build.
+
 
 External Guides
 ---------------
