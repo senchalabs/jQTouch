@@ -193,9 +193,9 @@ module.exports = (grunt) ->
           load: 'submodules/compass-recipes/'
           sassDir: 'themes/scss'
           cssDir: '<%= dirs.css %>'
-    
+
     # Concat is only used to add our banner
-    concat:        
+    concat:
       banner:
         expand: yes
         cwd: '<%= dirs.build %>/src/'
@@ -239,7 +239,7 @@ module.exports = (grunt) ->
 
         options:
           preserveComments: (comment) ->
-            
+
             # Preserve comments near the top of the file.
             # Loosey-goosey, I know, but I want to make sure we keep any
             # Zepto and jQuery lines about (c) and license
@@ -365,16 +365,20 @@ module.exports = (grunt) ->
   # Minify Assets
   grunt.registerTask 'minify', ['uglify', 'cssmin']
 
-  # Default (Build)
-  grunt.registerTask 'default', ['zepto', 'scripts', 'compass']
+  # Build
+  grunt.registerTask 'build', ['zepto', 'scripts', 'compass']
 
-  grunt.registerTask 'watch', ['default', 'watch_files']
+  # Watch
+  grunt.registerTask 'watch', ['build', 'watch_files']
 
-  # Default (Clean and Build)
-  grunt.registerTask 'full', ['clean', 'update_submodules', 'default']
+  # Default (Same as full)
+  grunt.registerTask 'default', ['full']
+
+  # Full (Clean and Build)
+  grunt.registerTask 'full', ['clean', 'update_submodules', 'build']
 
   # Test
-  grunt.registerTask 'test', ['default', 'copy:test', 'qunit']
+  grunt.registerTask 'test', ['build', 'copy:test', 'qunit']
 
   # Build full, and and minifies all artifacts
   grunt.registerTask 'pack', ['full', 'git-describe', 'copy:package', 'minify']

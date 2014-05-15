@@ -27,7 +27,7 @@ The easiest way to try out jQT is with the demo archive, which can be found in t
 
 Please look for the download (green button) with filename prefixed with `jqt-demo` (ie, `jqt-demo-<< version >>.tar.gz`.)
 
-Once unzipped and untar, you can open `package/demons/index.html` with any WebkitBrowser on a desktop. 
+Once unzipped and untar, you can open `package/demons/index.html` with any WebkitBrowser on a desktop.
 
 ## Links
 
@@ -53,19 +53,23 @@ Please make sure you have the following installed:
 
 ### Commands
 
-#### `grunt full`
+#### `grunt` (default)
 
 Will create a build of jQTouch in the `build/` directory, compiling any theme files and updating with source from the Zepto submodule. This must be run to preview jQTouch.
 
+#### 'grunt build`
+
+This task is used only for iterative development. It does not update submodule, nor clean the build. (The `default` grunt task must be called once before `watch`.)
+
 #### `grunt watch`
 
-Will create the same build as above, but will continue to watch for file changes to theme and source files, compiling/copying them into build every time you save. If you have a livereload browser extension installed and enabled, the page will update live after every change.
+Will create the same build as `grunt build`, but will continue to watch for file changes to theme and source files, compiling/copying them into build every time you save. If you have a livereload browser extension installed and enabled, the page will update live after every change. (The `default` grunt task must be called once before `watch`.)
 
 #### `grunt compass`
 
-Only build the theme files. Typically, you'll want to use `grunt watch` for developing a custom theme.
+Only build the theme files. Typically, you'll want to use `grunt watch` for developing a custom theme. (The `default` grunt task must be called once before `watch`.)
 
-#### `grunt test`
+#### `grunt test` (The `default` grunt task must be called once before `watch`.)
 
 Run our test suite.
 
@@ -73,9 +77,6 @@ Run our test suite.
 
 This is typically used internally for creating releases — It does everything the standard build does, but then additionally minifies all JS/CSS and updates the paths in demo files.
 
-#### 'grunt` default
-
-This task is used only for iterative development. It does not update submodule, nor clean the build.
 
 
 External Guides
