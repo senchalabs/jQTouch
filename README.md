@@ -69,9 +69,9 @@ Will create the same build as `grunt build`, but will continue to watch for file
 
 Only build the theme files. Typically, you'll want to use `grunt watch` for developing a custom theme. (The `default` grunt task must be called once before this task.)
 
-#### `grunt test` (The `default` grunt task must be called once before this task.)
+#### `grunt test`
 
-Run our test suite.
+Run our test suite. (The `default` grunt task must be called once before this task.)
 
 #### `grunt dist`
 
