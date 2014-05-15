@@ -59,17 +59,17 @@ Will create a build of jQTouch in the `build/` directory, compiling any theme fi
 
 #### 'grunt build`
 
-This task is used only for iterative development. It does not update submodule, nor clean the build. (The `default` grunt task must be called once before `watch`.)
+This task is used only for iterative development. It does not update submodule, nor clean the build. (The `default` grunt task must be called once before this task.)
 
 #### `grunt watch`
 
-Will create the same build as `grunt build`, but will continue to watch for file changes to theme and source files, compiling/copying them into build every time you save. If you have a livereload browser extension installed and enabled, the page will update live after every change. (The `default` grunt task must be called once before `watch`.)
+Will create the same build as `grunt build`, but will continue to watch for file changes to theme and source files, compiling/copying them into build every time you save. If you have a livereload browser extension installed and enabled, the page will update live after every change. (The `default` grunt task must be called once before this task.)
 
 #### `grunt compass`
 
-Only build the theme files. Typically, you'll want to use `grunt watch` for developing a custom theme. (The `default` grunt task must be called once before `watch`.)
+Only build the theme files. Typically, you'll want to use `grunt watch` for developing a custom theme. (The `default` grunt task must be called once before this task.)
 
-#### `grunt test` (The `default` grunt task must be called once before `watch`.)
+#### `grunt test` (The `default` grunt task must be called once before this task.)
 
 Run our test suite.
 
