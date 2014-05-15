@@ -57,7 +57,7 @@ Please make sure you have the following installed:
 
 Will create a build of jQTouch in the `build/` directory, compiling any theme files and updating with source from the Zepto submodule. This must be run to preview jQTouch.
 
-#### 'grunt build`
+#### `grunt build`
 
 This task is used only for iterative development. It does not update submodule, nor clean the build. (The `default` grunt task must be called once before this task.)
 
