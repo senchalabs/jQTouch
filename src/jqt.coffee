@@ -230,6 +230,8 @@ class $.jQT
 
       return
 
+    @history = customHistory
+
     # PRIVATE METHODS
 
     initHairExtensions = (options) =>
