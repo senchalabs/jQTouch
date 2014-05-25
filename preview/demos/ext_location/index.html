@@ -3,14 +3,14 @@
     <head>
         <meta charset="UTF-8" />
         <title>jQT.Location</title>
-        <style type="text/css" media="screen">@import "../../themes/css/jqtouch.css";</style>
-        <script src="../../src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <link rel="stylesheet" href="../../themes/css/jqtouch.min.css">
+        <script src="../../lib/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../src/jqt.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../../extensions/jqt.location.min.js" type="application/x-javascript" charset="utf-8"></script>
         <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 
         <script type="text/javascript" charset="utf-8">
-            var jQT = new $.jQTouch({
+            var jQT = new $.jQT({
                 icon: 'jqtouch.png',
                 addGlossToIcon: false,
                 startupScreen: 'jqt_startup.png',
@@ -30,28 +30,31 @@
                     if (coords) {
                         setDisplay('Latitude: ' + coords.latitude + '<br />Longitude: ' + coords.longitude);
                         
-                        
-                        var latlng = new google.maps.LatLng(coords.latitude, coords.longitude);
-                        var myOptions = {
+                        new google.maps.Map($("#map_canvas").get(0), {
                           zoom: 8,
-                          center: latlng,
+                          center: new google.maps.LatLng(coords.latitude, coords.longitude),
                           mapTypeId: google.maps.MapTypeId.ROADMAP
-                        };
-                        var map = new google.maps.Map($("#map_canvas").get(0), myOptions);
-                    } else {
-                        setDisplay('Device not capable of geo-location.');
+                        });
+
                     }
+                }, function(){
+                    // Error in retrieving location, just use defined LatLng
+
+                    new google.maps.Map($("#map_canvas").get(0), {
+                      zoom: 8,
+                      center: new google.maps.LatLng(37.48, -122.24),
+                      mapTypeId: google.maps.MapTypeId.ROADMAP
+                    });
                 });
 
                 if (lookup) {
                     setDisplay('Looking up location&hellip;');
-                    
                 }
             });
         </script>
         <style type="text/css" media="screen">
             #map_canvas {
-                height: 200px;
+                height: 100%;
                 background-color: rgba(255,255,255,.3);
             }
         </style>
@@ -62,12 +65,15 @@
                 <div class="toolbar">
                     <h1>Geo Location</h1>
                 </div>
-                <ul>
-                    <li><a href="#map">View map</a></li>
-                </ul>
+                <div class="scroll">
+                    <ul class="rounded">
+                        <li><a href="#map">View map</a></li>
+                    </ul>
+                </div>
+                
                 <div class="info"></div>
             </div>
-            <div id="map" class="notransform">
+            <div id="map">
                 <div class="toolbar">
                     <h1>Map</h1>
                     <a href="#" class="back">Back</a>

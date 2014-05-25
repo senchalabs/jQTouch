@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>jQTodo &beta;</title>
-        <style type="text/css" media="screen">@import "../../themes/css/apple.css";</style>
+        <style type="text/css" media="screen">@import "../../themes/css/apple.min.css";</style>
         <style type="text/css" media="screen">
             div#jqt ul li {
                 background-color: #ffeab1;
@@ -71,11 +71,11 @@
                 border-top: 1px solid #9d7062;
             }
         </style>
-        <script src="../../src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../lib/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../src/jqt.min.js" type="text/javascript" charset="utf-8"></script>
 
         <script type="text/javascript" charset="utf-8">
-            var jQT = $.jQTouch({
+            var jQT = new $.jQTouch({
                 icon: 'icon.png',
                 startupScreen: 'startup.png'
             });
@@ -83,7 +83,7 @@
             $(function(){
                 function submitForm(){
                     $el = $('#add form');
-                    if ($('#todo', $el).val().length > 1) {
+                    if ($('#todo', $el).val().length >= 1) {
                         var itemid = $('#home ul li').length + 1;
                         $('#home .incomplete').append($('<li><input type="checkbox" /> <span>' + $('#todo', $el).val() + '</span></li>'));
                     }

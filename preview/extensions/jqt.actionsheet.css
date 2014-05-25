@@ -1,0 +1,188 @@
+/* @group Modal */
+
+#jqt > .current::after {
+    /* semi-transparent overlay */
+    display: none;
+    z-index: 0;
+    position: absolute;
+    content: "";
+    top: 0; bottom: 0; left: 0; right: 0;
+    background-color: rgba(63, 63, 63, 0.6);
+    opacity: 0;
+    -webkit-transition: opacity 375ms ease-out;
+}
+
+#jqt.modal > .current::after,
+#jqt.transition > .current::after {
+    display: block;
+    z-index: 10;
+}
+
+#jqt.modal > .current::after {
+    opacity: 1;
+}
+
+/* @end group Modal */
+
+
+/* @group Action Sheet */
+
+#jqt > .actionsheet {
+    z-index: 30;
+    -webkit-transform: translateY(90%);
+    -webkit-transition: -webkit-transform 375ms linear;
+}
+
+#jqt > .actionsheet.shown,
+#jqt > .actionsheet.transition {
+    display: block;
+}
+
+#jqt > .actionsheet.shown:not(.current):not(.in):not(.out),
+#jqt > .actionsheet.transition:not(.current):not(.in):not(.out) {
+    /* workaround long css in jqt/_base.scss */
+    display: block;
+}
+
+#jqt > .actionsheet.shown {
+    -webkit-transform: translateY(0);
+}
+
+#jqt > .actionsheet {
+    height: 100%; min-height: 100%;
+    background-color: transparent;
+    background-image: none;
+}
+
+#jqt > .actionsheet > div.actionchoices {
+    position: absolute;
+    top: auto; bottom: 0;
+    left: 0; right: 0;
+    padding-bottom: 10px;
+}
+
+/* theme specifics style */
+#jqt:not([data-jqt-theme]) > .actionsheet > div.actionchoices,
+#jqt[data-jqt-theme="jqtouch"] > .actionsheet > div.actionchoices,
+#jqt[data-jqt-theme="vanilla"] > .actionsheet > div.actionchoices,
+#jqt[data-jqt-theme="apple"] > .actionsheet > div.actionchoices {
+    border-top: 1px solid #333;
+    background-color: rgba(0, 0, 0, 0.25);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(160, 168, 172, 0.75)), color-stop(0.08, rgba(112, 120, 128, 0.5)), color-stop(0.08, rgba(96, 102, 114, 0.5)), to(rgba(96, 102, 114, 0.5)));
+}
+
+#jqt > .actionsheet > div.actionchoices > fieldset {
+    border: 0;
+}
+
+#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices > *,
+#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices > *,
+#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices > *,
+#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices > * {
+    margin-top: 25px;
+}
+
+#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices > .dismiss,
+#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices > .dismiss,
+#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices > .dismiss,
+#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices > .dismiss {
+    margin-top: 30px;
+}
+
+#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices::before,
+#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices::before,
+#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices::before,
+#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices::before {
+    display: block;
+    position: relative;
+    height: 10px;
+    content: "";
+    border-top: 1px solid #CCC;
+    width: 100%;
+}
+
+#jqt:not([data-jqt-theme]) > div.actionsheet > div.actionchoices > fieldset > div,
+#jqt[data-jqt-theme="jqtouch"] > div.actionsheet > div.actionchoices > fieldset > div,
+#jqt[data-jqt-theme="vanilla"] > div.actionsheet > div.actionchoices > fieldset > div,
+#jqt[data-jqt-theme="apple"] > div.actionsheet > div.actionchoices > fieldset > div {
+    color: white;
+    margin: -10px 20px 20px 20px;
+    text-align: center;
+}
+
+/* temp solution until we have a theme-base extension mechanism in place */
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices {
+    padding-bottom: 8px;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > div,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > div {
+    display: block;
+    font-weight: normal;
+    margin: 10px 20px;
+    text-align: center;
+    text-decoration: inherit;
+    background-image: none;
+    background-color: rgba(255, 255, 255, 0.95);
+    color: #777;
+    text-shadow: none;
+    font-size: 1em;
+    line-height: 1.7em;
+    padding: 15px 15px;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > a,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a {
+    font-size: 20px;
+    color: #007aff;
+    line-height: 44px;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > a,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > div,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > div {
+    margin: 0 8px 0 8px;
+    border-radius: 4px;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > a,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > div {
+    border-radius: 0;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > * {
+    border: 0 solid transparent;
+    border-bottom: 1px solid #e6e6e6;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > :first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset > :last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    border-bottom: 0 solid transparent;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > fieldset .caution {
+    color: #fd472a;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > .dismiss {
+    margin-top: 8px;
+    margin-bottom: 0;
+    border: none;
+    background-color: #f4f4f4;
+    color: #007aff;
+    font-weight: bold;
+}
+
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > .dismiss:active,
+#jqt[data-jqt-theme="innsbruck"] > div.actionsheet > div.actionchoices > .dismiss.active {
+    background-color: #dcdcdd;
+}
+
+/* @end group Action Sheet */

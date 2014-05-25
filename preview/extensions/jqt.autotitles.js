@@ -1,52 +1,29 @@
-/*
-
-            _/    _/_/    _/_/_/_/_/                              _/
-               _/    _/      _/      _/_/    _/    _/    _/_/_/  _/_/_/
-          _/  _/  _/_/      _/    _/    _/  _/    _/  _/        _/    _/
-         _/  _/    _/      _/    _/    _/  _/    _/  _/        _/    _/
-        _/    _/_/  _/    _/      _/_/      _/_/_/    _/_/_/  _/    _/
-       _/
-    _/
-
-    Created by David Kaneda <http://www.davidkaneda.com>
-    Maintained by Thomas Yip <http://beedesk.com/>
-    Sponsored by Sencha Labs <http://www.sencha.com/>
-    Special thanks to Jonathan Stark <http://www.jonathanstark.com/>
-
-    Documentation and issue tracking on GitHub <http://github.com/senchalabs/jQTouch/>
-
-    (c) 2009-2011 Sencha Labs
-    jQTouch may be freely distributed under the MIT license.
-
-*/
-
-(function($) {
-    if ($.jQTouch)
-    {
-        $.jQTouch.addExtension(function AutoTitles(jQT){
-            
-            var titleSelector='.toolbar h1';
-
-            $(function(){
-                $('#jqt').bind('pageAnimationStart', function(e, data){
-                    if (data.direction === 'in'){
-                        var $title = $(titleSelector, $(e.target));
-                        var $ref = $(e.target).data('referrer');
-                        if ($title.length && $ref && $title.text() === ''){
-                            $title.html($ref.text());
-                        }
-                    }
-                });
-            });
-            
-            function setTitleSelector(ts){
-                titleSelector=ts;
+(function() {
+  if ($.jQT) {
+    $.jQT.addExtension(function(jQT) {
+      var titleSelector;
+      titleSelector = '.toolbar h1';
+      return $(function() {
+        var setTitleSelector;
+        $('#jqt').bind('pageAnimationStart', function(e, data) {
+          var $el, $ref, $title;
+          $el = $(e.target);
+          if (data.direction === 'in') {
+            $title = $(titleSelector, $el);
+            $ref = $el.data('referrer');
+            if ($title.length && $ref) {
+              return $title.html($ref.text());
             }
-            
-            return {
-                setTitleSelector: setTitleSelector
-            };
-
+          }
         });
-    }
-})($);
+        setTitleSelector = function(sel) {
+          return titleSelector = sel;
+        };
+        return {
+          setTitleSelector: setTitleSelector
+        };
+      });
+    });
+  }
+
+}).call(this);

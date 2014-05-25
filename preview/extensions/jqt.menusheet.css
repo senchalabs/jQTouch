@@ -1,0 +1,67 @@
+/* @group Menu Sheet */
+
+#jqt > div.menusheet {
+    -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
+    height: 100%;
+    width: 260px;
+}
+#jqt.black-translucent > div.menusheet {
+    padding-top: 20px;
+}
+#jqt.menuopened {
+    width: 100%;
+    overflow: hidden;
+}
+
+#jqt > .transition {
+    -webkit-transition-property: translate3d, opacity, background-color;
+    -webkit-transition-duration: 250ms;
+    -webkit-transition-fill-mode: both;
+    -webkit-transition-timing-function: ease-in-out;
+}
+
+#jqt.menuopened > .current {
+    -webkit-transform: translate3d(260px, 0, 0) rotate(0) scale(1);
+    -webkit-box-shadow: -3px 0px 3px rgba(63, 63, 63, 0.5);
+    border-left: 0.5px solid rgba(127, 127, 127, 0.01);
+    z-index: 20;
+}
+
+#jqt.menuopened > .current::after {
+    display: block;
+    position: absolute;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0);
+    top: 0; bottom: 0; left: 0; right: 0;
+    z-index: 20;
+    content: "";
+}
+
+#jqt.menuopened > .menusheet.current {
+    -webkit-transform: translate3d(0, 0, 0) rotate(0) scale(1);  
+    -webkit-box-shadow: none;
+    border-left: none;
+    z-index: 0;
+}
+
+#jqt.menuopened > .menusheet.current::after {
+    display: none;
+}
+
+#jqt > div.menusheet > *:first-child {
+    margin-top: 0px;
+}
+
+#jqt > div.menusheet > div.menuchoices {
+    position: absolute;
+    top: auto;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    padding-bottom: 10px;
+    border-top: 1px solid #333;
+    background-color: rgba(0, 0, 0, 0.25);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(160, 168, 172, 0.75)), color-stop(0.08, rgba(112, 120, 128, 0.5)), color-stop(0.08, rgba(96, 102, 114, 0.5)), to(rgba(96, 102, 114, 0.5)));
+}
+
+/* @end */

@@ -3,9 +3,10 @@
     <head>
         <meta charset="UTF-8" />
         <title>jQTouch &beta;</title>
-        <style type="text/css" media="screen">@import "../../themes/css/apple.css";</style>
-        <script src="../../src/lib/zepto.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../src/jqtouch.min.js" type="text/javascript" charset="utf-8"></script>
+        <style type="text/css" media="screen">@import "../../themes/css/apple.min.css";</style>
+        <script src="../../lib/jquery/jquery-1.7.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../src/jqtouch-jquery.min.js" type="application/x-javascript" charset="utf-8"></script>
+        <script src="../../src/jqt.min.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- 
             jQTouch Clock Demo
@@ -13,7 +14,7 @@
         -->
         <link rel="stylesheet" href="clock.css" type="text/css" media="screen" charset="utf-8" />
         <script type="text/javascript" charset="utf-8">
-            $.jQTouch({
+            var jqt = new $.jQT({
                 icon: 'icon.png',
                 startupScreen: 'img/startup.png'
             });
@@ -65,6 +66,7 @@
                     $('input').blur();
                     $('#add .cancel').click();
                     this.reset();
+                    jqt.goBack();
                     return false;
                 });
                 addClock('Philadelphia', -5.0);
