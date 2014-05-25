@@ -22,18 +22,17 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
     <script src="js/jquery.tweet.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" charset="utf-8">
-    $(function(){
-        $(".tweet").tweet({
-            username: "jqtouch",
-            avatar_size: 0,
-            count: 5,
-            loading_text: ""
-        });
-        $('input[type="text"]').one('focus',function(){
-            $(this).removeClass('sample').val('');
-        });
-    })
-
+      $(function(){
+          $(".tweet").tweet({
+              username: "jqtouch",
+              avatar_size: 0,
+              count: 5,
+              loading_text: ""
+          });
+          $('input[type="text"]').one('focus',function(){
+              $(this).removeClass('sample').val('');
+          });
+      });
     </script>
 </head>
 <body>
@@ -49,9 +48,9 @@
     </div>
     <div id="band">
         <div class="center">
-            <a id="dl" href="https://github.com/downloads/senchalabs/jQTouch/jqtouch-1.0-b4-rc.zip">Download <span class="ver">Version 1, beta 4rc</span></a>
+            <a id="dl" href="https://github.com/senchalabs/jQTouch/releases/download/v0.99.5rc10/jqt-demo-v0.99.5rc10-0-g8378f02674de.tgz">Download <span class="ver">Version 1, rc10</span></a>
             <div class="preview">
-                <a id="pre" href="/preview/demos/main/">Preview</a> on your iPhone or in <a href="http://nightly.webkit.org/">WebKit</a></div>
+                <a id="pre" href="./preview/demos/main/index.html">Preview</a> on your iPhone or in <a href="http://nightly.webkit.org/">WebKit</a></div>
             </div>
         </div>
     </div>
@@ -99,40 +98,33 @@
                     You may also enjoy <a href="http://www.webkitbits.com/">WebKitBits, a blog about all things WebKit</a>.
                 <br /><br />
                 
-                &copy; 2009&ndash;2013 <a href="http://9-bits.com">David Kaneda</a>. Built with HTML5, CSS, and jQuery.
+                &copy; 2009&ndash;2014 <a href="http://9-bits.com">David Kaneda</a>. Built with HTML5, CSS, and jQuery.
                 </p>
                 
             </div>
         </div>
     </div>
-    <iframe src="http://www.tumblr.com/dashboard/iframe?src=http%3A%2F%2Fblog.jqtjs.com%2F" 
-    border="0" scrolling="no" width="324" height="25" allowTransparency="true"
-    frameborder="0" style="position:absolute; z-index:1337; top:0px; right:0px; border:0px;
-    background-color:transparent; overflow:hidden;" id="tumblr_controls"></iframe><script type="text/javascript">_qoptions={qacct:"p-19UtqE8ngoZbM"};</script><script type="text/javascript" src="http://edge.quantserve.com/quant.js"></script><noscript><img src="http://pixel.quantserve.com/pixel/p-19UtqE8ngoZbM.gif" style="display:none; border-width:0px; height:1px; width:1px;"/></noscript><!-- END TUMBLR CODE -->
     <a href="http://github.com/senchalabs/jQTouch"><img style="position: absolute; top: 0; left: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_left_white_ffffff.png" alt="Fork me on GitHub" /></a>
 
-<script type="text/javascript">
-  (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-  })();
-</script>
-
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
+    <script type="text/javascript">
+      (function() {
+        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+        po.src = 'https://apis.google.com/js/plusone.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+      })();
+    </script>
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
     </script>
     <script type="text/javascript">
-
       var _gaq = _gaq || [];
       _gaq.push(['_setAccount', 'UA-252194-14']);
       _gaq.push(['_setDomainName', 'jqtjs.com']);
