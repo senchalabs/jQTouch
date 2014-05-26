@@ -16,7 +16,7 @@
 
    (c) 2009-2014 Sencha Labs
 
-   Version: 0.99.5-rc10 - 2014-05-14
+   Version: 1.00- - 2014-05-26
 
    jQTouch may be freely distributed under the MIT license.
 */
