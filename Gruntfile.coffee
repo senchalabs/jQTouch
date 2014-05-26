@@ -1,4 +1,5 @@
 module.exports = (grunt) ->
+  extend = require('util')._extend
 
   # Project configuration.
   grunt.initConfig
@@ -46,6 +47,7 @@ module.exports = (grunt) ->
       build: ["<%= dirs.build %>"]
       dist: ["<%= dirs.dist %>"]
       package: ["<%= dirs.package%>"]
+      zepto: ["submodules/zepto/dist"]
 
     coffee:
       jqt:
@@ -140,7 +142,7 @@ module.exports = (grunt) ->
         files: [
           expand: yes
           cwd: 'submodules/zepto/dist/'
-          src: 'zepto.js'
+          src: ['zepto.js', 'zepto.min.js']
           dest: '<%= dirs.build %>/lib/zepto'
         ,
           src: 'submodules/zepto/src/touch.js'
@@ -178,11 +180,14 @@ module.exports = (grunt) ->
           expand: true
         ]
 
-    rake:
+    "npm-command":
       zepto:
-        params: "concat[fx:ajax:data:detect:event:form:polyfill:touch]"
+        command: "run-script"
+        script: "dist"
+        params: ""
         options:
           cwd: "submodules/zepto"
+          env: extend(process.env, {'MODULES': 'zepto event ajax form ie detect fx data touch'})
 
     compass:
       compile:
@@ -317,18 +322,25 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks "grunt-contrib-compress"
   grunt.loadNpmTasks "grunt-update-submodules"
 
-  grunt.registerMultiTask "rake", "Compile a Ruby Package with Rake", ->
+  grunt.registerMultiTask "npm-command", "Run an NPM command in a specific module", ->
     cb = @async() # Tell grunt the task is async
-    options = @data["options"]
+    command = @data["command"]
     params = grunt.template.process(@data["params"])
-    exec = require("child_process").exec
-    child = exec("rake " + params + "", options, (error, stdout, stderr) ->
-      console.log "stdout: " + stdout if stdout
+    script = grunt.template.process(@data["script"])
+    options = @data["options"]
 
+    exec = require("child_process").exec
+    child = exec("npm install", options, (error, stdout, stderr) ->
+      grunt.log.write stdout if stdout
+      grunt.log.error stdout if stderr
       if error isnt null
-        console.log "error: " + error
-        console.log "stderr: " + stdout
-      cb() # Execute the callback when the async task is done
+        cb(error) # Execute the callback when the async task is done
+      else
+        child = exec(["npm", command, script, params].join(' '), options, (error, stdout, stderr) ->
+          grunt.log.write stdout if stdout
+          grunt.log.error stdout if stderr
+          cb(error) # Execute the callback when the async task is done
+        )
     )
 
   grunt.registerTask "git-describe", "Describes current git commit", ->
@@ -357,7 +369,7 @@ module.exports = (grunt) ->
   grunt.renameTask 'watch', 'watch_files'
 
   # Git submodule updates
-  grunt.registerTask 'zepto', ['rake', 'copy:zepto', 'copy:jquery-bridge']
+  grunt.registerTask 'zepto', ['clean:zepto', 'npm-command:zepto', 'copy:zepto', 'copy:jquery-bridge']
 
   # Compile Scripts
   grunt.registerTask 'scripts', ['coffee', 'copy:prepare', 'concat', 'zepto']
