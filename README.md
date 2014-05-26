@@ -41,7 +41,7 @@ Recently added features can be found at [New and Noteworthy](https://github.com/
 
 ### Dependencies
 
-We have quite a few dependencies at the moment, as we build certain features directly from Zepto (which uses Rake), and we use Compass for stylesheets, which is only available via Ruby. The actual build system, however, is built on Grunt.
+We have quite a few dependencies at the moment, as we build with Compass/SASS for stylesheets, which is only available via Ruby. The actual build system, however, is built on Grunt.
 
 Please make sure you have the following installed:
 
