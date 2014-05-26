@@ -155,9 +155,10 @@ h3 a {
 	position: absolute;
 	left: 0;
 	top: -40px;
-	padding-top: 73px;
-	padding-left: 45px;
-	background: url(../img/iphone.png) 0 0 no-repeat;
+    padding-top: 57px;
+    padding-left: 16px;
+	background: url(../img/iphone4.png) 0 0 no-repeat;
+    background-size: 75% 75%;
 }
 
 .tweet ul {
