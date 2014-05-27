@@ -154,11 +154,11 @@ h3 a {
 	height: 486px;
 	position: absolute;
 	left: 0;
-	top: -40px;
-    padding-top: 57px;
-    padding-left: 16px;
+	top: -44px;
+    padding-top: 58px;
+    padding-left: 15px;
 	background: url(../img/iphone4.png) 0 0 no-repeat;
-    background-size: 75% 75%;
+    background-size: 75% 85%;
 }
 
 .tweet ul {
@@ -175,9 +175,9 @@ h3 a {
 
 #side {
 	position: absolute;
-	top: 160px;
+	top: 220px;
 	left: 0;
-	padding-left: 40px;
+	padding-left: 30px;
 }
 
 #donate, #share {
