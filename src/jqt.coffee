@@ -60,6 +60,7 @@ class $.jQT
     fullScreenClass: "fullscreen"
     icon: null
     icon4: null
+    minimalUIViewport: true
     preloadImages: false
     starter: $(document).ready
     startupScreen: null
@@ -252,7 +253,14 @@ class $.jQT
       hairExtensions.push """<link rel="apple-touch-startup-image" href="#{@settings.startupScreen}">""" if @settings.startupScreen
 
       # Set viewport
-      hairExtensions.push """<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=0">""" if @settings.fixedViewport
+      viewports = []
+      if @settings.fixedViewport
+        viewports.push("initial-scale=1.0", "maximum-scale=1.0", "user-scalable=0")
+
+      if @settings.minimalUIViewport
+        viewports.push("minimal-ui")
+
+      hairExtensions.push """<meta name="viewport" content="#{viewports.join(', ')}">""" if viewports
 
       # Set full-screen
       if @settings.fullScreen
