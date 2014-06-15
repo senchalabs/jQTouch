@@ -50,14 +50,14 @@ module.exports = (grunt) ->
       zepto: ["submodules/zepto/dist"]
 
     coffee:
-      jqt:
+      script:
         expand: yes
         cwd: 'src'
         src: ['**.coffee']
         dest: '<%= dirs.build %>/src/'
         ext: '.js'
 
-      extensions:
+      extension:
         expand: yes
         cwd: 'extensions'
         src: ['**.coffee']
@@ -65,17 +65,38 @@ module.exports = (grunt) ->
         rename: (dest, path) ->
           dest + path.replace /\.coffee$/, '.js'
 
-    copy:
-      prepare:
-        expand: true
-        src: ["*/**", "!{src/reference,test,node_modules,build,dist,archive,submodules,etc,jqtouch*,themes/compass-recipes,themes/scss}/**", "!*.{md,txt,htaccess}", "!.*"]
-        dest: "<%= dirs.build %>/"
+      demo:
+        expand: yes
+        cwd: 'demos'
+        src: ['**/*.coffee']
+        dest: '<%= dirs.build %>/demos/'
+        rename: (dest, path) ->
+          dest + path.replace /\.coffee$/, '.js'
 
-      source:
+    copy:
+      lib:
+        expand: yes
+        cwd: 'lib'
+        src: ["**/*", "!.*"]
+        dest: "<%= dirs.build %>/lib/"
+
+      script:
         expand: yes
         cwd: 'src'
-        src: ["**/*.js"]
+        src: ["**/*.js", "!reference/**"]
         dest: "<%= dirs.build %>/src/"
+
+      demo:
+        expand: true
+        cwd: 'demos'
+        src: ["*/**", "!.*"]
+        dest: "<%= dirs.build %>/demos"
+
+      extension:
+        expand: true
+        cwd: 'extensions'
+        src: ["**/*", "!.*", "!*.coffee"]
+        dest: "<%= dirs.build %>/extensions"
 
       dist:
         files: [
@@ -190,7 +211,7 @@ module.exports = (grunt) ->
           env: extend(process.env, {'MODULES': 'zepto event ajax form ie detect fx data touch'})
 
     compass:
-      compile:
+      theme:
         files: [
           src: 'themes/scss/**/*.scss'
         ]
@@ -198,6 +219,24 @@ module.exports = (grunt) ->
           load: 'submodules/compass-recipes/'
           sassDir: 'themes/scss'
           cssDir: '<%= dirs.css %>'
+
+      demo:
+        files: [
+          src: 'demos/**/*.scss'
+        ]
+        options:
+          load: 'submodules/compass-recipes/'
+          sassDir: 'demos/'
+          cssDir: "<%= dirs.build %>/demos/"
+
+      extension:
+        files: [
+          src: 'extensions/**/*.scss'
+        ]
+        options:
+          load: 'submodules/compass-recipes/'
+          sassDir: 'extensions/'
+          cssDir: "<%= dirs.build %>/extensions/"
 
     # Concat is only used to add our banner
     concat:
@@ -226,14 +265,6 @@ module.exports = (grunt) ->
         dest: "<%= dirs.package %>/src/"
         ext: '.min.js'
 
-      extensions:
-        expand: yes
-        cwd: "<%= dirs.package %>/extensions/"
-        src: '**/*.js'
-        dest: "<%= dirs.package %>/extensions/"
-        rename: (dest, path) ->
-          dest + path.replace /\.js$/, '.min.js'
-
       lib:
         expand: yes
         cwd: "<%= dirs.package %>/lib/"
@@ -253,8 +284,17 @@ module.exports = (grunt) ->
             else
               no
 
+      extension:
+        expand: yes
+        cwd: "<%= dirs.package %>/extensions/"
+        src: '**/*.js'
+        dest: "<%= dirs.package %>/extensions/"
+        rename: (dest, path) ->
+          dest + path.replace /\.js$/, '.min.js'
+
+
     cssmin:
-      themes:
+      theme:
         expand: yes
         cwd: "<%= dirs.build %>/themes/css"
         src: '**/*.css'
@@ -270,22 +310,22 @@ module.exports = (grunt) ->
       build:
         files: ['build/**', '!.*', '!.**/*']
         options:
-          livereload: true  # default port: 35729
+          livereload: true  # default port: 35729, add <script src="http://localhost:35729/livereload.js"></script>
       theming:
-        files: 'themes/scss/**/*.scss'
+        files: ['themes/scss/**/*.scss', '!.*', '!.**/*']
         tasks: ['compass']
       coffee:
-        files: 'src/**/*.coffee'
+        files: ['src/**/*.coffee', '!.*', '!.**/*']
         tasks: ['coffee']
-      source:
-        files: ['src/**/*.js']
-        tasks: ['copy:source']
-      demos:
-        files: ['{demos,extensions}/**/*.{html,js,css}']
-        tasks: ['copy:prepare']
-      extensions:
-        files: ['extensions/**/*.{coffee}']
-        tasks: ['coffee:extensions']
+      script:
+        files: ['src/**/*.js', '!.*', '!.**/*']
+        tasks: ['copy:script']
+      demo:
+        files: ['demos/**/*.{html,js,css}', '!.*', '!.**/*']
+        tasks: ['demo']
+      extension:
+        files: ['extensions/**/*.{js,coffee,css}', '!.*', '!.**/*']
+        tasks: ['extension']
 
     jshint:
       src: "<%= dirs.src %>/**/*.js"
@@ -308,19 +348,7 @@ module.exports = (grunt) ->
           console: true
 
   # Task definitions
-  grunt.loadNpmTasks "grunt-coverjs"
-  grunt.loadNpmTasks "grunt-contrib-qunit"
-  grunt.loadNpmTasks "grunt-contrib-clean"
-  grunt.loadNpmTasks "grunt-contrib-coffee"
-  grunt.loadNpmTasks "grunt-contrib-compass"
-  grunt.loadNpmTasks "grunt-contrib-copy"
-  grunt.loadNpmTasks "grunt-contrib-concat"
-  grunt.loadNpmTasks "grunt-contrib-jshint"
-  grunt.loadNpmTasks "grunt-contrib-cssmin"
-  grunt.loadNpmTasks "grunt-contrib-uglify"
-  grunt.loadNpmTasks "grunt-contrib-watch"
-  grunt.loadNpmTasks "grunt-contrib-compress"
-  grunt.loadNpmTasks "grunt-update-submodules"
+  require('load-grunt-tasks')(grunt);
 
   grunt.registerMultiTask "npm-command", "Run an NPM command in a specific module", ->
     cb = @async() # Tell grunt the task is async
@@ -369,16 +397,25 @@ module.exports = (grunt) ->
   grunt.renameTask 'watch', 'watch_files'
 
   # Git submodule updates
-  grunt.registerTask 'zepto', ['clean:zepto', 'npm-command:zepto', 'copy:zepto', 'copy:jquery-bridge']
+  grunt.registerTask 'zepto', ['npm-command:zepto', 'copy:zepto', 'copy:jquery-bridge']
 
-  # Compile Scripts
-  grunt.registerTask 'scripts', ['coffee', 'copy:prepare', 'concat', 'zepto']
+  # Build Lib
+  grunt.registerTask 'lib', ['zepto', 'copy:lib']
 
-  # Minify Assets
-  grunt.registerTask 'minify', ['uglify', 'cssmin']
+  # Build Scripts
+  grunt.registerTask 'script', ['lib', 'copy:script', 'coffee:script']
+
+  # Main jQT bits
+  grunt.registerTask 'main', ['script', 'compass:theme']
+
+  # Build Extensions
+  grunt.registerTask 'extension', ['main', 'copy:extension', 'coffee:extension', 'compass:extension']
+
+  # Build Demos
+  grunt.registerTask 'demo', ['extension', 'copy:demo', 'coffee:demo', 'compass:demo']
 
   # Build
-  grunt.registerTask 'build', ['zepto', 'scripts', 'compass']
+  grunt.registerTask 'build', ['main', 'extension', 'demo']
 
   # Watch
   grunt.registerTask 'watch', ['build', 'watch_files']
@@ -387,10 +424,13 @@ module.exports = (grunt) ->
   grunt.registerTask 'default', ['full']
 
   # Full (Clean and Build)
-  grunt.registerTask 'full', ['clean', 'update_submodules', 'build']
+  grunt.registerTask 'full', ['clean', 'update_submodules', 'build', 'extension', 'demo']
 
   # Test
   grunt.registerTask 'test', ['build', 'copy:test', 'qunit']
+
+  # Minify Assets
+  grunt.registerTask 'minify', ['uglify', 'cssmin']
 
   # Build full, and and minifies all artifacts
   grunt.registerTask 'pack', ['full', 'git-describe', 'copy:package', 'minify']
