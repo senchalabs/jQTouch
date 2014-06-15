@@ -1,5 +1,6 @@
 module.exports = (grunt) ->
-  extend = require('util')._extend
+  extend  = require('util')._extend
+  path    = require('path')
 
   # Project configuration.
   grunt.initConfig
@@ -62,16 +63,16 @@ module.exports = (grunt) ->
         cwd: 'extensions'
         src: ['**.coffee']
         dest: '<%= dirs.build %>/extensions/'
-        rename: (dest, path) ->
-          dest + path.replace /\.coffee$/, '.js'
+        rename: (dest, filepath) ->
+          path.join dest, filepath.replace /\.coffee$/, '.js'
 
       demo:
         expand: yes
         cwd: 'demos'
         src: ['**/*.coffee']
         dest: '<%= dirs.build %>/demos/'
-        rename: (dest, path) ->
-          dest + path.replace /\.coffee$/, '.js'
+        rename: (dest, filepath) ->
+          path.join dest, filepath.replace /\.coffee$/, '.js'
 
     copy:
       lib:
@@ -89,7 +90,7 @@ module.exports = (grunt) ->
       demo:
         expand: true
         cwd: 'demos'
-        src: ["*/**", "!.*"]
+        src: ["**/*", "!.*"]
         dest: "<%= dirs.build %>/demos"
 
       extension:
@@ -113,7 +114,7 @@ module.exports = (grunt) ->
       package:
         files: [
           expand: yes
-          src: ["*/**"]
+          src: ["**/*"]
           dest: '<%= dirs.package %>'
           cwd: '<%= dirs.build %>'
         ,
@@ -240,11 +241,19 @@ module.exports = (grunt) ->
 
     # Concat is only used to add our banner
     concat:
-      banner:
+      script:
         expand: yes
         cwd: '<%= dirs.build %>/src/'
-        src: '**/*.js'
+        src: ['**/*.js', '!**/jqtouch-jquery.js']
         dest: '<%= dirs.build %>/src/'
+        options:
+          banner: "<%= meta.banner %>"
+
+      theme:
+        expand: yes
+        cwd: '<%= dirs.build %>/themes/'
+        src: '**/*.css'
+        dest: '<%= dirs.build %>/themes/'
         options:
           banner: "<%= meta.banner %>"
 
@@ -261,25 +270,26 @@ module.exports = (grunt) ->
       jqtouch:
         expand: yes
         cwd: '<%= dirs.package %>/src/'
-        src: '**/*.js'
-        dest: "<%= dirs.package %>/src/"
+        src: ['**/*.js', '!**/jqtouch-jquery.js', '!**/*.min.js']
+        dest: '<%= dirs.package %>/src/'
         ext: '.min.js'
+        options:
+          banner: '<%= meta.banner %>'
 
       lib:
         expand: yes
-        cwd: "<%= dirs.package %>/lib/"
-        src: '**/*.js'
-        dest: "<%= dirs.package %>/lib/"
-        rename: (dest, path) ->
-          dest + path.replace /\.js$/, '.min.js'
+        cwd: '<%= dirs.package %>'
+        src: ['lib/**/*.js', 'src/jqtouch-jquery.js', '!**/*.min.js']
+        dest: '<%= dirs.package %>'
+        rename: (dest, filepath) ->
+          path.join dest, filepath.replace /\.js$/, '.min.js'
 
         options:
           preserveComments: (comment) ->
-
             # Preserve comments near the top of the file.
             # Loosey-goosey, I know, but I want to make sure we keep any
             # Zepto and jQuery lines about (c) and license
-            if comment.start.line < 4
+            if comment.start.line < 6
               yes
             else
               no
@@ -289,17 +299,30 @@ module.exports = (grunt) ->
         cwd: "<%= dirs.package %>/extensions/"
         src: '**/*.js'
         dest: "<%= dirs.package %>/extensions/"
-        rename: (dest, path) ->
-          dest + path.replace /\.js$/, '.min.js'
-
+        rename: (dest, filepath) ->
+          path.join dest, filepath.replace /\.js$/, '.min.js'
+        options:
+          banner: "<%= meta.banner %>"
 
     cssmin:
       theme:
         expand: yes
-        cwd: "<%= dirs.build %>/themes/css"
-        src: '**/*.css'
+        cwd: "<%= dirs.package %>/themes/css"
+        src: ['**/*.css', '!**/*.min.css']
         dest: "<%= dirs.package %>/themes/css"
         ext: '.min.css'
+        options:
+          banner: "<%= meta.banner %>"
+
+      extension:
+        expand: yes
+        cwd: "<%= dirs.package %>/extensions"
+        src: ['**/*.css', '!**/*.min.css']
+        dest: "<%= dirs.package %>/extensions"
+        rename: (dest, filepath) ->
+          path.join dest, filepath.replace /\.css$/, '.min.css'
+        options:
+          banner: "<%= meta.banner %>"
 
     cover:
       compile:
@@ -307,25 +330,30 @@ module.exports = (grunt) ->
           "<%= dirs.build %>/test/instrumented/jqtouch.js": ["src/jqtouch.js"]
 
     watch_files:
-      build:
+      live:
         files: ['build/**', '!.*', '!.**/*']
         options:
           livereload: true  # default port: 35729, add <script src="http://localhost:35729/livereload.js"></script>
-      theming:
+      theme:
         files: ['themes/scss/**/*.scss', '!.*', '!.**/*']
         tasks: ['compass']
+        dot: false
       coffee:
         files: ['src/**/*.coffee', '!.*', '!.**/*']
-        tasks: ['coffee']
+        tasks: ['coffee:script']
+        dot: false
       script:
         files: ['src/**/*.js', '!.*', '!.**/*']
         tasks: ['copy:script']
+        dot: false
       demo:
-        files: ['demos/**/*.{html,js,css}', '!.*', '!.**/*']
+        files: ['demos/**/*', '!.*', '!.**/*']
         tasks: ['demo']
+        dot: false
       extension:
-        files: ['extensions/**/*.{js,coffee,css}', '!.*', '!.**/*']
+        files: ['extensions/**/*', '!.*', '!.**/*']
         tasks: ['extension']
+        dot: false
 
     jshint:
       src: "<%= dirs.src %>/**/*.js"
@@ -396,50 +424,53 @@ module.exports = (grunt) ->
 
   grunt.renameTask 'watch', 'watch_files'
 
-  # Git submodule updates
+  # Build Zepto
   grunt.registerTask 'zepto', ['npm-command:zepto', 'copy:zepto', 'copy:jquery-bridge']
 
   # Build Lib
   grunt.registerTask 'lib', ['zepto', 'copy:lib']
 
   # Build Scripts
-  grunt.registerTask 'script', ['lib', 'copy:script', 'coffee:script']
+  grunt.registerTask 'script', ['copy:script', 'coffee:script', 'concat:script']
+
+  # jQT Theme
+  grunt.registerTask 'theme', ['script', 'compass:theme', 'concat:theme']
 
   # Main jQT bits
-  grunt.registerTask 'main', ['script', 'compass:theme']
+  grunt.registerTask 'main', ['script', 'theme']
 
   # Build Extensions
-  grunt.registerTask 'extension', ['main', 'copy:extension', 'coffee:extension', 'compass:extension']
+  grunt.registerTask 'extension', ['copy:extension', 'coffee:extension', 'compass:extension']
 
   # Build Demos
-  grunt.registerTask 'demo', ['extension', 'copy:demo', 'coffee:demo', 'compass:demo']
+  grunt.registerTask 'demo', ['copy:demo', 'coffee:demo', 'compass:demo']
 
   # Build
-  grunt.registerTask 'build', ['main', 'extension', 'demo']
+  grunt.registerTask 'build', ['lib', 'main', 'extension', 'demo']
 
   # Watch
   grunt.registerTask 'watch', ['build', 'watch_files']
 
+  # Full (Clean and Build)
+  grunt.registerTask 'full', ['clean', 'update_submodules', 'build']
+
   # Default (Same as full)
   grunt.registerTask 'default', ['full']
 
-  # Full (Clean and Build)
-  grunt.registerTask 'full', ['clean', 'update_submodules', 'build', 'extension', 'demo']
-
   # Test
-  grunt.registerTask 'test', ['build', 'copy:test', 'qunit']
+  grunt.registerTask 'test', ['copy:test', 'qunit']
 
   # Minify Assets
   grunt.registerTask 'minify', ['uglify', 'cssmin']
 
   # Build full, and and minifies all artifacts
-  grunt.registerTask 'pack', ['full', 'git-describe', 'copy:package', 'minify']
+  grunt.registerTask 'pack', ['git-describe', 'copy:package', 'minify']
 
   # Pack and compress into a versioned archive
   grunt.registerTask 'archive', ['pack', 'compress:archive']
 
   # Select the core from package to make a `dist` structure
-  grunt.registerTask 'dist', ['test', 'archive', 'copy:dist', 'compress:dist']
+  grunt.registerTask 'dist', ['full', 'test', 'archive', 'copy:dist', 'compress:dist']
 
   # Npm Prepublish
   grunt.registerTask 'release', ['git-tag', 'dist']
