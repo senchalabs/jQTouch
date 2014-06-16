@@ -50,7 +50,8 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
             padding: 0 7px;
             margin: 0 0px;
 
-            &.active {
+            &.active, &:active {
+                color: lighten(#007aff, 30);
                 background-image: none;
                 background-color: transparent;
             }
