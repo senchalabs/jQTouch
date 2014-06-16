@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>jQT Mail</title>
-        <style type="text/css" media="screen">@import "../../themes/css/apple.css";</style>
+        <link rel="stylesheet" href="../../themes/css/apple.css" data-jqt-theme>
         <style type="text/css" media="screen">
             .edgetoedge li a .preview, .edgetoedge li a .subject {
                 display: block;
@@ -16,27 +16,27 @@
             }
         </style>
         <script src="../../lib/zepto/zepto.js" type="text/javascript" charset="utf-8"></script>
-        <script src="../../src/jqt.js" type="text/javascript" charset="utf-8"></script>
-        <script type="text/javascript" charset="utf-8">
-            var jqtouch = $.jQTouch({
-                icon: 'mail.png',
-                preloadImages: [
-                    'themes/jqt/img/chevron.png',
-                    'themes/jqt/img/back_button.png',
-                    'themes/jqt/img/back_button_clicked.png',
-                    'themes/jqt/img/button_clicked.png',
-                    'themes/jqt/img/grayButton.png',
-                    'themes/jqt/img/whiteButton.png'
-                ]
-            });
-            // Add an onload function
-            $(function(){
-                // Dynamically set next page titles after clicking certain links
-                $('#home ul a, #mailbox ul a').click(function(){
-                    $( $(this).attr('href') + ' h1' ).html($(this).html());
-                });
-            });
-        </script>
+      <script src="../../src/jqt.js" type="text/javascript" charset="utf-8"></script>
+      <script type="text/javascript" charset="utf-8">
+          var jqtouch = new $.jQT({
+              icon: 'mail.png',
+              preloadImages: [
+                  'themes/jqt/img/chevron.png',
+                  'themes/jqt/img/back_button.png',
+                  'themes/jqt/img/back_button_clicked.png',
+                  'themes/jqt/img/button_clicked.png',
+                  'themes/jqt/img/grayButton.png',
+                  'themes/jqt/img/whiteButton.png'
+              ]
+          });
+          // Add an onload function
+          $(function(){
+              // Dynamically set next page titles after clicking certain links
+              $('#home ul a, #mailbox ul a').click(function(){
+                  $( $(this).attr('href') + ' h1' ).html($(this).html());
+              });
+          });
+      </script>
     </head>
     <body>
         <div id="jqt">
@@ -94,7 +94,15 @@
                     <input type="submit" />
                 </form>
             </div>
-            <div id="message"></div>
+            <div id="message">
+              <div class="toolbar">
+                <a href="#" class="back button">Back</a>
+                <h1>Message</h1>
+              </div>
+              <div class="scroll">
+
+              </div>
+            </div>
             <div id="features">
                 <div class="toolbar">
                     <h1>Features</h1>
