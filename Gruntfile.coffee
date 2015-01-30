@@ -196,8 +196,13 @@ module.exports = (grunt) ->
         options:
           archive: "<%= dirs.archive %>/<%= meta.dist %>.tgz"
         files: [
-          src: ["dist/**/*","README.md","LICENSE.txt","VERSIONS.md","package.json"]
+          src: ["dist/**/*"]
           dest: "package"
+          cwd: ''
+          expand: true
+        ,
+          src: ["README.md","LICENSE.txt","VERSIONS.md","package.json"]
+          dest: "package/dist"
           cwd: ''
           expand: true
         ]

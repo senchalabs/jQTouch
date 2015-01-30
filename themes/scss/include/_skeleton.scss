@@ -145,12 +145,8 @@ body {
                 @include border-radius(0 0 0 2px);
 
                 // New gradient syntax
+                -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(rgba(0,0,0,1)), color-stop(50%, black), color-stop(50%, rgba(0,0,0,0)), to(rgba(0,0,0,0)));
                 -webkit-mask-image: -webkit-linear-gradient(45deg, rgba(0,0,0,1), rgba(0,0,0,1) 15px, rgba(0,0,0,0) 15px);
-
-                // Old gradient syntax
-                @if $support-for-original-webkit-gradients {
-                    -webkit-mask-image: -webkit-gradient(linear, left bottom, right top, from(rgba(0,0,0,1)), color-stop(50%, black), color-stop(50%, rgba(0,0,0,0)), to(rgba(0,0,0,0)));
-                }
 
                 -webkit-mask-clip: border-box;
                 -webkit-background-clip: content-box;

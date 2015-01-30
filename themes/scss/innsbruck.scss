@@ -123,10 +123,6 @@ $toolbar-button-color: saturate(darken($base-color, 10), 10);
             }
         }
 
-        .toggle input[type="checkbox"] {
-            background: transparent url(../img/apple/on_off.png) 0 0 no-repeat;
-        }
-
         input[type='submit'] {
             background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(238,238,238,1)), to(rgba(156,158,160,1)));
             border: 1px outset #aaa;

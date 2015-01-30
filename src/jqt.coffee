@@ -457,14 +457,14 @@ class $.jQT
 
       # Add classes to the body, delegate all our events and trigger an orientation change
       $body.addClass(anatomyLessons.join(" "))
-        .bind("click", clickHandler)
-        .bind("orientationchange", orientationChangeHandler)
-        .bind("submit", submitHandler)
-        .bind("tap", tapHandler)
-        .bind((if support.touch then "touchstart" else "mousedown"), touchStartHandler)
+        .on("click", clickHandler)
+        .on("orientationchange", orientationChangeHandler)
+        .on("submit", submitHandler)
+        .on("tap", tapHandler)
+        .on((if support.touch then "touchstart" else "mousedown"), touchStartHandler)
         .trigger "orientationchange"
 
-      $(window).bind("hashchange", hashChangeHandler) if @settings.updateHash
+      $(window).on("hashchange", hashChangeHandler) if @settings.updateHash
       startHash = location.hash
 
       # Determine what the initial view should be
@@ -572,14 +572,15 @@ class $.jQT
       $el.on (if support.touch then "touchmove" else "mousemove"), ->
         $el.removeClass "active"
       $el.on "touchend", ->
-        $el.unbind "touchmove mousemove"
+        $el.off "touchend mouseup"
+        $el.off "touchmove mousemove"
 
     doNavigation = (fromPage, toPage, animation, goingBack=no) =>
 
       # Private navigationEnd callback
       navigationEndHandler = (event) =>
         if support.animationEvents and animation and @settings.useAnimations
-          fromPage.unbind "webkitAnimationEnd", navigationEndHandler
+          fromPage.off "webkitAnimationEnd", navigationEndHandler
           fromPage.removeClass finalAnimationName + " out"
           toPage.removeClass finalAnimationName  if finalAnimationName
           $body.removeClass "animating animating3d"
@@ -647,7 +648,7 @@ class $.jQT
         console.warn "finalAnimationName:", finalAnimationName
 
         # Bind internal 'cleanup' callback
-        fromPage.bind "webkitAnimationEnd", navigationEndHandler
+        fromPage.on "webkitAnimationEnd", navigationEndHandler
         $body.addClass "animating#{is3d}"
 
         # Trigger animations
