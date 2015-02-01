@@ -99,6 +99,12 @@ module.exports = (grunt) ->
         src: ["**/*", "!.*", "!*.coffee"]
         dest: "<%= dirs.build %>/extensions"
 
+      theme:
+        expand: true
+        cwd: 'themes'
+        src: ["img/**/*", "!.*"]
+        dest: "<%= dirs.build %>/themes"
+
       dist:
         files: [
           expand: yes
@@ -439,7 +445,7 @@ module.exports = (grunt) ->
   grunt.registerTask 'script', ['copy:script', 'coffee:script', 'concat:script']
 
   # jQT Theme
-  grunt.registerTask 'theme', ['script', 'compass:theme', 'concat:theme']
+  grunt.registerTask 'theme', ['script', 'copy:theme', 'compass:theme', 'concat:theme']
 
   # Main jQT bits
   grunt.registerTask 'main', ['script', 'theme']
