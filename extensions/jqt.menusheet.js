@@ -19,24 +19,55 @@
     jQTouch may be freely distributed under the MIT license.
 */
 
+
+var transition = {
+    
+	// Determines proper transition property per browser
+	whichTransitionEvent: function(){
+
+		var el = document.createElement('menuelement');
+        
+		var transitions = {
+            'WebkitTransition':'webkitTransitionEnd', // Saf 6, Android Browser
+			'OTransition':'oTransitionEnd otransitionend',
+			'MozTransition':'transitionend',  // only for FF < 15
+			'transition':'transitionend' // IE10, Opera, Chrome, FF 15+, Saf 7+
+		};
+        
+		for(t in transitions){
+			if( el.style[t] !== undefined ){
+				return transitions[t];
+			}
+		}
+        
+        return false;
+	}
+    
+};
+
 (function($) {
     var src = $("head script").last().attr("src") || '';
     var scriptpath = src.split('?')[0].split('/').slice(0, -1).join('/')+'/';
     var csspath = scriptpath + 'jqt.menusheet.css';
     var link = $('<link href="' + csspath + '" rel="stylesheet">');
+    
+    
     $('head').append($(link));
 
     function hide(callback) {
         var $target = $(this);
         var data = $(this).data('menusheet');
+ 
         if (data.shown) {
             $(this).data('menusheet', {});
             var $source = data.source;
+            var transitionEnd = transition.whichTransitionEvent();
+            
             $target.trigger('pageAnimationStart', {
                 direction: 'out', animation: undefined, back: true
             });
             $source.unbind('touchstart mousedown', data.closehandler);
-            $source.one('webkitTransitionEnd', function() {
+            $source.one(transitionEnd , function(event) {
                 $source.removeClass('inmotion transition in');
                 $target.removeClass('inmotion out');
                 $target.trigger('pageAnimationEnd', {
@@ -44,8 +75,8 @@
                 });
                 !callback || callback.apply(this, arguments);
             });
-    
-            $source.addClass('inmotion transition in');
+            
+            $source.addClass('inmotion transition in'); 
             $target.addClass('inmotion out').removeClass('current');
             $('#jqt').removeClass('menuopened');
         }
@@ -55,6 +86,8 @@
     function show(callback) {
         var $target = $(this);
         var data = $(this).data('menusheet') || {};
+        var transitionEnd = transition.whichTransitionEvent();
+
         if (!data.shown) {
             var $source = $('#jqt .current:not(.menusheet)');
             $target.trigger('pageAnimationStart', {
@@ -65,22 +98,24 @@
                 return false;
             };
     
-            $source.one('webkitTransitionEnd', function() {
+            $source.one(transitionEnd , function(event) {
                 $source.one('touchstart mousedown', closehandler);
                 $source.removeClass('inmotion transition out');
+                
                 $target.removeClass('inmotion in');
                 $target.trigger('pageAnimationEnd', {
                     direction: 'in', animation: undefined, back: false
                 });
                 !callback || callback.apply(this, arguments);
             });
-    
+
             data.shown = true;
             data.closehandler = closehandler;
             data.source = $source;
             $(this).data('menusheet', data);
-    
+            
             $source.addClass('inmotion transition out');
+
             $target.addClass('current in');
             $('#jqt').addClass('menuopened');
         }
@@ -119,7 +154,7 @@
             },
             fn: function(e, params) {
                 params.$el.removeClass('active');
-
+                
                 var $target = $(params.hash);
                 $target.menusheet('show');
 
@@ -149,4 +184,4 @@
     } else {
         console.error('Extension `jqt.menusheet` failed to load. jQT not found');
     }
-})($);
+}( Zepto )); // jQuery or jQuery-like library, such as Zepto
