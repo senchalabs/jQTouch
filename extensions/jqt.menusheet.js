@@ -51,7 +51,6 @@ var transition = {
     var csspath = scriptpath + 'jqt.menusheet.css';
     var link = $('<link href="' + csspath + '" rel="stylesheet">');
     
-    
     $('head').append($(link));
 
     function hide(callback) {
@@ -66,15 +65,26 @@ var transition = {
             $target.trigger('pageAnimationStart', {
                 direction: 'out', animation: undefined, back: true
             });
+            
+            var watchdogTimer;
+            
             $source.unbind('touchstart mousedown', data.closehandler);
-            $source.one(transitionEnd , function(event) {
-                $source.removeClass('inmotion transition in');
-                $target.removeClass('inmotion out');
-                $target.trigger('pageAnimationEnd', {
-                    direction: 'out', animation: undefined, back: true
-                });
-                !callback || callback.apply(this, arguments);
+            $source.on(transitionEnd , function menu(event) {
+                if (event.target === this) {
+                    $(this).off(transitionEnd, menu);
+                    clearTimeout(watchdogTimer);
+                    $source.removeClass('inmotion transition in');
+                    $target.removeClass('inmotion out');
+                    $target.trigger('pageAnimationEnd', {
+                        direction: 'out', animation: undefined, back: true
+                    });
+                    !callback || callback.apply(this, arguments);
+                }
             });
+            
+            watchdogTimer = setTimeout(function() {
+                $source.trigger(transitionEnd);
+            }, 750);
             
             $source.addClass('inmotion transition in'); 
             $target.addClass('inmotion out').removeClass('current');
@@ -86,6 +96,7 @@ var transition = {
     function show(callback) {
         var $target = $(this);
         var data = $(this).data('menusheet') || {};
+        var watchdogTimer;
         var transitionEnd = transition.whichTransitionEvent();
 
         if (!data.shown) {
@@ -98,16 +109,24 @@ var transition = {
                 return false;
             };
     
-            $source.one(transitionEnd , function(event) {
-                $source.one('touchstart mousedown', closehandler);
-                $source.removeClass('inmotion transition out');
-                
-                $target.removeClass('inmotion in');
-                $target.trigger('pageAnimationEnd', {
-                    direction: 'in', animation: undefined, back: false
-                });
-                !callback || callback.apply(this, arguments);
+                $source.on(transitionEnd , function menu(event) {
+                if (event.target === this) {
+                    $(this).off(transitionEnd, menu);
+                    clearTimeout(watchdogTimer);
+                    $source.one('touchstart mousedown', closehandler);
+                    $source.removeClass('inmotion transition out');
+                    
+                    $target.removeClass('inmotion in');
+                    $target.trigger('pageAnimationEnd', {
+                        direction: 'in', animation: undefined, back: false
+                    });
+                    !callback || callback.apply(this, arguments);
+                }
             });
+                
+             watchdogTimer = setTimeout(function() {
+                $source.trigger(transitionEnd);
+            }, 750);
 
             data.shown = true;
             data.closehandler = closehandler;
@@ -184,4 +203,4 @@ var transition = {
     } else {
         console.error('Extension `jqt.menusheet` failed to load. jQT not found');
     }
-}( Zepto )); // jQuery or jQuery-like library, such as Zepto
+}( jQuery || $ )); // jQuery or jQuery-like library, such as Zepto
