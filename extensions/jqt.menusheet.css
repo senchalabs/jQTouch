@@ -3,10 +3,13 @@
 #jqt > div.menusheet {
     -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;
     height: 100%;
+    width: 260px;
 }
+
 #jqt.black-translucent > div.menusheet {
     padding-top: 20px;
 }
+
 #jqt.menuopened {
     width: 100%;
     overflow: hidden;
@@ -20,7 +23,7 @@
 }
 
 #jqt.menuopened > .current {
-    -webkit-transform: translate3d(0, 0, 0) rotate(0) scale(1);
+    -webkit-transform: translate3d(260px, 0, 0) rotate(0) scale(1);
     -webkit-box-shadow: -3px 0px 3px rgba(63, 63, 63, 0.5);
     border-left: 0.5px solid rgba(127, 127, 127, 0.01);
     z-index: 20;
