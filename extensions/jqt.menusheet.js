@@ -32,6 +32,8 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
     function hide(callback) {
         var $target = $(this);
         var data = $(this).data('menusheet');
+        var watchdogTimer;
+        var $this = this;
  
         if (data.shown) {
             $(this).data('menusheet', {});
@@ -41,11 +43,9 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
                 direction: 'out', animation: undefined, back: true
             });
             
-            var watchdogTimer;
-            
             $source.unbind('touchstart mousedown', data.closehandler);
-            $source.one(TRANSITION_NAMES, function() {
-                if (event.target === this) {
+            $source.one(TRANSITION_NAMES, function(event) {
+                if (event.target.name === this) {
                     $(this).off('webkitTransitionEnd transitionend');
                     clearTimeout(watchdogTimer);
                     $source.removeClass('inmotion transition in');
@@ -72,6 +72,7 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
         var $target = $(this);
         var data = $(this).data('menusheet') || {};
         var watchdogTimer;
+        var $this = this;
 
         if (!data.shown) {
             var $source = $('#jqt .current:not(.menusheet)');
@@ -83,8 +84,8 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
                 return false;
             };
     
-            $source.one(TRANSITION_NAMES, function() {
-                if (event.target === this) {
+            $source.one(TRANSITION_NAMES, function(event) {
+                if (event.target.name === this) {
                     $(this).off('webkitTransitionEnd transitionend');
                     clearTimeout(watchdogTimer);
                     $source.one('touchstart mousedown', closehandler);
