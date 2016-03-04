@@ -19,14 +19,14 @@
     jQTouch may be freely distributed under the MIT license.
 */
 
-var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
 
-(function($) {
+$(function() {
+    var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
     var src = $("head script").last().attr("src") || '';
     var scriptpath = src.split('?')[0].split('/').slice(0, -1).join('/')+'/';
     var csspath = scriptpath + 'jqt.menusheet.css';
     var link = $('<link href="' + csspath + '" rel="stylesheet">');
-    
+
     $('head').append($(link));
 
     function hide(callback) {
@@ -34,18 +34,19 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
         var data = $(this).data('menusheet');
         var watchdogTimer;
         var $this = this;
- 
+
         if (data.shown) {
             $(this).data('menusheet', {});
             var $source = data.source;
-            
+
             $target.trigger('pageAnimationStart', {
                 direction: 'out', animation: undefined, back: true
             });
-            
+
             $source.unbind('touchstart mousedown', data.closehandler);
             $source.one(TRANSITION_NAMES, function(event) {
-                if (event.target.name === this) {
+                event.preventDefault();
+                if (event.target === this) {
                     $(this).off('webkitTransitionEnd transitionend');
                     clearTimeout(watchdogTimer);
                     $source.removeClass('inmotion transition in');
@@ -56,19 +57,20 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
                     !callback || callback.apply(this, arguments);
                 }
             });
-            
+
             watchdogTimer = setTimeout(function() {
                 $source.trigger('transitionend');
             }, 750);
-            
-            $source.addClass('inmotion transition in'); 
+
+            $source.addClass('inmotion transition in');
             $target.addClass('inmotion out').removeClass('current');
             $('#jqt').removeClass('menuopened');
         }
         return $target;
     }
-      
+
     function show(callback) {
+        var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
         var $target = $(this);
         var data = $(this).data('menusheet') || {};
         var watchdogTimer;
@@ -83,9 +85,10 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
                 $target.menusheet('hide');
                 return false;
             };
-    
+
             $source.one(TRANSITION_NAMES, function(event) {
-                if (event.target.name === this) {
+                event.preventDefault();
+                if (event.target === this) {
                     $(this).off('webkitTransitionEnd transitionend');
                     clearTimeout(watchdogTimer);
                     $source.one('touchstart mousedown', closehandler);
@@ -97,7 +100,7 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
                     !callback || callback.apply(this, arguments);
                 }
             });
-                
+
             watchdogTimer = setTimeout(function() {
                 $source.trigger('transitionend');
             }, 750);
@@ -106,14 +109,14 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
             data.closehandler = closehandler;
             data.source = $source;
             $(this).data('menusheet', data);
-            
+
             $source.addClass('inmotion transition out');
             $target.addClass('current in');
             $('#jqt').addClass('menuopened');
         }
         return $target;
     }
-    
+
     var methods = {
         init: function(options) {
             $(this).addClass('menusheet');
@@ -122,7 +125,7 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
         show: show,
         hide: hide
     };
-    
+
     $.fn.menusheet = function(method) {
       if (methods[method]) {
           if ($(this).is('.menusheet')) {
@@ -135,7 +138,7 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
           return methods.init.apply(this, arguments);
       } else {
           $.error('Method "' + method + '" does not exist on jqt.menusheet' );
-      }        
+      }
     };
 
     if ($.jQT) {
@@ -146,7 +149,7 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
             },
             fn: function(e, params) {
                 params.$el.removeClass('active');
-                
+
                 var $target = $(params.hash);
                 $target.menusheet('show');
 
@@ -176,4 +179,4 @@ var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
     } else {
         console.error('Extension `jqt.menusheet` failed to load. jQT not found');
     }
-}( jQuery || $ )); // jQuery or jQuery-like library, such as Zepto
+}());
