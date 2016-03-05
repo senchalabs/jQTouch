@@ -21,7 +21,7 @@
 
 
 $(function() {
-    var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
+
     var src = $("head script").last().attr("src") || '';
     var scriptpath = src.split('?')[0].split('/').slice(0, -1).join('/')+'/';
     var csspath = scriptpath + 'jqt.menusheet.css';
@@ -30,10 +30,11 @@ $(function() {
     $('head').append($(link));
 
     function hide(callback) {
-        var $target = $(this);
-        var data = $(this).data('menusheet');
-        var watchdogTimer;
-        var $this = this;
+        var $target = $(this),
+                data = $(this).data('menusheet'),
+                watchdogTimer = 0,
+                $this = this,
+                transition_names = 'webkitTransitionEnd msTransitionEnd transitionend';
 
         if (data.shown) {
             $(this).data('menusheet', {});
@@ -44,7 +45,7 @@ $(function() {
             });
 
             $source.unbind('touchstart mousedown', data.closehandler);
-            $source.one(TRANSITION_NAMES, function(event) {
+            $source.one(transition_names, function(event) {
                 event.preventDefault();
                 if (event.target === this) {
                     $(this).off('webkitTransitionEnd transitionend');
@@ -70,11 +71,11 @@ $(function() {
     }
 
     function show(callback) {
-        var TRANSITION_NAMES = 'webkitTransitionEnd msTransitionEnd transitionend';
-        var $target = $(this);
-        var data = $(this).data('menusheet') || {};
-        var watchdogTimer;
-        var $this = this;
+            $target = $(this),
+            data = $(this).data('menusheet') || {},
+             watchdogTimer = 0,
+            $this = this,
+            transition_names = 'webkitTransitionEnd msTransitionEnd transitionend';
 
         if (!data.shown) {
             var $source = $('#jqt .current:not(.menusheet)');
@@ -86,7 +87,7 @@ $(function() {
                 return false;
             };
 
-            $source.one(TRANSITION_NAMES, function(event) {
+            $source.one(transition_names, function(event) {
                 event.preventDefault();
                 if (event.target === this) {
                     $(this).off('webkitTransitionEnd transitionend');
